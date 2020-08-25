@@ -1,6 +1,6 @@
 # xats2js
 
-Compiling ATS/Xanadu to JS
+For compiling ATS/Xanadu to JS
 
 ### Download
 
