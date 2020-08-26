@@ -32,7 +32,33 @@
 // Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
+#define
+XANADU_targetloc
+"./../../xanadu/srcgen/xats"
+(* ****** ****** *)
+//
+#staload
+"{$XANADU}/SATS/lexing.sats"
+//
+#staload
+"{$XANADU}/SATS/intrep0.sats"
+//
+(* ****** ****** *)
 
+typedef
+emit_type
+(syn:type) =
+(FILEref, syn) -> void
+
+(* ****** ****** *)
+
+fun
+emit_h0pat: emit_type(h0pat)
+
+(* ****** ****** *)
+
+fun
+emit_h0exp: emit_type(h0exp)
 
 (* ****** ****** *)
 
