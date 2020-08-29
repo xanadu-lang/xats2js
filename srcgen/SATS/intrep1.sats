@@ -32,23 +32,33 @@
 // Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
-#define
-XANADU_targetloc
-"./../../xanadu/srcgen/xats"
-(* ****** ****** *)
-//
-#staload
-"{$XANADU}/SATS/lexing.sats"
-//
-#staload
-"{$XANADU}/SATS/intrep0.sats"
-//
-(* ****** ****** *)
 
-typedef
-emit_type
-(syn:type) = (FILEref, syn) -> void
+abstype ldvar_tbox = ptr
+typedef ldvar = ldvar_tbox
 
 (* ****** ****** *)
 
-(* end of [xats2js.sats] *)
+abstype l1val_tbox = ptr
+typedef l1val = l1val_tbox
+
+(* ****** ****** *)
+
+abstype l1cmd_tbox = ptr
+typedef l1cmd = l1cmd_tbox
+
+(* ****** ****** *)
+
+datatype
+l1val_node =
+| L1Vint of (int)
+| L1Vtmp of (ldvar)
+
+(* ****** ****** *)
+
+datatype
+l1cmd_node =
+| L1Vmove_val of (ldvar, l1val)
+
+(* ****** ****** *)
+
+(* end of [intrep1.sats] *)
