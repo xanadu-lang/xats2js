@@ -32,6 +32,8 @@
 // Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
+#staload "./intrep1.sats"
+(* ****** ****** *)
 #define
 XANADU_targetloc
 "./../../xanadu/srcgen/xats"
@@ -45,9 +47,17 @@ XANADU_targetloc
 //
 (* ****** ****** *)
 
-typedef
-emit_type
-(syn:type) = (FILEref, syn) -> void
+absvtype
+compenv_vtbox = ptr
+vtypedef
+compenv = compenv_vtbox
+
+(* ****** ****** *)
+
+fun
+comp01_h0exp
+( env:
+! compenv, h0e0: h0exp): l1val
 
 (* ****** ****** *)
 

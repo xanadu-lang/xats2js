@@ -81,6 +81,7 @@ l1val_node =
 | L1VALtop of (token)
 //
 | L1VALvar of (ldvar)
+| L1VALcst of (ldcst)
 //
 (* ****** ****** *)
 //

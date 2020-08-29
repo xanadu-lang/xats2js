@@ -38,6 +38,67 @@
 //
 (* ****** ****** *)
 
+#staload "./../SATS/intrep1.sats"
+
+(* ****** ****** *)
+
+overload
+fprint with $LEX.fprint_token
+
+(* ****** ****** *)
+
+implement
+print_l1val(x0) =
+fprint_l1val(stdout_ref, x0)
+implement
+prerr_l1val(x0) =
+fprint_l1val(stderr_ref, x0)
+
+(* ****** ****** *)
+
+implement
+fprint_l1val(out, x0) =
+(
+case+
+x0.node() of
+//
+|
+L1VALint(tok) =>
+fprint!(out, "L1VALint(", tok, ")")
+//
+|
+L1VALbtf(tok) =>
+fprint!(out, "L1VALbtf(", tok, ")")
+//
+|
+L1VALchr(tok) =>
+fprint!(out, "L1VALchr(", tok, ")")
+//
+| _ (* else *) => fprint!(out, "L1VAL...(...)")
+//
+) (* end of [fprint_l1val] *)
+
+(* ****** ****** *)
+
+implement
+print_l1cmd(x0) =
+fprint_l1cmd(stdout_ref, x0)
+implement
+prerr_l1cmd(x0) =
+fprint_l1cmd(stderr_ref, x0)
+
+(* ****** ****** *)
+
+implement
+fprint_l1cmd(out, x0) =
+(
+case+
+x0.node() of
+//
+| _ (* else *) => fprint!(out, "L1CMD...(...)")
+//
+) (* end of [fprint_l1cmd] *)
+
 (* ****** ****** *)
 
 (* end of [intrep1_print.dats] *)
