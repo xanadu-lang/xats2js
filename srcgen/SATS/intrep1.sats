@@ -37,19 +37,19 @@
 "./../HATS/libxatsopt.hats"
 //
 (* ****** ****** *)
+#staload $INTREP0
+(* ****** ****** *)
 //
 typedef loc_t = $LOC.loc_t
 typedef token = $LEX.token
 //
 (* ****** ****** *)
 //
-abstype ldvar_tbox = ptr
-typedef ldvar = ldvar_tbox
+abstype l1tmp_tbox = ptr
+typedef l1tmp = l1tmp_tbox
 //
-abstype ldcon_tbox = ptr
-typedef ldcon = ldcon_tbox
-abstype ldcst_tbox = ptr
-typedef ldcst = ldcst_tbox
+typedef l1tmplst = List0(l1tmp)
+typedef l1tmpopt = Option(l1tmp)
 //
 (* ****** ****** *)
 //
@@ -86,28 +86,15 @@ typedef l1dclopt = Option(l1dcl)
 (* ****** ****** *)
 //
 fun
-print_ldvar: print_type(ldvar)
+print_l1tmp: print_type(l1tmp)
 fun
-prerr_ldvar: prerr_type(ldvar)
+prerr_l1tmp: prerr_type(l1tmp)
 fun
-fprint_ldvar: fprint_type(ldvar)
+fprint_l1tmp: fprint_type(l1tmp)
 //
-overload print with print_ldvar
-overload prerr with prerr_ldvar
-overload fprint with fprint_ldvar
-//
-(* ****** ****** *)
-//
-fun
-print_ldcst: print_type(ldcst)
-fun
-prerr_ldcst: prerr_type(ldcst)
-fun
-fprint_ldcst: fprint_type(ldcst)
-//
-overload print with print_ldcst
-overload prerr with prerr_ldcst
-overload fprint with fprint_ldcst
+overload print with print_l1tmp
+overload prerr with prerr_l1tmp
+overload fprint with fprint_l1tmp
 //
 (* ****** ****** *)
 
@@ -122,8 +109,9 @@ l1val_node =
 //
 | L1VALtop of (token)
 //
-| L1VALvar of (ldvar)
-| L1VALcst of (ldcst)
+| L1VALtmp of (l1tmp)
+//
+| L1VALcst of (hdcst)
 //
 (* ****** ****** *)
 //
@@ -151,14 +139,14 @@ overload prerr with prerr_l1val
 overload fprint with fprint_l1val
 //
 (* ****** ****** *)
-
+//
 datatype
 l1cmd_node =
 //
 | L1CMDmov of
-  (ldvar, l1val)
+  (l1tmp, l1val)
 | L1CMDapp of
-  ( ldvar
+  ( l1tmp
   , l1val(*fun*), l1valist(*arg*))
 //
 | L1CMDif0 of (l1val, l1blk, l1blk)
@@ -187,6 +175,16 @@ fprint_l1cmd: fprint_type(l1cmd)
 overload print with print_l1cmd
 overload prerr with prerr_l1cmd
 overload fprint with fprint_l1cmd
+//
+(* ****** ****** *)
+//
+datatype
+l1dcl_node =
+//
+| L1DCLlocal of
+  (l1dclist, l1dclist)
+//
+| L1DCLdatatype of (htcstlst)
 //
 (* ****** ****** *)
 //
