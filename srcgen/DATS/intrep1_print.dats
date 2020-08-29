@@ -48,6 +48,13 @@ fprint with $LEX.fprint_token
 (* ****** ****** *)
 
 implement
+fprint_val<l1val> = fprint_l1val
+implement
+fprint_val<l1cmd> = fprint_l1cmd
+
+(* ****** ****** *)
+
+implement
 print_l1val(x0) =
 fprint_l1val(stdout_ref, x0)
 implement
@@ -94,6 +101,20 @@ fprint_l1cmd(out, x0) =
 (
 case+
 x0.node() of
+//
+|
+L1CMDmov(tmp0, l0v1) =>
+fprint!
+( out
+, "L1CMDmov("
+, tmp0, "; ", l0v1, ")")
+//
+|
+L1CMDapp(tmp0, l0v1, l0vs) =>
+fprint!
+( out
+, "L1CMDapp("
+, tmp0, "; ", l0v1, "; ", l0vs, ")")
 //
 | _ (* else *) => fprint!(out, "L1CMD...(...)")
 //

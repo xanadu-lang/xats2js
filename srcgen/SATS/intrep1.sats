@@ -68,6 +68,48 @@ typedef l1cmdlst = List0(l1cmd)
 typedef l1cmdopt = Option(l1cmd)
 //
 (* ****** ****** *)
+//
+abstype l1blk_tbox = ptr
+typedef l1blk = l1blk_tbox
+//
+typedef l1blklst = List0(l1blk)
+typedef l1blkopt = Option(l1blk)
+//
+(* ****** ****** *)
+//
+abstype l1dcl_tbox = ptr
+typedef l1dcl = l1dcl_tbox
+//
+typedef l1dclist = List0(l1dcl)
+typedef l1dclopt = Option(l1dcl)
+//
+(* ****** ****** *)
+//
+fun
+print_ldvar: print_type(ldvar)
+fun
+prerr_ldvar: prerr_type(ldvar)
+fun
+fprint_ldvar: fprint_type(ldvar)
+//
+overload print with print_ldvar
+overload prerr with prerr_ldvar
+overload fprint with fprint_ldvar
+//
+(* ****** ****** *)
+//
+fun
+print_ldcst: print_type(ldcst)
+fun
+prerr_ldcst: prerr_type(ldcst)
+fun
+fprint_ldcst: fprint_type(ldcst)
+//
+overload print with print_ldcst
+overload prerr with prerr_ldcst
+overload fprint with fprint_ldcst
+//
+(* ****** ****** *)
 
 datatype
 l1val_node =
@@ -104,12 +146,23 @@ prerr_l1val: prerr_type(l1val)
 fun
 fprint_l1val: fprint_type(l1val)
 //
+overload print with print_l1val
+overload prerr with prerr_l1val
+overload fprint with fprint_l1val
+//
 (* ****** ****** *)
 
 datatype
 l1cmd_node =
-| L1CMDmove_val of (ldvar, l1val)
-
+//
+| L1CMDmov of
+  (ldvar, l1val)
+| L1CMDapp of
+  ( ldvar
+  , l1val(*fun*), l1valist(*arg*))
+//
+| L1CMDif0 of (l1val, l1blk, l1blk)
+//
 (* ****** ****** *)
 //
 fun
@@ -130,6 +183,23 @@ fun
 prerr_l1cmd: prerr_type(l1cmd)
 fun
 fprint_l1cmd: fprint_type(l1cmd)
+//
+overload print with print_l1cmd
+overload prerr with prerr_l1cmd
+overload fprint with fprint_l1cmd
+//
+(* ****** ****** *)
+//
+fun
+print_l1dcl: print_type(l1dcl)
+fun
+prerr_l1dcl: prerr_type(l1dcl)
+fun
+fprint_l1dcl: fprint_type(l1dcl)
+//
+overload print with print_l1dcl
+overload prerr with prerr_l1dcl
+overload fprint with fprint_l1dcl
 //
 (* ****** ****** *)
 

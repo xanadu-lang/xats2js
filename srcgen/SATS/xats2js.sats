@@ -55,9 +55,13 @@ compenv = compenv_vtbox
 (* ****** ****** *)
 
 fun
-comp01_h0exp
+comp01_h0exp_val
 ( env:
 ! compenv, h0e0: h0exp): l1val
+fun
+comp01_h0exp_set
+( env:
+! compenv, h0e0: h0exp, tmp: ldvar): l1val
 
 (* ****** ****** *)
 
