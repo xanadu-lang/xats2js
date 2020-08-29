@@ -32,32 +32,58 @@
 // Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
-
+//
+#include
+"./../HATS/libxatsopt.hats"
+//
+(* ****** ****** *)
+//
+typedef token = $LEX.token
+//
+(* ****** ****** *)
+//
 abstype ldvar_tbox = ptr
 typedef ldvar = ldvar_tbox
-
+//
+abstype ldcon_tbox = ptr
+typedef ldcon = ldcon_tbox
+abstype ldcst_tbox = ptr
+typedef ldcst = ldcst_tbox
+//
 (* ****** ****** *)
-
+//
 abstype l1val_tbox = ptr
 typedef l1val = l1val_tbox
-
+//
+typedef l1valist = List0(l1val)
+typedef l1valopt = Option(l1val)
+//
 (* ****** ****** *)
-
+//
 abstype l1cmd_tbox = ptr
 typedef l1cmd = l1cmd_tbox
-
+//
+typedef l1cmdlst = List0(l1cmd)
+typedef l1cmdopt = Option(l1cmd)
+//
 (* ****** ****** *)
 
 datatype
 l1val_node =
-| L1Vint of (int)
-| L1Vtmp of (ldvar)
-
+//
+| L1VALint of (token)
+| L1VALbtf of (token)
+| L1VALchr of (token)
+| L1VALflt of (token)
+| L1VALstr of (token)
+//
+| L1VALvar of (ldvar)
+//
 (* ****** ****** *)
 
 datatype
 l1cmd_node =
-| L1Vmove_val of (ldvar, l1val)
+| L1CMDmove_val of (ldvar, l1val)
 
 (* ****** ****** *)
 
