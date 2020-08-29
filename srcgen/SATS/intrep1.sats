@@ -38,6 +38,7 @@
 //
 (* ****** ****** *)
 //
+typedef loc_t = $LOC.loc_t
 typedef token = $LEX.token
 //
 (* ****** ****** *)
@@ -77,7 +78,30 @@ l1val_node =
 | L1VALflt of (token)
 | L1VALstr of (token)
 //
+| L1VALtop of (token)
+//
 | L1VALvar of (ldvar)
+//
+(* ****** ****** *)
+//
+fun
+l1val_get_loc
+(l1v0: l1val): loc_t
+fun
+l1val_get_node
+(l1v0: l1val): l1val_node
+//
+overload .loc with l1val_get_loc
+overload .node with l1val_get_node
+//
+(* ****** ****** *)
+//
+fun
+print_l1val: print_type(l1val)
+fun
+prerr_l1val: prerr_type(l1val)
+fun
+fprint_l1val: fprint_type(l1val)
 //
 (* ****** ****** *)
 
@@ -85,6 +109,27 @@ datatype
 l1cmd_node =
 | L1CMDmove_val of (ldvar, l1val)
 
+(* ****** ****** *)
+//
+fun
+l1cmd_get_loc
+(lcmd: l1cmd): loc_t
+fun
+l1cmd_get_node
+(lcmd: l1cmd): l1cmd_node
+//
+overload .loc with l1cmd_get_loc
+overload .node with l1cmd_get_node
+//
+(* ****** ****** *)
+//
+fun
+print_l1cmd: print_type(l1cmd)
+fun
+prerr_l1cmd: prerr_type(l1cmd)
+fun
+fprint_l1cmd: fprint_type(l1cmd)
+//
 (* ****** ****** *)
 
 (* end of [intrep1.sats] *)

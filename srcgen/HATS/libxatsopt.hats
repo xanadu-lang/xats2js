@@ -5,9 +5,12 @@ XANADU_targetloc
 "./../../xanadu/srcgen/xats"
 
 (* ****** ****** *)
+#staload LOC =
+"{$XANADU}/SATS/locinfo.sats"
+(* ****** ****** *)
 //
 #staload LEX =
-"{$XANADU}/SATS/lexing.sats"
+  "{$XANADU}/SATS/lexing.sats"
 //
 (* ****** ****** *)
 
