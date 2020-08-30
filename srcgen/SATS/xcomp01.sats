@@ -72,4 +72,4 @@ comp01_h0exp_set
 
 (* ****** ****** *)
 
-(* end of [xcomp01.sats] *)
+(* end of [xats_xcomp01.sats] *)
