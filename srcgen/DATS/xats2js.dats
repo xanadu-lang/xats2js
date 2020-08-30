@@ -33,6 +33,13 @@
 //
 (* ****** ****** *)
 //
+#include
+"share/atspre_staload.hats"
+#staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
 #dynload "./../DATS/intrep1.dats"
 #dynload "./../DATS/intrep1_emit0.dats"
 #dynload "./../DATS/intrep1_emit1.dats"
