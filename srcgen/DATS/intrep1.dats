@@ -44,6 +44,55 @@
 
 local
 
+val
+stamper = $STM.stamper_new()
+
+in (* in-of-local *)
+
+implement
+l1tmp_stamp_new() = $STM.stamper_getinc(stamper)
+
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+
+absimpl
+l1tmp_tbox = $rec
+{
+  l1tmp_loc= loc_t
+, l1tmp_ref= int // 0/1 : val/ref
+, l1tmp_ret= int // return status
+, l1tmp_stamp= stamp (* unicity *)
+} // end of [l1tmp]
+
+in (* in of [local] *)
+//
+implement
+l1tmp_make(loc) =
+$rec
+{
+  l1tmp_loc= loc
+, l1tmp_ref= 0(*val*)
+, l1tmp_ret= 0(*nret*)
+, l1tmp_stamp= stamp(*unicity*)
+} where
+{
+  val stamp = l1tmp_stamp_new()
+}
+//
+implement
+l1tmp_get_loc(tmp) = tmp.l1tmp_loc
+implement
+l1tmp_get_stamp(tmp) = tmp.l1tmp_stamp
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+
 absimpl
 l1val_tbox = $rec
 { l1val_loc= loc_t

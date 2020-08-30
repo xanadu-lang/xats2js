@@ -50,6 +50,8 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 overload
+fprint with $STM.fprint_stamp
+overload
 fprint with $LEX.fprint_token
 
 (* ****** ****** *)
@@ -62,13 +64,24 @@ fprint_val<l1cmd> = fprint_l1cmd
 (* ****** ****** *)
 
 implement
+print_l1tmp(x0) =
+fprint_l1tmp(stdout_ref, x0)
+implement
+prerr_l1tmp(x0) =
+fprint_l1tmp(stderr_ref, x0)
+
+implement
+fprint_l1tmp(out, x0) =
+fprint!(out, "tmp(", x0.stamp(), ")")
+
+(* ****** ****** *)
+
+implement
 print_l1val(x0) =
 fprint_l1val(stdout_ref, x0)
 implement
 prerr_l1val(x0) =
 fprint_l1val(stderr_ref, x0)
-
-(* ****** ****** *)
 
 implement
 fprint_l1val(out, x0) =

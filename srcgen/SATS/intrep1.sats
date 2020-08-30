@@ -40,6 +40,8 @@
 #staload $INTREP0
 (* ****** ****** *)
 //
+typedef stamp = $STM.stamp
+//
 typedef loc_t = $LOC.loc_t
 typedef token = $LEX.token
 //
@@ -84,9 +86,19 @@ typedef l1dclist = List0(l1dcl)
 typedef l1dclopt = Option(l1dcl)
 //
 (* ****** ****** *)
+//
+fun
+l1tmp_make(loc: loc_t): l1tmp
+fun
+l1tmp_stamp_new((*void*)): stamp
+//
+(* ****** ****** *)
 fun
 l1tmp_get_loc(l1tmp): loc_t
 overload .loc with l1tmp_get_loc
+fun
+l1tmp_get_stamp(l1tmp): stamp
+overload .stamp with l1tmp_get_stamp
 (* ****** ****** *)
 //
 fun

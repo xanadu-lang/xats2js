@@ -5,6 +5,9 @@ XANADU_targetloc
 "./../../xanadu/srcgen/xats"
 
 (* ****** ****** *)
+#staload STM =
+"{$XANADU}/SATS/stamp0.sats"
+(* ****** ****** *)
 #staload LOC =
 "{$XANADU}/SATS/locinfo.sats"
 (* ****** ****** *)
