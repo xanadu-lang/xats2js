@@ -33,6 +33,8 @@
 //
 (* ****** ****** *)
 
+implement main0() = ()
+
 (* ****** ****** *)
 
-(* end of [xats2js_emit0.dats] *)
+(* end of [xats2js.dats] *)

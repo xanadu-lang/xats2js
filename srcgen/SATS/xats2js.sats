@@ -61,7 +61,7 @@ comp01_h0exp_val
 fun
 comp01_h0exp_set
 ( env:
-! compenv, h0e0: h0exp, tmp: ldvar): l1val
+! compenv, h0e0: h0exp, tmp: l1tmp): l1val
 
 (* ****** ****** *)
 

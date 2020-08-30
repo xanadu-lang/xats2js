@@ -84,6 +84,10 @@ typedef l1dclist = List0(l1dcl)
 typedef l1dclopt = Option(l1dcl)
 //
 (* ****** ****** *)
+fun
+l1tmp_get_loc(l1tmp): loc_t
+overload .loc with l1tmp_get_loc
+(* ****** ****** *)
 //
 fun
 print_l1tmp: print_type(l1tmp)
