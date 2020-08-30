@@ -68,7 +68,9 @@ l1tmp_tbox = $rec
 } // end of [l1tmp]
 
 in (* in of [local] *)
-//
+
+(* ****** ****** *)
+
 implement
 l1tmp_make(loc) =
 $rec
@@ -81,12 +83,16 @@ $rec
 {
   val stamp = l1tmp_stamp_new()
 }
-//
+
+(* ****** ****** *)
+
 implement
 l1tmp_get_loc(tmp) = tmp.l1tmp_loc
 implement
 l1tmp_get_stamp(tmp) = tmp.l1tmp_stamp
-//
+
+(* ****** ****** *)
+
 end // end of [local]
 
 (* ****** ****** *)
@@ -101,10 +107,23 @@ l1val_tbox = $rec
 
 in
 
+(* ****** ****** *)
+
+implement
+l1val_make_node
+  (loc, node) = $rec
+{
+  l1val_loc=loc, l1val_node=node
+}
+
+(* ****** ****** *)
+
 implement
 l1val_get_loc(x0) = x0.l1val_loc
 implement
 l1val_get_node(x0) = x0.l1val_node
+
+(* ****** ****** *)
 
 end // end of [local]
 

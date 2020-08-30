@@ -132,6 +132,12 @@ l1val_node =
 (* ****** ****** *)
 //
 fun
+l1val_make_node
+(loc_t, l1val_node): l1val
+//
+(* ****** ****** *)
+//
+fun
 l1val_get_loc
 (l1v0: l1val): loc_t
 fun
