@@ -44,6 +44,8 @@ intrep1.sats \
 
 SRCDATS := \
 intrep1.dats \
+intrep1_emit0.dats \
+intrep1_emit1.dats \
 intrep1_print.dats \
 
 ######

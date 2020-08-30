@@ -34,6 +34,8 @@
 (* ****** ****** *)
 //
 #dynload "./../DATS/intrep1.dats"
+#dynload "./../DATS/intrep1_emit0.dats"
+#dynload "./../DATS/intrep1_emit1.dats"
 #dynload "./../DATS/intrep1_print.dats"
 //
 (* ****** ****** *)

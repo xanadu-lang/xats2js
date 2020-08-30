@@ -32,44 +32,7 @@
 // Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
-#staload "./intrep1.sats"
-(* ****** ****** *)
-#define
-XANADU_targetloc
-"./../../xanadu/srcgen/xats"
-(* ****** ****** *)
-//
-#staload
-"{$XANADU}/SATS/lexing.sats"
-//
-#staload
-"{$XANADU}/SATS/intrep0.sats"
-//
-(* ****** ****** *)
-
-absvtype
-compenv_vtbox = ptr
-vtypedef
-compenv = compenv_vtbox
-
-(* ****** ****** *)
-//
-fun
-comp01_add_l1cmd
-( env:
-! compenv, lcmd: l1cmd): void
-//
-(* ****** ****** *)
-
-fun
-comp01_h0exp_val
-( env:
-! compenv, h0e0: h0exp): l1val
-fun
-comp01_h0exp_set
-( env:
-! compenv, h0e0: h0exp, tmp: l1tmp): void
 
 (* ****** ****** *)
 
-(* end of [xcomp01.sats] *)
+(* end of [xcomp01_dynexp.dats] *)
