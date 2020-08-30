@@ -203,10 +203,25 @@ overload fprint with fprint_l1cmd
 datatype
 l1dcl_node =
 //
+| L1DCLnil of ()
+| L1DCLlist of (l1dclist)
+//
 | L1DCLlocal of
-  (l1dclist, l1dclist)
+  (l1dclist(*head*), l1dclist(*body*))
 //
 | L1DCLdatatype of (htcstlst)
+//
+(* ****** ****** *)
+//
+fun
+l1dcl_get_loc
+(ldcl: l1dcl): loc_t
+fun
+l1dcl_get_node
+(ldcl: l1dcl): l1dcl_node
+//
+overload .loc with l1dcl_get_loc
+overload .node with l1dcl_get_node
 //
 (* ****** ****** *)
 //

@@ -60,6 +60,8 @@ implement
 fprint_val<l1val> = fprint_l1val
 implement
 fprint_val<l1cmd> = fprint_l1cmd
+implement
+fprint_val<l1dcl> = fprint_l1dcl
 
 (* ****** ****** *)
 
@@ -126,19 +128,36 @@ x0.node() of
 L1CMDmov(tmp0, l0v1) =>
 fprint!
 ( out
-, "L1CMDmov("
-, tmp0, "; ", l0v1, ")")
+, "L1CMDmov(", tmp0, "; ", l0v1, ")")
 //
-|
-L1CMDapp(tmp0, l0v1, l0vs) =>
-fprint!
-( out
-, "L1CMDapp("
-, tmp0, "; ", l0v1, "; ", l0vs, ")")
+| L1CMDapp(tmp0, l0v1, l0vs) =>
+  fprint!
+  ( out
+  , "L1CMDapp("
+  , tmp0, "; ", l0v1, "; ", l0vs, ")")
 //
 | _ (* else *) => fprint!(out, "L1CMD...(...)")
 //
 ) (* end of [fprint_l1cmd] *)
+
+(* ****** ****** *)
+
+implement
+fprint_l1dcl(out, x0) =
+(
+case+
+x0.node() of
+//
+|
+L1DCLlocal
+(head, body) =>
+fprint!
+( out
+, "L1DCLlocal(", head, "; ", body, ")")
+//
+| _ (* else *) => fprint!(out, "L1DCL...(...)")
+//
+) (* end of [fprint_l1dcl] *)
 
 (* ****** ****** *)
 

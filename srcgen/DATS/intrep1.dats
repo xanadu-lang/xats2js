@@ -148,4 +148,23 @@ end // end of [local]
 
 (* ****** ****** *)
 
+local
+
+absimpl
+l1dcl_tbox = $rec
+{ l1dcl_loc= loc_t
+, l1dcl_node= l1dcl_node
+} (* end of [absimpl] *)
+
+in
+
+implement
+l1dcl_get_loc(x0) = x0.l1dcl_loc
+implement
+l1dcl_get_node(x0) = x0.l1dcl_node
+
+end // end of [local]
+
+(* ****** ****** *)
+
 (* end of [intrep1.dats] *)
