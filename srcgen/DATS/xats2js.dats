@@ -32,6 +32,11 @@
 // Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
+//
+#dynload "./../DATS/intrep1.dats"
+#dynload "./../DATS/intrep1_print.dats"
+//
+(* ****** ****** *)
 
 implement main0() = ()
 

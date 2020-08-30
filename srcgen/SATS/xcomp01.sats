@@ -65,4 +65,4 @@ comp01_h0exp_set
 
 (* ****** ****** *)
 
-(* end of [xats2js.sats] *)
+(* end of [xcomp01.sats] *)

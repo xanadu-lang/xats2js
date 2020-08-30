@@ -39,11 +39,10 @@ LIBGC=-lgc
 ######
 
 SRCSATS := \
-xats2js.sats \
+xcomp01.sats \
 intrep1.sats \
 
 SRCDATS := \
-xats2js.dats \
 intrep1.dats \
 intrep1_print.dats \
 
