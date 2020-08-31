@@ -88,7 +88,7 @@ typedef l1dclopt = Option(l1dcl)
 (* ****** ****** *)
 //
 fun
-l1tmp_make(loc: loc_t): l1tmp
+l1tmp_new(loc: loc_t): l1tmp
 fun
 l1tmp_stamp_new((*void*)): stamp
 //

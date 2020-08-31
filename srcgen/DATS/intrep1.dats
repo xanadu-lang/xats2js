@@ -72,7 +72,7 @@ in (* in of [local] *)
 (* ****** ****** *)
 
 implement
-l1tmp_make(loc) =
+l1tmp_new(loc) =
 $rec
 {
   l1tmp_loc= loc

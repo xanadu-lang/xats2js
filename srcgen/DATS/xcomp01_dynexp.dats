@@ -32,6 +32,37 @@
 // Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
+//
+#include
+"./../HATS/libxatsopt.hats"
+//
+(* ****** ****** *)
+#staload $INTREP0(* open *)
+(* ****** ****** *)
+#staload "./../SATS/intrep1.sats"
+#staload "./../SATS/xcomp01.sats"
+(* ****** ****** *)
+
+implement
+comp01_h0exp_val
+  (env0, h0e0) =
+let
+val loc0 = h0e0.loc()
+in(*in-of-let*)
+//
+case+
+h0e0.node() of
+| _ (* else *) =>
+  let
+  val
+  tmp1 = l1tmp_new(loc0)
+  val () =
+  comp01_h0exp_set(env0, h0e0, tmp1)
+  in
+  l1val_make_node(loc0, L1VALtmp(tmp1))
+  end
+//
+end // end of [comp01_h0exp_val]
 
 (* ****** ****** *)
 
