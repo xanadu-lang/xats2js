@@ -140,6 +140,15 @@ l1cmd_tbox = $rec
 in
 
 implement
+l1cmd_make_node
+  (loc, node) = $rec
+{
+  l1cmd_loc=loc, l1cmd_node=node
+}
+
+(* ****** ****** *)
+
+implement
 l1cmd_get_loc(x0) = x0.l1cmd_loc
 implement
 l1cmd_get_node(x0) = x0.l1cmd_node
@@ -157,6 +166,15 @@ l1dcl_tbox = $rec
 } (* end of [absimpl] *)
 
 in
+
+implement
+l1dcl_make_node
+  (loc, node) = $rec
+{
+  l1dcl_loc=loc, l1dcl_node=node
+}
+
+(* ****** ****** *)
 
 implement
 l1dcl_get_loc(x0) = x0.l1dcl_loc

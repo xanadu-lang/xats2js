@@ -32,6 +32,19 @@
 // Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
+//
+#include
+"./../HATS/libxatsopt.hats"
+//
+(* ****** ****** *)
+#staload $INTREP0(* open *)
+(* ****** ****** *)
+#staload "./../SATS/intrep1.sats"
+#staload "./../SATS/xcomp01.sats"
+(* ****** ****** *)
+
+implement
+comp01_lcmdadd(env0, lcmd) = ()
 
 (* ****** ****** *)
 

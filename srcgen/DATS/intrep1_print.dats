@@ -44,9 +44,9 @@ UN = "prelude/SATS/unsafe.sats"
 "./../HATS/libxatsopt.hats"
 //
 (* ****** ****** *)
-
+#staload $INTREP0(* open *)
+(* ****** ****** *)
 #staload "./../SATS/intrep1.sats"
-
 (* ****** ****** *)
 
 overload
@@ -102,6 +102,13 @@ fprint!(out, "L1VALbtf(", tok, ")")
 |
 L1VALchr(tok) =>
 fprint!(out, "L1VALchr(", tok, ")")
+//
+|
+L1VALnone0() =>
+fprint!(out, "L1VALnone0(", ")")
+|
+L1VALnone1(h0e1) =>
+fprint!(out, "L1VALnone1(", h0e1, ")")
 //
 | _ (* else *) => fprint!(out, "L1VAL...(...)")
 //

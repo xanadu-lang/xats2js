@@ -129,6 +129,9 @@ l1val_node =
 //
 | L1VALcst of (hdcst)
 //
+| L1VALnone0 of ()
+| L1VALnone1 of (h0exp)
+//
 (* ****** ****** *)
 //
 fun
@@ -176,6 +179,12 @@ l1cmd_node =
 (* ****** ****** *)
 //
 fun
+l1cmd_make_node
+(loc_t, l1cmd_node): l1cmd
+//
+(* ****** ****** *)
+//
+fun
 l1cmd_get_loc
 (lcmd: l1cmd): loc_t
 fun
@@ -199,6 +208,12 @@ overload prerr with prerr_l1cmd
 overload fprint with fprint_l1cmd
 //
 (* ****** ****** *)
+
+fun
+l1blk_make
+(loc0: loc_t, cmds: l1cmdlst): l1blk
+
+(* ****** ****** *)
 //
 datatype
 l1dcl_node =
@@ -210,6 +225,12 @@ l1dcl_node =
   (l1dclist(*head*), l1dclist(*body*))
 //
 | L1DCLdatatype of (htcstlst)
+//
+(* ****** ****** *)
+//
+fun
+l1dcl_make_node
+(loc_t, l1dcl_node): l1dcl
 //
 (* ****** ****** *)
 //

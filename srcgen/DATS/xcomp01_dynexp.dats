@@ -43,6 +43,44 @@
 #staload "./../SATS/xcomp01.sats"
 (* ****** ****** *)
 
+local
+
+fun
+auxset_if0
+( env0:
+! compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
+let
+//
+val
+loc0 = h0e0.loc()
+//
+val-
+H0Eif0
+( h0e1
+, h0e2
+, opt3) = h0e0.node()
+//
+val l1v1 =
+comp01_h0exp_val(env0, h0e1)
+val blk2 =
+comp01_h0exp_blk(env0, h0e2, tres)
+val blk3 =
+comp01_h0expopt_blk(env0, opt3, tres)
+//
+in
+  comp01_lcmdadd(env0, lcmd) where
+  {
+    val
+    lcmd =
+    l1cmd_make_node
+    (loc0, L1CMDif0(l1v1, blk2, blk3))
+  }
+end // end of [auxset_if0]
+
+in(*in-of-local*)
+
 implement
 comp01_h0exp_val
   (env0, h0e0) =
@@ -52,17 +90,50 @@ in(*in-of-let*)
 //
 case+
 h0e0.node() of
+|
+H0Eif0 _ =>
+let
+val
+tres = l1tmp_new(loc0)
+val () =
+auxset_if0(env0, h0e0, tres)
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end
 | _ (* else *) =>
-  let
-  val
-  tmp1 = l1tmp_new(loc0)
-  val () =
-  comp01_h0exp_set(env0, h0e0, tmp1)
-  in
-  l1val_make_node(loc0, L1VALtmp(tmp1))
-  end
+(
+l1val_make_node(loc0, L1VALnone1(h0e0))
+)
 //
 end // end of [comp01_h0exp_val]
+
+implement
+comp01_h0exp_set
+  (env0, h0e0, tres) =
+let
+val loc0 = h0e0.loc()
+in(*in-of-let*)
+//
+case+
+h0e0.node() of
+|
+H0Eif0 _ =>
+auxset_if0(env0, h0e0, tres)
+| _ (* else *) =>
+let
+  val l1v0 =
+  comp01_h0exp_val(env0, h0e0)
+in
+  comp01_lcmdadd(env0, cmd0) where
+  {
+  val cmd0 =
+  l1cmd_make_node(loc0, L1CMDmov(tres, l1v0))
+  }
+end
+//
+end // end of [comp01_h0exp_val]
+
+end // end of [local]
 
 (* ****** ****** *)
 
