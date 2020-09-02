@@ -63,14 +63,14 @@ H0Eif0
 , opt3) = h0e0.node()
 //
 val l1v1 =
-comp01_h0exp_val(env0, h0e1)
+xcomp01_h0exp_val(env0, h0e1)
 val blk2 =
-comp01_h0exp_blk(env0, h0e2, tres)
+xcomp01_h0exp_blk(env0, h0e2, tres)
 val blk3 =
-comp01_h0expopt_blk(env0, opt3, tres)
+xcomp01_h0expopt_blk(env0, opt3, tres)
 //
 in
-  comp01_lcmdadd(env0, lcmd) where
+  xcomp01_lcmdadd(env0, lcmd) where
   {
     val
     lcmd =
@@ -82,7 +82,7 @@ end // end of [auxset_if0]
 in(*in-of-local*)
 
 implement
-comp01_h0exp_val
+xcomp01_h0exp_val
   (env0, h0e0) =
 let
 val loc0 = h0e0.loc()
@@ -105,10 +105,10 @@ end
 l1val_make_node(loc0, L1VALnone1(h0e0))
 )
 //
-end // end of [comp01_h0exp_val]
+end // end of [xcomp01_h0exp_val]
 
 implement
-comp01_h0exp_set
+xcomp01_h0exp_set
   (env0, h0e0, tres) =
 let
 val loc0 = h0e0.loc()
@@ -122,19 +122,46 @@ auxset_if0(env0, h0e0, tres)
 | _ (* else *) =>
 let
   val l1v0 =
-  comp01_h0exp_val(env0, h0e0)
+  xcomp01_h0exp_val(env0, h0e0)
 in
-  comp01_lcmdadd(env0, cmd0) where
+  xcomp01_lcmdadd(env0, cmd0) where
   {
   val cmd0 =
   l1cmd_make_node(loc0, L1CMDmov(tres, l1v0))
   }
 end
 //
-end // end of [comp01_h0exp_val]
+end // end of [xcomp01_h0exp_val]
 
 end // end of [local]
 
+(* ****** ****** *)
+//
+implement
+xcomp01_h0exp_blk
+  (env0, h0e0, tres) =
+(
+xcomp01_lcmdpop0_blk(env0)
+) where
+{
+val () =
+xcomp01_lcmdpush_nil(env0)
+val () =
+xcomp01_h0exp_set(env0, h0e0, tres)
+} (* end of [xcomp01_h0exp_blk] *)
+
+(* ****** ****** *)
+//
+implement
+xcomp01_h0expopt_blk
+  (env0, opt0, tres) =
+(
+case+ opt0 of
+| None() => l1blk_none()
+| Some(h0e0) =>
+  xcomp01_h0exp_blk(env0, h0e0, tres)
+)
+//
 (* ****** ****** *)
 
 (* end of [xats_xcomp01_dynexp.dats] *)

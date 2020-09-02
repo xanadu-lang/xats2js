@@ -75,7 +75,6 @@ abstype l1blk_tbox = ptr
 typedef l1blk = l1blk_tbox
 //
 typedef l1blklst = List0(l1blk)
-typedef l1blkopt = Option(l1blk)
 //
 (* ****** ****** *)
 //
@@ -210,8 +209,9 @@ overload fprint with fprint_l1cmd
 (* ****** ****** *)
 
 fun
-l1blk_make
-(loc0: loc_t, cmds: l1cmdlst): l1blk
+l1blk_none(): l1blk
+fun
+l1blk_some(cmds: l1cmdlst): l1blk
 
 (* ****** ****** *)
 //

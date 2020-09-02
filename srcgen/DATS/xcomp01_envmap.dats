@@ -44,8 +44,20 @@
 (* ****** ****** *)
 
 implement
-comp01_lcmdadd(env0, lcmd) = ()
+xcomp01_lcmdadd(env0, x0) = ()
 
+(* ****** ****** *)
+implement
+xcomp01_lcmdpush_nil(env0) = ()
+(* ****** ****** *)
+implement
+xcomp01_lcmdpop0_lst
+  (env0) = list_nil((*void*))
+(* ****** ****** *)
+implement
+xcomp01_lcmdpop0_blk
+  (env0) =
+l1blk_some(xcomp01_lcmdpop0_lst(env0))
 (* ****** ****** *)
 
 (* end of [xats_xcomp01_envmap.dats] *)

@@ -55,38 +55,42 @@ compenv = compenv_vtbox
 (* ****** ****** *)
 //
 fun
-comp01_lcmdadd
+xcomp01_lcmdadd
 ( env:
 ! compenv, lcmd: l1cmd): void
 //
 (* ****** ****** *)
 //
 fun
-comp01_lcmdpush_nil
+xcomp01_lcmdpush_nil
 ( env: !compenv ): void
+//
 fun
-comp01_lcmdpop0_lst
+xcomp01_lcmdpop0_blk
+( env: !compenv): l1blk
+fun
+xcomp01_lcmdpop0_lst
 ( env: !compenv): l1cmdlst
 //
 (* ****** ****** *)
 
 fun
-comp01_h0exp_val
+xcomp01_h0exp_val
 ( env:
 ! compenv, h0e0: h0exp): l1val
 fun
-comp01_h0exp_set
+xcomp01_h0exp_set
 ( env:
 ! compenv, h0e0: h0exp, tres: l1tmp): void
 
 (* ****** ****** *)
 //
 fun
-comp01_h0exp_blk
+xcomp01_h0exp_blk
 ( env:
 ! compenv, h0e0: h0exp, tres: l1tmp): l1blk
 fun
-comp01_h0expopt_blk
+xcomp01_h0expopt_blk
 ( env:
 ! compenv, opt0: h0expopt, tres: l1tmp): l1blk
 //
