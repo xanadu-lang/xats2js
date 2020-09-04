@@ -87,11 +87,16 @@ xcomp01_h0exp_set
 (* ****** ****** *)
 
 fun
-xcomp01_h0exp_arglst
+xcomp01_h0explst_val
+( env0:
+! compenv
+, h0es: h0explst(*arg*)): l1valist
+fun
+xcomp01_h0explst_arg
 ( env0:
 ! compenv
 , npf: int
-, h0es: h0explst(*arglst*)): l1valist
+, h0es: h0explst(*arg*)): l1valist
 
 (* ****** ****** *)
 //

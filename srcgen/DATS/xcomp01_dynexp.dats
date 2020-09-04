@@ -83,7 +83,7 @@ end where
 val l1f0 =
 xcomp01_h0exp_val(env0, h0f0)
 val l1vs =
-xcomp01_h0exp_arglst(env0, npf1, h0es)
+xcomp01_h0explst_arg(env0, npf1, h0es)
 }
 end // end of [auxset_dapp]
 
@@ -190,7 +190,30 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
-xcomp01_h0exp_arglst
+xcomp01_h0explst_val
+  (env0, h0es) =
+(
+case+ h0es of
+|
+list_nil() => list_nil()
+|
+list_cons(h0e1, h0es) =>
+let
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+in
+list_cons(l1v1, l1vs) where
+{
+val l1vs =
+xcomp01_h0explst_val(env0, h0es)
+}
+end
+) (* end of [xcomp01_h0explst_val] *)
+
+(* ****** ****** *)
+
+implement
+xcomp01_h0explst_arg
   (env0, npf1, h0es) =
 (
 case+ h0es of
@@ -202,20 +225,22 @@ if
 npf1 <= 0
 then
 let
-  val l1v1 =
-  xcomp01_h0exp_val(env0, h0e1)
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
 in
   list_cons(l1v1, l1vs) where
   {
   val l1vs =
-  xcomp01_h0exp_arglst(env0, npf1, h0es)
+  xcomp01_h0explst_val(env0, h0es)
   }
-end
+end // end of [then]
 else
-(
-  xcomp01_h0exp_arglst(env0, npf1-1, h0es)
-)
-)
+let
+val npf1 = npf1 - 1
+in
+xcomp01_h0explst_arg(env0, npf1, h0es)
+end // end of [else]
+) (* end of [xcomp01_h0explst_arg] *)
 
 (* ****** ****** *)
 //
@@ -226,10 +251,10 @@ xcomp01_h0exp_blk
 xcomp01_lcmdpop0_blk(env0)
 ) where
 {
-val () =
-xcomp01_lcmdpush_nil(env0)
-val () =
-xcomp01_h0exp_set(env0, h0e0, tres)
+  val () =
+  xcomp01_lcmdpush_nil(env0)
+  val () =
+  xcomp01_h0exp_set(env0, h0e0, tres)
 } (* end of [xcomp01_h0exp_blk] *)
 
 (* ****** ****** *)
