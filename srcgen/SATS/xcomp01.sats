@@ -56,43 +56,55 @@ compenv = compenv_vtbox
 //
 fun
 xcomp01_lcmdadd
-( env:
+( env0:
 ! compenv, lcmd: l1cmd): void
 //
 (* ****** ****** *)
 //
 fun
 xcomp01_lcmdpush_nil
-( env: !compenv ): void
+( env0: !compenv ): void
 //
 fun
 xcomp01_lcmdpop0_blk
-( env: !compenv): l1blk
+( env0: !compenv): l1blk
 fun
 xcomp01_lcmdpop0_lst
-( env: !compenv): l1cmdlst
+( env0: !compenv): l1cmdlst
 //
 (* ****** ****** *)
 
 fun
 xcomp01_h0exp_val
-( env:
+( env0:
 ! compenv, h0e0: h0exp): l1val
 fun
 xcomp01_h0exp_set
-( env:
-! compenv, h0e0: h0exp, tres: l1tmp): void
+( env0:
+! compenv
+, h0e0: h0exp, tres: l1tmp): void
+
+(* ****** ****** *)
+
+fun
+xcomp01_h0exp_arglst
+( env0:
+! compenv
+, npf: int
+, h0es: h0explst(*arglst*)): l1valist
 
 (* ****** ****** *)
 //
 fun
 xcomp01_h0exp_blk
-( env:
-! compenv, h0e0: h0exp, tres: l1tmp): l1blk
+( env0:
+! compenv
+, h0e0: h0exp, tres: l1tmp): l1blk
 fun
 xcomp01_h0expopt_blk
-( env:
-! compenv, opt0: h0expopt, tres: l1tmp): l1blk
+( env0:
+! compenv
+, opt0: h0expopt, tres: l1tmp): l1blk
 //
 (* ****** ****** *)
 

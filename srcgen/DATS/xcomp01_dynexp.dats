@@ -34,6 +34,13 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_staload.hats"
+#staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+#include
 "./../HATS/libxatsopt.hats"
 //
 (* ****** ****** *)
@@ -44,6 +51,41 @@
 (* ****** ****** *)
 
 local
+
+fun
+auxset_dapp
+( env0:
+! compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
+let
+//
+val
+loc0 = h0e0.loc()
+//
+val-
+H0Edapp
+( h0f0
+, npf1
+, h0es) = h0e0.node()
+//
+in
+let
+val
+lcmd =
+l1cmd_make_node
+( loc0
+, L1CMDapp(tres, l1f0, l1vs))
+in
+  xcomp01_lcmdadd(env0, lcmd)
+end where
+{
+val l1f0 =
+xcomp01_h0exp_val(env0, h0f0)
+val l1vs =
+xcomp01_h0exp_arglst(env0, npf1, h0es)
+}
+end // end of [auxset_dapp]
 
 fun
 auxset_if0
@@ -91,7 +133,17 @@ in(*in-of-let*)
 case+
 h0e0.node() of
 |
-H0Eif0 _ =>
+H0Edapp _ =>
+let
+val
+tres = l1tmp_new(loc0)
+val () =
+auxset_dapp(env0, h0e0, tres)
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end
+//
+| H0Eif0 _ =>
 let
 val
 tres = l1tmp_new(loc0)
@@ -134,6 +186,36 @@ end
 end // end of [xcomp01_h0exp_val]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implement
+xcomp01_h0exp_arglst
+  (env0, npf1, h0es) =
+(
+case+ h0es of
+|
+list_nil() => list_nil()
+|
+list_cons(h0e1, h0es) =>
+if
+npf1 <= 0
+then
+let
+  val l1v1 =
+  xcomp01_h0exp_val(env0, h0e1)
+in
+  list_cons(l1v1, l1vs) where
+  {
+  val l1vs =
+  xcomp01_h0exp_arglst(env0, npf1, h0es)
+  }
+end
+else
+(
+  xcomp01_h0exp_arglst(env0, npf1-1, h0es)
+)
+)
 
 (* ****** ****** *)
 //
