@@ -864,9 +864,32 @@ val () =
 )
 //
 val
+dcls =
+let
+val
 dcls = tcomp30_program(d3cs)
+in
+dcls where
+{
+val () =
+println!
+("process_fpath: dcls = ", dcls)
+}
+end // end of [let]
+//
+val
+dcls =
+let
 val
 dcls = xcomp01_program(dcls)
+in
+dcls where
+{
+val () =
+println!
+("process_fpath: dcls = ", dcls)
+}
+end // end of [let]
 //
 val () = fprint_newline(stdout_ref)
 //
