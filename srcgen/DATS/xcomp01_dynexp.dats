@@ -50,6 +50,30 @@ UN = "prelude/SATS/unsafe.sats"
 #staload "./../SATS/xcomp01.sats"
 (* ****** ****** *)
 
+implement
+xcomp01_program
+  (dcls) = dcls where
+{
+//
+(*
+val () =
+xcomp01_initize()
+*)
+//
+val
+env0 =
+compenv_make_nil()
+//
+val
+dcls =
+xcomp01_h0dclist(env0, dcls)
+//
+val () = compenv_free_nil(env0)
+//
+} (* end of [xcomp01_program] *)
+
+(* ****** ****** *)
+
 local
 
 fun
@@ -195,7 +219,8 @@ xcomp01_h0explst_val
 (
 case+ h0es of
 |
-list_nil() => list_nil()
+list_nil() =>
+list_nil()
 |
 list_cons(h0e1, h0es) =>
 let
@@ -218,7 +243,8 @@ xcomp01_h0explst_arg
 (
 case+ h0es of
 |
-list_nil() => list_nil()
+list_nil() =>
+list_nil()
 |
 list_cons(h0e1, h0es) =>
 if
@@ -269,6 +295,53 @@ case+ opt0 of
   xcomp01_h0exp_blk(env0, h0e0, tres)
 )
 //
+(* ****** ****** *)
+
+implement
+xcomp01_h0dcl
+  (env0, dcl0) =
+let
+(*
+val
+loc0 = dcl0.loc()
+*)
+in
+//
+case+
+dcl0.node() of
+| _ (* else *) =>
+  let
+  val loc0 = dcl0.loc()
+  in
+  l1dcl_make_node(loc0, L1DCLnone1(dcl0))
+  end
+//
+end // end of [xcomp01_h0dcl]
+
+(* ****** ****** *)
+
+implement
+xcomp01_h0dclist
+  (env0, dcls) =
+(
+case+ dcls of
+|
+list_nil() =>
+list_nil()
+|
+list_cons(dcl1, dcls) =>
+let
+val dcl1 =
+xcomp01_h0dcl(env0, dcl1)
+in
+list_cons(dcl1, dcls) where
+{
+  val dcls =
+  xcomp01_h0dclist(env0, dcls)
+}
+end
+) (* end of [xcomp01_h0dclist] *)
+
 (* ****** ****** *)
 
 (* end of [xats_xcomp01_dynexp.dats] *)

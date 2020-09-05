@@ -55,6 +55,21 @@ compenv = compenv_vtbox
 (* ****** ****** *)
 //
 fun
+compenv_make_nil
+  ((*void*)): compenv
+fun
+compenv_free_nil
+  (env0: compenv): void
+//
+(* ****** ****** *)
+//
+fun
+xcomp01_program
+(prog: h0dclist): l1dclist
+//
+(* ****** ****** *)
+//
+fun
 xcomp01_lcmdadd
 ( env0:
 ! compenv, lcmd: l1cmd): void
@@ -110,6 +125,17 @@ xcomp01_h0expopt_blk
 ( env0:
 ! compenv
 , opt0: h0expopt, tres: l1tmp): l1blk
+//
+(* ****** ****** *)
+//
+fun
+xcomp01_h0dcl
+( env0:
+! compenv, dcl0: h0dcl): l1dcl
+fun
+xcomp01_h0dclist
+( env0:
+! compenv, dcls: h0dclist): l1dclist
 //
 (* ****** ****** *)
 

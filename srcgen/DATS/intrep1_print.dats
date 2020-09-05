@@ -162,6 +162,11 @@ fprint!
 ( out
 , "L1DCLlocal(", head, "; ", body, ")")
 //
+| L1DCLnone0() =>
+  fprint!(out, "L1DCLnone0(", ")")
+| L1DCLnone1(hdcl) =>
+  fprint!(out, "L1DCLnone1(", hdcl, ")")
+//
 | _ (* else *) => fprint!(out, "L1DCL...(...)")
 //
 ) (* end of [fprint_l1dcl] *)

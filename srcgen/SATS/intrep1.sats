@@ -226,6 +226,8 @@ l1dcl_node =
 //
 | L1DCLdatatype of (htcstlst)
 //
+| L1DCLnone0 of () | L1DCLnone1 of h0dcl
+//
 (* ****** ****** *)
 //
 fun
