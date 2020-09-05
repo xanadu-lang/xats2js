@@ -285,15 +285,50 @@ l1blk_some(cmds: l1cmdlst): l1blk
 (* ****** ****** *)
 //
 datatype
+lvaldecl =
+LVALDECL of @{
+  loc= loc_t
+, pat= h0pat
+, def= l1blk
+}
+//
+typedef
+lvaldeclist = List0(lvaldecl)
+//
+(* ****** ****** *)
+//
+datatype
+lvardecl =
+LVARDECL of @{
+  loc= loc_t
+, hdv= hdvar
+, ini= l1blk
+}
+//
+typedef
+lvardeclist = List0(lvardecl)
+//
+(* ****** ****** *)
+//
+datatype
 l1dcl_node =
 //
 | L1DCLnil of ()
 | L1DCLlist of (l1dclist)
 //
-| L1DCLlocal of
-  (l1dclist(*head*), l1dclist(*body*))
+|
+L1DCLlocal of
+( l1dclist(*head*)
+, l1dclist(*body*))
 //
-| L1DCLdatatype of (htcstlst)
+(*
+|
+L1DCLfundecl of (lfundeclist)
+*)
+|
+L1DCLvaldecl of (lvaldeclist)
+|
+L1DCLvardecl of (lvardeclist)
 //
 | L1DCLnone0 of () | L1DCLnone1 of h0dcl
 //

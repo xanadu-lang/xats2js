@@ -150,6 +150,13 @@ L1VALchr(tok) =>
 fprint!(out, "L1VALchr(", tok, ")")
 //
 |
+L1VALctag(l1v1) =>
+fprint!(out, "L1VALctag(", l1v1, ")")
+|
+L1VALcarg(l1v1, idx2) =>
+fprint!
+(out, "L1VALctag(", l1v1, "; ", idx2, ")")
+|
 L1VALnone0() =>
 fprint!(out, "L1VALnone0(", ")")
 |
@@ -178,16 +185,44 @@ case+
 x0.node() of
 //
 |
-L1CMDmov(tmp0, l0v1) =>
+L1CMDmov
+(tres, l0v1) =>
 fprint!
 ( out
-, "L1CMDmov(", tmp0, "; ", l0v1, ")")
+, "L1CMDmov(", tres, "; ", l0v1, ")")
 //
-| L1CMDapp(tmp0, l0v1, l0vs) =>
-  fprint!
-  ( out
-  , "L1CMDapp("
-  , tmp0, "; ", l0v1, "; ", l0vs, ")")
+|
+L1CMDcon
+(tres, hdc1, l0vs) =>
+fprint!
+( out
+, "L1CMDcon("
+, tres, "; ", hdc1, "; ", l0vs, ")")
+//
+|
+L1CMDapp
+(tres, l0v1, l0vs) =>
+fprint!
+( out
+, "L1CMDapp("
+, tres, "; ", l0v1, "; ", l0vs, ")")
+//
+|
+L1CMDassrt(l1v1) =>
+fprint!(out, "L1CMDassrt(", l1v1, ")")
+|
+L1CMDpatck0
+(tres, h0p1, l1v2) =>
+fprint!
+( out
+, "L1CMDpatck0("
+, tres, "; ", h0p1, "; ", l1v2, ")")
+|
+L1CMDpatck1
+(h0p1, l1v2) =>
+fprint!
+( out
+, "L1CMDpatck1(", h0p1, "; ", l1v2, ")")
 //
 | _ (* else *) => fprint!(out, "L1CMD...(...)")
 //
