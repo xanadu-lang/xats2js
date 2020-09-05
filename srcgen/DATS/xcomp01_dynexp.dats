@@ -495,14 +495,15 @@ let
 val ( ) =
 xcomp01_lcmdpush_nil(env0)
 //
-val l1v1 =
+val
+l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
+val ( ) = (res := Some(l1v1))
 //
-val lbtf =
+val
+lbtf =
 xcomp01_h0pat_ck0(env0, pat, l1v1)
 //
-val ( ) =
-(res := Some(l1v1))
 val ( ) =
 let
   val lcmd =
@@ -575,11 +576,10 @@ xcomp01_lcmdpush_nil(env0)
 //
 val l1v =
 xcomp01_h0exp_val(env0, h0e)
-//
-val (  ) = (res := Some(l1v))
+val ( ) = (res := Some(l1v))
 //
 (*
-val (  ) =
+val ( ) =
 xcomp01_bind(env0, hdv, l1v)
 *)
 //
