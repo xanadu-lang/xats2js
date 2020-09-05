@@ -44,6 +44,28 @@
 (* ****** ****** *)
 //
 datavtype
+hdvarstk =
+|
+hdvarstk_nil of
+  ((*void*))
+|
+hdvarstk_fun0 of
+  (hdvarstk(*rest*))
+//
+|
+hdvarstk_loc1 of
+  (hdvarstk(*rest*))
+|
+hdvarstk_loc2 of
+  (hdvarstk(*rest*))
+//
+|
+hdvarstk_cons of
+  (hdvar, hdvarstk(*rest*))
+//
+(* ****** ****** *)
+//
+datavtype
 l1cmdstk =
 |
 l1cmdstk_nil of
@@ -95,7 +117,9 @@ local
 datavtype
 compenv =
 COMPENV of @{
-  l1cmdstk = l1cmdstk
+  hdvarstk= hdvarstk
+,
+  l1cmdstk= l1cmdstk
 }
 
 absimpl
@@ -114,6 +138,8 @@ println!("compenv_make_nil")
 in
 //
 COMPENV@{
+  hdvarstk = hdvarstk_nil()
+,
   l1cmdstk = l1cmdstk_nil()
 }
 //
@@ -130,6 +156,8 @@ compenv_free_nil
 val+
 @COMPENV(rcd) = env0
 //
+val-
+~hdvarstk_nil() = rcd.hdvarstk
 val-
 ~l1cmdstk_nil() = rcd.l1cmdstk
 //
