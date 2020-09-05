@@ -112,7 +112,7 @@ overload prerr with prerr_l1tmp
 overload fprint with fprint_l1tmp
 //
 (* ****** ****** *)
-
+//
 datatype
 l1val_node =
 //
@@ -128,8 +128,16 @@ l1val_node =
 //
 | L1VALcst of (hdcst)
 //
-| L1VALnone0 of ()
-| L1VALnone1 of (h0exp)
+// HX: ctag: con_tag
+// HX: carg: con_arg
+| L1VALctag of (l1val)
+| L1VALcarg of (l1val, int)
+//
+(*
+| L1VALselab of (l1val, l1lab)
+*)
+//
+| L1VALnone0 of () | L1VALnone1 of (h0exp)
 //
 (* ****** ****** *)
 //
@@ -169,6 +177,10 @@ l1cmd_node =
 //
 | L1CMDmov of
   (l1tmp, l1val)
+//
+| L1CMDcon of
+  ( l1tmp
+  , hdcon(*con*), l1valist(*arg*))
 | L1CMDapp of
   ( l1tmp
   , l1val(*fun*), l1valist(*arg*))

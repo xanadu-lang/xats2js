@@ -108,7 +108,7 @@ val
 (xs1, xs2) =
 auxlst(xs, list_nil()) in (xs := xs1; xs2)
 end
-end
+end // end of [l1cmdstk_pop0_lst]
 //
 (* ****** ****** *)
 
