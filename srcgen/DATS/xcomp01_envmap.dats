@@ -43,6 +43,55 @@
 #staload "./../SATS/xcomp01.sats"
 (* ****** ****** *)
 
+local
+
+datavtype
+l1cmdstk =
+| l1cmdstk_nil of ()
+| l1cmdstk_mark of ()
+| l1cmdstk_cons of (l1cmd, l1cmdstk)
+
+datavtype
+compenv =
+COMPENV of @{
+  l1cmdstk = l1cmdstk
+}
+
+absimpl
+compenv_vtbox = compenv
+
+in
+
+implement
+compenv_make_nil
+  ((*void*)) =
+let
+in
+COMPENV@{
+  l1cmdstk = l1cmdstk_nil()
+}
+end // end of [compenv_make_nil]
+
+(* ****** ****** *)
+
+implement
+compenv_free_nil
+  ( env0 ) =
+  free@(env0) where
+{
+//
+val+
+@COMPENV(rcd) = env0
+//
+val-
+~l1cmdstk_nil() = rcd.l1cmdstk
+//
+} (* end of [compenv_free_nil] *)
+  
+end // end of [local]
+
+(* ****** ****** *)
+
 implement
 xcomp01_lcmdadd(env0, x0) = ()
 
