@@ -237,7 +237,7 @@ l1cmd_node =
 | L1CMDif0 of
   (l1val, l1blk, l1blk)
 //
-| L1CMDassrt of (l1val)
+| L1CMDassrt of (l1btf)
 //
 | L1CMDpatck0 of
   ( l1tmp(*ret*)

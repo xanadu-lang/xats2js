@@ -381,6 +381,29 @@ case+ opt0 of
 //
 (* ****** ****** *)
 
+local
+
+fun
+aux_valdecl
+( env0:
+! compenv
+, dcl0: h0dcl): l1dcl =
+let
+val
+loc0 = dcl0.loc()
+val-
+H0Cvaldecl
+( knd
+, mopt, hvds) = dcl0.node()
+val
+lvds =
+xcomp01_hvaldeclist(env0, hvds)
+in
+l1dcl_make_node(loc0, L1DCLvaldecl(lvds))
+end // end of [aux_valdecl]
+
+in(*in-of-local*)
+
 implement
 xcomp01_h0dcl
   (env0, dcl0) =
@@ -393,6 +416,10 @@ in
 //
 case+
 dcl0.node() of
+//
+| H0Cvaldecl _ =>
+  aux_valdecl(env0, dcl0)
+//
 | _ (* else *) =>
   let
   val loc0 = dcl0.loc()
@@ -401,6 +428,8 @@ dcl0.node() of
   end
 //
 end // end of [xcomp01_h0dcl]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -425,6 +454,142 @@ list_cons(dcl1, dcls) where
 }
 end
 ) (* end of [xcomp01_h0dclist] *)
+
+(* ****** ****** *)
+
+implement
+xcomp01_hvaldecl
+  (env0, dcl0) =
+let
+//
+val+
+HVALDECL
+( rcd ) = dcl0
+//
+val loc = rcd.loc
+val pat = rcd.pat
+val def = rcd.def
+//
+val blk =
+(
+case+ def of
+|
+None() => l1blk_none()
+|
+Some(h0e1) =>
+let
+val ( ) =
+xcomp01_lcmdpush_nil(env0)
+//
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+//
+val lbtf =
+xcomp01_h0pat_ck0(env0, pat, l1v1)
+//
+val ( ) =
+let
+  val lcmd =
+  l1cmd_make_node
+  (loc, L1CMDassrt(lbtf))
+in
+  xcomp01_lcmdadd(env0, lcmd)
+end
+//
+val (  ) =
+xcomp01_h0pat_ck1(env0, pat, l1v1)
+//
+in
+  xcomp01_lcmdpop0_blk(env0)
+end
+)
+in
+  LVALDECL @{
+    loc= loc, pat= pat, def= blk
+  }
+end // end of [xcomp01_hvaldecl]
+
+(* ****** ****** *)
+
+implement
+xcomp01_hvaldeclist
+  (env0, xs) =
+(
+case+ xs of
+|
+list_nil() =>
+list_nil()
+|
+list_cons(x0, xs) =>
+list_cons(x0, xs) where
+{
+val x0 = xcomp01_hvaldecl(env0, x0)
+val xs = xcomp01_hvaldeclist(env0, xs)
+}
+) (* end of [xcomp01_hvaldeclist] *)
+
+(* ****** ****** *)
+
+implement
+xcomp01_hvardecl
+  (env0, dcl0) =
+let
+//
+val+
+HVARDECL
+( rcd ) = dcl0
+//
+val loc = rcd.loc
+val hdv = rcd.hdv
+val ini = rcd.ini
+//
+val blk =
+(
+case+ ini of
+|
+None() => l1blk_none()
+|
+Some(h0e) =>
+let
+val ( ) =
+xcomp01_lcmdpush_nil(env0)
+//
+val l1v =
+xcomp01_h0exp_val(env0, h0e)
+//
+(*
+val (  ) =
+xcomp01_bind(env0, hdv, l1v)
+*)
+//
+in
+  xcomp01_lcmdpop0_blk(env0)
+end
+)
+in
+  LVARDECL @{
+    loc= loc, hdv= hdv, ini= blk
+  }
+end // end of [xcomp01_hvardecl]
+
+(* ****** ****** *)
+
+implement
+xcomp01_hvardeclist
+  (env0, xs) =
+(
+case+ xs of
+|
+list_nil() =>
+list_nil()
+|
+list_cons(x0, xs) =>
+list_cons(x0, xs) where
+{
+val x0 = xcomp01_hvardecl(env0, x0)
+val xs = xcomp01_hvardeclist(env0, xs)
+}
+) (* end of [xcomp01_hvardeclist] *)
 
 (* ****** ****** *)
 

@@ -872,10 +872,12 @@ in
 dcls where
 {
 val () =
-println!
-("process_fpath: dcls = ", dcls)
+fprintln!
+( stdout_ref
+, "process_fpath: dcls = ", dcls)
 }
 end // end of [let]
+val () = fprint_newline(stdout_ref)
 //
 val
 dcls =
@@ -886,11 +888,11 @@ in
 dcls where
 {
 val () =
-println!
-("process_fpath: dcls = ", dcls)
+fprintln!
+( stdout_ref
+, "process_fpath: dcls = ", dcls)
 }
 end // end of [let]
-//
 val () = fprint_newline(stdout_ref)
 //
 } (* end of [then] *)
