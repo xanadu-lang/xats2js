@@ -61,6 +61,11 @@ fprint_val<l1val> = fprint_l1val
 implement
 fprint_val<l1cmd> = fprint_l1cmd
 implement
+fprint_val<l1blk> = fprint_l1blk
+
+(* ****** ****** *)
+
+implement
 fprint_val<l1dcl> = fprint_l1dcl
 
 (* ****** ****** *)
@@ -176,8 +181,6 @@ implement
 prerr_l1cmd(x0) =
 fprint_l1cmd(stderr_ref, x0)
 
-(* ****** ****** *)
-
 implement
 fprint_l1cmd(out, x0) =
 (
@@ -229,6 +232,42 @@ fprint!
 ) (* end of [fprint_l1cmd] *)
 
 (* ****** ****** *)
+//
+implement
+print_l1blk(x0) =
+fprint_l1blk(stdout_ref, x0)
+implement
+prerr_l1blk(x0) =
+fprint_l1blk(stderr_ref, x0)
+//
+implement
+fprint_l1blk(out, x0) =
+(
+case+ x0 of
+|
+L1BLKnone() =>
+fprint!(out, "L1BLKnone(", ")")
+|
+L1BLKsome(cmds) =>
+fprint!(out, "L1BLKsome(", cmds, ")")
+)
+//
+(* ****** ****** *)
+
+local
+
+implement
+fprint_val<l1dcl> = fprint_l1dcl
+(*
+implement
+fprint_val<lfundecl> = fprint_lfundecl
+*)
+implement
+fprint_val<lvaldecl> = fprint_lvaldecl
+implement
+fprint_val<lvardecl> = fprint_lvardecl
+
+in
 
 implement
 fprint_l1dcl(out, x0) =
@@ -243,6 +282,13 @@ fprint!
 ( out
 , "L1DCLlocal(", head, "; ", body, ")")
 //
+|
+L1DCLvaldecl(lvds) =>
+fprint!(out, "L1DCLvaldecl(", lvds, ")")
+|
+L1DCLvardecl(lvds) =>
+fprint!(out, "L1DCLvardecl(", lvds, ")")
+//
 | L1DCLnone0() =>
   fprint!(out, "L1DCLnone0(", ")")
 | L1DCLnone1(hdcl) =>
@@ -252,6 +298,56 @@ fprint!
 //
 ) (* end of [fprint_l1dcl] *)
 
+end // end of [local]
+
+(* ****** ****** *)
+//
+implement
+print_lvaldecl(x0) =
+fprint_lvaldecl(stdout_ref, x0)
+implement
+prerr_lvaldecl(x0) =
+fprint_lvaldecl(stderr_ref, x0)
+//
+implement
+fprint_lvaldecl
+  (out, x0) = let
+//
+val+LVALDECL(rcd) = x0
+//
+in
+  fprint!
+  ( out
+  , "LVALDECL@{"
+  , ", pat=", rcd.pat
+  , ", def=", rcd.def
+  , ", blk=", rcd.blk, "}")
+end // end of [fprint_lvaldecl]
+//
+(* ****** ****** *)
+//
+implement
+print_lvardecl(x0) =
+fprint_lvardecl(stdout_ref, x0)
+implement
+prerr_lvardecl(x0) =
+fprint_lvardecl(stderr_ref, x0)
+//
+implement
+fprint_lvardecl
+  (out, x0) = let
+//
+val+LVARDECL(rcd) = x0
+//
+in
+  fprint!
+  ( out
+  , "LVARDECL@{"
+  , ", pat=", rcd.hdv
+  , ", ini=", rcd.ini
+  , ", blk=", rcd.blk, "}")
+end // end of [fprint_lvardecl]
+//
 (* ****** ****** *)
 
 (* end of [xats_intrep1_print.dats] *)

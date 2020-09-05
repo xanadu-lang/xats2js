@@ -157,23 +157,10 @@ end // end of [local]
 
 (* ****** ****** *)
 
-local
-
-datatype
-l1blk =
-| L1BLKnone of ()
-| L1BLKsome of (l1cmdlst)
-
-absimpl l1blk_tbox = l1blk
-
-in
-
 implement
 l1blk_none() = L1BLKnone()
 implement
 l1blk_some(xs) = L1BLKsome(xs)
-
-end // end of [local]
 
 (* ****** ****** *)
 

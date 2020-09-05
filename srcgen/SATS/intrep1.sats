@@ -71,8 +71,15 @@ typedef l1cmdopt = Option(l1cmd)
 //
 (* ****** ****** *)
 //
+(*
 abstype l1blk_tbox = ptr
 typedef l1blk = l1blk_tbox
+*)
+//
+datatype
+l1blk =
+| L1BLKnone of ()
+| L1BLKsome of (l1cmdlst)
 //
 typedef l1blklst = List0(l1blk)
 //
@@ -276,12 +283,25 @@ overload prerr with prerr_l1cmd
 overload fprint with fprint_l1cmd
 //
 (* ****** ****** *)
-
+//
 fun
 l1blk_none(): l1blk
 fun
 l1blk_some(cmds: l1cmdlst): l1blk
-
+//
+(* ****** ****** *)
+//
+fun
+print_l1blk: print_type(l1blk)
+fun
+prerr_l1blk: prerr_type(l1blk)
+fun
+fprint_l1blk: fprint_type(l1blk)
+//
+overload print with print_l1blk
+overload prerr with prerr_l1blk
+overload fprint with fprint_l1blk
+//
 (* ****** ****** *)
 //
 datatype
@@ -289,11 +309,27 @@ lvaldecl =
 LVALDECL of @{
   loc= loc_t
 , pat= h0pat
-, def= l1blk
+, def= l1valopt, blk= l1blk
 }
 //
 typedef
 lvaldeclist = List0(lvaldecl)
+//
+(* ****** ****** *)
+//
+fun
+print_lvaldecl:
+print_type(lvaldecl)
+fun
+prerr_lvaldecl:
+prerr_type(lvaldecl)
+fun
+fprint_lvaldecl:
+fprint_type(lvaldecl)
+//
+overload print with print_lvaldecl
+overload prerr with prerr_lvaldecl
+overload fprint with fprint_lvaldecl
 //
 (* ****** ****** *)
 //
@@ -302,11 +338,27 @@ lvardecl =
 LVARDECL of @{
   loc= loc_t
 , hdv= hdvar
-, ini= l1blk
+, ini= l1valopt, blk= l1blk
 }
 //
 typedef
 lvardeclist = List0(lvardecl)
+//
+(* ****** ****** *)
+//
+fun
+print_lvardecl:
+print_type(lvardecl)
+fun
+prerr_lvardecl:
+prerr_type(lvardecl)
+fun
+fprint_lvardecl:
+fprint_type(lvardecl)
+//
+overload print with print_lvardecl
+overload prerr with prerr_lvardecl
+overload fprint with fprint_lvardecl
 //
 (* ****** ****** *)
 //

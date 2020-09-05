@@ -48,20 +48,39 @@ hdvarstk =
 |
 hdvarstk_nil of
   ((*void*))
+//
 |
 hdvarstk_fun0 of
   (hdvarstk(*rest*))
 //
 |
-hdvarstk_loc1 of
-  (hdvarstk(*rest*))
-|
-hdvarstk_loc2 of
-  (hdvarstk(*rest*))
-//
-|
 hdvarstk_cons of
   (hdvar, hdvarstk(*rest*))
+//
+(* ****** ****** *)
+//
+fun
+hdvarstk_pop_top
+( xs:
+& hdvarstk >> _): void =
+(
+  xs := auxstk(xs)
+) where
+{
+fun
+auxstk
+(xs
+: hdvarstk): hdvarstk =
+(
+case+ xs of
+//
+| ~
+hdvarstk_cons
+  (x0, xs) => auxstk(xs)
+//
+| _ (* non-hdvarstk *) => (xs)
+)
+} (* end of [hdvarstk_pop_top] *)
 //
 (* ****** ****** *)
 //
@@ -155,6 +174,9 @@ compenv_free_nil
 //
 val+
 @COMPENV(rcd) = env0
+//
+val () =
+hdvarstk_pop_top(rcd.hdvarstk)
 //
 val-
 ~hdvarstk_nil() = rcd.hdvarstk

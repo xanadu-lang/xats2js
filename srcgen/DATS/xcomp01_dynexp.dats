@@ -240,6 +240,16 @@ in(*in-of-let*)
 //
 case+
 h0e0.node() of
+//
+|
+H0Eint(tok) =>
+l1val_make_node
+(loc0, L1VALint(tok))
+|
+H0Ebtf(tok) =>
+l1val_make_node
+(loc0, L1VALbtf(tok))
+//
 |
 H0Edapp _ =>
 let
@@ -276,6 +286,7 @@ in(*in-of-let*)
 //
 case+
 h0e0.node() of
+//
 |
 H0Eif0 _ =>
 auxset_if0(env0, h0e0, tres)
@@ -470,6 +481,9 @@ val loc = rcd.loc
 val pat = rcd.pat
 val def = rcd.def
 //
+var res
+  : l1valopt = None()
+//
 val blk =
 (
 case+ def of
@@ -488,6 +502,8 @@ val lbtf =
 xcomp01_h0pat_ck0(env0, pat, l1v1)
 //
 val ( ) =
+(res := Some(l1v1))
+val ( ) =
 let
   val lcmd =
   l1cmd_make_node
@@ -504,9 +520,9 @@ in
 end
 )
 in
-  LVALDECL @{
-    loc= loc, pat= pat, def= blk
-  }
+LVALDECL@{
+  loc=loc, pat=pat, def=res, blk=blk
+} (* LVALDECL *)
 end // end of [xcomp01_hvaldecl]
 
 (* ****** ****** *)
@@ -543,6 +559,9 @@ val loc = rcd.loc
 val hdv = rcd.hdv
 val ini = rcd.ini
 //
+var res
+  : l1valopt = None()
+//
 val blk =
 (
 case+ ini of
@@ -557,6 +576,8 @@ xcomp01_lcmdpush_nil(env0)
 val l1v =
 xcomp01_h0exp_val(env0, h0e)
 //
+val (  ) = (res := Some(l1v))
+//
 (*
 val (  ) =
 xcomp01_bind(env0, hdv, l1v)
@@ -567,9 +588,9 @@ in
 end
 )
 in
-  LVARDECL @{
-    loc= loc, hdv= hdv, ini= blk
-  }
+LVARDECL@{
+  loc=loc, hdv=hdv, ini=res, blk=blk
+} (* LVARDECL *)
 end // end of [xcomp01_hvardecl]
 
 (* ****** ****** *)

@@ -54,6 +54,13 @@ compenv = compenv_vtbox
 
 (* ****** ****** *)
 //
+vtypedef
+l1tmpopt_vt = Option_vt(l1tmp)
+vtypedef
+l1valopt_vt = Option_vt(l1val)
+//
+(* ****** ****** *)
+//
 fun
 compenv_make_nil
   ((*void*)): compenv
@@ -65,7 +72,29 @@ compenv_free_nil
 //
 fun
 xcomp01_program
-(prog: h0dclist): l1dclist
+  (prog: h0dclist): l1dclist
+//
+(* ****** ****** *)
+//
+fun
+xcomp01_dvaradd_bind
+( env0:
+! compenv
+, hdv0: hdvar
+, l1v1: l1val): void
+//
+fun
+xcomp01_dvaradd_fun0
+  (env0: !compenv): void
+fun
+xcomp01_dvarpop_fun0
+  (env0: !compenv): void
+//
+fun
+xcomp01_dvarfind
+( env0:
+! compenv
+, hdv0: hdvar): l1valopt_vt
 //
 (* ****** ****** *)
 //
