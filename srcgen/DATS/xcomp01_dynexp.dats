@@ -74,6 +74,11 @@ val () = compenv_free_nil(env0)
 
 (* ****** ****** *)
 
+local
+
+in
+
+end // end of [local]
 
 (* ****** ****** *)
 
