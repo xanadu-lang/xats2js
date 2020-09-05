@@ -142,6 +142,11 @@ l1btf =
 | L1BTFval of l1val
 *)
 //
+#define
+L1BTFbtf_tt L1BTFbtf(true)
+#define
+L1BTFbtf_ff L1BTFbtf(false)
+//
 fun
 print_l1btf: print_type(l1btf)
 fun
