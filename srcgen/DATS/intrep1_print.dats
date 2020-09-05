@@ -41,7 +41,7 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 #include
-"./../HATS/libxatsopt.hats"
+"./../HATS/libxats2js.hats"
 //
 (* ****** ****** *)
 #staload $INTREP0(* open *)

@@ -34,7 +34,7 @@
 (* ****** ****** *)
 //
 #include
-"./../HATS/libxatsopt.hats"
+"./../HATS/libxats2js.hats"
 //
 (* ****** ****** *)
 
