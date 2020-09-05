@@ -114,6 +114,48 @@ overload fprint with fprint_l1tmp
 (* ****** ****** *)
 //
 datatype
+l1int =
+| L1INTint of int
+| L1INTtmp of l1tmp
+(*
+| L1INTval of l1val
+*)
+//
+fun
+print_l1int: print_type(l1int)
+fun
+prerr_l1int: prerr_type(l1int)
+fun
+fprint_l1int: fprint_type(l1int)
+//
+overload print with print_l1int
+overload prerr with prerr_l1int
+overload fprint with fprint_l1int
+//
+(* ****** ****** *)
+//
+datatype
+l1btf =
+| L1BTFbtf of bool
+| L1BTFtmp of l1tmp
+(*
+| L1BTFval of l1val
+*)
+//
+fun
+print_l1btf: print_type(l1btf)
+fun
+prerr_l1btf: prerr_type(l1btf)
+fun
+fprint_l1btf: fprint_type(l1btf)
+//
+overload print with print_l1btf
+overload prerr with prerr_l1btf
+overload fprint with fprint_l1btf
+//
+(* ****** ****** *)
+//
+datatype
 l1val_node =
 //
 | L1VALint of (token)
@@ -179,13 +221,23 @@ l1cmd_node =
   (l1tmp, l1val)
 //
 | L1CMDcon of
-  ( l1tmp
-  , hdcon(*con*), l1valist(*arg*))
+  ( l1tmp(*ret*)
+  , hdcon(*con*)
+  , l1valist(*arg*))
 | L1CMDapp of
-  ( l1tmp
-  , l1val(*fun*), l1valist(*arg*))
+  ( l1tmp(*ret*)
+  , l1val(*fun*)
+  , l1valist(*arg*))
 //
-| L1CMDif0 of (l1val, l1blk, l1blk)
+| L1CMDif0 of
+  (l1val, l1blk, l1blk)
+//
+| L1CMDassrt of (l1val)
+//
+| L1CMDpatck0 of
+  ( l1tmp(*ret*)
+  , h0pat, l1val)
+| L1CMDpatck1 of (h0pat, l1val)
 //
 (* ****** ****** *)
 //

@@ -76,7 +76,48 @@ val () = compenv_free_nil(env0)
 
 local
 
+#define
+L1BTFbtf_tt
+L1BTFbtf(true)
+#define
+L1BTFbtf_ff
+L1BTFbtf(false)
+
+in(*in-of-local*)
+
+implement
+xcomp01_h0pat_ck0
+( env0
+, h0p0, l1v1) =
+let
+val
+loc0 = h0p0.loc()
 in
+case+
+h0p0.node() of
+|
+H0Pany _ => L1BTFbtf_tt
+|
+H0Pvar _ => L1BTFbtf_tt
+|
+_ (* else *) =>
+L1BTFtmp(tres) where
+{
+val
+tres =
+l1tmp_new(loc0)
+val
+lcmd =
+l1cmd_make_node
+( loc0
+, L1CMDpatck0
+  (tres, h0p0, l1v1))
+//
+val () =
+xcomp01_lcmdadd(env0, lcmd)
+//
+}
+end // end of [xcomp01_h0pat_ck0]
 
 end // end of [local]
 

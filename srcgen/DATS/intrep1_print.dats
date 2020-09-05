@@ -77,6 +77,52 @@ fprint_l1tmp(out, x0) =
 fprint!(out, "tmp(", x0.stamp(), ")")
 
 (* ****** ****** *)
+//
+implement
+print_l1int(x0) =
+fprint_l1int(stdout_ref, x0)
+implement
+prerr_l1int(x0) =
+fprint_l1int(stderr_ref, x0)
+
+implement
+fprint_l1int(out, x0) =
+(
+case+ x0 of
+| L1INTint(int) =>
+  fprint!(out, "L1INTint(", int, ")")
+| L1INTtmp(tmp) =>
+  fprint!(out, "L1INTtmp(", tmp, ")")
+(*
+| L1INTval(l1v) =>
+  fprint!(out, "L1INTval(", l1v, ")")
+*)
+)
+//
+(* ****** ****** *)
+//
+implement
+print_l1btf(x0) =
+fprint_l1btf(stdout_ref, x0)
+implement
+prerr_l1btf(x0) =
+fprint_l1btf(stderr_ref, x0)
+
+implement
+fprint_l1btf(out, x0) =
+(
+case+ x0 of
+| L1BTFbtf(btf) =>
+  fprint!(out, "L1BTFbtf(", btf, ")")
+| L1BTFtmp(tmp) =>
+  fprint!(out, "L1BTFtmp(", tmp, ")")
+(*
+| L1BTFval(l1v) =>
+  fprint!(out, "L1BTFval(", l1v, ")")
+*)
+)
+//
+(* ****** ****** *)
 
 implement
 print_l1val(x0) =
