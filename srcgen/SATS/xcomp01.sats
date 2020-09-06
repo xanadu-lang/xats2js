@@ -75,6 +75,13 @@ xcomp01_program
   (prog: h0dclist): l1dclist
 //
 (* ****** ****** *)
+fun
+xcomp01_dvarfind
+( env0:
+! compenv
+, hdv0
+: hdvar): l1valopt_vt
+(* ****** ****** *)
 //
 fun
 xcomp01_dvaradd_bind
@@ -89,12 +96,6 @@ xcomp01_dvaradd_fun0
 fun
 xcomp01_dvarpop_fun0
   (env0: !compenv): void
-//
-fun
-xcomp01_dvarfind
-( env0:
-! compenv
-, hdv0: hdvar): l1valopt_vt
 //
 (* ****** ****** *)
 //

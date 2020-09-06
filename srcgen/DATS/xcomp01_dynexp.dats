@@ -160,6 +160,51 @@ end // end of [local]
 local
 
 fun
+auxval_var
+( env0:
+! compenv
+, h0e0: h0exp): l1val =
+let
+//
+val 
+loc0 = h0e0.loc()
+val-
+H0Evar(x0) = h0e0.node()
+//
+val
+opt0 = xcomp01_dvarfind(env0, x0)
+in
+//
+case+ opt0 of
+| ~Some_vt(l1v1) => l1v1
+| ~None_vt((*void*)) =>
+   l1val_make_node(loc0, L1VALnone1(h0e0))
+end // end of [auxval_var]
+fun
+auxval_vknd
+( env0:
+! compenv
+, h0e0: h0exp): l1val =
+let
+//
+val 
+loc0 = h0e0.loc()
+val-
+H0Evknd(k0, x0) = h0e0.node()
+//
+val
+opt0 = xcomp01_dvarfind(env0, x0)
+in
+//
+case+ opt0 of
+| ~Some_vt(l1v1) => l1v1
+| ~None_vt((*void*)) =>
+   l1val_make_node(loc0, L1VALnone1(h0e0))
+end // end of [auxval_vknd]
+
+(* ****** ****** *)
+
+fun
 auxset_dapp
 ( env0:
 ! compenv
@@ -242,14 +287,23 @@ in(*in-of-let*)
 case+
 h0e0.node() of
 //
-|
-H0Eint(tok) =>
-l1val_make_node
-(loc0, L1VALint(tok))
-|
-H0Ebtf(tok) =>
-l1val_make_node
-(loc0, L1VALbtf(tok))
+| H0Eint(tok) =>
+  l1val_make_node
+  (loc0, L1VALint(tok))
+| H0Ebtf(tok) =>
+  l1val_make_node
+  (loc0, L1VALbtf(tok))
+| H0Eflt(tok) =>
+  l1val_make_node
+  (loc0, L1VALflt(tok))
+| H0Estr(tok) =>
+  l1val_make_node
+  (loc0, L1VALstr(tok))
+//
+| H0Evar _ =>
+  auxval_var(env0, h0e0)
+| H0Evknd _ =>
+  auxval_vknd(env0, h0e0)
 //
 |
 H0Edapp _ =>

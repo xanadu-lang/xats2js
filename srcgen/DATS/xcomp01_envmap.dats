@@ -219,6 +219,13 @@ val-
 } (* end of [compenv_free_nil] *)
   
 (* ****** ****** *)
+implement
+xcomp01_dvarfind
+  (env0, x0) =
+(
+  the_dvarmap_search_opt(x0)
+) (* end of [xcomp01_dvarfind] *)
+(* ****** ****** *)
 //
 implement
 xcomp01_dvaradd_bind
