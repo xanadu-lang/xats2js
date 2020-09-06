@@ -665,11 +665,25 @@ H0Cfundecl
 ( knd
 , mopt
 , tqas, hfds) = dcl0.node()
+in
+case+ tqas of
+|
+list_nil() => // fcst: function
+let
 val
 lfds =
 xcomp01_hfundeclist(env0, hfds)
 in
 l1dcl_make_node(loc0, L1DCLfundecl(lfds))
+end
+|
+list_cons _ => // tcst: template
+(
+//
+// HX: should template be compiled?
+//
+  l1dcl_make_node(loc0, L1DCLnone0(*void*))
+)
 end // end of [aux_fundecl]
 
 (* ****** ****** *)
@@ -793,7 +807,19 @@ var res
   : l1valopt = None()
 //
 val () =
-xcomp01_dvaradd_fun0(env0)
+xcomp01_dvaradd_fun0
+  (env0)
+//
+local
+val
+itm =
+l1val_make_node
+(loc, L1VALfcst(hdc))
+in
+val () =
+xcomp01_dvaradd_bind
+(env0, nam, itm(*l1val*))
+end // end of [local]
 //
 val
 blk0 =

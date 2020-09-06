@@ -25,6 +25,6 @@ which is available [here](http://www.ats-lang.org/Downloads.html)
 
 - Xats2js is for debugging the implementation of Xanadu
 
-- Xats2js is not yet meant to be a practical compiler from Xanadu to JS
+- Xats2js is meant to be a practical compiler from Xanadu to JS
 
 - This project should be constantly under construction for quite some time

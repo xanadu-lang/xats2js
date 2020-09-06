@@ -111,11 +111,13 @@ let
 val arg = x0.arg()
 in
 if
-arg > 0
+arg <= 0
 then
-fprint!(out, "arg(", x0.stamp(), ")")
+fprint!
+(out, "tmp(", x0.stamp(), ")")
 else
-fprint!(out, "tmp(", x0.stamp(), ")")
+fprint!
+(out, "arg[", arg, "](", x0.stamp(), ")")
 end // end of [fprint_l1tmp]
 //
 (* ****** ****** *)
@@ -249,6 +251,15 @@ fprint!
 ( out
 , "L1CMDcon("
 , tres, "; ", hdc1, "; ", l0vs, ")")
+(*
+|
+L1CMDcst
+(tres, hdc1, l0vs) =>
+fprint!
+( out
+, "L1CMDcst("
+, tres, "; ", hdc1, "; ", l0vs, ")")
+*)
 //
 |
 L1CMDapp

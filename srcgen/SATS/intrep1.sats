@@ -287,6 +287,12 @@ l1cmd_node =
   ( l1tmp(*ret*)
   , hdcon(*con*)
   , l1valist(*arg*))
+(*
+| L1CMDcst of
+  ( l1tmp(*ret*)
+  , hdcst(*cst*)
+  , l1valist(*arg*))
+*)
 | L1CMDapp of
   ( l1tmp(*ret*)
   , l1val(*fun*)
