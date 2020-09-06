@@ -55,6 +55,17 @@ overload
 fprint with $LEX.fprint_token
 
 (* ****** ****** *)
+implement
+fprint_val<hdvar> = fprint_hdvar
+implement
+fprint_val<hdcon> = fprint_hdcon
+implement
+fprint_val<hdcst> = fprint_hdcst
+implement
+fprint_val<hfarg> = fprint_hfarg
+implement
+fprint_val<htqarg> = fprint_htqarg
+(* ****** ****** *)
 
 implement
 fprint_val<l1val> = fprint_l1val
@@ -69,18 +80,17 @@ implement
 fprint_val<l1dcl> = fprint_l1dcl
 
 (* ****** ****** *)
-
+//
 implement
 print_l1tmp(x0) =
 fprint_l1tmp(stdout_ref, x0)
 implement
 prerr_l1tmp(x0) =
 fprint_l1tmp(stderr_ref, x0)
-
 implement
 fprint_l1tmp(out, x0) =
 fprint!(out, "tmp(", x0.stamp(), ")")
-
+//
 (* ****** ****** *)
 //
 implement
@@ -112,7 +122,7 @@ fprint_l1btf(stdout_ref, x0)
 implement
 prerr_l1btf(x0) =
 fprint_l1btf(stderr_ref, x0)
-
+//
 implement
 fprint_l1btf(out, x0) =
 (
@@ -128,14 +138,14 @@ case+ x0 of
 )
 //
 (* ****** ****** *)
-
+//
 implement
 print_l1val(x0) =
 fprint_l1val(stdout_ref, x0)
 implement
 prerr_l1val(x0) =
 fprint_l1val(stderr_ref, x0)
-
+//
 implement
 fprint_l1val(out, x0) =
 (
@@ -155,6 +165,10 @@ L1VALchr(tok) =>
 fprint!(out, "L1VALchr(", tok, ")")
 //
 |
+L1VALtmp(tmp) =>
+fprint!(out, "L1VALtmp(", tmp, ")")
+//
+|
 L1VALctag(l1v1) =>
 fprint!(out, "L1VALctag(", l1v1, ")")
 |
@@ -171,16 +185,16 @@ fprint!(out, "L1VALnone1(", h0e1, ")")
 | _ (* else *) => fprint!(out, "L1VAL...(...)")
 //
 ) (* end of [fprint_l1val] *)
-
+//
 (* ****** ****** *)
-
+//
 implement
 print_l1cmd(x0) =
 fprint_l1cmd(stdout_ref, x0)
 implement
 prerr_l1cmd(x0) =
 fprint_l1cmd(stderr_ref, x0)
-
+//
 implement
 fprint_l1cmd(out, x0) =
 (
@@ -211,6 +225,14 @@ fprint!
 , tres, "; ", l0v1, "; ", l0vs, ")")
 //
 |
+L1CMDif0
+(l1v1, blk2, blk3) =>
+fprint!
+( out
+, "L1CMDif0("
+, l1v1, "; ", blk2, "; ", blk3, ")")
+//
+|
 L1CMDassrt(l1v1) =>
 fprint!(out, "L1CMDassrt(", l1v1, ")")
 |
@@ -227,10 +249,12 @@ fprint!
 ( out
 , "L1CMDpatck1(", h0p1, "; ", l1v2, ")")
 //
+(*
 | _ (* else *) => fprint!(out, "L1CMD...(...)")
+*)
 //
 ) (* end of [fprint_l1cmd] *)
-
+//
 (* ****** ****** *)
 //
 implement
@@ -258,10 +282,8 @@ local
 
 implement
 fprint_val<l1dcl> = fprint_l1dcl
-(*
 implement
 fprint_val<lfundecl> = fprint_lfundecl
-*)
 implement
 fprint_val<lvaldecl> = fprint_lvaldecl
 implement
@@ -282,6 +304,9 @@ fprint!
 ( out
 , "L1DCLlocal(", head, "; ", body, ")")
 //
+|
+L1DCLfundecl(lfds) =>
+fprint!(out, "L1DCLfundecl(", lfds, ")")
 |
 L1DCLvaldecl(lvds) =>
 fprint!(out, "L1DCLvaldecl(", lvds, ")")
@@ -321,7 +346,7 @@ in
   , "LVALDECL@{"
   , ", pat=", rcd.pat
   , ", def=", rcd.def
-  , ", blk=", rcd.blk, "}")
+  , ", def_blk=", rcd.def_blk, "}")
 end // end of [fprint_lvaldecl]
 //
 (* ****** ****** *)
@@ -345,8 +370,46 @@ in
   , "LVARDECL@{"
   , ", pat=", rcd.hdv
   , ", ini=", rcd.ini
-  , ", blk=", rcd.blk, "}")
+  , ", ini_blk=", rcd.ini_blk, "}")
 end // end of [fprint_lvardecl]
+//
+(* ****** ****** *)
+//
+implement
+print_lfundecl(x0) =
+fprint_lfundecl(stdout_ref, x0)
+implement
+prerr_lfundecl(x0) =
+fprint_lfundecl(stderr_ref, x0)
+//
+implement
+fprint_lfundecl
+  (out, x0) = let
+//
+val+LFUNDECL(rcd) = x0
+//
+in
+//
+case+
+rcd.hag of
+| None() =>
+  fprint!
+  ( out
+  , "LFUNDECL@{"
+  , "nam=", rcd.nam, ", "
+  , "hdc=", rcd.hdc, ", ", "}")
+| Some(rcd_hag) =>
+  fprint!
+  ( out
+  , "LFUNDECL@{"
+  , "nam=", rcd.nam, ", "
+  , "hdc=", rcd.hdc, ", "
+  , "hag=", rcd_hag, ", "
+  , "def=", rcd.def, ", "
+  , "hag_blk=", rcd.hag_blk, ", "
+  , "def_blk=", rcd.def_blk, ", ", "}")
+//
+end // end of [fprint_lfundecl]
 //
 (* ****** ****** *)
 

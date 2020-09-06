@@ -305,11 +305,46 @@ overload fprint with fprint_l1blk
 (* ****** ****** *)
 //
 datatype
+lfundecl =
+LFUNDECL of @{
+  loc= loc_t
+, nam= hdvar
+, hdc= hdcst
+, hag=
+  hfarglstopt
+, def= l1valopt
+, hag_blk= l1blk
+, def_blk= l1blk
+}
+//
+typedef
+lfundeclist = List0(lfundecl)
+//
+(* ****** ****** *)
+//
+fun
+print_lfundecl:
+print_type(lfundecl)
+fun
+prerr_lfundecl:
+prerr_type(lfundecl)
+fun
+fprint_lfundecl:
+fprint_type(lfundecl)
+//
+overload print with print_lfundecl
+overload prerr with prerr_lfundecl
+overload fprint with fprint_lfundecl
+//
+(* ****** ****** *)
+//
+datatype
 lvaldecl =
 LVALDECL of @{
   loc= loc_t
 , pat= h0pat
-, def= l1valopt, blk= l1blk
+, def= l1valopt
+, def_blk= l1blk
 }
 //
 typedef
@@ -338,7 +373,8 @@ lvardecl =
 LVARDECL of @{
   loc= loc_t
 , hdv= hdvar
-, ini= l1valopt, blk= l1blk
+, ini= l1valopt
+, ini_blk= l1blk
 }
 //
 typedef
@@ -373,10 +409,8 @@ L1DCLlocal of
 ( l1dclist(*head*)
 , l1dclist(*body*))
 //
-(*
 |
 L1DCLfundecl of (lfundeclist)
-*)
 |
 L1DCLvaldecl of (lvaldeclist)
 |

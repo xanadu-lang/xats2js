@@ -195,11 +195,11 @@ xcomp01_h0dclist
 fun
 xcomp01_hfundecl
 ( env0:
-! compenv, dcl0: hfundecl): lvaldecl
+! compenv, dcl0: hfundecl): lfundecl
 fun
 xcomp01_hfundeclist
 ( env0:
-! compenv, dcls: hfundeclist): lvaldeclist
+! compenv, dcls: hfundeclist): lfundeclist
 //
 (* ****** ****** *)
 //

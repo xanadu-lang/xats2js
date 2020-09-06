@@ -270,6 +270,7 @@ auxset_if0(env0, h0e0, tres)
 in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
+//
 | _ (* else *) =>
 (
 l1val_make_node(loc0, L1VALnone1(h0e0))
@@ -395,6 +396,28 @@ case+ opt0 of
 local
 
 fun
+aux_fundecl
+( env0:
+! compenv
+, dcl0: h0dcl): l1dcl =
+let
+val
+loc0 = dcl0.loc()
+val-
+H0Cfundecl
+( knd
+, mopt
+, tqas, hfds) = dcl0.node()
+val
+lfds =
+xcomp01_hfundeclist(env0, hfds)
+in
+l1dcl_make_node(loc0, L1DCLfundecl(lfds))
+end // end of [aux_fundecl]
+
+(* ****** ****** *)
+
+fun
 aux_valdecl
 ( env0:
 ! compenv
@@ -413,6 +436,27 @@ in
 l1dcl_make_node(loc0, L1DCLvaldecl(lvds))
 end // end of [aux_valdecl]
 
+(* ****** ****** *)
+
+fun
+aux_vardecl
+( env0:
+! compenv
+, dcl0: h0dcl): l1dcl =
+let
+val
+loc0 = dcl0.loc()
+val-
+H0Cvardecl
+( knd
+, mopt, hvds) = dcl0.node()
+val
+lvds =
+xcomp01_hvardeclist(env0, hvds)
+in
+l1dcl_make_node(loc0, L1DCLvardecl(lvds))
+end // end of [aux_vardecl]
+
 in(*in-of-local*)
 
 implement
@@ -428,8 +472,13 @@ in
 case+
 dcl0.node() of
 //
+| H0Cfundecl _ =>
+  aux_fundecl(env0, dcl0)
+//
 | H0Cvaldecl _ =>
   aux_valdecl(env0, dcl0)
+| H0Cvardecl _ =>
+  aux_vardecl(env0, dcl0)
 //
 | _ (* else *) =>
   let
@@ -465,6 +514,68 @@ list_cons(dcl1, dcls) where
 }
 end
 ) (* end of [xcomp01_h0dclist] *)
+
+(* ****** ****** *)
+
+implement
+xcomp01_hfundecl
+  (env0, dcl0) =
+let
+//
+val+
+HFUNDECL
+( rcd ) = dcl0
+//
+val loc = rcd.loc
+val nam = rcd.nam
+val hdc = rcd.hdc
+val hag = rcd.hag
+val def = rcd.def
+//
+var res
+  : l1valopt = None()
+//
+val
+blk0 =
+(
+case+ hag of
+|
+None() => l1blk_none()
+|
+Some(hfgs) => l1blk_none()
+) : l1blk // end-of-val
+//
+val
+blk1 =
+(
+case+ def of
+|
+None() => l1blk_none()
+|
+Some(h0e1) =>
+let
+val ( ) =
+xcomp01_lcmdpush_nil(env0)
+//
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+val ( ) = (res := Some(l1v1))
+//
+in
+  xcomp01_lcmdpop0_blk( env0 )
+end // end of [Some]
+) : l1blk // end of [val]
+//
+in
+  LFUNDECL@{
+    loc=loc
+  , nam=nam, hdc=hdc
+  , hag=hag
+  , def=res
+  , hag_blk=blk0, def_blk=blk1
+} (* LFUNDECL *)
+end // end of [xcomp01_hfundecl]
 
 (* ****** ****** *)
 
@@ -536,13 +647,15 @@ val (  ) =
 xcomp01_h0pat_ck1(env0, pat, l1v1)
 //
 in
-  xcomp01_lcmdpop0_blk(env0)
-end
-)
+  xcomp01_lcmdpop0_blk( env0 )
+end // end of [Some]
+) : l1blk // end of [val]
+//
 in
-LVALDECL@{
-  loc=loc, pat=pat, def=res, blk=blk
-} (* LVALDECL *)
+  LVALDECL@{
+    loc=loc
+  , pat=pat, def=res, def_blk=blk
+  } (* LVALDECL *)
 end // end of [xcomp01_hvaldecl]
 
 (* ****** ****** *)
@@ -604,12 +717,14 @@ xcomp01_bind(env0, hdv, l1v)
 //
 in
   xcomp01_lcmdpop0_blk(env0)
-end
-)
+end // end of [Some]
+) : l1blk // end of [val]
+//
 in
-LVARDECL@{
-  loc=loc, hdv=hdv, ini=res, blk=blk
-} (* LVARDECL *)
+  LVARDECL@{
+    loc=loc
+  , hdv=hdv, ini=res, ini_blk=blk
+  } (* LVARDECL *)
 end // end of [xcomp01_hvardecl]
 
 (* ****** ****** *)
