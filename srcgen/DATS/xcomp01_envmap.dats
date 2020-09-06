@@ -34,6 +34,13 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_staload.hats"
+#staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+#include
 "./../HATS/libxats2js.hats"
 //
 (* ****** ****** *)
@@ -41,6 +48,27 @@
 (* ****** ****** *)
 #staload "./../SATS/intrep1.sats"
 #staload "./../SATS/xcomp01.sats"
+(* ****** ****** *)
+static
+fun
+the_dvarmap_search_ref
+(hdv: hdvar): P2tr0(l1val)
+and
+the_dvarmap_search_opt
+(hdv: hdvar): Option_vt(l1val)
+//
+static
+fun
+the_dvarmap_insert_any
+(hdv: hdvar, l1v1: l1val): void
+and
+the_dvarmap_insert_exn
+(hdv: hdvar, l1v1: l1val): void
+//
+static
+fun
+the_dvarmap_remove_exn(hdvar): void
+//
 (* ****** ****** *)
 //
 datavtype
@@ -76,7 +104,12 @@ case+ xs of
 //
 | ~
 hdvarstk_cons
-  (x0, xs) => auxstk(xs)
+  (x0, xs) =>
+  auxstk(xs) where
+{
+  val () = 
+  the_dvarmap_remove_exn(x0)
+}
 //
 | _ (* non-hdvarstk *) => (xs)
 )
@@ -186,9 +219,30 @@ val-
 } (* end of [compenv_free_nil] *)
   
 (* ****** ****** *)
+//
+implement
+xcomp01_dvaradd_bind
+  (env0, x0, v0) =
+  fold@(env0) where
+{
+//
+val+
+@COMPENV(rcd) = env0
+//
+val xs = rcd.hdvarstk
+//
+val () =
+the_dvarmap_insert_exn(x0, v0)
+//
+val () =
+rcd.hdvarstk := hdvarstk_cons(x0, xs)
+//
+} (* end of [xcomp01_dvaradd_bind] *)
+//
+(* ****** ****** *)
 
 implement
-xcomp01_lcmdadd
+xcomp01_lcmdadd_lcmd
   (env0, x0) =
   fold@(env0) where
 {
@@ -196,11 +250,12 @@ xcomp01_lcmdadd
 val+
 @COMPENV(rcd) = env0
 //
-val () =
-rcd.l1cmdstk :=
-l1cmdstk_cons(x0, rcd.l1cmdstk)
+val xs = rcd.l1cmdstk
 //
-} (* end of [xcomp01_lcmdadd] *)
+val () =
+rcd.l1cmdstk := l1cmdstk_cons(x0, xs)
+//
+} (* end of [xcomp01_lcmdadd_lcmd] *)
 
 (* ****** ****** *)
 
@@ -251,6 +306,164 @@ xcomp01_lcmdpop0_blk
   ( xcomp01_lcmdpop0_lst(env0) )
 )
 //
+(* ****** ****** *)
+
+local
+
+(* ****** ****** *)
+
+#staload
+"libats/SATS\
+/linmap_avltree.sats"
+#staload _ =
+"libats/DATS\
+/linmap_avltree.dats"
+
+(* ****** ****** *)
+
+extern
+prfun
+lemma_p2tr_param
+{a:vt0p}
+{l:addr}(cp: p2tr(a, l)): [l >= null] void
+
+(* ****** ****** *)
+
+in(*in-of-local*)
+
+(* ****** ****** *)
+
+local
+
+typedef
+key = hdvar
+and
+itm = l1val
+vtypedef
+dvarmap = map(key, itm)
+
+var
+the_dvarmap =
+linmap_make_nil<>{key,itm}()
+val
+the_dvarmap = addr@the_dvarmap
+
+implement
+compare_key_key<key>
+  (k1, k2) = let
+//
+val x1 =
+$effmask_all(k1.stamp())
+and x2 =
+$effmask_all(k2.stamp())
+//
+in $STM.compare_stamp_stamp(x1, x2) end
+
+(* ****** ****** *)
+
+in(*in-of-local*)
+
+(* ****** ****** *)
+
+implement
+the_dvarmap_search_ref
+  (hdv0) = let
+//
+val
+map =
+$UN.ptr0_get<dvarmap>(the_dvarmap)
+val ref =
+linmap_search_ref<key,itm>(map,hdv0)
+//
+in
+let
+prval () = $UN.cast2void(map)
+prval () = lemma_p2tr_param(ref) in ref
+end
+end // end of [the_dvarmap_search_ref]
+
+implement
+the_dvarmap_search_opt
+  (hdv0) = let
+//
+val
+ref = the_dvarmap_search_ref(hdv0)
+//
+in
+//
+if
+iseqz(ref)
+then None_vt()
+else Some_vt($UN.p2tr_get<itm>(ref))
+//
+end // end of [the_dvarmap_search_opt]
+
+(* ****** ****** *)
+
+implement
+the_dvarmap_insert_any
+  (hdv0, l1v1) = let
+//
+var
+map =
+$UN.ptr0_get<dvarmap>(the_dvarmap)
+//
+in
+(
+$UN.ptr0_set<dvarmap>(the_dvarmap, map)
+) where
+{
+val () =
+linmap_insert_any<key,itm>(map, hdv0, l1v1)
+}
+end // end of [the_dvarmap_insert_any]
+
+implement
+the_dvarmap_insert_exn
+  (hdv0, l1v1) = let
+//
+var
+map =
+$UN.ptr0_get<dvarmap>(the_dvarmap)
+//
+in
+(
+$UN.ptr0_set<dvarmap>(the_dvarmap, map)
+) where
+{
+val-
+~None_vt() =
+linmap_insert_opt<key,itm>(map, hdv0, l1v1)
+}
+end // end of [the_dvarmap_insert_exn]
+
+(* ****** ****** *)
+
+implement
+the_dvarmap_remove_exn
+  (hdv0) = let
+//
+var
+map =
+$UN.ptr0_get<dvarmap>(the_dvarmap)
+//
+in
+(
+$UN.ptr0_set<dvarmap>(the_dvarmap, map)
+) where
+{
+val-true = linmap_remove<key,itm>(map, hdv0)
+}
+end // end of [the_dvarmap_remove_exn]
+
+(* ****** ****** *)
+
+end // end of [local]
+
+(* ****** ****** *)
+
+end // end of [local]
+
 (* ****** ****** *)
 
 (* end of [xats_xcomp01_envmap.dats] *)

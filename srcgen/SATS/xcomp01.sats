@@ -99,7 +99,7 @@ xcomp01_dvarfind
 (* ****** ****** *)
 //
 fun
-xcomp01_lcmdadd
+xcomp01_lcmdadd_lcmd
 ( env0:
 ! compenv, lcmd: l1cmd): void
 //

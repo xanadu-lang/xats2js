@@ -110,7 +110,7 @@ l1cmd_make_node
   (tres, h0p0, l1v1))
 //
 val () =
-xcomp01_lcmdadd(env0, lcmd)
+xcomp01_lcmdadd_lcmd(env0, lcmd)
 //
 }
 end // end of [xcomp01_h0pat_ck0]
@@ -143,14 +143,13 @@ h0p0.node() of
 *)
 //
 | _ (* else *) =>
-  (
-    xcomp01_lcmdadd(env0, lcmd)
-  ) where
-  {
+  let
   val lcmd =
   l1cmd_make_node
   (loc0, L1CMDpatck1(h0p0, l1v1))
-  }
+  in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+  end
 //
 end // end of [xcomp01_h0pat_ck1]
 
@@ -185,7 +184,7 @@ l1cmd_make_node
 ( loc0
 , L1CMDapp(tres, l1f0, l1vs))
 in
-  xcomp01_lcmdadd(env0, lcmd)
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
 end where
 {
 val l1f0 =
@@ -220,13 +219,15 @@ val blk3 =
 xcomp01_h0expopt_blk(env0, opt3, tres)
 //
 in
-  xcomp01_lcmdadd(env0, lcmd) where
-  {
-    val
-    lcmd =
-    l1cmd_make_node
-    (loc0, L1CMDif0(l1v1, blk2, blk3))
-  }
+  let
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0
+  , L1CMDif0(l1v1, blk2, blk3))
+  in
+    xcomp01_lcmdadd_lcmd(env0, lcmd)
+  end
 end // end of [auxset_if0]
 
 in(*in-of-local*)
@@ -296,12 +297,14 @@ let
   val l1v0 =
   xcomp01_h0exp_val(env0, h0e0)
 in
-  xcomp01_lcmdadd(env0, cmd0) where
-  {
+let
   val cmd0 =
-  l1cmd_make_node(loc0, L1CMDmov(tres, l1v0))
-  }
+  l1cmd_make_node
+  (loc0, L1CMDmov(tres, l1v0))
+in
+  xcomp01_lcmdadd_lcmd(env0, cmd0)
 end
+end // end of [H0Eif0]
 //
 end // end of [xcomp01_h0exp_val]
 
@@ -621,34 +624,35 @@ case+ def of
 None() => l1blk_none()
 |
 Some(h0e1) =>
-let
-val ( ) =
+(
+xcomp01_lcmdpop0_blk(env0)
+) where
+{
+val () =
 xcomp01_lcmdpush_nil(env0)
 //
 val
 l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
-val ( ) = (res := Some(l1v1))
+val () = (res := Some(l1v1))
 //
 val
 lbtf =
 xcomp01_h0pat_ck0(env0, pat, l1v1)
 //
-val ( ) =
+val () =
 let
   val lcmd =
   l1cmd_make_node
   (loc, L1CMDassrt(lbtf))
 in
-  xcomp01_lcmdadd(env0, lcmd)
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
 end
 //
-val (  ) =
+val () =
 xcomp01_h0pat_ck1(env0, pat, l1v1)
 //
-in
-  xcomp01_lcmdpop0_blk( env0 )
-end // end of [Some]
+} (* end of [Some] *)
 ) : l1blk // end of [val]
 //
 in
