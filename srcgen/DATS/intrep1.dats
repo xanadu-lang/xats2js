@@ -68,6 +68,29 @@ ltcst_tbox = $rec
 } // end of [ltcst]
 
 in (* in-of-local *)
+
+implement
+ltcst_new_hdc
+  (loc, hdc) =
+$rec
+{
+  ltcst_loc= loc
+, ltcst_hdc= hdc
+, ltcst_stamp= stamp(*unicity*)
+} where
+{
+  val stamp = ltcst_stamp_new()
+}
+
+(* ****** ****** *)
+
+implement
+ltcst_get_loc(ltc) = ltc.ltcst_loc
+implement
+ltcst_get_hdc(ltc) = ltc.ltcst_hdc
+implement
+ltcst_get_stamp(ltc) = ltc.ltcst_stamp
+
 end // end of [local]
 (* ****** ****** *)
 

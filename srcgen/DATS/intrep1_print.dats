@@ -68,17 +68,35 @@ fprint_val<htqarg> = fprint_htqarg
 (* ****** ****** *)
 
 implement
+fprint_val<ltcst> = fprint_ltcst
+implement
+fprint_val<l1tmp> = fprint_l1tmp
+
+(* ****** ****** *)
+implement
 fprint_val<l1val> = fprint_l1val
 implement
 fprint_val<l1cmd> = fprint_l1cmd
 implement
 fprint_val<l1blk> = fprint_l1blk
-
 (* ****** ****** *)
 
 implement
 fprint_val<l1dcl> = fprint_l1dcl
 
+(* ****** ****** *)
+//
+implement
+print_ltcst(x0) =
+fprint_ltcst(stdout_ref, x0)
+implement
+prerr_ltcst(x0) =
+fprint_ltcst(stderr_ref, x0)
+implement
+fprint_ltcst(out, x0) =
+fprint!
+(out, x0.hdc(), "(", x0.stamp(), ")")
+//
 (* ****** ****** *)
 //
 implement
@@ -167,6 +185,13 @@ fprint!(out, "L1VALchr(", tok, ")")
 |
 L1VALtmp(tmp) =>
 fprint!(out, "L1VALtmp(", tmp, ")")
+//
+|
+L1VALfcst(hdc) =>
+fprint!(out, "L1VALfcst(", hdc, ")")
+|
+L1VALtcst(ltc) =>
+fprint!(out, "L1VALtcst(", ltc, ")")
 //
 |
 L1VALctag(l1v1) =>

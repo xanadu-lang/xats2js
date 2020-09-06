@@ -222,6 +222,32 @@ end // end of [auxval_vknd]
 (* ****** ****** *)
 
 fun
+auxval_timp
+( env0:
+! compenv
+, h0e0: h0exp): l1val =
+let
+val
+loc0 = h0e0.loc()
+val-
+H0Etimp
+( stmp
+, h0e1, targ
+, hdcl, tsub) = h0e0.node()
+//
+val-
+H0Etcst
+(htia, hdc1) = h0e1.node()
+val
+ltc1 = ltcst_new_hdc(loc0, hdc1)
+//
+in
+  l1val_make_node(loc0, L1VALtcst(ltc1))
+end // end of [auxval_timp]
+
+(* ****** ****** *)
+
+fun
 auxset_dapp
 ( env0:
 ! compenv
@@ -321,6 +347,9 @@ h0e0.node() of
   auxval_var(env0, h0e0)
 | H0Evknd _ =>
   auxval_vknd(env0, h0e0)
+//
+| H0Etimp _ =>
+  auxval_timp(env0, h0e0)
 //
 |
 H0Edapp _ =>

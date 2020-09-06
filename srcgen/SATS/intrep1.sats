@@ -104,18 +104,36 @@ typedef l1dclopt = Option(l1dcl)
 (* ****** ****** *)
 //
 fun
-ltcst_new(loc: loc_t): ltcst
+ltcst_new_hdc
+(loc: loc_t, hdc: hdcst): ltcst
+//
+(* ****** ****** *)
 fun
 ltcst_get_loc(ltcst): loc_t
 overload .loc with ltcst_get_loc
+fun
+ltcst_get_hdc(ltcst): hdcst
+overload .hdc with ltcst_get_hdc
+(* ****** ****** *)
 fun
 ltcst_stamp_new((*void*)): stamp
 fun
 ltcst_get_stamp(ltcst): stamp
 overload .stamp with ltcst_get_stamp
-//
 (* ****** ****** *)
 //
+fun
+print_ltcst: print_type(ltcst)
+fun
+prerr_ltcst: prerr_type(ltcst)
+fun
+fprint_ltcst: fprint_type(ltcst)
+//
+overload print with print_ltcst
+overload prerr with prerr_ltcst
+overload fprint with fprint_ltcst
+//
+(* ****** ****** *)
 fun
 l1tmp_new(loc: loc_t): l1tmp
 fun
@@ -127,6 +145,7 @@ l1tmp_new_arg
 fun
 l1tmp_get_arg(tmp: l1tmp): int
 overload .arg with l1tmp_get_arg
+(* ****** ****** *)
 fun
 l1tmp_stamp_new((*void*)): stamp
 fun
