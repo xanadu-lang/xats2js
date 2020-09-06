@@ -211,10 +211,8 @@ val+
 val () =
 hdvarstk_pop_top(rcd.hdvarstk)
 //
-val-
-~hdvarstk_nil() = rcd.hdvarstk
-val-
-~l1cmdstk_nil() = rcd.l1cmdstk
+val-~hdvarstk_nil() = rcd.hdvarstk
+val-~l1cmdstk_nil() = rcd.l1cmdstk
 //
 } (* end of [compenv_free_nil] *)
   
@@ -225,6 +223,45 @@ xcomp01_dvarfind
 (
   the_dvarmap_search_opt(x0)
 ) (* end of [xcomp01_dvarfind] *)
+(* ****** ****** *)
+//
+implement
+xcomp01_dvaradd_fun0
+  (env0) =
+  fold@(env0) where
+{
+//
+val+
+@COMPENV(rcd) = env0
+//
+val xs = rcd.hdvarstk
+val xs = hdvarstk_fun0(xs)
+val () = rcd.hdvarstk := xs
+//
+} (* end of [xcomp01_dvaradd_fun0] *)
+//
+implement
+xcomp01_dvarpop_fun0
+  (env0) =
+  fold@(env0) where
+{
+//
+val+
+@COMPENV(rcd) = env0
+//
+val () =
+hdvarstk_pop_top(rcd.hdvarstk)
+//
+val () =
+(
+  rcd.hdvarstk := xs
+) where
+{
+val-
+~hdvarstk_fun0(xs) = rcd.hdvarstk
+}
+} (* end of [xcomp01_dvarpop_fun0] *)
+//
 (* ****** ****** *)
 //
 implement

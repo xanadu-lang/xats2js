@@ -86,17 +86,18 @@ let
 val
 loc0 = h0p0.loc()
 in
+//
 case+
 h0p0.node() of
 //
-| H0Pany _ =>
-  L1BTFbtf_tt
-| H0Pvar _ =>
-  L1BTFbtf_tt
+|
+H0Pany _ => L1BTFbtf_tt
+|
+H0Pvar _ => L1BTFbtf_tt
 //
 |
 _ (* else *) =>
-L1BTFtmp(tres) where
+  L1BTFtmp(tres) where
 {
 //
 val
@@ -113,7 +114,8 @@ val () =
 xcomp01_lcmdadd_lcmd(env0, lcmd)
 //
 }
-end // end of [xcomp01_h0pat_ck0]
+// (* rest of [h0pat] *)
+end // end of [xcomp01_h0pat_ck01]
 
 end // end of [local]
 
@@ -161,14 +163,166 @@ h0p0.node() of
 |
 _ (* else *) =>
 let
-  val lcmd =
-  l1cmd_make_node
-  (loc0, L1CMDpatck1(h0p0, l1v1))
+val lcmd =
+l1cmd_make_node
+(loc0, L1CMDpatck1(h0p0, l1v1))
 in
   xcomp01_lcmdadd_lcmd(env0, lcmd)
 end
 //
 end // end of [xcomp01_h0pat_ck1]
+
+end // end of [local]
+
+(* ****** ****** *)
+implement
+xcomp01_h0pat_ck01
+(env0, h0p0, l1v1) =
+let
+val
+loc0 = h0p0.loc()
+val
+ltbf =
+xcomp01_h0pat_ck0
+(env0, h0p0, l1v1)
+val
+lcmd =
+l1cmd_make_node
+(loc0, L1CMDassrt(ltbf))
+val () =
+xcomp01_lcmdadd_lcmd(env0, lcmd)
+//
+in
+xcomp01_h0pat_ck1(env0, h0p0, l1v1)
+end // end of [xcomp01_h0pat_ck01]
+(* ****** ****** *)
+
+local
+
+(* ****** ****** *)
+//
+fun
+auxpat_ck01
+( env0:
+! compenv
+, arg0: int
+, h0p1: h0pat): void =
+let
+//
+val
+loc0 = h0p1.loc()
+//
+val l1v0 =
+l1val_make_node
+( loc0
+, L1VALtmp(tmp0)) where
+{
+val tmp0 =
+l1tmp_new_arg(loc0, arg0)
+}
+//
+in
+xcomp01_h0pat_ck01(env0, h0p1, l1v0)
+end // end of [auxpat_ck01]
+//
+(* ****** ****** *)
+//
+fun
+auxnps_ck01
+( env0:
+! compenv
+, arg0: int
+, npf0: int
+, h0ps: h0patlst): int =
+(
+case+
+h0ps of
+|
+list_nil() => arg0
+|
+list_cons(h0p1, h0ps) =>
+(
+if
+npf0 > 0
+then
+let
+val npf0 = npf0 - 1
+in
+auxnps_ck01
+(env0, arg0, npf0, h0ps)
+end // end of [then]
+else let
+val
+arg0 = arg0 + 1
+val () =
+auxpat_ck01(env0, arg0, h0p1)
+in
+  auxnps_ck01(env0, arg0, npf0, h0ps)
+end // end of [else]
+)
+) (* end of [auxnps_ck01] *)
+//
+(* ****** ****** *)
+//
+fun
+auxhfg_ck01
+( env0:
+! compenv
+, arg0: int
+, hfg0: hfarg): int =
+(
+case+
+hfg0.node() of
+//
+| HFARGnpats
+  (npf0, h0ps) =>
+  auxnps_ck01
+  ( env0
+  , arg0, npf0, h0ps)
+//
+| HFARGnone1(ptr) => arg0
+)
+and
+auxlst_ck01
+( env0:
+! compenv
+, arg0: int
+, hfgs: hfarglst): int =
+(
+case+ hfgs of
+|
+list_nil() => arg0
+|
+list_cons(x0, xs) =>
+let
+  val arg1 =
+  auxhfg_ck01(env0, arg0, x0)
+in
+  auxlst_ck01(env0, arg1, xs)
+ end // list_cons
+) (* end of [auxlst_ck01] *)
+//
+(* ****** ****** *)
+
+in(*in-of-local*)
+
+implement
+xcomp01_hfarglst_ck01
+  (env0, hfgs) =
+(
+xcomp01_lcmdpop0_blk(env0)
+) where
+{
+//
+  val () =
+  xcomp01_lcmdpush_nil(env0)
+//
+  val i0 = 0 (* arg index *)
+//
+  val narg =
+  auxlst_ck01(env0, i0, hfgs)
+//
+} // end of [xcomp01_hfarglst_ck01]
 
 end // end of [local]
 
@@ -638,6 +792,9 @@ val def = rcd.def
 var res
   : l1valopt = None()
 //
+val () =
+xcomp01_dvaradd_fun0(env0)
+//
 val
 blk0 =
 (
@@ -645,7 +802,8 @@ case+ hag of
 |
 None() => l1blk_none()
 |
-Some(hfgs) => l1blk_none()
+Some(hfgs) =>
+xcomp01_hfarglst_ck01(env0, hfgs)
 ) : l1blk // end-of-val
 //
 val
@@ -670,6 +828,11 @@ in
 end // end of [Some]
 ) : l1blk // end of [val]
 //
+//
+in
+let
+  val () =
+  xcomp01_dvarpop_fun0( env0 )
 in
   LFUNDECL@{
     loc=loc
@@ -678,6 +841,7 @@ in
   , def=res
   , hag_blk=blk0, def_blk=blk1
 } (* LFUNDECL *)
+end
 end // end of [xcomp01_hfundecl]
 
 (* ****** ****** *)
@@ -736,21 +900,8 @@ l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
 val () = (res := Some(l1v1))
 //
-val
-lbtf =
-xcomp01_h0pat_ck0(env0, pat, l1v1)
-//
 val () =
-let
-  val lcmd =
-  l1cmd_make_node
-  (loc, L1CMDassrt(lbtf))
-in
-  xcomp01_lcmdadd_lcmd(env0, lcmd)
-end
-//
-val () =
-xcomp01_h0pat_ck1(env0, pat, l1v1)
+xcomp01_h0pat_ck01(env0, pat, l1v1)
 //
 } (* end of [Some] *)
 ) : l1blk // end of [val]

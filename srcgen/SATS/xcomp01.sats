@@ -139,7 +139,22 @@ fun
 xcomp01_h0pat_ck1
 ( env0:
 ! compenv
-, h0p0: h0pat, l1v1: l1val): void
+, h0p0
+: h0pat, l1v1: l1val): void
+//
+fun
+xcomp01_h0pat_ck01
+( env0:
+! compenv
+, h0p0
+: h0pat, l1v1: l1val): void
+//
+(* ****** ****** *)
+//
+fun
+xcomp01_hfarglst_ck01
+( env0:
+! compenv, hfgs: hfarglst): l1blk
 //
 (* ****** ****** *)
 

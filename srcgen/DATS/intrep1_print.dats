@@ -107,7 +107,16 @@ prerr_l1tmp(x0) =
 fprint_l1tmp(stderr_ref, x0)
 implement
 fprint_l1tmp(out, x0) =
+let
+val arg = x0.arg()
+in
+if
+arg > 0
+then
+fprint!(out, "arg(", x0.stamp(), ")")
+else
 fprint!(out, "tmp(", x0.stamp(), ")")
+end // end of [fprint_l1tmp]
 //
 (* ****** ****** *)
 //

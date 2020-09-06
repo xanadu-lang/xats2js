@@ -157,6 +157,10 @@ $rec
 implement
 l1tmp_get_loc(tmp) = tmp.l1tmp_loc
 implement
+l1tmp_get_arg(tmp) = tmp.l1tmp_arg
+implement
+l1tmp_get_ref(tmp) = tmp.l1tmp_ref
+implement
 l1tmp_get_stamp(tmp) = tmp.l1tmp_stamp
 
 (* ****** ****** *)

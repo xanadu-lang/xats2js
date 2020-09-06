@@ -137,14 +137,18 @@ overload fprint with fprint_ltcst
 fun
 l1tmp_new(loc: loc_t): l1tmp
 fun
+l1tmp_new_arg
+(loc: loc_t, idx: int): l1tmp
+//
+fun
 l1tmp_get_loc(l1tmp): loc_t
 overload .loc with l1tmp_get_loc
 fun
-l1tmp_new_arg
-(loc: loc_t, idx: int): l1tmp
-fun
 l1tmp_get_arg(tmp: l1tmp): int
 overload .arg with l1tmp_get_arg
+fun
+l1tmp_get_ref(tmp: l1tmp): int
+overload .ref with l1tmp_get_ref
 (* ****** ****** *)
 fun
 l1tmp_stamp_new((*void*)): stamp
