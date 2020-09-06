@@ -469,6 +469,25 @@ end
 (* ****** ****** *)
 
 implement
+xcomp01_hfundeclist
+  (env0, xs) =
+(
+case+ xs of
+|
+list_nil() =>
+list_nil()
+|
+list_cons(x0, xs) =>
+list_cons(x0, xs) where
+{
+val x0 = xcomp01_hfundecl(env0, x0)
+val xs = xcomp01_hfundeclist(env0, xs)
+}
+) (* end of [xcomp01_hfundeclist] *)
+
+(* ****** ****** *)
+
+implement
 xcomp01_hvaldecl
   (env0, dcl0) =
 let

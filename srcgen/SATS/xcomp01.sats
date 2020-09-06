@@ -193,6 +193,17 @@ xcomp01_h0dclist
 (* ****** ****** *)
 //
 fun
+xcomp01_hfundecl
+( env0:
+! compenv, dcl0: hfundecl): lvaldecl
+fun
+xcomp01_hfundeclist
+( env0:
+! compenv, dcls: hfundeclist): lvaldeclist
+//
+(* ****** ****** *)
+//
+fun
 xcomp01_hvaldecl
 ( env0:
 ! compenv, dcl0: hvaldecl): lvaldecl
