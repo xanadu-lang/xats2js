@@ -121,6 +121,24 @@ end // end of [local]
 
 local
 
+fun
+auxvar
+( env0:
+! compenv
+, h0p0: h0pat
+, l1v1: l1val): void =
+(
+xcomp01_dvaradd_bind
+( env0, hdv0, l1v1 )
+) where
+{
+(*
+val loc0 = h0p0.loc()
+*)
+val-
+H0Pvar(hdv0) = h0p0.node()
+} (* end of [auxvar] *)
+
 in(*in-of-local*)
 
 implement
@@ -137,19 +155,18 @@ h0p0.node() of
 //
 | H0Pany _ => ()
 //
-(*
 | H0Pvar _ =>
   auxvar(env0, h0p0, l1v1)
-*)
 //
-| _ (* else *) =>
-  let
+|
+_ (* else *) =>
+let
   val lcmd =
   l1cmd_make_node
   (loc0, L1CMDpatck1(h0p0, l1v1))
-  in
+in
   xcomp01_lcmdadd_lcmd(env0, lcmd)
-  end
+end
 //
 end // end of [xcomp01_h0pat_ck1]
 
@@ -348,8 +365,8 @@ H0Eif0 _ =>
 auxset_if0(env0, h0e0, tres)
 | _ (* else *) =>
 let
-  val l1v0 =
-  xcomp01_h0exp_val(env0, h0e0)
+val l1v0 =
+xcomp01_h0exp_val(env0, h0e0)
 in
 let
   val cmd0 =

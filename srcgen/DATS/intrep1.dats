@@ -62,6 +62,7 @@ absimpl
 l1tmp_tbox = $rec
 {
   l1tmp_loc= loc_t
+, l1tmp_arg= int // 0/1 : let/arg
 , l1tmp_ref= int // 0/1 : val/ref
 , l1tmp_ret= int // return status
 , l1tmp_stamp= stamp (* unicity *)
@@ -76,6 +77,21 @@ l1tmp_new(loc) =
 $rec
 {
   l1tmp_loc= loc
+, l1tmp_arg= 0(*let*)
+, l1tmp_ref= 0(*val*)
+, l1tmp_ret= 0(*nret*)
+, l1tmp_stamp= stamp(*unicity*)
+} where
+{
+  val stamp = l1tmp_stamp_new()
+}
+implement
+l1tmp_new_arg
+  (loc, idx) =
+$rec
+{
+  l1tmp_loc= loc
+, l1tmp_arg= idx
 , l1tmp_ref= 0(*val*)
 , l1tmp_ret= 0(*nret*)
 , l1tmp_stamp= stamp(*unicity*)
