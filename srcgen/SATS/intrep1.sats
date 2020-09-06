@@ -47,6 +47,16 @@ typedef token = $LEX.token
 //
 (* ****** ****** *)
 //
+(*
+HX-2020-09-06:
+for template instances
+*)
+//
+abstype ltcst_tbox = ptr
+typedef ltcst = ltcst_tbox
+//
+(* ****** ****** *)
+//
 abstype l1tmp_tbox = ptr
 typedef l1tmp = l1tmp_tbox
 //
@@ -94,18 +104,31 @@ typedef l1dclopt = Option(l1dcl)
 (* ****** ****** *)
 //
 fun
-l1tmp_new(loc: loc_t): l1tmp
+ltcst_new(loc: loc_t): ltcst
 fun
-l1tmp_new_arg
-(loc: loc_t, idx: int): l1tmp
-//
+ltcst_get_loc(ltcst): loc_t
+overload .loc with ltcst_get_loc
 fun
-l1tmp_stamp_new((*void*)): stamp
+ltcst_stamp_new((*void*)): stamp
+fun
+ltcst_get_stamp(ltcst): stamp
+overload .stamp with ltcst_get_stamp
 //
 (* ****** ****** *)
+//
+fun
+l1tmp_new(loc: loc_t): l1tmp
 fun
 l1tmp_get_loc(l1tmp): loc_t
 overload .loc with l1tmp_get_loc
+fun
+l1tmp_new_arg
+(loc: loc_t, idx: int): l1tmp
+fun
+l1tmp_get_arg(tmp: l1tmp): int
+overload .arg with l1tmp_get_arg
+fun
+l1tmp_stamp_new((*void*)): stamp
 fun
 l1tmp_get_stamp(l1tmp): stamp
 overload .stamp with l1tmp_get_stamp
@@ -184,7 +207,8 @@ l1val_node =
 //
 | L1VALtmp of (l1tmp)
 //
-| L1VALcst of (hdcst)
+| L1VALfcst of (hdcst)
+| L1VALtcst of (ltcst)
 //
 // HX: ctag: con_tag
 // HX: carg: con_arg

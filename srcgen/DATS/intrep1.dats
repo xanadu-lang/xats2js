@@ -37,9 +37,38 @@
 "./../HATS/libxats2js.hats"
 //
 (* ****** ****** *)
+#staload $INTREP0(* open *)
+(* ****** ****** *)
 
 #staload "./../SATS/intrep1.sats"
 
+(* ****** ****** *)
+
+local
+
+val
+stamper = $STM.stamper_new()
+
+in (* in-of-local *)
+
+implement
+ltcst_stamp_new() = $STM.stamper_getinc(stamper)
+
+end // end of [local]
+
+(* ****** ****** *)
+local
+
+absimpl
+ltcst_tbox = $rec
+{
+  ltcst_loc= loc_t // location
+, ltcst_hdc= hdcst // original
+, ltcst_stamp= stamp (* unicity *)
+} // end of [ltcst]
+
+in (* in-of-local *)
+end // end of [local]
 (* ****** ****** *)
 
 local
@@ -91,7 +120,7 @@ l1tmp_new_arg
 $rec
 {
   l1tmp_loc= loc
-, l1tmp_arg= idx
+, l1tmp_arg= idx // idx >= 1
 , l1tmp_ref= 0(*val*)
 , l1tmp_ret= 0(*nret*)
 , l1tmp_stamp= stamp(*unicity*)
