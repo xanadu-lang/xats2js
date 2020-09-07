@@ -72,6 +72,8 @@ UN = "prelude/SATS/unsafe.sats"
 
 #staload
 _(*TMP*) = "./intrep1_print.dats"
+#staload
+_(*TMP*) = "./intrep1_xemit.dats"
 
 (* ****** ****** *)
 //
@@ -887,10 +889,15 @@ dcls = xcomp01_program(dcls)
 in
 dcls where
 {
+//
+val () = xemit01_program<>(dcls)
+//
+(*
 val () =
 fprintln!
 ( stdout_ref
 , "process_fpath: dcls = ", dcls)
+*)
 }
 end // end of [let]
 val () = fprint_newline(stdout_ref)

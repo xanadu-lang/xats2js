@@ -44,9 +44,8 @@ intrep1.sats \
 
 SRCDATS := \
 intrep1.dats \
-intrep1_emit0.dats \
-intrep1_emit1.dats \
 intrep1_print.dats \
+intrep1_xemit.dats \
 xats2js_main0.dats \
 xcomp01_envmap.dats \
 xcomp01_dynexp.dats \

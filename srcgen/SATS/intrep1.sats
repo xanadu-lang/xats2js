@@ -454,6 +454,9 @@ overload prerr with prerr_lvardecl
 overload fprint with fprint_lvardecl
 //
 (* ****** ****** *)
+
+
+(* ****** ****** *)
 //
 datatype
 l1dcl_node =
@@ -506,6 +509,54 @@ overload print with print_l1dcl
 overload prerr with prerr_l1dcl
 overload fprint with fprint_l1dcl
 //
+(* ****** ****** *)
+//
+// HX-2020-09-06
+// For code emission
+//
+(* ****** ****** *)
+fun{}
+xemit01_out
+((*void*)): FILEref
+(* ****** ****** *)
+typedef
+xemit01_type
+( a: t@ype ) = (a) -> void
+(* ****** ****** *)
+//
+fun{}
+xemit01_int:
+xemit01_type(int)
+fun{}
+xemit01_text:
+xemit01_type(string)
+//
+fun{}
+xemit01_newln(): void
+fun{}
+xemit01_blnk1(): void
+fun{}
+xemit01_nblnk(int): void
+fun{}
+xemit01_indnt(int): void
+//
+fun{}
+xemit01_l1tmp(l1tmp): void
+fun{}
+xemit01_l1val(l1val): void
+fun{}
+xemit01_l1cmd(l1cmd): void
+fun{}
+xemit01_l1blk(l1blk): void
+//
+fun{}
+xemit01_l1dcl(l1dcl): void
+fun{}
+xemit01_l1dclist(l1dclist): void
+//
+(* ****** ****** *)
+fun{}
+xemit01_program(l1dclist): void
 (* ****** ****** *)
 
 (* end of [xats_intrep1.sats] *)
