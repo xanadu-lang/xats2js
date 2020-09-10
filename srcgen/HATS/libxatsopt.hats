@@ -71,6 +71,8 @@ XANADU_targetloc
 (* ****** ****** *)
 //
 #staload
+"{$XANADU}/SATS/intrep0.sats"
+#staload
 "{$XANADU}/SATS/tcomp30.sats"
 //
 (* ****** ****** *)

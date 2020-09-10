@@ -34,6 +34,13 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_staload.hats"
+#staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+#include
 "./../HATS/libxats2js.hats"
 //
 (* ****** ****** *)
@@ -43,165 +50,278 @@
 #staload "./../SATS/intrep1.sats"
 
 (* ****** ****** *)
-
 implement
-{}(*tmp*)
-xemit01_out() = stdout_ref
-
-(* ****** ****** *)
-implement
-{}(*tmp*)
 xemit01_int
-(int) =
+(out, int) =
 (
-fprint(out, int)
-) where
-{
-val out = xemit01_out<>()
-}
+  fprint(out, int)
+)
 (* ****** ****** *)
 implement
-{}(*tmp*)
-xemit01_text
-(text) =
+xemit01_txt
+(out, txt) =
 (
-fprint(out, text)
-) where
-{
-val out = xemit01_out<>()
-}
+fprint(out, txt)
+)
+implement
+xemit01_txtln
+(out, txt) =
+(
+fprint(out, txt);
+fprint(out, '\n');
+)
 (* ****** ****** *)
 implement
-{}(*tmp*)
 xemit01_blnk1
-((*void*)) =
+( out ) =
 (
-fprint(out, ' ')
-) where
-{
-val out = xemit01_out<>()
-}
+  fprint(out, ' ')
+)
 (* ****** ****** *)
 implement
-{}(*tmp*)
 xemit01_newln
-((*void*)) =
+( out ) =
 (
-fprint(out, '\n')
-) where
-{
-val out = xemit01_out<>()
-}
+  fprint(out, '\n')
+)
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 xemit01_nblnk
-  (n0) =
-let
-val
-xblnk1 =
-xemit01_blnk1<>
-in
-  loop(n0) where
+( out, n0) =
+( loop(n0) ) where
 {
 fun
 loop(n0: int): void =
 if n0 > 0
 then
-(xblnk1(); loop(n0-1)) else ()
-}
-end // end of [xemit01_nblnk]
+(xemit01_blnk1(out); loop(n0-1)) else ()
+} (* end of [xemit01_nblnk] *)
 
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 xemit01_indnt
-  (nind) =
-let
-val
-xblnk1 =
-xemit01_blnk1<>
-in
-  loop(nind) where
+(out, nind) =
+loop(nind) where
 {
 fun
 loop(n0: int): void =
 if n0 > 0
 then
-(xblnk1(); loop(n0-1)) else ()
-}
-end // end of [xemit01_indnt]
+(xemit01_blnk1(out); loop(n0-1)) else ()
+} (* end of [xemit01_indnt] *)
 
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 xemit01_l1tmp
-  (tmp0) =
+(out, tmp0) =
 (
 fprint!(out, tmp0)
-) where
-{
-val out = xemit01_out<>()
-}
+)
 
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 xemit01_l1val
-  (l1v0) =
+(out, l1v0) =
 (
 fprint!(out, l1v0)
-) where
-{
-val out = xemit01_out<>()
-}
+)
 
 (* ****** ****** *)
 
-implement
-{}(*tmp*)
-xemit01_l1cmd
-  (lcmd) =
-(
-fprint!(out, lcmd)
-) where
-{
-val out = xemit01_out<>()
-}
-
-(* ****** ****** *)
-
-implement
-{}(*tmp*)
-xemit01_l1dcl
-  (dcl0) =
-(
-fprint!(out, dcl0)
-) where
-{
-val out = xemit01_out<>()
-}
-
-(* ****** ****** *)
-implement
-{}(*tmp*)
-xemit01_program
-  (dcls) = let
+local
 //
-val
-xindnt = xemit01_indnt<>
-val
-xnewln = xemit01_newln<>
-val
-xl1dcl = xemit01_l1dcl<>
+fun
+aux_if0
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+{
+//
+val() =
+xemit01_txtln(out, "if")
+val() = xemit01_txt(out, "(")
+val() = xemit01_l1val(out, l1v1)
+val() = xemit01_txtln(out, ")")
+//
+val() =
+xemit01_txtln(out, "then")
+val() = xemit01_txtln(out, "{")
+val() = xemit01_l1blk(out, blk2)
+val() = xemit01_txtln(out, "} // then")
+//
+val() =
+xemit01_txtln(out, "else")
+val() = xemit01_txtln(out, "{")
+val() = xemit01_l1blk(out, blk3)
+val() = xemit01_txtln(out, "} // else")
+//
+} where
+{
+val-
+L1CMDif0
+(l1v1, blk2, blk3) = lcmd.node()
+} (* where *) // end of [aux_if0]
+
+in(*in-of-local*)
+//
+implement
+xemit01_l1cmd
+(out, lcmd) =
+(
+case+
+lcmd.node() of
+|
+L1CMDif0 _ => aux_if0(out, lcmd)
+//
+|
+_ (* else *) => fprint!(out, lcmd)
+//
+) (* end of [xemit01_l1cmd] *)
+//
+implement
+xemit01_l1cmdlst
+  (out, cmds) =
+(
+  loop( cmds )
+) where
+{
+fun
+loop
+( cmds
+: l1cmdlst): void =
+(
+case+ cmds of
+|
+list_nil() => ()
+|
+list_cons
+(x0, cmds) =>
+loop(cmds) where
+{
+val()=
+xemit01_l1cmd(out, x0)
+val()=
+xemit01_txtln(out, ";")
+}
+)
+} (* end of [xemit01_l1cmdlst] *)
+//
+end // end of [local]
+
+(* ****** ****** *)
+implement
+xemit01_l1blk
+(out, blk0) =
+(
+case+ blk0 of
+|
+L1BLKnone() => ()
+|
+L1BLKsome(cmds) =>
+{
+val()=xemit01_l1cmdlst(out, cmds)
+}
+) (* end of [xemit01_l1blk] *)
+(* ****** ****** *)
+
+local
+
+fun
+aux_fundecl
+( out
+: FILEref
+, dcl0: l1dcl): void =
+let
+//
+fun
+auxlfd0
+( lfd0
+: lfundecl): void =
+{
+val () =
+xemit01_txtln
+(out, "function")
+val () =
+xemit01_txtln(out, "{")
+val () =
+xemit01_l1blk(out, rcd.def_blk)
+val () =
+xemit01_txtln(out, "}")
+} where
+{
+val+LFUNDECL(rcd) = lfd0
+}
+and
+auxlfds
+( lfds
+: lfundeclist): void =
+(
+case lfds of
+|
+list_nil() => ()
+|
+list_cons
+(lfd0, lfds) =>
+{
+  val () = auxlfd0(lfd0)
+  val () = auxlfds(lfds)
+}
+)
 //
 in
+{
+val () = auxlfds(lfds)
+} where {
 //
-auxlst(dcls) where
+val-
+L1DCLfundecl
+  (lfds) = dcl0.node()
+} end // end of [aux_fundecl]
+
+in(*in-of-local*)
+//
+implement
+xemit01_l1dcl
+(out, dcl0) =
+let
+val () =
+fprint!(out, dcl0)
+val () =
+fprint_newline(out)
+in(*in-of-let*)
+//
+case+
+dcl0.node() of
+(*
+|
+L1DCLimpdecl _ =>
+aux_impdecl(out, dcl0)
+*)
+|
+L1DCLfundecl _ =>
+{
+val()=aux_fundecl(out, dcl0)
+}
+//
+| _ (* else *) => fprint!(out, "L1DCL...(...)")
+//
+end // end of [xemit01_l1dcl]
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+implement
+xemit01_program
+  (out, dcls) =
+(
+  auxlst(dcls) 
+) where
 {
 fun
 auxlst
@@ -217,14 +337,14 @@ let
 (*
   val () = xindnt(0)
 *)
-  val () = xl1dcl(x0)
-  val () = xnewln(  ) in auxlst(xs)
+  val () =
+  xemit01_l1dcl(out, x0)
+  val () = xemit01_newln(out)
+  val () = xemit01_newln(out) in auxlst(xs)
 end
 ) (* auxlst *)
-} (* end of [where] *)
-//
-end // end of [xemit01_program]
+} (* end of [xemit01_program] *)
 
 (* ****** ****** *)
 
-(* end of [xats_intrep1_emit0.dats] *)
+(* end of [xats_intrep1_xemit.dats] *)

@@ -362,13 +362,46 @@ overload fprint with fprint_l1blk
 (* ****** ****** *)
 //
 datatype
+limpdecl =
+LIMPDECL of @{
+  loc= loc_t
+, hdc= hdcst
+//
+, hag= hfarglst
+//
+, def= l1valopt
+, hag_blk= l1blk
+, def_blk= l1blk
+}
+//
+(* ****** ****** *)
+//
+fun
+print_limpdecl:
+print_type(limpdecl)
+fun
+prerr_limpdecl:
+prerr_type(limpdecl)
+fun
+fprint_limpdecl:
+fprint_type(limpdecl)
+//
+overload print with print_limpdecl
+overload prerr with prerr_limpdecl
+overload fprint with fprint_limpdecl
+//
+(* ****** ****** *)
+//
+datatype
 lfundecl =
 LFUNDECL of @{
   loc= loc_t
 , nam= hdvar
 , hdc= hdcst
+//
 , hag=
-  hfarglstopt
+    hfarglstopt
+//
 , def= l1valopt
 , hag_blk= l1blk
 , def_blk= l1blk
@@ -454,9 +487,6 @@ overload prerr with prerr_lvardecl
 overload fprint with fprint_lvardecl
 //
 (* ****** ****** *)
-
-
-(* ****** ****** *)
 //
 datatype
 l1dcl_node =
@@ -469,6 +499,8 @@ L1DCLlocal of
 ( l1dclist(*head*)
 , l1dclist(*body*))
 //
+|
+L1DCLimpdecl of (limpdecl)
 |
 L1DCLfundecl of (lfundeclist)
 |
@@ -515,48 +547,54 @@ overload fprint with fprint_l1dcl
 // For code emission
 //
 (* ****** ****** *)
-fun{}
-xemit01_out
-((*void*)): FILEref
-(* ****** ****** *)
-typedef
-xemit01_type
-( a: t@ype ) = (a) -> void
-(* ****** ****** *)
 //
-fun{}
-xemit01_int:
-xemit01_type(int)
-fun{}
-xemit01_text:
-xemit01_type(string)
+fun
+xemit01_int
+(FILEref, int): void
 //
-fun{}
-xemit01_newln(): void
-fun{}
-xemit01_blnk1(): void
-fun{}
-xemit01_nblnk(int): void
-fun{}
-xemit01_indnt(int): void
+fun
+xemit01_txt
+(FILEref, string): void
+fun
+xemit01_txtln
+(FILEref, string): void
 //
-fun{}
-xemit01_l1tmp(l1tmp): void
-fun{}
-xemit01_l1val(l1val): void
-fun{}
-xemit01_l1cmd(l1cmd): void
-fun{}
-xemit01_l1blk(l1blk): void
+fun
+xemit01_newln(FILEref): void
+fun
+xemit01_blnk1(FILEref): void
+fun
+xemit01_nblnk(FILEref, int): void
+fun
+xemit01_indnt(FILEref, int): void
 //
-fun{}
-xemit01_l1dcl(l1dcl): void
-fun{}
-xemit01_l1dclist(l1dclist): void
+fun
+xemit01_l1tmp(FILEref, l1tmp): void
+fun
+xemit01_l1val(FILEref, l1val): void
+fun
+xemit01_l1cmd(FILEref, l1cmd): void
+fun
+xemit01_l1blk(FILEref, l1blk): void
 //
 (* ****** ****** *)
-fun{}
-xemit01_program(l1dclist): void
+//
+fun
+xemit01_l1cmdlst(FILEref, l1cmdlst): void
+//
+(* ****** ****** *)
+//
+fun
+xemit01_l1dcl(FILEref, l1dcl): void
+fun
+xemit01_l1dclist(FILEref, l1dclist): void
+//
+(* ****** ****** *)
+//
+fun
+xemit01_program
+  (FILEref, l1dclist(*prog*)): void
+//
 (* ****** ****** *)
 
 (* end of [xats_intrep1.sats] *)

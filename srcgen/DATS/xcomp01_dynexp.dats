@@ -728,6 +728,70 @@ in
 l1dcl_make_node(loc0, L1DCLvardecl(lvds))
 end // end of [aux_vardecl]
 
+(* ****** ****** *)
+
+fun
+aux_impdecl3
+( env0:
+! compenv
+, dcl0: h0dcl): l1dcl =
+let
+//
+val loc0 = dcl0.loc()
+//
+val-
+H0Cimpdecl3
+( tok0
+, stmp, mopt
+, htqa
+, hdc1, htia
+, hfgs, body) = dcl0.node()
+
+//
+var res1
+  : l1valopt = None()
+//
+val () =
+xcomp01_dvaradd_fun0(env0)
+//
+val
+blk0 =
+xcomp01_hfarglst_ck01(env0, hfgs)
+//
+val
+blk1 =
+let
+val ( ) =
+xcomp01_lcmdpush_nil(env0)
+//
+val
+l1v1 =
+xcomp01_h0exp_val(env0, body)
+val ( ) = (res1 := Some(l1v1))
+//
+in
+  xcomp01_lcmdpop0_blk( env0 )
+end // end of [Some]
+//
+in
+let
+  val
+  limp =
+  LIMPDECL@{
+    loc=loc0
+  , hdc=hdc1
+  , hag=hfgs, def=res1
+  , hag_blk=blk0, def_blk=blk1
+  }
+  val () =
+  xcomp01_dvarpop_fun0( env0 )
+in
+  l1dcl_make_node(loc0, L1DCLimpdecl(limp))
+end
+end // end of [aux_impdecl3]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 
 implement
@@ -750,6 +814,9 @@ dcl0.node() of
   aux_valdecl(env0, dcl0)
 | H0Cvardecl _ =>
   aux_vardecl(env0, dcl0)
+//
+| H0Cimpdecl3 _ =>
+  aux_impdecl3(env0, dcl0)
 //
 | _ (* else *) =>
   let

@@ -873,13 +873,46 @@ dcls = tcomp30_program(d3cs)
 in
 dcls where
 {
+(*
 val () =
 fprintln!
 ( stdout_ref
 , "process_fpath: dcls = ", dcls)
-}
+*)
+//
+val () =
+fprintln!
+( stdout_ref
+, "process_fpath: dcls = ")
+val () =
+loop(dcls) where
+{
+//
+fun
+loop
+(h0cs: h0dclist): void =
+(
+case+ h0cs of
+|
+list_nil() => ((*void*))
+|
+list_cons
+(h0c1, h0cs) =>
+loop(h0cs) where
+{
+val () =
+fprintln!(stdout_ref, h0c1) 
+} (* end-of-where *)
+) (* end of [val] *)
+//
+} // end-of-where
+} // end-of-where
+//
 end // end of [let]
-val () = fprint_newline(stdout_ref)
+val () =
+(
+  fprint_newline(stdout_ref)
+)
 //
 val
 dcls =
@@ -890,7 +923,8 @@ in
 dcls where
 {
 //
-val () = xemit01_program<>(dcls)
+val () =
+xemit01_program(stdout_ref, dcls)
 //
 (*
 val () =

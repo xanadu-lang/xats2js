@@ -328,6 +328,8 @@ local
 implement
 fprint_val<l1dcl> = fprint_l1dcl
 implement
+fprint_val<limpdecl> = fprint_limpdecl
+implement
 fprint_val<lfundecl> = fprint_lfundecl
 implement
 fprint_val<lvaldecl> = fprint_lvaldecl
@@ -350,6 +352,9 @@ fprint!
 , "L1DCLlocal(", head, "; ", body, ")")
 //
 |
+L1DCLimpdecl(limp) =>
+fprint!(out, "L1DCLimpdecl(", limp, ")")
+|
 L1DCLfundecl(lfds) =>
 fprint!(out, "L1DCLfundecl(", lfds, ")")
 |
@@ -370,6 +375,74 @@ fprint!(out, "L1DCLvardecl(", lvds, ")")
 
 end // end of [local]
 
+(* ****** ****** *)
+//
+implement
+print_limpdecl(x0) =
+fprint_limpdecl(stdout_ref, x0)
+implement
+prerr_limpdecl(x0) =
+fprint_limpdecl(stderr_ref, x0)
+//
+implement
+fprint_limpdecl
+  (out, x0) = let
+//
+val+LIMPDECL(rcd) = x0
+//
+in
+//
+fprint!
+( out
+, "LIMPDECL@{"
+, "hdc=", rcd.hdc, ", "
+, "hag=", rcd.hag, ", "
+, "def=", rcd.def, ", "
+, "hag_blk=", rcd.hag_blk, ", "
+, "def_blk=", rcd.def_blk, ", ", "}")
+//
+end // end of [fprint_limpdecl]
+//
+(* ****** ****** *)
+//
+implement
+print_lfundecl(x0) =
+fprint_lfundecl(stdout_ref, x0)
+implement
+prerr_lfundecl(x0) =
+fprint_lfundecl(stderr_ref, x0)
+//
+implement
+fprint_lfundecl
+  (out, x0) = let
+//
+val+LFUNDECL(rcd) = x0
+//
+in
+//
+case+
+rcd.hag of
+|
+None() =>
+fprint!
+( out
+, "LFUNDECL@{"
+, "nam=", rcd.nam, ", "
+, "hdc=", rcd.hdc, ", ", "}")
+|
+Some(rcd_hag) =>
+fprint!
+( out
+, "LFUNDECL@{"
+, "nam=", rcd.nam, ", "
+, "hdc=", rcd.hdc, ", "
+, "hag=", rcd_hag, ", "
+, "def=", rcd.def, ", "
+, "hag_blk=", rcd.hag_blk, ", "
+, "def_blk=", rcd.def_blk, ", ", "}")
+//
+end // end of [fprint_lfundecl]
+//
 (* ****** ****** *)
 //
 implement
@@ -417,44 +490,6 @@ in
   , ", ini=", rcd.ini
   , ", ini_blk=", rcd.ini_blk, "}")
 end // end of [fprint_lvardecl]
-//
-(* ****** ****** *)
-//
-implement
-print_lfundecl(x0) =
-fprint_lfundecl(stdout_ref, x0)
-implement
-prerr_lfundecl(x0) =
-fprint_lfundecl(stderr_ref, x0)
-//
-implement
-fprint_lfundecl
-  (out, x0) = let
-//
-val+LFUNDECL(rcd) = x0
-//
-in
-//
-case+
-rcd.hag of
-| None() =>
-  fprint!
-  ( out
-  , "LFUNDECL@{"
-  , "nam=", rcd.nam, ", "
-  , "hdc=", rcd.hdc, ", ", "}")
-| Some(rcd_hag) =>
-  fprint!
-  ( out
-  , "LFUNDECL@{"
-  , "nam=", rcd.nam, ", "
-  , "hdc=", rcd.hdc, ", "
-  , "hag=", rcd_hag, ", "
-  , "def=", rcd.def, ", "
-  , "hag_blk=", rcd.hag_blk, ", "
-  , "def_blk=", rcd.def_blk, ", ", "}")
-//
-end // end of [fprint_lfundecl]
 //
 (* ****** ****** *)
 
