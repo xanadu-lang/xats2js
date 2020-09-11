@@ -363,6 +363,20 @@ L1CMDapp
 }
 //
 fun
+aux_dcl
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+(
+  xemit01_l1dcl(out, ldcl)
+) where
+{
+val-
+L1CMDdcl(ldcl) = lcmd.node()
+}
+//
+fun
 aux_if0
 ( out
 : FILEref
@@ -407,6 +421,8 @@ lcmd.node() of
 L1CMDmov _ => aux_mov(out, lcmd)
 |
 L1CMDapp _ => aux_app(out, lcmd)
+|
+L1CMDdcl _ => aux_dcl(out, lcmd)
 |
 L1CMDif0 _ => aux_if0(out, lcmd)
 //
@@ -483,7 +499,6 @@ xemit01_txtln
 //
 val () =
 xemit01_hdcst(out, rcd.hdc)
-val () = xemit01_newln(out)
 val
 argcnt =
 xemit01_hfarglst
@@ -536,10 +551,26 @@ LFUNDECL(rcd) = lfd0
 val () =
 xemit01_txtln
 (out, "function")
+//
 val () =
 xemit01_hdcst(out, rcd.hdc)
 val () =
-xemit01_newln(out)
+(
+case+
+rcd.hag of
+|
+None() => ()
+|
+Some(rcd_hag) =>
+{
+val
+argcnt =
+xemit01_hfarglst
+( out, rcd_hag, 0(*base*) )
+val () = xemit01_newln(out)
+}
+)
+//
 val () =
 xemit01_txtln(out, "{")
 val () =

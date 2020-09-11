@@ -270,6 +270,10 @@ fprint!
 , tres, "; ", l0v1, "; ", l0vs, ")")
 //
 |
+L1CMDdcl(dcl0) =>
+fprint!(out, "L1CMDdcl(", dcl0, ")")
+//
+|
 L1CMDif0
 (l1v1, blk2, blk3) =>
 fprint!
