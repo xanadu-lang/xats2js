@@ -347,9 +347,11 @@ opt0 = xcomp01_dvarfind(env0, x0)
 in
 //
 case+ opt0 of
-| ~Some_vt(l1v1) => l1v1
-| ~None_vt((*void*)) =>
-   l1val_make_node(loc0, L1VALnone1(h0e0))
+| ~
+Some_vt(l1v1) => l1v1
+| ~
+None_vt((*void*)) =>
+l1val_make_node(loc0, L1VALnone1(h0e0))
 end // end of [auxval_var]
 fun
 auxval_vknd
@@ -368,10 +370,30 @@ opt0 = xcomp01_dvarfind(env0, x0)
 in
 //
 case+ opt0 of
-| ~Some_vt(l1v1) => l1v1
-| ~None_vt((*void*)) =>
-   l1val_make_node(loc0, L1VALnone1(h0e0))
+| ~
+Some_vt(l1v1) => l1v1
+| ~
+None_vt((*void*)) =>
+l1val_make_node(loc0, L1VALnone1(h0e0))
 end // end of [auxval_vknd]
+
+(* ****** ****** *)
+
+fun
+auxval_fcst
+( env0:
+! compenv
+, h0e0: h0exp): l1val =
+let
+//
+val 
+loc0 = h0e0.loc()
+val-
+H0Efcst(hdc) = h0e0.node()
+//
+in
+  l1val_make_node(loc0, L1VALfcst(hdc))
+end // end of [auxval_fcst]
 
 (* ****** ****** *)
 
@@ -501,6 +523,13 @@ h0e0.node() of
   auxval_var(env0, h0e0)
 | H0Evknd _ =>
   auxval_vknd(env0, h0e0)
+//
+(*
+| H0Efcon _ =>
+  auxval_fcon(env0, h0e0)
+*)
+| H0Efcst _ =>
+  auxval_fcst(env0, h0e0)
 //
 | H0Etimp _ =>
   auxval_timp(env0, h0e0)

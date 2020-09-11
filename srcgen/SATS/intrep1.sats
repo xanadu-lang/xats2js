@@ -556,8 +556,13 @@ fun
 xemit01_txt
 (FILEref, string): void
 fun
+xemit01_txt00
+(FILEref, string): void
+fun
 xemit01_txtln
 (FILEref, string): void
+//
+(* ****** ****** *)
 //
 fun
 xemit01_newln(FILEref): void
@@ -568,10 +573,37 @@ xemit01_nblnk(FILEref, int): void
 fun
 xemit01_indnt(FILEref, int): void
 //
+(* ****** ****** *)
+//
+fun
+xemit01_hdcon(FILEref, hdcon): void
+fun
+xemit01_hdcst(FILEref, hdcst): void
+//
+(* ****** ****** *)
+fun
+xemit01_hfarg
+(FILEref, hfarg, int(*base*)): int
+fun
+xemit01_hfarglst
+(FILEref, hfarglst, int(*base*)): int
+(* ****** ****** *)
+//
+fun
+xemit01_l1int(FILEref, token): void
+(*
+fun
+xemit01_l1btf(FILEref, token): void
+*)
+//
+(* ****** ****** *)
 fun
 xemit01_l1tmp(FILEref, l1tmp): void
+(* ****** ****** *)
 fun
 xemit01_l1val(FILEref, l1val): void
+(* ****** ****** *)
+//
 fun
 xemit01_l1cmd(FILEref, l1cmd): void
 fun

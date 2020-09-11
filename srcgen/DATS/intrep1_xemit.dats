@@ -44,11 +44,13 @@ UN = "prelude/SATS/unsafe.sats"
 "./../HATS/libxats2js.hats"
 //
 (* ****** ****** *)
+#staload $LEX(* open *)
 #staload $INTREP0(* open *)
 (* ****** ****** *)
-
+overload
+fprint with $STM.fprint_stamp
+(* ****** ****** *)
 #staload "./../SATS/intrep1.sats"
-
 (* ****** ****** *)
 implement
 xemit01_int
@@ -59,6 +61,12 @@ xemit01_int
 (* ****** ****** *)
 implement
 xemit01_txt
+(out, txt) =
+(
+fprint(out, txt)
+)
+implement
+xemit01_txt00
 (out, txt) =
 (
 fprint(out, txt)
@@ -95,7 +103,10 @@ fun
 loop(n0: int): void =
 if n0 > 0
 then
-(xemit01_blnk1(out); loop(n0-1)) else ()
+loop(n0-1) where
+{
+val () = xemit01_blnk1(out)
+}
 } (* end of [xemit01_nblnk] *)
 
 (* ****** ****** *)
@@ -109,30 +120,247 @@ fun
 loop(n0: int): void =
 if n0 > 0
 then
-(xemit01_blnk1(out); loop(n0-1)) else ()
+loop(n0-1) where
+{
+val () = xemit01_blnk1(out)
+}
 } (* end of [xemit01_indnt] *)
+
+(* ****** ****** *)
+implement
+xemit01_hdcon
+(out, hdc) =
+(
+  fprint(out, hdc)
+)
+implement
+xemit01_hdcst
+(out, hdc) =
+(
+  fprint(out, hdc)
+)
+(* ****** ****** *)
+
+implement
+xemit01_hfarg
+(out, hfg, i0) =
+(
+case+
+hfg.node() of
+|
+HFARGnpats
+(npf1, h0ps) => i1 where
+{
+val () = xemit01_txt00(out, "(")
+val i1 = auxlst(npf1, i0, i0, h0ps)
+val () = xemit01_txt00(out, ")")
+}
+|
+HFARGnone1 _ =>
+let
+  val () =
+  fprint!(out, "(*ERROR*)") in i0
+end
+) where
+{
+//
+fun
+auxlst
+( npf1: int
+, i0: int
+, i1: int
+, h0ps: h0patlst): int =
+(
+case+ h0ps of
+|
+list_nil() => i1
+|
+list_cons
+(h0p1, h0ps) =>
+if
+npf1 > 0
+then
+let
+val npf1 = npf1-1
+in
+auxlst(npf1, i0, i1, h0ps)
+end
+else
+let
+//
+val () =
+if
+(i1 > i0)
+then
+xemit01_txt00(out, ", ")
+//
+val () =
+xemit01_txt00(out, "arg")
+val () =
+xemit01_int(out, i1+1)
+in
+auxlst(npf1, i0, i1+1, h0ps)
+end
+) (* end of [auxlst] *)
+//
+} (* end of [xemit01_hfarg] *)
 
 (* ****** ****** *)
 
 implement
+xemit01_hfarglst
+(out, hfgs, i0) =
+(
+case+ hfgs of
+|
+list_nil() => i0
+|
+list_cons(hfg1, hfgs) =>
+let
+val i1 =
+xemit01_hfarg(out, hfg1, i0)
+in
+xemit01_hfarglst(out, hfgs, i1)
+end
+) (* end of [xemit01_hfarglst] *)
+
+(* ****** ****** *)
+//
+implement
+xemit01_l1int
+(out, tok) =
+let
+val
+tnd = tok.node()
+in
+//
+case- tnd of 
+|
+T_INT1(rep) => fprint(out, rep)
+//
+end // end of [xemit01_l1int]
+(* ****** ****** *)
+//
+implement
 xemit01_l1tmp
 (out, tmp0) =
-(
-fprint!(out, tmp0)
-)
-
+let
+val arg = tmp0.arg()
+in
+//
+if
+(arg > 0)
+then
+fprint!(out, "arg", arg)
+else
+let
+val stm = tmp0.stamp()
+in
+  fprint!(out, "tmp", stm)
+end // end of [else]
+//
+end // end of [xemit01_l1tmp]
+//
 (* ****** ****** *)
 
 implement
 xemit01_l1val
 (out, l1v0) =
 (
-fprint!(out, l1v0)
-)
+case+
+l1v0.node() of
+//
+|
+L1VALint(tok) =>
+xemit01_l1int(out, tok)
+|
+L1VALtmp(tmp1) =>
+xemit01_l1tmp(out, tmp1)
+//
+| _ (* else *) => fprint(out, l1v0)
+//
+) (* end of [xemit01_l1val] *)
 
 (* ****** ****** *)
 
 local
+//
+fun
+aux_mov
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+{
+val () =
+xemit01_l1tmp(out, tres)
+val () =
+xemit01_txt00(out, " = ")
+val () =
+xemit01_l1val(out, l1v1)
+} where
+{
+val-
+L1CMDmov
+(tres, l1v1) = lcmd.node()
+}
+//
+fun
+aux_app
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+{
+val () =
+xemit01_l1tmp(out, tres)
+val () =
+xemit01_txt00(out, " = ")
+//
+val () =
+xemit01_l1val(out, l1f0)
+//
+val () = xemit01_txt00(out, "(")
+//
+local
+fun
+loop
+( n0: int
+, xs
+: l1valist): void =
+(
+case+ xs of
+|
+list_nil() => ()
+|
+list_cons(x0, xs) =>
+(
+  loop(n0+1, xs)
+) where
+{
+val () =
+if
+(n0 > 0)
+then
+xemit01_txt00(out, ", ")
+val () = xemit01_l1val(out, x0)
+} (* list_cons *)
+)
+in
+val () = loop(0, l1vs)
+end (* end of [local] *)
+//
+val () = xemit01_txt00(out, ")")
+//
+} where
+{
+//
+val-
+L1CMDapp
+( tres
+, l1f0, l1vs) = lcmd.node()
+//
+}
 //
 fun
 aux_if0
@@ -144,12 +372,12 @@ aux_if0
 //
 val() =
 xemit01_txtln(out, "if")
-val() = xemit01_txt(out, "(")
+val() = xemit01_txt00(out, "(")
 val() = xemit01_l1val(out, l1v1)
 val() = xemit01_txtln(out, ")")
 //
 val() =
-xemit01_txtln(out, "then")
+xemit01_txtln(out, "// then")
 val() = xemit01_txtln(out, "{")
 val() = xemit01_l1blk(out, blk2)
 val() = xemit01_txtln(out, "} // then")
@@ -175,6 +403,10 @@ xemit01_l1cmd
 (
 case+
 lcmd.node() of
+|
+L1CMDmov _ => aux_mov(out, lcmd)
+|
+L1CMDapp _ => aux_app(out, lcmd)
 |
 L1CMDif0 _ => aux_if0(out, lcmd)
 //
@@ -231,6 +463,60 @@ val()=xemit01_l1cmdlst(out, cmds)
 
 local
 
+(* ****** ****** *)
+
+fun
+aux_impdecl
+( out
+: FILEref
+, dcl0: l1dcl): void =
+let
+val-
+L1DCLimpdecl
+(limp) = dcl0.node()
+val+
+LIMPDECL(rcd) = limp
+//
+val () =
+xemit01_txtln
+(out, "function")
+//
+val () =
+xemit01_hdcst(out, rcd.hdc)
+val () = xemit01_newln(out)
+val
+argcnt =
+xemit01_hfarglst
+( out, rcd.hag, 0(*base*) )
+val () = xemit01_newln(out)
+//
+val () =
+xemit01_txtln(out, "{")
+val () =
+xemit01_l1blk(out, rcd.def_blk)
+val () =
+(
+case+
+rcd.def of
+|
+None() => ()
+|
+Some(res) =>
+{
+//
+val () =
+xemit01_txt00(out, "return ")
+val () = xemit01_l1val(out, res)
+val () = xemit01_txt00(out, ";\n")
+//
+}
+) : void // end-of-val
+in
+xemit01_txtln(out, "} // function")
+end // end of [aux_impdecl]
+
+(* ****** ****** *)
+
 fun
 aux_fundecl
 ( out
@@ -242,20 +528,45 @@ fun
 auxlfd0
 ( lfd0
 : lfundecl): void =
-{
+let
+//
+val+
+LFUNDECL(rcd) = lfd0
+//
 val () =
 xemit01_txtln
 (out, "function")
+val () =
+xemit01_hdcst(out, rcd.hdc)
+val () =
+xemit01_newln(out)
 val () =
 xemit01_txtln(out, "{")
 val () =
 xemit01_l1blk(out, rcd.def_blk)
 val () =
-xemit01_txtln(out, "}")
-} where
+(
+case+
+rcd.def of
+|
+None() => ()
+|
+Some(res) =>
 {
-val+LFUNDECL(rcd) = lfd0
+//
+val () =
+xemit01_txt00(out, "return ")
+val () = xemit01_l1val(out, res)
+val () = xemit01_txt00(out, ";\n")
+//
 }
+) : void // end-of-val
+in
+xemit01_txtln(out, "} // function")
+end (* end of [auxlfd0] *)
+
+(* ****** ****** *)
+
 and
 auxlfds
 ( lfds
@@ -274,14 +585,14 @@ list_cons
 )
 //
 in
-{
-val () = auxlfds(lfds)
-} where {
-//
+let
 val-
 L1DCLfundecl
-  (lfds) = dcl0.node()
-} end // end of [aux_fundecl]
+(lfds) = dcl0.node() in auxlfds(lfds)
+end
+end // end of [aux_fundecl]
+
+(* ****** ****** *)
 
 in(*in-of-local*)
 //
@@ -290,6 +601,8 @@ xemit01_l1dcl
 (out, dcl0) =
 let
 val () =
+fprint!(out, "//")
+val () =
 fprint!(out, dcl0)
 val () =
 fprint_newline(out)
@@ -297,11 +610,13 @@ in(*in-of-let*)
 //
 case+
 dcl0.node() of
-(*
+//
 |
 L1DCLimpdecl _ =>
-aux_impdecl(out, dcl0)
-*)
+{
+val()=aux_impdecl(out, dcl0)
+}
+//
 |
 L1DCLfundecl _ =>
 {
