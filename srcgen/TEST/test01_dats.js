@@ -62,3 +62,36 @@ return tmp9;
 } // function
 
 console.log("fact2(10, 1) =", fact2(10, 1))
+
+function
+fact2_(arg1)
+{
+return function(arg2)
+{
+var tmp9;
+var tmp10;
+var tmp11;
+var tmp12;
+var tmp13;
+var tmp14;
+tmp10 = (arg1 > 0);
+if
+(tmp10)
+// then
+{
+tmp13 = (arg1 - 1);
+tmp12 = fact2_(tmp13);
+tmp14 = (arg1 * arg2);
+tmp11 = tmp12(tmp14);
+tmp9 = tmp11;
+} // if-then
+else
+{
+tmp9 = arg2;
+} // if-else
+;
+return tmp9;
+} // function
+} // function
+
+console.log("fact2_(10)(1) =", fact2_(10)(1))

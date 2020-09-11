@@ -380,13 +380,13 @@ val() =
 xemit01_txtln(out, "// then")
 val() = xemit01_txtln(out, "{")
 val() = xemit01_l1blk(out, blk2)
-val() = xemit01_txtln(out, "} // then")
+val() = xemit01_txtln(out, "} // if-then")
 //
 val() =
 xemit01_txtln(out, "else")
 val() = xemit01_txtln(out, "{")
 val() = xemit01_l1blk(out, blk3)
-val() = xemit01_txtln(out, "} // else")
+val() = xemit01_txtln(out, "} // if-else")
 //
 } where
 {
