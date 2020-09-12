@@ -135,7 +135,8 @@ overload fprint with fprint_ltcst
 //
 (* ****** ****** *)
 fun
-l1tmp_new(loc: loc_t): l1tmp
+l1tmp_new_tmp
+(loc: loc_t): l1tmp
 fun
 l1tmp_new_arg
 (loc: loc_t, idx: int): l1tmp
@@ -372,6 +373,9 @@ LIMPDECL of @{
 , hag= hfarglst
 //
 , def= l1valopt
+//
+, lts= l1tmplst
+//
 , hag_blk= l1blk
 , def_blk= l1blk
 }
@@ -405,6 +409,9 @@ LFUNDECL of @{
     hfarglstopt
 //
 , def= l1valopt
+//
+, lts= l1tmplst
+//
 , hag_blk= l1blk
 , def_blk= l1blk
 }

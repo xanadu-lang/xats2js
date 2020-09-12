@@ -125,8 +125,8 @@ in (* in of [local] *)
 (* ****** ****** *)
 
 implement
-l1tmp_new(loc) =
-$rec
+l1tmp_new_tmp
+  (loc) = $rec
 {
   l1tmp_loc= loc
 , l1tmp_arg= 0(*let*)
@@ -139,8 +139,8 @@ $rec
 }
 implement
 l1tmp_new_arg
-  (loc, idx) =
-$rec
+( loc
+, idx ) = $rec
 {
   l1tmp_loc= loc
 , l1tmp_arg= idx // idx >= 1

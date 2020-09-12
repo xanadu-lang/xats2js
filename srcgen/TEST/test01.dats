@@ -19,13 +19,13 @@ if x > 0 then x * fact(x-1) else 1
 fun
 fact
 (x: int): int =
-loop(x, 1) where
+loop(0, 1) where
 {
 fun
 loop
-( x: int
+( i: int
 , r: int): int =
-if x > 0 then loop(x-1, x*r) else r
+if i < x then loop(i+1, (i+1)*r) else r
 }
 //
 (* ****** ****** *)

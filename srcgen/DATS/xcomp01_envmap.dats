@@ -97,7 +97,7 @@ hdvarstk_pop_top
 {
 fun
 auxstk
-(xs
+( xs
 : hdvarstk): hdvarstk =
 (
 case+ xs of
@@ -114,6 +114,57 @@ hdvarstk_cons
 | _ (* non-hdvarstk *) => (xs)
 )
 } (* end of [hdvarstk_pop_top] *)
+//
+(* ****** ****** *)
+//
+datavtype
+l1tmpstk =
+|
+l1tmpstk_nil of
+  ((*void*))
+|
+l1tmpstk_fun0 of
+  (l1tmpstk(*rest*))
+//
+|
+l1tmpstk_cons of
+  (l1tmp, l1tmpstk(*rest*))
+//
+(* ****** ****** *)
+//
+fun
+l1tmpstk_pop_top
+( xs:
+& l1tmpstk >> _): l1tmplst =
+let
+val
+( xs1
+, ts1
+) = auxstk
+(xs, list_nil()) in xs := xs1; ts1
+end where
+{
+fun
+auxstk
+( xs
+: l1tmpstk
+, ts
+: l1tmplst)
+: (l1tmpstk, l1tmplst) =
+(
+case+ xs of
+//
+| ~
+l1tmpstk_cons
+  (t0, xs) =>
+  auxstk(xs, ts) where
+{
+  val ts = list_cons(t0, ts)
+}
+//
+| _ (*non-l1tmpstk*) => (xs, ts)
+)
+} (* end of [l1tmpstk_pop_top] *)
 //
 (* ****** ****** *)
 //
@@ -150,15 +201,19 @@ l1cmdstk_push(tl) => (tl, ys)
 | ~
 l1cmdstk_cons(x1, tl) =>
 let
-val ys =
-list_cons(x1, ys) in auxlst(tl, ys)
+  val ys =
+  list_cons
+  ( x1, ys ) in auxlst(tl, ys)
 end
 )
 in
 let
 val
-(xs1, xs2) =
-auxlst(xs, list_nil()) in (xs := xs1; xs2)
+( xs1
+, xs2
+) = auxlst
+( xs
+, list_nil()) in (xs := xs1; xs2)
 end
 end // end of [l1cmdstk_pop0_lst]
 //
@@ -170,6 +225,8 @@ datavtype
 compenv =
 COMPENV of @{
   hdvarstk= hdvarstk
+,
+  l1tmpstk= l1tmpstk
 ,
   l1cmdstk= l1cmdstk
 }
@@ -192,6 +249,8 @@ in
 COMPENV@{
   hdvarstk = hdvarstk_nil()
 ,
+  l1tmpstk = l1tmpstk_nil()
+,
   l1cmdstk = l1cmdstk_nil()
 }
 //
@@ -210,8 +269,11 @@ val+
 //
 val () =
 hdvarstk_pop_top(rcd.hdvarstk)
+val ts =
+l1tmpstk_pop_top(rcd.l1tmpstk)
 //
 val-~hdvarstk_nil() = rcd.hdvarstk
+val-~l1tmpstk_nil() = rcd.l1tmpstk
 val-~l1cmdstk_nil() = rcd.l1cmdstk
 //
 } (* end of [compenv_free_nil] *)
@@ -282,6 +344,93 @@ val () =
 rcd.hdvarstk := hdvarstk_cons(x0, xs)
 //
 } (* end of [xcomp01_dvaradd_bind] *)
+//
+(* ****** ****** *)
+//
+implement
+xcomp01_ltmpnew_tmp0
+( env0, loc0 ) =
+let
+prval () =
+fold@(env0) in x0
+end where {
+//
+val x0 =
+l1tmp_new_tmp(loc0)
+//
+val+
+@COMPENV(rcd) = env0
+//
+val xs = rcd.l1tmpstk
+//
+val () =
+rcd.l1tmpstk := l1tmpstk_cons(x0, xs)
+//
+} (* end of [xcomp01_ltmpnew_tmp0] *)
+//
+implement
+xcomp01_ltmpnew_arg1
+( env0
+, loc0, idx1) =
+let
+prval () =
+fold@(env0) in x0
+end where {
+//
+val x0 =
+l1tmp_new_arg
+  (loc0, idx1)
+//
+val+
+@COMPENV(rcd) = env0
+//
+val xs = rcd.l1tmpstk
+//
+val () =
+rcd.l1tmpstk := l1tmpstk_cons(x0, xs)
+//
+} (* end of [xcomp01_ltmpnew_arg1] *)
+//
+(* ****** ****** *)
+//
+implement
+xcomp01_ltmpadd_fun0
+  (env0) =
+  fold@(env0) where
+{
+//
+val+
+@COMPENV(rcd) = env0
+//
+val xs = rcd.l1tmpstk
+val xs = l1tmpstk_fun0(xs)
+val () = rcd.l1tmpstk := xs
+//
+} (* end of [xcomp01_ltmpadd_fun0] *)
+//
+implement
+xcomp01_ltmppop_fun0
+  (env0) =
+(
+  fold@(env0); ts
+) where
+{
+//
+val+
+@COMPENV(rcd) = env0
+//
+val ts =
+l1tmpstk_pop_top(rcd.l1tmpstk)
+//
+val () =
+(
+  rcd.l1tmpstk := xs
+) where
+{
+val-
+~l1tmpstk_fun0(xs) = rcd.l1tmpstk
+}
+} (* end of [xcomp01_ltmppop_fun0] *)
 //
 (* ****** ****** *)
 

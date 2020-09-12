@@ -482,6 +482,49 @@ local
 (* ****** ****** *)
 
 fun
+aux_ltmplst
+( out
+: FILEref
+, tmps
+: l1tmplst): void =
+(
+case+ tmps of
+|
+list_nil() => ()
+|
+list_cons(t1, ts) =>
+let
+val i0 = t1.arg()
+in
+if
+(i0 > 0)
+then
+(
+aux_ltmplst(out, ts)
+)
+else
+(
+aux_ltmplst(out, ts)
+) where
+{
+//
+  val () =
+  xemit01_txt00
+  (out, "var ")
+//
+  val () =
+  xemit01_l1tmp(out, t1)
+//
+  val () =
+  xemit01_txtln(out, ";")
+//
+} (* end of [else] *)
+end // end of [let]
+) (* end of [aux_ltmplst] *)
+
+(* ****** ****** *)
+
+fun
 aux_impdecl
 ( out
 : FILEref
@@ -507,6 +550,10 @@ val () = xemit01_newln(out)
 //
 val () =
 xemit01_txtln(out, "{")
+//
+val () =
+aux_ltmplst(out, rcd.lts)
+//
 val () =
 xemit01_l1blk(out, rcd.def_blk)
 val () =
@@ -573,8 +620,12 @@ val () = xemit01_newln(out)
 //
 val () =
 xemit01_txtln(out, "{")
+//
+val () =
+aux_ltmplst(out, rcd.lts)
 val () =
 xemit01_l1blk(out, rcd.def_blk)
+//
 val () =
 (
 case+

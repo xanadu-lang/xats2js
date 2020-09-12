@@ -49,6 +49,20 @@ UN = "prelude/SATS/unsafe.sats"
 #staload "./../SATS/intrep1.sats"
 #staload "./../SATS/xcomp01.sats"
 (* ****** ****** *)
+//
+macdef
+xltmpnew_tmp0 =
+xcomp01_ltmpnew_tmp0
+macdef
+xltmpnew_arg1 =
+xcomp01_ltmpnew_arg1
+//
+(* ****** ****** *)
+
+implement
+fprint_val<l1tmp> = fprint_l1tmp
+
+(* ****** ****** *)
 
 implement
 xcomp01_program
@@ -102,13 +116,13 @@ _ (* else *) =>
 //
 val
 tres =
-l1tmp_new(loc0)
+xltmpnew_tmp0(env0,loc0)
+//
 val
 lcmd =
 l1cmd_make_node
 ( loc0
-, L1CMDpatck0
-  (tres, h0p0, l1v1))
+, L1CMDpatck0(tres, h0p0, l1v1))
 //
 val () =
 xcomp01_lcmdadd_lcmd(env0, lcmd)
@@ -218,7 +232,7 @@ l1val_make_node
 , L1VALtmp(tmp0)) where
 {
 val tmp0 =
-l1tmp_new_arg(loc0, arg0)
+xltmpnew_arg1(env0, loc0, arg0)
 }
 //
 in
@@ -592,7 +606,9 @@ h0e0.node() of
 H0Edapp _ =>
 let
 val
-tres = l1tmp_new(loc0)
+tres =
+xltmpnew_tmp0(env0, loc0)
+//
 val () =
 auxset_dapp(env0, h0e0, tres)
 in
@@ -605,7 +621,8 @@ end
 | H0Eif0 _ =>
 let
 val
-tres = l1tmp_new(loc0)
+tres =
+xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_if0(env0, h0e0, tres)
 in
@@ -839,6 +856,8 @@ var res1
 //
 val () =
 xcomp01_dvaradd_fun0(env0)
+val () =
+xcomp01_ltmpadd_fun0(env0)
 //
 val
 blk0 =
@@ -861,16 +880,29 @@ end // end of [Some]
 //
 in
 let
+//
+  val () =
+  xcomp01_dvarpop_fun0( env0 )
+  val tmps =
+  xcomp01_ltmppop_fun0( env0 )
+//
+(*
+  val ( ) =
+  println!
+  ("xcomp01_impdecl3: tmps = ", tmps)
+*)
+//
   val
   limp =
   LIMPDECL@{
     loc=loc0
   , hdc=hdc1
-  , hag=hfgs, def=res1
+  , hag=hfgs
+  , def=res1
+  , lts=tmps
   , hag_blk=blk0, def_blk=blk1
-  }
-  val () =
-  xcomp01_dvarpop_fun0( env0 )
+  } (* LIMPDECL *)
+//
 in
   l1dcl_make_node(loc0, L1DCLimpdecl(limp))
 end
@@ -962,6 +994,9 @@ var res
 val () =
 xcomp01_dvaradd_fun0
   (env0)
+val () =
+xcomp01_ltmpadd_fun0
+  (env0)
 //
 local
 val
@@ -1011,13 +1046,23 @@ end // end of [Some]
 in
 let
   val () =
-  xcomp01_dvarpop_fun0( env0 )
+  xcomp01_dvarpop_fun0(env0)
+  val lts =
+  xcomp01_ltmppop_fun0(env0)
+//
+(*
+  val ( ) =
+  println!
+  ("xcomp01_hfundecl: lts = ", lts)
+*)
+//
 in
   LFUNDECL@{
     loc=loc
   , nam=nam, hdc=hdc
   , hag=hag
   , def=res
+  , lts=lts
   , hag_blk=blk0, def_blk=blk1
 } (* LFUNDECL *)
 end

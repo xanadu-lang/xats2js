@@ -99,10 +99,37 @@ xcomp01_dvarpop_fun0
 //
 (* ****** ****** *)
 //
+(*
+fun
+xcomp01_ltmpadd_ltmp
+( env0:
+! compenv
+, ltmp: l1tmp): void
+*)
+//
+fun
+xcomp01_ltmpadd_fun0
+( env0: !compenv ): void
+fun
+xcomp01_ltmppop_fun0
+( env0: !compenv ): l1tmplst
+//
+fun
+xcomp01_ltmpnew_tmp0
+( env0:
+! compenv, loc_t ): l1tmp
+fun
+xcomp01_ltmpnew_arg1
+( env0:
+! compenv, loc_t, int): l1tmp
+//
+(* ****** ****** *)
+//
 fun
 xcomp01_lcmdadd_lcmd
 ( env0:
-! compenv, lcmd: l1cmd): void
+! compenv
+, lcmd: l1cmd): void
 //
 (* ****** ****** *)
 //
