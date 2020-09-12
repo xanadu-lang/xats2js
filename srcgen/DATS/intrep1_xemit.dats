@@ -45,10 +45,13 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 #staload $LEX(* open *)
+(* ****** ****** *)
 #staload $INTREP0(* open *)
 (* ****** ****** *)
 overload
 fprint with $STM.fprint_stamp
+overload
+fprint with $SYM.fprint_symbol
 (* ****** ****** *)
 #staload "./../SATS/intrep1.sats"
 (* ****** ****** *)
@@ -133,12 +136,38 @@ xemit01_hdcon
 (
   fprint(out, hdc)
 )
+(* ****** ****** *)
 implement
 xemit01_hdcst
 (out, hdc) =
-(
-  fprint(out, hdc)
-)
+{
+val () =
+fprint(out, sym)
+val () =
+fprint(out, "__")
+val () =
+fprint(out, stmp)
+} where
+{
+  val sym = hdc.sym()
+  val stmp = hdc.stamp()
+}
+(* ****** ****** *)
+implement
+xemit01_ltcst
+(out, ltc) =
+{
+val () =
+xemit01_hdcst
+(out, ltc.hdc())
+val () =
+fprint(out, "__")
+val () =
+fprint(out, stmp)
+} where
+{
+  val stmp = ltc.stamp()
+}
 (* ****** ****** *)
 
 implement
@@ -283,9 +312,21 @@ l1v0.node() of
 |
 L1VALint(tok) =>
 xemit01_l1int(out, tok)
+(*
+|
+L1VALcon(hdc1) =>
+xemit01_hdcon(out, hdc1)
+*)
 |
 L1VALtmp(tmp1) =>
 xemit01_l1tmp(out, tmp1)
+//
+|
+L1VALfcst(hdc1) =>
+xemit01_hdcst(out, hdc1)
+|
+L1VALtcst(ltc1) =>
+xemit01_ltcst(out, ltc1)
 //
 | _ (* else *) => fprint(out, l1v0)
 //

@@ -647,8 +647,14 @@ case+
 h0e0.node() of
 //
 |
+H0Edapp _ =>
+auxset_dapp(env0, h0e0, tres)
+//
+|
 H0Eif0 _ =>
-auxset_if0(env0, h0e0, tres)
+(
+  auxset_if0(env0, h0e0, tres)
+)
 | _ (* else *) =>
 let
 val l1v0 =

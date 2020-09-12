@@ -592,12 +592,13 @@ fun
 xemit01_indnt(FILEref, int): void
 //
 (* ****** ****** *)
-//
 fun
 xemit01_hdcon(FILEref, hdcon): void
 fun
 xemit01_hdcst(FILEref, hdcst): void
-//
+(* ****** ****** *)
+fun
+xemit01_ltcst(FILEref, ltcst): void
 (* ****** ****** *)
 fun
 xemit01_hfarg
