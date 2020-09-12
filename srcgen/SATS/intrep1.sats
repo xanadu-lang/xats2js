@@ -381,6 +381,7 @@ LIMPDECL of @{
 //
 , def= l1valopt
 //
+, lvl= int//fun
 , lts= l1tmplst
 //
 , hag_blk= l1blk
@@ -417,6 +418,7 @@ LFUNDECL of @{
 //
 , def= l1valopt
 //
+, lvl= int//fun
 , lts= l1tmplst
 //
 , hag_blk= l1blk
@@ -599,10 +601,14 @@ xemit01_hdcst(FILEref, hdcst): void
 (* ****** ****** *)
 fun
 xemit01_hfarg
-(FILEref, hfarg, int(*base*)): int
+( FILEref
+, int(*flvl*)
+, hfarg, int(*base*)): int
 fun
 xemit01_hfarglst
-(FILEref, hfarglst, int(*base*)): int
+( FILEref
+, int(*flvl*)
+, hfarglst, int(*base*)): int
 (* ****** ****** *)
 //
 fun

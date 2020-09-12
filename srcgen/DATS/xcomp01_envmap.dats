@@ -285,6 +285,40 @@ val-~l1cmdstk_nil() = rcd.l1cmdstk
 } (* end of [compenv_free_nil] *)
   
 (* ****** ****** *)
+//
+implement
+xcomp01_flvlget
+  (env0) =
+(
+  rcd.flevel
+) where
+{
+val+
+COMPENV(rcd) = env0
+}
+//
+implement
+xcomp01_flvlinc
+  (env0) =
+  fold@(env0) where
+{
+val+
+@COMPENV(rcd) = env0
+val () =
+rcd.flevel := rcd.flevel + 1
+}
+implement
+xcomp01_flvldec
+  (env0) =
+  fold@(env0) where
+{
+val+
+@COMPENV(rcd) = env0
+val () =
+rcd.flevel := rcd.flevel - 1
+}
+//
+(* ****** ****** *)
 implement
 xcomp01_dvarfind
   (env0, x0) =
@@ -363,6 +397,12 @@ end where {
 //
 val x0 =
 l1tmp_new_tmp(loc0)
+local
+val n0 =
+xcomp01_flvlget(env0)
+in
+val () = x0.lvl( n0 )
+end // end of [local]
 //
 val+
 @COMPENV(rcd) = env0
@@ -385,7 +425,13 @@ end where {
 //
 val x0 =
 l1tmp_new_arg
-  (loc0, idx1)
+( loc0, idx1(*>0*))
+local
+val n0 =
+xcomp01_flvlget(env0)
+in
+val () = x0.lvl( n0 )
+end // end of [local]
 //
 val+
 @COMPENV(rcd) = env0

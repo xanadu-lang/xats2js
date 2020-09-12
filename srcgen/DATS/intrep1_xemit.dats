@@ -143,7 +143,9 @@ xemit01_hdcst
 
 implement
 xemit01_hfarg
-(out, hfg, i0) =
+( out
+, lvl
+, hfg, i0) =
 (
 case+
 hfg.node() of
@@ -194,12 +196,13 @@ if
 then
 xemit01_txt00(out, ", ")
 //
+val i1 = i1 + 1
+//
 val () =
-xemit01_txt00(out, "arg")
-val () =
-xemit01_int(out, i1+1)
+fprint!
+(out, "a", lvl, "x", i1)
 in
-auxlst(npf1, i0, i1+1, h0ps)
+auxlst(npf1, i0, i1, h0ps)
 end
 ) (* end of [auxlst] *)
 //
@@ -209,7 +212,9 @@ end
 
 implement
 xemit01_hfarglst
-(out, hfgs, i0) =
+( out
+, lvl
+, hfgs, i0) =
 (
 case+ hfgs of
 |
@@ -218,9 +223,9 @@ list_nil() => i0
 list_cons(hfg1, hfgs) =>
 let
 val i1 =
-xemit01_hfarg(out, hfg1, i0)
+xemit01_hfarg(out, lvl, hfg1, i0)
 in
-xemit01_hfarglst(out, hfgs, i1)
+xemit01_hfarglst(out, lvl, hfgs, i1)
 end
 ) (* end of [xemit01_hfarglst] *)
 
@@ -251,7 +256,12 @@ in
 if
 (arg > 0)
 then
-fprint!(out, "arg", arg)
+let
+val lvl = tmp0.lvl()
+in
+fprint!
+(out, "a", lvl, "x", arg)
+end // end of [then]
 else
 let
 val stm = tmp0.stamp()
@@ -545,7 +555,9 @@ xemit01_hdcst(out, rcd.hdc)
 val
 argcnt =
 xemit01_hfarglst
-( out, rcd.hag, 0(*base*) )
+( out
+, rcd.lvl
+, rcd.hag, 0(*base*))
 val () = xemit01_newln(out)
 //
 val () =
@@ -613,7 +625,9 @@ Some(rcd_hag) =>
 val
 argcnt =
 xemit01_hfarglst
-( out, rcd_hag, 0(*base*) )
+( out
+, rcd.lvl
+, rcd_hag, 0(*base*) )
 val () = xemit01_newln(out)
 }
 )

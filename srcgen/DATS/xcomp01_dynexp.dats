@@ -855,9 +855,15 @@ var res1
   : l1valopt = None()
 //
 val () =
+xcomp01_flvlinc(env0)
+val () =
 xcomp01_dvaradd_fun0(env0)
 val () =
 xcomp01_ltmpadd_fun0(env0)
+//
+val
+flvl =
+xcomp01_flvlget(env0)
 //
 val
 blk0 =
@@ -882,6 +888,8 @@ in
 let
 //
   val () =
+  xcomp01_flvldec(env0)
+  val () =
   xcomp01_dvarpop_fun0( env0 )
   val tmps =
   xcomp01_ltmppop_fun0( env0 )
@@ -899,6 +907,7 @@ let
   , hdc=hdc1
   , hag=hfgs
   , def=res1
+  , lvl=flvl
   , lts=tmps
   , hag_blk=blk0, def_blk=blk1
   } (* LIMPDECL *)
@@ -992,22 +1001,26 @@ var res
   : l1valopt = None()
 //
 val () =
-xcomp01_dvaradd_fun0
-  (env0)
+xcomp01_flvlinc(env0)
 val () =
-xcomp01_ltmpadd_fun0
-  (env0)
+xcomp01_dvaradd_fun0(env0)
+val () =
+xcomp01_ltmpadd_fun0(env0)
 //
 local
-val
-itm =
-l1val_make_node
-(loc, L1VALfcst(hdc))
+  val
+  itm =
+  l1val_make_node
+  (loc, L1VALfcst(hdc))
 in
-val () =
-xcomp01_dvaradd_bind
-(env0, nam, itm(*l1val*))
+  val () =
+  xcomp01_dvaradd_bind
+  (env0, nam, itm(*l1val*))
 end // end of [local]
+//
+val
+flvl =
+xcomp01_flvlget(env0)
 //
 val
 blk0 =
@@ -1046,8 +1059,10 @@ end // end of [Some]
 in
 let
   val () =
+  xcomp01_flvldec(env0)
+  val () =
   xcomp01_dvarpop_fun0(env0)
-  val lts =
+  val flts =
   xcomp01_ltmppop_fun0(env0)
 //
 (*
@@ -1062,7 +1077,8 @@ in
   , nam=nam, hdc=hdc
   , hag=hag
   , def=res
-  , lts=lts
+  , lvl=flvl
+  , lts=flts
   , hag_blk=blk0, def_blk=blk1
 } (* LFUNDECL *)
 end

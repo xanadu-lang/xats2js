@@ -76,6 +76,16 @@ xcomp01_program
 //
 (* ****** ****** *)
 fun
+xcomp01_flvlget
+(env0: !compenv): int
+fun
+xcomp01_flvlinc
+(env0: !compenv): void
+fun
+xcomp01_flvldec
+(env0: !compenv): void
+(* ****** ****** *)
+fun
 xcomp01_dvarfind
 ( env0:
 ! compenv
