@@ -431,6 +431,19 @@ H0Etcst
 val
 ltc1 = ltcst_new_hdc(loc0, hdc1)
 //
+val
+ldcl = xcomp01_h0dcl(env0, hdcl)
+//
+val () =
+(
+xcomp01_lcmdadd_lcmd(env0, lcmd)
+) where
+{
+val
+lcmd =
+l1cmd_make_node(loc0, L1CMDdcl(ldcl))
+}
+//
 in
   l1val_make_node(loc0, L1VALtcst(ltc1))
 end // end of [auxval_timp]

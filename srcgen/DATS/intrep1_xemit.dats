@@ -143,15 +143,19 @@ xemit01_hdcst
 {
 val () =
 fprint(out, sym)
+(*
 val () =
 fprint(out, "__")
 val () =
 fprint(out, stmp)
+*)
 } where
 {
   val sym = hdc.sym()
+(*
   val stmp = hdc.stamp()
-}
+*)
+} (* end of [xemit01_hdcst] *)
 (* ****** ****** *)
 implement
 xemit01_ltcst
@@ -167,7 +171,7 @@ fprint(out, stmp)
 } where
 {
   val stmp = ltc.stamp()
-}
+} (* end of [xemit01_ltcst] *)
 (* ****** ****** *)
 
 implement

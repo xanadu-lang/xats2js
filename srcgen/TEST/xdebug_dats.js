@@ -31,8 +31,11 @@ return tmp2;
 } // function
 */
 
+/* ****** ****** */
+
+/*
 function
-fact(a1x1)
+fact__2(a1x1)
 {
 var tmp10;
 function
@@ -74,10 +77,12 @@ tmp10 = loop__3(0, 1);
 return tmp10;
 } // function
 
-console.log("fact(10) =", fact(10))
+console.log("fact__2(10) =", fact__2(10))
+*/
 
 /* ****** ****** */
 
+/*
 function
 fact2
 (arg1, arg2)
@@ -107,9 +112,11 @@ return tmp9;
 } // function
 
 console.log("fact2(10, 1) =", fact2(10, 1))
+*/
 
 /* ****** ****** */
 
+/*
 function
 fact2_(arg1)
 {
@@ -126,7 +133,13 @@ if
 (tmp10)
 // then
 {
-tmp13 = (arg1 - 1);
+tmp20 =
+function
+sub(a1, a2)
+{
+  return a1 - a2;
+}
+tmp13 = tmp20(arg1,1);
 tmp12 = fact2_(tmp13);
 tmp14 = (arg1 * arg2);
 tmp11 = tmp12(tmp14);
@@ -142,5 +155,73 @@ return tmp9;
 } // function
 
 console.log("fact2_(10)(1) =", fact2_(10)(1))
+*/
+
+/* ****** ****** */
+
+function
+fact(a1x1)
+{
+var tmp9;
+
+function
+loop(a2x1, a2x2)
+{
+var tmp4;
+var tmp5;
+var tmp6;
+var tmp7;
+var tmp8;
+
+function
+gint_lt_sint_sint__1(x, y)
+{
+    return (x < y);
+} // function
+;
+tmp5 = gint_lt_sint_sint__1(a2x1, a1x1);
+if
+(tmp5)
+// then
+{
+
+function
+gint_add_sint_sint__2(x, y)
+{
+    return (x + y);
+} // function
+;
+tmp6 = gint_add_sint_sint__2(a2x1, 1);
+
+function
+gint_mul_sint_sint__3(x, y)
+{
+    return (x * y);
+} // function
+;
+
+function
+gint_add_sint_sint__4(x, y)
+{
+    return (x + y);
+} // function
+;
+tmp8 = gint_add_sint_sint__4(a2x1, 1);
+tmp7 = gint_mul_sint_sint__3(tmp8, a2x2);
+tmp4 = loop(tmp6, tmp7);
+} // if-then
+else
+{
+tmp4 = a2x2;
+} // if-else
+;
+return tmp4;
+} // function
+;
+tmp9 = loop(0, 1);
+return tmp9;
+} // function
+
+console.log("fact(10) =", fact(10))
 
 /* ****** ****** */
