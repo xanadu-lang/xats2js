@@ -34,6 +34,13 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_staload.hats"
+#staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+#include
 "./../HATS/libxats2js.hats"
 //
 (* ****** ****** *)
@@ -110,15 +117,18 @@ end // end of [local]
 
 local
 
-absimpl
-l1tmp_tbox = $rec
-{
+typedef
+l1tmp_struct =
+@{
   l1tmp_loc= loc_t
 , l1tmp_arg= int // 0/1 : let/arg
 , l1tmp_ref= int // 0/1 : val/ref
 , l1tmp_ret= int // return status
+, l1tmp_lvl= int // function level
 , l1tmp_stamp= stamp (* unicity *)
 } // end of [l1tmp]
+absimpl
+l1tmp_tbox = ref(l1tmp_struct)
 
 in (* in of [local] *)
 
@@ -126,26 +136,32 @@ in (* in of [local] *)
 
 implement
 l1tmp_new_tmp
-  (loc) = $rec
-{
+  (loc) =
+let
+val
+stamp =
+l1tmp_stamp_new()
+in
+ref<l1tmp_struct>
+@{
   l1tmp_loc= loc
 , l1tmp_arg= 0(*let*)
 , l1tmp_ref= 0(*val*)
 , l1tmp_ret= 0(*nret*)
+, l1tmp_lvl= ~1 // uninited
 , l1tmp_stamp= stamp(*unicity*)
-} where
-{
-  val stamp = l1tmp_stamp_new()
-}
+} end // l1tmp_new_tmp
 implement
 l1tmp_new_arg
 ( loc
-, idx ) = $rec
-{
+, idx ) =
+ref<l1tmp_struct>
+@{
   l1tmp_loc= loc
 , l1tmp_arg= idx // idx >= 1
 , l1tmp_ref= 0(*val*)
 , l1tmp_ret= 0(*nret*)
+, l1tmp_lvl= ~1 // uninitied
 , l1tmp_stamp= stamp(*unicity*)
 } where
 {
@@ -153,16 +169,28 @@ l1tmp_new_arg
 }
 
 (* ****** ****** *)
-
+//
 implement
-l1tmp_get_loc(tmp) = tmp.l1tmp_loc
+l1tmp_get_loc(tmp) = tmp->l1tmp_loc
 implement
-l1tmp_get_arg(tmp) = tmp.l1tmp_arg
+l1tmp_get_arg(tmp) = tmp->l1tmp_arg
 implement
-l1tmp_get_ref(tmp) = tmp.l1tmp_ref
+l1tmp_get_ref(tmp) = tmp->l1tmp_ref
+//
 implement
-l1tmp_get_stamp(tmp) = tmp.l1tmp_stamp
-
+l1tmp_get_lvl
+  (tmp) =
+  tmp->l1tmp_lvl
+implement
+l1tmp_set_lvl
+  (tmp, lvl) =
+(
+  tmp->l1tmp_lvl := lvl
+)
+//
+implement
+l1tmp_get_stamp(tmp) = tmp->l1tmp_stamp
+//
 (* ****** ****** *)
 
 end // end of [local]

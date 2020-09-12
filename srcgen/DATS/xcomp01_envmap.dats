@@ -224,6 +224,8 @@ local
 datavtype
 compenv =
 COMPENV of @{
+  flevel= int
+,
   hdvarstk= hdvarstk
 ,
   l1tmpstk= l1tmpstk
@@ -247,6 +249,8 @@ println!("compenv_make_nil")
 in
 //
 COMPENV@{
+  flevel= 0
+,
   hdvarstk = hdvarstk_nil()
 ,
   l1tmpstk = l1tmpstk_nil()
@@ -271,6 +275,8 @@ val () =
 hdvarstk_pop_top(rcd.hdvarstk)
 val ts =
 l1tmpstk_pop_top(rcd.l1tmpstk)
+//
+val-( 0 ) = rcd.flevel
 //
 val-~hdvarstk_nil() = rcd.hdvarstk
 val-~l1tmpstk_nil() = rcd.l1tmpstk
