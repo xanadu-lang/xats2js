@@ -164,13 +164,17 @@ xemit01_ltcst
 val () =
 xemit01_hdcst
 (out, ltc.hdc())
+(*
 val () =
 fprint(out, "__")
 val () =
 fprint(out, stmp)
+*)
 } where
 {
+(*
   val stmp = ltc.stamp()
+*)
 } (* end of [xemit01_ltcst] *)
 (* ****** ****** *)
 
@@ -418,6 +422,32 @@ L1CMDapp
 }
 //
 fun
+aux_blk
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+(
+case+ blk1 of
+|
+L1BLKnone() => ()
+|
+L1BLKsome(xs) =>
+{
+val () =
+xemit01_txtln( out, "{" )
+val () =
+xemit01_l1cmdlst(out, xs)
+val () =
+xemit01_txtln( out, "}" )
+}
+) where
+{
+val-
+L1CMDblk(blk1) = lcmd.node()
+}
+//
+fun
 aux_dcl
 ( out
 : FILEref
@@ -476,6 +506,8 @@ lcmd.node() of
 L1CMDmov _ => aux_mov(out, lcmd)
 |
 L1CMDapp _ => aux_app(out, lcmd)
+|
+L1CMDblk _ => aux_blk(out, lcmd)
 |
 L1CMDdcl _ => aux_dcl(out, lcmd)
 |

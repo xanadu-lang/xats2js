@@ -306,6 +306,7 @@ l1cmd_node =
   , l1val(*fun*)
   , l1valist(*arg*))
 //
+| L1CMDblk of (l1blk)
 | L1CMDdcl of (l1dcl)
 //
 | L1CMDif0 of

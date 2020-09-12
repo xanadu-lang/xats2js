@@ -521,15 +521,28 @@ H0Edapp
 , npf1
 , h0es) = h0e0.node()
 //
+val () =
+xcomp01_lcmdpush_nil(env0)
+//
 in
 let
 val
-lcmd =
+lapp =
 l1cmd_make_node
 ( loc0
 , L1CMDapp(tres, l1f0, l1vs))
+val () =
+xcomp01_lcmdadd_lcmd(env0, lapp)
+//
+val lblk =
+l1cmd_make_node
+(loc0, L1CMDblk(blk0)) where
+{
+val
+blk0 = xcomp01_lcmdpop0_blk(env0)
+}
 in
-  xcomp01_lcmdadd_lcmd(env0, lcmd)
+  xcomp01_lcmdadd_lcmd(env0, lblk)
 end where
 {
 val l1f0 =
