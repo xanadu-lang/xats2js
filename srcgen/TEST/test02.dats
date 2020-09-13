@@ -1,8 +1,7 @@
 (* ****** ****** *)
 #staload _ =
 "prelude\
-/DATS/CATS\
-/Xint/runtime.dats"
+/DATS/CATS/JS/basics.dats"
 (* ****** ****** *)
 
 #extern

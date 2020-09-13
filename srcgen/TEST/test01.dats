@@ -1,12 +1,23 @@
 (* ****** ****** *)
-#staload _ =
+#staload
 "prelude\
-/DATS/CATS/JS/runtime.dats"
+/DATS/CATS/JS/basics.dats"
 (* ****** ****** *)
 
 val one = 1
 val two = 2
 val three = one + two
+
+(* ****** ****** *)
+
+(*
+impltmp
+gint_add_sint_sint<>
+  (x, y) =
+(
+JS_gint_add_sint_sint(x, y)
+)
+*)
 
 (* ****** ****** *)
 //

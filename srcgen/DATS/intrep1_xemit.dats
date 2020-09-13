@@ -622,6 +622,66 @@ L1DCLimpdecl
 (limp) = dcl0.node()
 val+
 LIMPDECL(rcd) = limp
+in
+//
+case+
+rcd.hag of
+|
+list_nil _ =>
+aux_impdecl0(out, dcl0)
+|
+list_cons _ =>
+aux_impdecl1(out, dcl0)
+//
+end // end of [aux_impdecl]
+//
+and
+aux_impdecl0
+( out
+: FILEref
+, dcl0: l1dcl): void =
+let
+val-
+L1DCLimpdecl
+(limp) = dcl0.node()
+val+
+LIMPDECL(rcd) = limp
+//
+val () =
+xemit01_txtln
+(out, "var // fun")
+val () =
+xemit01_hdcst(out, rcd.hdc)
+//
+in
+//
+case+
+rcd.def of
+|
+None() => ()
+|
+Some(res) =>
+{
+//
+val () =
+xemit01_txt00(out, " =\n")
+val () = xemit01_l1val(out, res)
+val () = xemit01_txt00(out, "\n")
+//
+}
+end // end of [aux_impdecl0]
+//
+and
+aux_impdecl1
+( out
+: FILEref
+, dcl0: l1dcl): void =
+let
+val-
+L1DCLimpdecl
+(limp) = dcl0.node()
+val+
+LIMPDECL(rcd) = limp
 //
 val () =
 xemit01_txtln
@@ -664,7 +724,7 @@ val () = xemit01_txt00(out, ";\n")
 ) : void // end-of-val
 in
 xemit01_txtln(out, "} // function")
-end // end of [aux_impdecl]
+end // end of [aux_impdecl1]
 
 (* ****** ****** *)
 
