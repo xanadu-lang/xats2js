@@ -176,16 +176,18 @@ var tmp8;
 function
 gint_lt_sint_sint(x, y)
 {
-  return (x < y)
+return (x < y)
 } // function
 ;
 tmp5 = gint_lt_sint_sint(a2x1, a1x1);
 }
+;
 if
 (tmp5)
 // then
 {
-{ // dapp
+{
+{
 function
 gint_add_sint_sint(x, y)
 {
@@ -193,8 +195,8 @@ return (x + y)
 } // function
 ;
 tmp6 = gint_add_sint_sint(a2x1, 1);
-} // dapp
-
+}
+;
 {
 function
 gint_mul_sint_sint(x, y)
@@ -206,14 +208,18 @@ return (x * y)
 function
 gint_add_sint_sint(x, y)
 {
-return (x + y)
+return (x + y);
 } // function
 ;
 tmp8 = gint_add_sint_sint(a2x1, 1);
 }
+;
 tmp7 = gint_mul_sint_sint(tmp8, a2x2);
 }
+;
 tmp4 = loop(tmp6, tmp7);
+}
+;
 } // if-then
 else
 {
@@ -223,10 +229,13 @@ tmp4 = a2x2;
 return tmp4;
 } // function
 ;
+{
 tmp9 = loop(0, 1);
+}
+;
 return tmp9;
 } // function
 
-console.log("fact(10) =", fact(10))
+console.log("fact(12) =", fact(12))
 
 /* ****** ****** */
