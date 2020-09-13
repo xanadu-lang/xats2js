@@ -104,9 +104,83 @@ H0Pdapp
 ( h0f0
 , npf1
 , h0ps) = h0p0.node()
+//
+val
+ltag =
+l1val_ctag(l1v1)
+val
+pckf =
+xcomp01_h0pat_ck0
+( env0, h0f0, ltag)
+//
 in
-  L1PCKany()
-end // end of [auxdapp]
+L1PCKapp
+( pckf
+, auxnps(env0, npf1, h0ps))
+end where
+{
+//
+fun
+auxnps
+( env0:
+! compenv
+, npf1: int
+, h0ps
+: h0patlst): l1pcklst =
+(
+case+ h0ps of
+|
+list_nil() =>
+list_nil()
+|
+list_cons _ =>
+if
+(npf1 > 0)
+then
+let
+val
+npf1 = npf1 - 1
+val-
+list_cons
+(_, h0ps) = h0ps
+in
+auxnps(env0, npf1, h0ps)
+end
+else
+auxlst(env0, h0ps, 0(*idx0*))
+) (* end of [auxnps] *)
+//
+and
+auxlst
+( env0:
+! compenv
+, h0ps
+: h0patlst
+, idx0: int): l1pcklst =
+(
+case+ h0ps of
+|
+list_nil() => list_nil()
+|
+list_cons
+(h0p1, h0ps) =>
+let
+val arg1 =
+l1val_carg
+(l1v1, idx0)
+val pck1 = 
+xcomp01_h0pat_ck0
+(env0, h0p1, arg1)
+in
+list_cons(pck1, pcks) where
+{
+val
+pcks = auxlst(env0, h0ps, idx0+1)
+}
+end
+) (* end of [auxlst] *)
+//
+} (* end of [auxdapp] *)
 
 in(*in-of-local*)
 
@@ -128,9 +202,13 @@ H0Pany _ => L1PCKany()
 H0Pvar _ => L1PCKany()
 //
 |
+H0Pfcon(hdc) =>
+L1PCKcon(hdc, l1v1(*ctag*))
+//
+|
 H0Pdapp _ =>
 (
-auxdapp(env0, h0p0, l1v1)
+auxdapp(env0, h0p0, l1v1(*dcon*))
 )
 //
 |

@@ -207,7 +207,13 @@ l1pck =
 | L1PCKbtf of (bool, l1val)
 *)
 | L1PCKcon of (hdcon, l1val)
+//
+| L1PCKapp of
+  (l1pck(*con*), l1pcklst(*arg*))
+//
 | L1PCKpat of (h0pat, l1val)
+//
+where l1pcklst = List0(l1pck)
 //
 fun
 print_l1pck: print_type(l1pck)
@@ -280,6 +286,13 @@ overload print with print_l1val
 overload prerr with prerr_l1val
 overload fprint with fprint_l1val
 //
+(* ****** ****** *)
+fun
+l1val_ctag
+(l1v0: l1val): l1val
+fun
+l1val_carg
+(l1v0: l1val, argi: int): l1val
 (* ****** ****** *)
 //
 datatype

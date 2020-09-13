@@ -74,7 +74,11 @@ fprint_val<l1tmp> = fprint_l1tmp
 
 (* ****** ****** *)
 implement
+fprint_val<l1pck> = fprint_l1pck
+(* ****** ****** *)
+implement
 fprint_val<l1val> = fprint_l1val
+(* ****** ****** *)
 implement
 fprint_val<l1cmd> = fprint_l1cmd
 implement
@@ -164,6 +168,11 @@ case+ x0 of
   fprint!
   ( out
   , "L1PCKcon(", hdc1, "; ", l1v2, ")")
+| L1PCKapp
+  (pck1, pcks) =>
+  fprint!
+  ( out
+  , "L1PCKapp(", pck1, "; ", pcks, ")")
 //
 | L1PCKpat
   (h0p1, l1v2) =>

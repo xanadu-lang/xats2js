@@ -228,6 +228,17 @@ l1val_get_node(x0) = x0.l1val_node
 end // end of [local]
 
 (* ****** ****** *)
+//
+implement
+l1val_ctag(l1v) =
+l1val_make_node
+(l1v.loc(), L1VALctag(l1v))
+implement
+l1val_carg(l1v, idx) =
+l1val_make_node
+(l1v.loc(), L1VALcarg(l1v, idx))
+//
+(* ****** ****** *)
 
 local
 
