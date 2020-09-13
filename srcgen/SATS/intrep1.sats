@@ -325,6 +325,13 @@ l1cmd_node =
 | L1CMDpatck of (l1pck)
 | L1CMDmatch of (h0pat, l1val)
 //
+(*
+HX-2020-09-13:
+finding the first matching clause 
+*)
+| L1CMDpcase of
+  (l1tmp(*res*), l1pcklst(*guards*)) 
+//
 (* ****** ****** *)
 //
 fun

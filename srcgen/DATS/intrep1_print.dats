@@ -312,6 +312,13 @@ fprint!
 ( out
 , "L1CMDmatch(", h0p1, "; ", l1v2, ")")
 //
+|
+L1CMDpcase
+(tres, pcks) =>
+fprint!
+( out
+, "L1CMDpcase(", tres, "; ", pcks, ")")
+//
 (*
 | _ (* else *) => fprint!(out, "L1CMD...(...)")
 *)

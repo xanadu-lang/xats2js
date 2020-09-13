@@ -214,7 +214,7 @@ auxdapp(env0, h0p0, l1v1(*dcon*))
 |
 _ (*else*) => L1PCKpat(h0p0, l1v1)
 //
-end // end of [xcomp01_h0pat_ck01]
+end // end of [xcomp01_h0pat_ck0]
 
 end // end of [local]
 
