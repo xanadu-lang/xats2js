@@ -90,6 +90,24 @@ val () = compenv_free_nil(env0)
 
 local
 
+fun
+auxdapp
+( env0
+: !compenv
+, h0p0
+: h0pat
+, l1v1
+: l1val): l1pck =
+let
+val-
+H0Pdapp
+( h0f0
+, npf1
+, h0ps) = h0p0.node()
+in
+  L1PCKany()
+end // end of [auxdapp]
+
 in(*in-of-local*)
 
 implement
@@ -105,30 +123,19 @@ case+
 h0p0.node() of
 //
 |
-H0Pany _ => L1BTFbtf_tt
+H0Pany _ => L1PCKany()
 |
-H0Pvar _ => L1BTFbtf_tt
+H0Pvar _ => L1PCKany()
 //
 |
-_ (* else *) =>
-  L1BTFtmp(tres) where
-{
+H0Pdapp _ =>
+(
+auxdapp(env0, h0p0, l1v1)
+)
 //
-val
-tres =
-xltmpnew_tmp0(env0,loc0)
+|
+_ (*else*) => L1PCKpat(h0p0, l1v1)
 //
-val
-lcmd =
-l1cmd_make_node
-( loc0
-, L1CMDpatck0(tres, h0p0, l1v1))
-//
-val () =
-xcomp01_lcmdadd_lcmd(env0, lcmd)
-//
-}
-// (* rest of [h0pat] *)
 end // end of [xcomp01_h0pat_ck01]
 
 end // end of [local]
@@ -179,7 +186,7 @@ _ (* else *) =>
 let
 val lcmd =
 l1cmd_make_node
-(loc0, L1CMDpatck1(h0p0, l1v1))
+(loc0, L1CMDmatch(h0p0, l1v1))
 in
   xcomp01_lcmdadd_lcmd(env0, lcmd)
 end
@@ -196,13 +203,13 @@ let
 val
 loc0 = h0p0.loc()
 val
-ltbf =
+lpck =
 xcomp01_h0pat_ck0
 (env0, h0p0, l1v1)
 val
 lcmd =
 l1cmd_make_node
-(loc0, L1CMDassrt(ltbf))
+(loc0, L1CMDpatck(lpck))
 val () =
 xcomp01_lcmdadd_lcmd(env0, lcmd)
 //

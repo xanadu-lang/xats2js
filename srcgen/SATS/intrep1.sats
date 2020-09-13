@@ -200,28 +200,25 @@ overload fprint with fprint_l1int
 (* ****** ****** *)
 //
 datatype
-l1btf =
-| L1BTFbtf of bool
-| L1BTFtmp of l1tmp
+l1pck =
+| L1PCKany of ()
 (*
-| L1BTFval of l1val
+| L1PCKint of (int, l1val)
+| L1PCKbtf of (bool, l1val)
 *)
-//
-#define
-L1BTFbtf_tt L1BTFbtf(true)
-#define
-L1BTFbtf_ff L1BTFbtf(false)
+| L1PCKcon of (hdcon, l1val)
+| L1PCKpat of (h0pat, l1val)
 //
 fun
-print_l1btf: print_type(l1btf)
+print_l1pck: print_type(l1pck)
 fun
-prerr_l1btf: prerr_type(l1btf)
+prerr_l1pck: prerr_type(l1pck)
 fun
-fprint_l1btf: fprint_type(l1btf)
+fprint_l1pck: fprint_type(l1pck)
 //
-overload print with print_l1btf
-overload prerr with prerr_l1btf
-overload fprint with fprint_l1btf
+overload print with print_l1pck
+overload prerr with prerr_l1pck
+overload fprint with fprint_l1pck
 //
 (* ****** ****** *)
 //
@@ -312,12 +309,8 @@ l1cmd_node =
 | L1CMDif0 of
   (l1val, l1blk, l1blk)
 //
-| L1CMDassrt of (l1btf)
-//
-| L1CMDpatck0 of
-  ( l1tmp(*ret*)
-  , h0pat, l1val)
-| L1CMDpatck1 of (h0pat, l1val)
+| L1CMDpatck of (l1pck)
+| L1CMDmatch of (h0pat, l1val)
 //
 (* ****** ****** *)
 //
@@ -615,14 +608,13 @@ xemit01_hfarglst
 //
 fun
 xemit01_l1int(FILEref, token): void
-(*
-fun
-xemit01_l1btf(FILEref, token): void
-*)
 //
 (* ****** ****** *)
 fun
 xemit01_l1tmp(FILEref, l1tmp): void
+(* ****** ****** *)
+fun
+xemit01_l1pck(FILEref, l1pck): void
 (* ****** ****** *)
 fun
 xemit01_l1val(FILEref, l1val): void

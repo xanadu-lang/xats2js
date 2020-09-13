@@ -146,25 +146,32 @@ case+ x0 of
 (* ****** ****** *)
 //
 implement
-print_l1btf(x0) =
-fprint_l1btf(stdout_ref, x0)
+print_l1pck(x0) =
+fprint_l1pck(stdout_ref, x0)
 implement
-prerr_l1btf(x0) =
-fprint_l1btf(stderr_ref, x0)
+prerr_l1pck(x0) =
+fprint_l1pck(stderr_ref, x0)
 //
 implement
-fprint_l1btf(out, x0) =
+fprint_l1pck(out, x0) =
 (
 case+ x0 of
-| L1BTFbtf(btf) =>
-  fprint!(out, "L1BTFbtf(", btf, ")")
-| L1BTFtmp(tmp) =>
-  fprint!(out, "L1BTFtmp(", tmp, ")")
-(*
-| L1BTFval(l1v) =>
-  fprint!(out, "L1BTFval(", l1v, ")")
-*)
-)
+| L1PCKany() =>
+  fprint!(out, "L1PCKany(", ")")
+//
+| L1PCKcon
+  (hdc1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKcon(", hdc1, "; ", l1v2, ")")
+//
+| L1PCKpat
+  (h0p1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKpat(", h0p1, "; ", l1v2, ")")
+//
+) (* end of [fprint_l1pck] *)
 //
 (* ****** ****** *)
 //
@@ -286,21 +293,14 @@ fprint!
 , l1v1, "; ", blk2, "; ", blk3, ")")
 //
 |
-L1CMDassrt(l1v1) =>
-fprint!(out, "L1CMDassrt(", l1v1, ")")
+L1CMDpatck(lpck) =>
+fprint!(out, "L1CMDpatck(", lpck, ")")
 |
-L1CMDpatck0
-(tres, h0p1, l1v2) =>
-fprint!
-( out
-, "L1CMDpatck0("
-, tres, "; ", h0p1, "; ", l1v2, ")")
-|
-L1CMDpatck1
+L1CMDmatch
 (h0p1, l1v2) =>
 fprint!
 ( out
-, "L1CMDpatck1(", h0p1, "; ", l1v2, ")")
+, "L1CMDmatch(", h0p1, "; ", l1v2, ")")
 //
 (*
 | _ (* else *) => fprint!(out, "L1CMD...(...)")
@@ -359,6 +359,11 @@ fprint!
 ( out
 , "L1DCLlocal(", head, "; ", body, ")")
 //
+| L1DCLnil() =>
+  fprint!(out, "L1DCLnil(", ")")
+| L1DCLlist(xs) =>
+  fprint!(out, "L1DCLcons(", xs, ")")
+//
 |
 L1DCLimpdecl(limp) =>
 fprint!(out, "L1DCLimpdecl(", limp, ")")
@@ -377,7 +382,9 @@ fprint!(out, "L1DCLvardecl(", lvds, ")")
 | L1DCLnone1(hdcl) =>
   fprint!(out, "L1DCLnone1(", hdcl, ")")
 //
+(*
 | _ (* else *) => fprint!(out, "L1DCL...(...)")
+*)
 //
 ) (* end of [fprint_l1dcl] *)
 

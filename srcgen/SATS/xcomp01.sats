@@ -164,8 +164,8 @@ fun
 xcomp01_h0pat_ck0
 ( env0:
 ! compenv
-, h0p0: h0pat
-, l1v1: l1val): l1btf(*bool*)
+, h0p0
+: h0pat, l1v1: l1val): l1pck
 //
 // HX:
 // for extracting values

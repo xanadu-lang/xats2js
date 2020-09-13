@@ -833,12 +833,14 @@ implement
 xemit01_l1dcl
 (out, dcl0) =
 let
+(*
 val () =
 fprint!(out, "//")
 val () =
 fprint!(out, dcl0)
 val () =
 fprint_newline(out)
+*)
 in(*in-of-let*)
 //
 case+
@@ -856,7 +858,7 @@ L1DCLfundecl _ =>
 val()=aux_fundecl(out, dcl0)
 }
 //
-| _ (* else *) => fprint!(out, "L1DCL...(...)")
+| _ (* else *) => fprint!(out, "//", dcl0)
 //
 end // end of [xemit01_l1dcl]
 //
