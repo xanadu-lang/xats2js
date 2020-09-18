@@ -608,36 +608,8 @@ auxpcklst
 , icas: int
 , tcas: l1tmp
 , pcks: l1pcklst): void =
-(
-case+ pcks of
-|
-list_nil() => ()
-|
-list_cons(pck1, pcks) =>
 let
-val () =
-xemit01_txtln(out, "do {")
 //
-val () = auxpck0(pck1)
-//
-val () =
-xemit01_l1tmp(out, tcas)
-val () =
-fprint!(out, " = ", icas, ";\n")
-val () =
-xemit01_txtln(out, "} while(false);")
-val () =
-xemit01_txt00(out, "if(")
-val () =
-xemit01_l1tmp( out, tcas )
-val () =
-xemit01_txt00( out, " > 0) break;\n" )
-//
-in
-  auxpcklst(out, icas+1, tcas, pcks)
-end
-) where
-{
 fun
 auxpck0
 (pck0: l1pck) : void =
@@ -686,7 +658,40 @@ list_cons(pck1, pcks) =>
   val () = auxpcks( pcks )
 }
 )
-} (* end of [auxpcklst] *)
+in
+//
+case+ pcks of
+|
+list_nil() => ()
+|
+list_cons
+(pck1, pcks) =>
+let
+val () =
+xemit01_txtln
+( out, "do {" )
+//
+val () = auxpck0(pck1)
+//
+val () =
+xemit01_l1tmp(out, tcas)
+val () =
+fprint!
+(out, " = ", icas, ";\n")
+val () =
+xemit01_txtln
+( out, "} while(false);" )
+val () =
+xemit01_txt00( out, "if(" )
+val () =
+xemit01_l1tmp( out, tcas )
+val () =
+xemit01_txt00( out, " > 0) break;\n" )
+//
+in
+  auxpcklst(out, icas+1, tcas, pcks)
+end (* end-of-let *)
+end (* end-of-let *) // end of [auxpcklst]
 
 (* ****** ****** *)
 
@@ -698,6 +703,7 @@ auxblklst
 , tcas: l1tmp
 , blks: l1blklst): void =
 let
+//
 fun
 auxblk0
 ( out
@@ -705,6 +711,7 @@ auxblk0
 , blk1
 : l1blk ) : void =
 xemit01_l1blk(out, blk1)
+//
 in
 case+ blks of
 |
@@ -720,8 +727,8 @@ val () =
 xemit01_txt00(out, "break;\n")
 in
 auxblklst(out, icas+1, tcas, blks)
-end
-end (* end of [auxblklst] *)
+end (* end-of-let *)
+end (* end-of-let *) // end of [auxblklst]
 
 in(* in-of-local*)
 
@@ -732,6 +739,7 @@ aux_case
 , lcmd
 : l1cmd): void =
 {
+//
 val () =
 xemit01_txt00(out, "{\n")
 //
@@ -762,10 +770,9 @@ auxblklst(out, 1(*i*), tcas, blks)
 //
 val () =
 fprint!
-( out
-, "default: JS_matcherr0();\n")
+(out, "default: JS_matcherr0();\n")
 val () =
-xemit01_txtln(out, "} // switch")
+xemit01_txtln(out, "} // case-switch")
 //
 } where
 {
@@ -777,9 +784,9 @@ L1CMDcase
 , tcas
 , pcks, blks) = lcmd.node()
 //
-} (* where *) // end of [aux_case]
-
-end // end of [aux_case]
+} (* where *)
+//
+end (* end-of-local *)// end of [aux_case]
 
 (* ****** ****** *)
 
@@ -847,9 +854,8 @@ list_cons(pck1, pcks) =>
   val () = auxpck0( pck1 )
   val () = auxpcks( pcks )
 }
-)
-} (* end of [aux_patck] *)
-
+) (* end of [auxpcks] *)
+} (* where *) // end of [aux_patck]
 
 in(*in-of-local*)
 //
