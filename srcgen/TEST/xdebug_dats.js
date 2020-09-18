@@ -159,6 +159,7 @@ console.log("fact2_(10)(1) =", fact2_(10)(1))
 
 /* ****** ****** */
 
+/*
 function
 fact(a1x1)
 {
@@ -237,5 +238,29 @@ return tmp9;
 } // function
 
 console.log("fact(12) =", fact(12))
+*/
+
+/* ****** ****** */
+
+/*
+{
+do
+{
+tres = false
+if
+(list_cons===tag[0])
+{
+if
+(list_nil===tag[1][0])
+{
+}
+else break; // if-else
+}
+else break; // if-else
+tres = true
+} while (false) ;
+JS_assertloc(tres, "dsafsadfsad")
+}
+*/
 
 /* ****** ****** */

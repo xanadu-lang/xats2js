@@ -133,9 +133,17 @@ val () = xemit01_blnk1(out)
 implement
 xemit01_hdcon
 (out, hdc) =
-(
-  fprint(out, hdc)
-)
+let
+val
+tag = hdc.tag()
+in
+if
+tag >= 0
+then
+fprint(out, tag)
+else
+fprint(out, hdc.sym())
+end // end of [xemit01_hdcon]
 (* ****** ****** *)
 implement
 xemit01_hdcst
@@ -330,11 +338,32 @@ L1VALtmp(tmp1) =>
 xemit01_l1tmp(out, tmp1)
 //
 |
+L1VALcon(hdc1) =>
+xemit01_hdcon(out, hdc1)
+//
+|
 L1VALfcst(hdc1) =>
 xemit01_hdcst(out, hdc1)
 |
 L1VALtcst(ltc1) =>
 xemit01_ltcst(out, ltc1)
+//
+|
+L1VALctag(l1v1) =>
+{
+  val () =
+  xemit01_l1val(out, l1v1)
+  val () =
+  xemit01_txt00(out, "[0]")
+}
+|
+L1VALcarg(l1v1, argi) =>
+{
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, "[", argi+1, "]")
+}
 //
 | _ (* else *) => fprint(out, l1v0)
 //
@@ -363,6 +392,69 @@ val-
 L1CMDmov
 (tres, l1v1) = lcmd.node()
 }
+//
+fun
+aux_con
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+{
+val () =
+xemit01_l1tmp(out, tres)
+val () =
+xemit01_txt00(out, " = ")
+//
+val () =
+xemit01_txt00(out, "[")
+val () =
+let
+val-
+L1VALcon
+( hdc0 ) = l1f0.node()
+in
+xemit01_hdcon(out, hdc0)
+end
+//
+local
+fun
+loop
+( n0: int
+, xs
+: l1valist): void =
+(
+case+ xs of
+|
+list_nil() => ()
+|
+list_cons(x0, xs) =>
+(
+  loop(n0+1, xs)
+) where
+{
+val () =
+if
+(n0 > 0)
+then
+xemit01_txt00(out, ", ")
+val () = xemit01_l1val(out, x0)
+} (* list_cons *)
+)
+in
+val () = loop(1, l1vs)
+end (* end of [local] *)
+//
+val () = xemit01_txt00(out, "]")
+//
+} where
+{
+//
+val-
+L1CMDapp
+( tres
+, l1f0, l1vs) = lcmd.node()
+//
+} (* end of [aux_con] *)
 //
 fun
 aux_app
@@ -419,7 +511,7 @@ L1CMDapp
 ( tres
 , l1f0, l1vs) = lcmd.node()
 //
-}
+} (* end of [aux_app] *)
 //
 fun
 aux_blk
@@ -494,6 +586,75 @@ L1CMDif0
 (l1v1, blk2, blk3) = lcmd.node()
 } (* where *) // end of [aux_if0]
 
+(* ****** ****** *)
+
+fun
+aux_patck
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+(
+  auxpck0(pck0)
+) where
+{
+val
+loc0 = lcmd.loc()
+val-
+L1CMDpatck
+  (pck0) = lcmd.node()
+} where
+{
+fun
+auxpck0
+(pck0: l1pck): void =
+(
+case+ pck0 of
+|
+L1PCKany() => ()
+|
+L1PCKcon(hdc, l1v) =>
+{
+val () =
+xemit01_txt00(out, "if(")
+val () =
+xemit01_hdcon( out, hdc )
+val () =
+xemit01_txt00(out, "!==")
+val () =
+xemit01_l1val( out, l1v )
+val () =
+xemit01_txtln
+(out, ") JS_patckerr0();")
+}
+|
+L1PCKapp(pck1, pcks) =>
+{
+  val () = auxpck0(pck1)
+  val () = auxpcks(pcks)
+}
+| _ (* else *) =>
+{
+  val () = fprint!(out, "//", pck0)
+}
+)
+and
+auxpcks
+(pcks: l1pcklst): void =
+(
+case+ pcks of
+|
+list_nil() => ()
+|
+list_cons(pck1, pcks) =>
+{
+  val () = auxpck0(pck1)
+  val () = auxpcks(pcks)
+}
+)
+} (* end of [aux_patck] *)
+
+
 in(*in-of-local*)
 //
 implement
@@ -505,13 +666,25 @@ lcmd.node() of
 |
 L1CMDmov _ => aux_mov(out, lcmd)
 |
-L1CMDapp _ => aux_app(out, lcmd)
+L1CMDapp
+(_, l1f0, _) =>
+(
+case+
+l1f0.node() of
+|
+L1VALcon _ => aux_con(out, lcmd)
+|
+_ (*else*) => aux_app(out, lcmd)
+)
 |
 L1CMDblk _ => aux_blk(out, lcmd)
 |
 L1CMDdcl _ => aux_dcl(out, lcmd)
 |
 L1CMDif0 _ => aux_if0(out, lcmd)
+//
+|
+L1CMDpatck _ => aux_patck(out, lcmd)
 //
 |
 _ (* else *) => fprint!(out, lcmd)
@@ -797,9 +970,9 @@ val () = xemit01_txt00(out, ";\n")
 in
 xemit01_txtln(out, "} // function")
 end (* end of [auxlfd0] *)
-
+//
 (* ****** ****** *)
-
+//
 and
 auxlfds
 ( lfds
@@ -827,20 +1000,69 @@ end // end of [aux_fundecl]
 
 (* ****** ****** *)
 
+fun
+aux_valdecl
+( out
+: FILEref
+, dcl0: l1dcl): void =
+let
+//
+fun
+auxlvd0
+( lvd0
+: lvaldecl): void =
+{
+//
+val+
+LVALDECL(rcd) = lvd0
+//
+val () =
+xemit01_txtln(out, "{")
+val () =
+xemit01_l1blk(out, rcd.def_blk)
+val () = xemit01_txtln(out, "}")
+//
+} (* end of [auxlvd0] *)
+
+(* ****** ****** *)
+//
+and
+auxlvds
+( lvds
+: lvaldeclist): void =
+(
+case lvds of
+|
+list_nil() => ()
+|
+list_cons
+(lvd0, lvds) =>
+{
+  val () = auxlvd0(lvd0)
+  val () = auxlvds(lvds)
+}
+) (* end of [auxlvds] *)
+//
+in
+let
+val-
+L1DCLvaldecl
+(lvds) = dcl0.node() in auxlvds(lvds)
+end
+end // end of [aux_valdecl]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 //
 implement
 xemit01_l1dcl
 (out, dcl0) =
 let
-(*
 val () =
 fprint!(out, "//")
 val () =
-fprint!(out, dcl0)
-val () =
-fprint_newline(out)
-*)
+fprintln!(out, dcl0)
 in(*in-of-let*)
 //
 case+
@@ -856,6 +1078,12 @@ val()=aux_impdecl(out, dcl0)
 L1DCLfundecl _ =>
 {
 val()=aux_fundecl(out, dcl0)
+}
+//
+|
+L1DCLvaldecl _ =>
+{
+val()=aux_valdecl(out, dcl0)
 }
 //
 | _ (* else *) => fprint!(out, "//", dcl0)

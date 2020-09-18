@@ -165,7 +165,8 @@ xcomp01_h0pat_ck0
 ( env0:
 ! compenv
 , h0p0
-: h0pat, l1v1: l1val): l1pck
+: h0pat
+, l1v1: l1val): l1pck
 //
 // HX:
 // for extracting values
@@ -179,12 +180,31 @@ xcomp01_h0pat_ck1
 , h0p0
 : h0pat, l1v1: l1val): void
 //
+(* ****** ****** *)
+//
 fun
 xcomp01_h0pat_ck01
 ( env0:
 ! compenv
 , h0p0
 : h0pat, l1v1: l1val): void
+//
+(* ****** ****** *)
+//
+fun
+xcomp01_h0gpat_ck0
+( env0:
+! compenv
+, hgp0
+: h0gpat
+, l1v1: l1val): l1pck
+//
+fun
+xcomp01_h0gpat_ck1
+( env0:
+! compenv
+, hgp0
+: h0gpat, l1v1: l1val): void
 //
 (* ****** ****** *)
 //

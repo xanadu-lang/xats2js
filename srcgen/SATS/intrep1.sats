@@ -241,6 +241,8 @@ l1val_node =
 //
 | L1VALtmp of (l1tmp)
 //
+| L1VALcon of (hdcon)
+//
 | L1VALfcst of (hdcst)
 | L1VALtcst of (ltcst)
 //
@@ -321,6 +323,11 @@ l1cmd_node =
 //
 | L1CMDif0 of
   (l1val, l1blk, l1blk)
+//
+| L1CMDcase of
+  ( int(*knd*)
+  , l1val
+  , l1tmp, l1pcklst, l1blklst)
 //
 | L1CMDpatck of (l1pck)
 | L1CMDmatch of (h0pat, l1val)

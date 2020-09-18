@@ -303,6 +303,16 @@ fprint!
 , l1v1, "; ", blk2, "; ", blk3, ")")
 //
 |
+L1CMDcase
+( knd0
+, l1v1, tcas, pcks, blks) =>
+fprint!
+( out
+, "L1CMDcase("
+, knd0, "; ", l1v1, "; "
+, tcas, "; ", pcks, "; ", blks, ")")
+//
+|
 L1CMDpatck(lpck) =>
 fprint!(out, "L1CMDpatck(", lpck, ")")
 |
