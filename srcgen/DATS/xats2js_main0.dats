@@ -700,8 +700,10 @@ val () =
 let
 val out = stdout_ref
 in
+(*
 fprint(out, "dirpath = ");
 $FP0.fprintln_dirpath(out, dp0)
+*)
 end
 in
   $FP0.the_filpathlst_ppush(fp0);
@@ -841,6 +843,7 @@ println!
 ("process_fpath: d3cs = ", d3cs)
 *)
 //
+(*
 val () =
 println!
 ("process_fpath: the_sortenv:")
@@ -848,7 +851,9 @@ val () =
 (
   the_sortenv_println((*void*))
 )
+*)
 //
+(*
 val () =
 println!
 ("process_fpath: the_sexpenv:")
@@ -856,7 +861,9 @@ val () =
 (
   the_sexpenv_println((*void*))
 )
+*)
 //
+(*
 val () =
 println!
 ("process_fpath: the_dexpenv:")
@@ -864,6 +871,7 @@ val () =
 (
   the_dexpenv_println((*void*))
 )
+*)
 //
 val
 dcls =
@@ -883,7 +891,7 @@ fprintln!
 val () =
 fprintln!
 ( stdout_ref
-, "process_fpath: dcls = ")
+, "//process_fpath: dcls = ")
 val () =
 loop(dcls) where
 {
@@ -901,7 +909,7 @@ list_cons
 loop(h0cs) where
 {
 val () =
-fprintln!(stdout_ref, h0c1) 
+fprintln!(stdout_ref, "//", h0c1) 
 } (* end-of-where *)
 ) (* end of [val] *)
 //

@@ -752,10 +752,10 @@ xemit01_txt00(out, "do {\n")
 val () =
 auxpcklst(out, 1(*i*), tcas, pcks)
 val () =
-xemit01_txtln(out, "} while(false);")
+fprint!( out, "} while(false);\n" )
 //
 val () =
-xemit01_txt00(out, "}\n")
+fprintln!( out, "} // case-patck0" )
 //
 val () =
 xemit01_txt00
@@ -1026,6 +1026,28 @@ val+
 LIMPDECL(rcd) = limp
 //
 val () =
+let
+val
+blk = rcd.def_blk
+in
+case+ blk of
+|
+L1BLKnone() => ()
+|
+L1BLKsome(xs) =>
+{
+val () =
+xemit01_txtln
+(out, "{ // val-binding")
+val () =
+xemit01_l1cmdlst(out, xs)
+val () =
+xemit01_txtln
+(out, "} // val-binding")
+}
+end // end of [val]
+//
+val () =
 xemit01_txtln
 (out, "var // fun")
 val () =
@@ -1042,11 +1064,13 @@ Some(res) =>
 {
 //
 val () =
-xemit01_txt00(out, " =\n")
-val () = xemit01_l1val(out, res)
-val () = xemit01_txt00(out, "\n")
+xemit01_txt00(out, " = ")
+val () =
+xemit01_l1val( out, res )
+val () =
+xemit01_txt00( out, "\n" )
 //
-}
+} (* end of [Some] *)
 end // end of [aux_impdecl0]
 //
 and

@@ -264,6 +264,11 @@ xcomp01_h0dclist
 ! compenv, dcls: h0dclist): l1dclist
 //
 (* ****** ****** *)
+fun
+xcomp01_h0dcl_timp
+( env0:
+! compenv, dcl0: h0dcl): l1dcl
+(* ****** ****** *)
 //
 fun
 xcomp01_hfundecl

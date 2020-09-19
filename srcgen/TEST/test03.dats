@@ -4,60 +4,75 @@
 /DATS/CATS/JS/basics.dats"
 (* ****** ****** *)
 
-(*
-val-
-list_cons
-( x1
-, list_nil()) =
-list_cons(1, list_cons(2, list_nil()))
-val x2 = x1 + x1
-*)
-
-(* ****** ****** *)
-
 datatype
-mylist =
-mylist_nil | mylist_cons of (int, mylist)
+mylist(a:type) =
+| mylist_nil of ()
+| mylist_cons of (a, mylist(a))
 
 (* ****** ****** *)
+#extern
 fun
+<a:type>
 mylist_length
-(xs: mylist): int =
+(xs: mylist(a)): int
+(* ****** ****** *)
+(*
+implement
+<a>
+mylist_length
+  (xs) = length(xs) where
+*)
+implement
+<a>
+mylist_length = length where
+{
+fun
+length(xs): int =
 (
 case+ xs of
 | mylist_nil() => 0
-| mylist_cons(_, xs) => 1 + mylist_length(xs)
+| mylist_cons
+  (
+  _
+  ,
+  mylist_cons(_, xs)
+  ) => 2 + length(xs)
+| mylist_cons(_, xs) => 1 + length(xs)
 )
+}
 (* ****** ****** *)
-#extern
-fun<>
+fun
+<a:type>
 mylist_append
-(xs: mylist, ys: mylist): mylist
-implement
-<>
-mylist_append
-  (xs, ys) =
+( xs
+: mylist(a)
+, ys
+: mylist(a)): mylist(a) =
 (
-  append(xs, ys)
-) where
+  append(xs, ys) ) where
 {
 fun
-append
-(xs: mylist, ys: mylist): mylist =
+append(xs, ys) = 
 case+ xs of
 | mylist_nil() => ys
 | mylist_cons(x0, xs) =>
   mylist_cons(x0, append(xs, ys))
 }
 (* ****** ****** *)
-
-val mylist0 = mylist_nil()
-val mylist123 =
-mylist_cons(1, mylist_cons(2, mylist_cons(3, mylist_nil())))
-
+val
+mylist0 =
+mylist_nil()
+val
+mylist123 =
+mylist_cons
+( 1
+, mylist_cons
+( 2, mylist_cons(3, mylist_nil())))
 (* ****** ****** *)
 
-val mylist1230 = mylist_append(mylist123, mylist0)
+val
+length_mylist1230 =
+mylist_length(mylist_append<int>(mylist123, mylist0))
 
 (* ****** ****** *)
 
