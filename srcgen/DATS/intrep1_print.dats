@@ -125,6 +125,7 @@ fprint!
 end // end of [fprint_l1tmp]
 //
 (* ****** ****** *)
+(*
 //
 implement
 print_l1int(x0) =
@@ -147,6 +148,7 @@ case+ x0 of
 *)
 )
 //
+*)
 (* ****** ****** *)
 //
 implement

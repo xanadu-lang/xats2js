@@ -277,7 +277,7 @@ end
 (* ****** ****** *)
 //
 implement
-xemit01_l1int
+xemit01_lvint
 (out, tok) =
 let
 val
@@ -288,7 +288,24 @@ case- tnd of
 |
 T_INT1(rep) => fprint(out, rep)
 //
-end // end of [xemit01_l1int]
+end // end of [xemit01_lvint]
+(* ****** ****** *)
+//
+implement
+xemit01_lvstr
+(out, tok) =
+let
+val
+tnd = tok.node()
+in
+//
+case- tnd of 
+|
+T_STRING_closed
+  (rep) =>
+  fprint!(out, rep) // HX: FIXME!!!
+//
+end // end of [xemit01_lvstr]
 (* ****** ****** *)
 //
 implement
@@ -327,7 +344,10 @@ l1v0.node() of
 //
 |
 L1VALint(tok) =>
-xemit01_l1int(out, tok)
+xemit01_lvint(out, tok)
+|
+L1VALstr(tok) =>
+xemit01_lvstr(out, tok)
 (*
 |
 L1VALcon(hdc1) =>
@@ -1035,7 +1055,14 @@ case+ blk of
 L1BLKnone() => ()
 |
 L1BLKsome(xs) =>
+(
+case+ xs of
+|
+list_nil _ => ()
+|
+list_cons _ =>
 {
+//
 val () =
 xemit01_txtln
 (out, "{ // val-binding")
@@ -1043,8 +1070,10 @@ val () =
 xemit01_l1cmdlst(out, xs)
 val () =
 xemit01_txtln
-(out, "} // val-binding")
-}
+( out, "} // val-binding" )
+//
+} (* [list_cons] *)
+) (* [L1BLKsome] *)
 end // end of [val]
 //
 val () =

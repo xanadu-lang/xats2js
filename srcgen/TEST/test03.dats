@@ -3,6 +3,28 @@
 "prelude\
 /DATS/CATS/JS/basics.dats"
 (* ****** ****** *)
+//
+#staload
+"prelude/DATS/gbas.dats"
+#staload
+"prelude/DATS/gnum.dats"
+#staload
+"prelude/DATS/gseq.dats"
+#staload
+"prelude/DATS/unsafe.dats"
+//
+(* ****** ****** *)
+//
+#staload _ =
+"prelude/DATS/char.dats"
+#staload _ =
+"prelude/DATS/gint.dats"
+#staload _ =
+"prelude/DATS/string.dats"
+#staload _ =
+"prelude/DATS/list.dats"
+//
+(* ****** ****** *)
 
 datatype
 mylist(a:type) =
@@ -73,6 +95,14 @@ mylist_cons
 val
 length_mylist1230 =
 mylist_length(mylist_append<int>(mylist123, mylist0))
+
+(* ****** ****** *)
+
+val () =
+g_print
+("length_mylist1230 = ")
+val () =
+g_print(length_mylist1230)
 
 (* ****** ****** *)
 

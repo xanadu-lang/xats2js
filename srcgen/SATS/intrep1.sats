@@ -177,6 +177,7 @@ overload prerr with prerr_l1tmp
 overload fprint with fprint_l1tmp
 //
 (* ****** ****** *)
+(*
 //
 datatype
 l1int =
@@ -197,6 +198,7 @@ overload print with print_l1int
 overload prerr with prerr_l1int
 overload fprint with fprint_l1int
 //
+*)
 (* ****** ****** *)
 //
 datatype
@@ -634,7 +636,9 @@ xemit01_hfarglst
 (* ****** ****** *)
 //
 fun
-xemit01_l1int(FILEref, token): void
+xemit01_lvint(FILEref, token): void
+fun
+xemit01_lvstr(FILEref, token): void
 //
 (* ****** ****** *)
 fun
