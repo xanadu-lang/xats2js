@@ -759,7 +759,7 @@ xemit01_txt00(out, "}\n")
 //
 val () =
 xemit01_txt00
-(out, "switch(")
+(out, "switch\n(")
 val () =
 xemit01_l1tmp(out, tcas)
 val () =
@@ -1101,7 +1101,8 @@ val () = xemit01_txt00(out, ";\n")
 }
 ) : void // end-of-val
 in
-xemit01_txtln(out, "} // function")
+fprintln!
+(out, "} // function // ", rcd.hdc)
 end // end of [aux_impdecl1]
 
 (* ****** ****** *)
@@ -1173,7 +1174,8 @@ val () = xemit01_txt00(out, ";\n")
 }
 ) : void // end-of-val
 in
-xemit01_txtln(out, "} // function")
+fprintln!
+(out, "} // function // ", rcd.hdc)
 end (* end of [auxlfd0] *)
 //
 (* ****** ****** *)
@@ -1225,7 +1227,9 @@ val () =
 xemit01_txtln(out, "{")
 val () =
 xemit01_l1blk(out, rcd.def_blk)
-val () = xemit01_txtln(out, "}")
+val () =
+fprintln!
+( out, "} // val(", rcd.pat, ")" )
 //
 } (* end of [auxlvd0] *)
 
