@@ -76,13 +76,13 @@ xcomp01_program
 //
 (* ****** ****** *)
 fun
-xcomp01_flvlget
+xcomp01_flevget
 (env0: !compenv): int
 fun
-xcomp01_flvlinc
+xcomp01_flevinc
 (env0: !compenv): void
 fun
-xcomp01_flvldec
+xcomp01_flevdec
 (env0: !compenv): void
 (* ****** ****** *)
 fun

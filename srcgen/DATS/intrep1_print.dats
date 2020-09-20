@@ -82,8 +82,10 @@ fprint_val<l1pck> = fprint_l1pck
 (* ****** ****** *)
 implement
 fprint_val<l1val> = fprint_l1val
+(*
 implement
 fprint_val<l1lvl> = fprint_l1lvl
+*)
 (* ****** ****** *)
 implement
 fprint_val<l1cmd> = fprint_l1cmd
@@ -221,9 +223,11 @@ fprint!(out, "L1VALchr(", tok, ")")
 L1VALtmp(tmp) =>
 fprint!(out, "L1VALtmp(", tmp, ")")
 //
+(*
 |
 L1VALlvl(lvl) =>
 fprint!(out, "L1VALlvl(", lvl, ")")
+*)
 //
 |
 L1VALfcst(hdc) =>
@@ -245,6 +249,13 @@ L1VALaddr(l1v1) =>
 fprint!(out, "L1VALaddr(", l1v1, ")")
 //
 |
+L1VALflat(l1v1) =>
+fprint!(out, "L1VALflat(", l1v1, ")")
+|
+L1VALtalf(l1v1) =>
+fprint!(out, "L1VALtalf(", l1v1, ")")
+//
+|
 L1VALnone0() =>
 fprint!(out, "L1VALnone0(", ")")
 |
@@ -257,13 +268,16 @@ fprint!(out, "L1VALnone1(", h0e1, ")")
 //
 (* ****** ****** *)
 //
+(*
 implement
 print_l1lvl(x0) =
 fprint_l1lvl(stdout_ref, x0)
 implement
 prerr_l1lvl(x0) =
 fprint_l1lvl(stderr_ref, x0)
+*)
 //
+(*
 implement
 fprint_l1lvl(out, x0) =
 (
@@ -277,6 +291,7 @@ x0.node() of
   ( out
   , "L1LVLpcon(", l1v, "; ", lab, ")")
 )
+*)
 //
 (* ****** ****** *)
 //
@@ -363,10 +378,10 @@ fprint!
 //
 |
 L1CMDassgn
-(lvl1, l1v2) =>
+(l1v1, l1v2) =>
 fprint!
 ( out
-, "L1CMDassgn(", lvl1, "; ", l1v2, ")")
+, "L1CMDassgn(", l1v1, "; ", l1v2, ")")
 //
 (*
 | _ (* else *) => fprint!(out, "L1CMD...(...)")

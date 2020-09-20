@@ -287,7 +287,7 @@ val-~l1cmdstk_nil() = rcd.l1cmdstk
 (* ****** ****** *)
 //
 implement
-xcomp01_flvlget
+xcomp01_flevget
   (env0) =
 (
   rcd.flevel
@@ -298,7 +298,7 @@ COMPENV(rcd) = env0
 }
 //
 implement
-xcomp01_flvlinc
+xcomp01_flevinc
   (env0) =
   fold@(env0) where
 {
@@ -308,7 +308,7 @@ val () =
 rcd.flevel := rcd.flevel + 1
 }
 implement
-xcomp01_flvldec
+xcomp01_flevdec
   (env0) =
   fold@(env0) where
 {
@@ -399,9 +399,9 @@ val x0 =
 l1tmp_new_tmp(loc0)
 local
 val n0 =
-xcomp01_flvlget(env0)
+xcomp01_flevget(env0)
 in
-val () = x0.lvl( n0 )
+val () = x0.lev( n0 )
 end // end of [local]
 //
 val+
@@ -428,9 +428,9 @@ l1tmp_new_arg
 ( loc0, idx1(*>0*))
 local
 val n0 =
-xcomp01_flvlget(env0)
+xcomp01_flevget(env0)
 in
-val () = x0.lvl( n0 )
+val () = x0.lev( n0 )
 end // end of [local]
 //
 val+

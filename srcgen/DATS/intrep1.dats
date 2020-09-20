@@ -124,7 +124,7 @@ l1tmp_struct =
 , l1tmp_arg= int // 0/1 : let/arg
 , l1tmp_ref= int // 0/1 : val/ref
 , l1tmp_ret= int // return status
-, l1tmp_lvl= int // function level
+, l1tmp_lev= int // function level
 , l1tmp_stamp= stamp (* unicity *)
 } // end of [l1tmp]
 absimpl
@@ -148,7 +148,7 @@ ref<l1tmp_struct>
 , l1tmp_arg= 0(*let*)
 , l1tmp_ref= 0(*val*)
 , l1tmp_ret= 0(*nret*)
-, l1tmp_lvl= ~1 // uninited
+, l1tmp_lev= ~1 // uninited
 , l1tmp_stamp= stamp(*unicity*)
 } end // l1tmp_new_tmp
 implement
@@ -161,7 +161,7 @@ ref<l1tmp_struct>
 , l1tmp_arg= idx // idx >= 1
 , l1tmp_ref= 0(*val*)
 , l1tmp_ret= 0(*nret*)
-, l1tmp_lvl= ~1 // uninitied
+, l1tmp_lev= ~1 // uninitied
 , l1tmp_stamp= stamp(*unicity*)
 } where
 {
@@ -178,14 +178,14 @@ implement
 l1tmp_get_ref(tmp) = tmp->l1tmp_ref
 //
 implement
-l1tmp_get_lvl
+l1tmp_get_lev
   (tmp) =
-  tmp->l1tmp_lvl
+  tmp->l1tmp_lev
 implement
-l1tmp_set_lvl
-  (tmp, lvl) =
+l1tmp_set_lev
+  (tmp, lev) =
 (
-  tmp->l1tmp_lvl := lvl
+  tmp->l1tmp_lev := lev
 )
 //
 implement
@@ -239,7 +239,24 @@ l1val_make_node
 (l1v.loc(), L1VALcarg(l1v, idx))
 //
 (* ****** ****** *)
-
+//
+implement
+l1val_addr(l1v) =
+l1val_make_node
+(l1v.loc(), L1VALaddr(l1v))
+//
+implement
+l1val_flat(l1v) =
+l1val_make_node
+(l1v.loc(), L1VALflat(l1v))
+implement
+l1val_talf(l1v) =
+l1val_make_node
+(l1v.loc(), L1VALtalf(l1v))
+//
+(* ****** ****** *)
+//
+(*
 local
 
 absimpl
@@ -248,7 +265,7 @@ l1lvl_tbox = $rec
 , l1lvl_node= l1lvl_node
 } (* end of [absimpl] *)
 
-in
+in(*in-of-local*)
 
 (* ****** ****** *)
 
@@ -269,7 +286,8 @@ l1lvl_get_node(x0) = x0.l1lvl_node
 (* ****** ****** *)
 
 end // end of [local]
-
+*)
+//
 (* ****** ****** *)
 
 local

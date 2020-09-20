@@ -191,7 +191,7 @@ fprint(out, stmp)
 implement
 xemit01_hfarg
 ( out
-, lvl
+, lev
 , hfg, i0) =
 (
 case+
@@ -205,11 +205,13 @@ val i1 = auxlst(npf1, i0, i0, h0ps)
 val () = xemit01_txt00(out, ")")
 }
 |
-HFARGnone1 _ =>
+HFARGnone1 _ => i0 // skipped
+(*
 let
   val () =
   fprint!(out, "(*ERROR*)") in i0
 end
+*)
 ) where
 {
 //
@@ -247,7 +249,7 @@ val i1 = i1 + 1
 //
 val () =
 fprint!
-(out, "a", lvl, "x", i1)
+(out, "a", lev, "x", i1)
 in
 auxlst(npf1, i0, i1, h0ps)
 end
@@ -260,7 +262,7 @@ end
 implement
 xemit01_hfarglst
 ( out
-, lvl
+, lev
 , hfgs, i0) =
 (
 case+ hfgs of
@@ -270,9 +272,9 @@ list_nil() => i0
 list_cons(hfg1, hfgs) =>
 let
 val i1 =
-xemit01_hfarg(out, lvl, hfg1, i0)
+xemit01_hfarg(out, lev, hfg1, i0)
 in
-xemit01_hfarglst(out, lvl, hfgs, i1)
+xemit01_hfarglst(out, lev, hfgs, i1)
 end
 ) (* end of [xemit01_hfarglst] *)
 
@@ -359,10 +361,10 @@ if
 (arg > 0)
 then
 let
-val lvl = tmp0.lvl()
+val lev = tmp0.lev()
 in
 fprint!
-(out, "a", lvl, "x", arg)
+(out, "a", lev, "x", arg)
 end // end of [then]
 else
 let
@@ -429,6 +431,18 @@ val () =
 xemit01_l1val(out, l1v1)
 val () =
 fprint!(out, "[", argi+1, "]")
+}
+//
+|
+L1VALflat(l1v1) =>
+{
+  val () =
+  fprint!
+  (out, "JS_lval_get(")
+  val () =
+  xemit01_l1val(out, l1v1)
+  val () =
+  xemit01_txt00( out, ")" )
 }
 //
 | L1VALnone0() =>
@@ -928,6 +942,37 @@ list_cons(pck1, pcks) =>
 ) (* end of [auxpcks] *)
 } (* where *) // end of [aux_patck]
 
+(* ****** ****** *)
+
+fun
+aux_assgn
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+val
+loc0 = lcmd.loc()
+val-
+L1CMDassgn
+(l1v1, l1v2) = lcmd.node()
+//
+in
+{
+  val () =
+  fprint
+  (out, "JS_lval_set(")
+  val () =
+  xemit01_l1val(out, l1v1)
+  val () =
+  xemit01_txt00(out, ", ")  
+  val () =
+  xemit01_l1val(out, l1v2)
+  val () =
+  xemit01_txt00(out, ");\n")
+}
+end // end of [aux_assgn]
+
 in(*in-of-local*)
 //
 implement
@@ -961,6 +1006,9 @@ L1CMDcase _ => aux_case(out, lcmd)
 //
 |
 L1CMDpatck _ => aux_patck(out, lcmd)
+//
+|
+L1CMDassgn _ => aux_assgn(out, lcmd)
 //
 |
 _ (* else *) => fprint!(out, "//", lcmd)
@@ -1175,7 +1223,7 @@ val
 argcnt =
 xemit01_hfarglst
 ( out
-, rcd.lvl
+, rcd.lev
 , rcd.hag, 0(*base*))
 val () = xemit01_newln(out)
 //
@@ -1246,7 +1294,7 @@ val
 argcnt =
 xemit01_hfarglst
 ( out
-, rcd.lvl
+, rcd.lev
 , rcd_hag, 0(*base*) )
 val () = xemit01_newln(out)
 }

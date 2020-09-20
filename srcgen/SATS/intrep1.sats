@@ -75,6 +75,7 @@ typedef l1valist = List0(l1val)
 typedef l1valopt = Option(l1val)
 //
 (* ****** ****** *)
+(*
 //
 abstype l1lvl_tbox = ptr
 typedef l1lvl = l1lvl_tbox
@@ -82,6 +83,7 @@ typedef l1lvl = l1lvl_tbox
 typedef l1lvlist = List0(l1lvl)
 typedef l1lvlopt = Option(l1lvl)
 //
+*)
 (* ****** ****** *)
 //
 abstype l1cmd_tbox = ptr
@@ -163,11 +165,11 @@ l1tmp_get_ref(tmp: l1tmp): int
 overload .ref with l1tmp_get_ref
 (* ****** ****** *)
 fun
-l1tmp_get_lvl(tmp: l1tmp): int
-overload .lvl with l1tmp_get_lvl
+l1tmp_get_lev(tmp: l1tmp): int
+overload .lev with l1tmp_get_lev
 fun
-l1tmp_set_lvl(l1tmp, int): void
-overload .lvl with l1tmp_set_lvl
+l1tmp_set_lev(l1tmp, int): void
+overload .lev with l1tmp_set_lev
 (* ****** ****** *)
 fun
 l1tmp_stamp_new((*void*)): stamp
@@ -253,7 +255,10 @@ l1val_node =
 | L1VALtop of (token)
 //
 | L1VALtmp of (l1tmp)
+//
+(*
 | L1VALlvl of (l1lvl)
+*)
 //
 | L1VALcon of (hdcon)
 //
@@ -270,6 +275,9 @@ l1val_node =
 *)
 //
 | L1VALaddr of (l1val)
+//
+| L1VALflat of (l1val)
+| L1VALtalf of (l1val)
 //
 | L1VALnone0 of () | L1VALnone1 of (h0exp)
 //
@@ -312,19 +320,33 @@ fun
 l1val_carg
 (l1v0: l1val, argi: int): l1val
 (* ****** ****** *)
+fun
+l1val_addr(l1v0: l1val): l1val
+//
+fun
+l1val_flat(l1v0: l1val): l1val
+fun
+l1val_talf(l1v0: l1val): l1val
+//
+(* ****** ****** *)
+(*
 //
 datatype
 l1lvl_node =
 | L1LVLtmp of l1tmp
 | L1LVLpcon of (l1val, label)
 //
+*)
 (* ****** ****** *)
+(*
 //
 fun
 l1lvl_make_node
 (loc_t, l1lvl_node): l1lvl
 //
+*)
 (* ****** ****** *)
+(*
 //
 fun
 l1lvl_get_loc
@@ -336,7 +358,9 @@ l1lvl_get_node
 overload .loc with l1lvl_get_loc
 overload .node with l1lvl_get_node
 //
+*)
 (* ****** ****** *)
+(*
 //
 fun
 print_l1lvl: print_type(l1lvl)
@@ -349,6 +373,7 @@ overload print with print_l1lvl
 overload prerr with prerr_l1lvl
 overload fprint with fprint_l1lvl
 //
+*)
 (* ****** ****** *)
 //
 datatype
@@ -387,7 +412,7 @@ l1cmd_node =
 | L1CMDmatch of (h0pat, l1val)
 //
 | L1CMDassgn of // assignment
-  (l1lvl(*left*), l1val(*right*))
+  (l1val(*left*), l1val(*right*))
 //
 (* ****** ****** *)
 //
@@ -452,7 +477,7 @@ LIMPDECL of @{
 //
 , def= l1valopt
 //
-, lvl= int//fun
+, lev= int//fun
 , lts= l1tmplst
 //
 , hag_blk= l1blk
@@ -489,7 +514,7 @@ LFUNDECL of @{
 //
 , def= l1valopt
 //
-, lvl= int//fun
+, lev= int//fun
 , lts= l1tmplst
 //
 , hag_blk= l1blk

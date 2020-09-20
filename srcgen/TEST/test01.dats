@@ -75,10 +75,9 @@ test_p2tr_get
 let
 var x0: int = 1
 val p0 = $addr(x0)
-val () =
-$UN.p2tr_set(p0, 10)
+val () = (x0 := 10)
 in
-  $UN.p2tr_get<int>(p0)
+  x0 := x0 + x0; x0
 end
 
 (* ****** ****** *)

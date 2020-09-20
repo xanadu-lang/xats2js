@@ -77,6 +77,8 @@ list_cons
   )
 )
 //
+val xs2 = append(xs, xs)
+//
 val () = g_print( "xs = "  )
 val () = g_print(    xs    )
 val () = g_print(   '\n'   )

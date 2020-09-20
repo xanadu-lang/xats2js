@@ -738,6 +738,42 @@ end // end of [local]
 (* ****** ****** *)
 
 fun
+auxval_assgn
+( env0:
+! compenv
+, h0e0: h0exp): l1val =
+let
+//
+val
+loc0 = h0e0.loc()
+val-
+H0Eassgn
+(h0e1, h0e2) = h0e0.node()
+//
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+val
+l1v2 =
+xcomp01_h0exp_val(env0, h0e2)
+//
+val () =
+let
+val
+lcmd =
+l1cmd_make_node
+(loc0, L1CMDassgn(l1v1, l1v2))
+in
+xcomp01_lcmdadd_lcmd(env0, lcmd)
+end // end of [val]
+//
+in
+l1val_make_node(loc0, L1VALnone0())
+end // end of [auxval_assgn]
+
+(* ****** ****** *)
+
+fun
 auxset_dapp
 ( env0:
 ! compenv
@@ -996,9 +1032,77 @@ h0e1.node() of
 H0Eflat(h0e2) =>
 xcomp01_h0exp_val(env0, h0e2)
 | _ (* else *) =>
+l1val_addr(l1v1) where
+{
+val l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
+}
 //
 end // end of [auxval_addr]
+
+(* ****** ****** *)
+
+fun
+auxval_flat
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+//
+val loc0 = h0e0.loc()
+//
+val-
+H0Eflat
+( h0e1 ) = h0e0.node()
+//
+in
+//
+case+
+h0e1.node() of
+|
+H0Eflat(h0e2) =>
+xcomp01_h0exp_val(env0, h0e2)
+|
+_ (* else *) =>
+l1val_flat(l1v1) where
+{
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+}
+//
+end // end of [auxval_flat]
+
+(* ****** ****** *)
+
+fun
+auxval_talf
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+//
+val loc0 = h0e0.loc()
+//
+val-
+H0Etalf
+( h0e1 ) = h0e0.node()
+//
+in
+//
+case+
+h0e1.node() of
+|
+H0Eflat(h0e2) =>
+xcomp01_h0exp_val(env0, h0e2)
+|
+_ (* else *) =>
+l1val_talf(l1v1) where
+{
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+}
+//
+end // end of [auxval_talf]
 
 (* ****** ****** *)
 
@@ -1063,6 +1167,9 @@ end
 | H0Elet _ =>
   auxval_let( env0, h0e0 )
 //
+| H0Eassgn _ =>
+  auxval_assgn( env0, h0e0 )
+//
 | H0Eif0 _ =>
 let
 val
@@ -1087,6 +1194,11 @@ end
 //
 | H0Eaddr _ =>
   auxval_addr(env0, h0e0)
+//
+| H0Eflat _ =>
+  auxval_flat(env0, h0e0)
+| H0Etalf _ =>
+  auxval_talf(env0, h0e0)
 //
 | H0Enone0 _ =>
   l1val_make_node(loc0, L1VALnone0())
@@ -1367,15 +1479,15 @@ var res1
   : l1valopt = None()
 //
 val () =
-xcomp01_flvlinc(env0)
+xcomp01_flevinc(env0)
 val () =
 xcomp01_dvaradd_fun0(env0)
 val () =
 xcomp01_ltmpadd_fun0(env0)
 //
 val
-flvl =
-xcomp01_flvlget(env0)
+flev =
+xcomp01_flevget(env0)
 //
 val
 blk0 =
@@ -1400,7 +1512,7 @@ in
 let
 //
 val () =
-xcomp01_flvldec(env0)
+xcomp01_flevdec(env0)
 val () =
 xcomp01_dvarpop_fun0( env0 )
 val tmps =
@@ -1422,7 +1534,7 @@ LIMPDECL@{
 , hdc=hdc1
 , hag=hfgs
 , def=res1
-, lvl=flvl
+, lev=flev
 , lts=tmps
 , hag_blk=blk0, def_blk=blk1
 } (* LIMPDECL *)
@@ -1559,7 +1671,7 @@ var res
   : l1valopt = None()
 //
 val () =
-xcomp01_flvlinc(env0)
+xcomp01_flevinc(env0)
 val () =
 xcomp01_dvaradd_fun0(env0)
 val () =
@@ -1577,8 +1689,8 @@ in
 end // end of [local]
 //
 val
-flvl =
-xcomp01_flvlget(env0)
+flev =
+xcomp01_flevget(env0)
 //
 val
 blk0 =
@@ -1617,7 +1729,7 @@ end // end of [Some]
 in
 let
   val () =
-  xcomp01_flvldec(env0)
+  xcomp01_flevdec(env0)
   val () =
   xcomp01_dvarpop_fun0(env0)
   val flts =
@@ -1635,7 +1747,7 @@ in
   , nam=nam, hdc=hdc
   , hag=hag
   , def=res
-  , lvl=flvl
+  , lev=flev
   , lts=flts
   , hag_blk=blk0, def_blk=blk1
 } (* LFUNDECL *)
