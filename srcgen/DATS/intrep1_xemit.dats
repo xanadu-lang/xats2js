@@ -292,6 +292,27 @@ end // end of [xemit01_lvint]
 (* ****** ****** *)
 //
 implement
+xemit01_lvchr
+(out, tok) =
+let
+val
+tnd = tok.node()
+in
+//
+case- tnd of 
+|
+T_CHAR_char
+  (rep) =>
+  fprint!(out, rep) // HX: FIXME!!!
+|
+T_CHAR_slash
+  (rep) =>
+  fprint!(out, rep) // HX: FIXME!!!
+//
+end // end of [xemit01_lvchr]
+(* ****** ****** *)
+//
+implement
 xemit01_lvstr
 (out, tok) =
 let
@@ -345,6 +366,9 @@ l1v0.node() of
 |
 L1VALint(tok) =>
 xemit01_lvint(out, tok)
+|
+L1VALchr(tok) =>
+xemit01_lvchr(out, tok)
 |
 L1VALstr(tok) =>
 xemit01_lvstr(out, tok)

@@ -48,12 +48,16 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 #staload "./../SATS/intrep1.sats"
 (* ****** ****** *)
-
+//
 overload
 fprint with $STM.fprint_stamp
+//
+overload
+fprint with $LAB.fprint_label
+//
 overload
 fprint with $LEX.fprint_token
-
+//
 (* ****** ****** *)
 implement
 fprint_val<hdvar> = fprint_hdvar
@@ -78,6 +82,8 @@ fprint_val<l1pck> = fprint_l1pck
 (* ****** ****** *)
 implement
 fprint_val<l1val> = fprint_l1val
+implement
+fprint_val<l1lvl> = fprint_l1lvl
 (* ****** ****** *)
 implement
 fprint_val<l1cmd> = fprint_l1cmd
@@ -216,6 +222,10 @@ L1VALtmp(tmp) =>
 fprint!(out, "L1VALtmp(", tmp, ")")
 //
 |
+L1VALlvl(lvl) =>
+fprint!(out, "L1VALlvl(", lvl, ")")
+//
+|
 L1VALfcst(hdc) =>
 fprint!(out, "L1VALfcst(", hdc, ")")
 |
@@ -240,6 +250,29 @@ fprint!(out, "L1VALnone1(", h0e1, ")")
 | _ (* else *) => fprint!(out, "L1VAL...(...)")
 //
 ) (* end of [fprint_l1val] *)
+//
+(* ****** ****** *)
+//
+implement
+print_l1lvl(x0) =
+fprint_l1lvl(stdout_ref, x0)
+implement
+prerr_l1lvl(x0) =
+fprint_l1lvl(stderr_ref, x0)
+//
+implement
+fprint_l1lvl(out, x0) =
+(
+case+
+x0.node() of
+| L1LVLtmp(tmp) =>  
+  fprint!
+  (out, "L1LVLtmp(", tmp, ")")
+| L1LVLpcon(l1v, lab) =>
+  fprint!
+  ( out
+  , "L1LVLpcon(", l1v, "; ", lab, ")")
+)
 //
 (* ****** ****** *)
 //
@@ -325,11 +358,11 @@ fprint!
 , "L1CMDmatch(", h0p1, "; ", l1v2, ")")
 //
 |
-L1CMDpcase
-(tres, pcks) =>
+L1CMDassgn
+(lvl1, l1v2) =>
 fprint!
 ( out
-, "L1CMDpcase(", tres, "; ", pcks, ")")
+, "L1CMDassgn(", lvl1, "; ", l1v2, ")")
 //
 (*
 | _ (* else *) => fprint!(out, "L1CMD...(...)")

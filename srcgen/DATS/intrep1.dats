@@ -243,6 +243,38 @@ l1val_make_node
 local
 
 absimpl
+l1lvl_tbox = $rec
+{ l1lvl_loc= loc_t
+, l1lvl_node= l1lvl_node
+} (* end of [absimpl] *)
+
+in
+
+(* ****** ****** *)
+
+implement
+l1lvl_make_node
+  (loc, node) = $rec
+{
+  l1lvl_loc=loc, l1lvl_node=node
+}
+
+(* ****** ****** *)
+
+implement
+l1lvl_get_loc(x0) = x0.l1lvl_loc
+implement
+l1lvl_get_node(x0) = x0.l1lvl_node
+
+(* ****** ****** *)
+
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+
+absimpl
 l1cmd_tbox = $rec
 { l1cmd_loc= loc_t
 , l1cmd_node= l1cmd_node

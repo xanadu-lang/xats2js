@@ -993,6 +993,10 @@ h0e0.node() of
 | H0Ebtf(tok) =>
   l1val_make_node
   (loc0, L1VALbtf(tok))
+| H0Echr(tok) =>
+  l1val_make_node
+  (loc0, L1VALchr(tok))
+//
 | H0Eflt(tok) =>
   l1val_make_node
   (loc0, L1VALflt(tok))

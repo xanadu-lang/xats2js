@@ -26,84 +26,61 @@
 //
 (* ****** ****** *)
 
-datatype
-mylist(a:type) =
-| mylist_nil of ()
-| mylist_cons of (a, mylist(a))
-
-(* ****** ****** *)
 #extern
 fun
 <a:type>
-mylist_length
-(xs: mylist(a)): int
+<r:type>
+foldl$fopr(r0: r, x0: a): r
+
 (* ****** ****** *)
-(*
-implement
-<a>
-mylist_length
-  (xs) = length(xs) where
-*)
-implement
-<a>
-mylist_length = length where
-{
-fun
-length(xs): int =
-(
-case+ xs of
-| mylist_nil() => 0
-| mylist_cons
-  (
-  _
-  ,
-  mylist_cons(_, xs)
-  ) => 2 + length(xs)
-| mylist_cons(_, xs) => 1 + length(xs)
-)
-}
-(* ****** ****** *)
+
 fun
 <a:type>
-mylist_append
-( xs
-: mylist(a)
-, ys
-: mylist(a)): mylist(a) =
+<r:type>
+foldl(xs: list(a), r0: r): r =
 (
-  append(xs, ys) ) where
-{
-fun
-append(xs, ys) = 
 case+ xs of
-| mylist_nil() => ys
-| mylist_cons(x0, xs) =>
-  mylist_cons(x0, append(xs, ys))
-}
+| list_nil() => r0
+| list_cons(x0, xs) =>
+  foldl(xs, foldl$fopr<a><r>(r0, x0))
+)
+
 (* ****** ****** *)
-val
-mylist0 =
-mylist_nil()
-val
-mylist123 =
-mylist_cons
+
+fun
+<a:type>
+length
+( xs
+: list(a)): int =
+(
+  foldl<a><int>(xs, 0)
+) where
+{
+  implement
+  foldl$fopr<a><int>(r0, x0) = r0 + 1
+} endwhr
+
+(* ****** ****** *)
+//
+val xs =
+list_cons
 ( 1
-, mylist_cons
-( 2, mylist_cons(3, mylist_nil())))
-(* ****** ****** *)
-
-val
-length_mylist1230 =
-mylist_length(mylist_append<int>(mylist123, mylist0))
-
-(* ****** ****** *)
-
-val () =
-g_print
-("length_mylist1230 = ")
-val () =
-g_print(length_mylist1230)
-
+, list_cons
+  ( 2
+  , list_cons
+    ( 3
+    , list_nil()
+    )
+  )
+)
+//
+val () = g_print( "xs = "  )
+val () = g_print(    xs    )
+val () = g_print(   '\n'   )
+val () = g_print("|xs| = " )
+val () = g_print(length(xs))
+val () = g_print(   '\n'   )
+//
 (* ****** ****** *)
 
 (* end of [test03.dats] *)

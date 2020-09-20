@@ -11,6 +11,9 @@ XANADU_targetloc
 #staload SYM =
 "{$XANADU}/SATS/symbol.sats"
 (* ****** ****** *)
+#staload LAB =
+"{$XANADU}/SATS/label0.sats"
+(* ****** ****** *)
 #staload LOC =
 "{$XANADU}/SATS/locinfo.sats"
 (* ****** ****** *)

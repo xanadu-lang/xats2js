@@ -42,7 +42,10 @@
 //
 typedef stamp = $STM.stamp
 //
+typedef label = $LAB.label
+//
 typedef loc_t = $LOC.loc_t
+//
 typedef token = $LEX.token
 //
 (* ****** ****** *)
@@ -70,6 +73,14 @@ typedef l1val = l1val_tbox
 //
 typedef l1valist = List0(l1val)
 typedef l1valopt = Option(l1val)
+//
+(* ****** ****** *)
+//
+abstype l1lvl_tbox = ptr
+typedef l1lvl = l1lvl_tbox
+//
+typedef l1lvlist = List0(l1lvl)
+typedef l1lvlopt = Option(l1lvl)
 //
 (* ****** ****** *)
 //
@@ -242,6 +253,7 @@ l1val_node =
 | L1VALtop of (token)
 //
 | L1VALtmp of (l1tmp)
+| L1VALlvl of (l1lvl)
 //
 | L1VALcon of (hdcon)
 //
@@ -300,6 +312,44 @@ l1val_carg
 (* ****** ****** *)
 //
 datatype
+l1lvl_node =
+| L1LVLtmp of l1tmp
+| L1LVLpcon of (l1val, label)
+//
+(* ****** ****** *)
+//
+fun
+l1lvl_make_node
+(loc_t, l1lvl_node): l1lvl
+//
+(* ****** ****** *)
+//
+fun
+l1lvl_get_loc
+(l1v0: l1lvl): loc_t
+fun
+l1lvl_get_node
+(l1v0: l1lvl): l1lvl_node
+//
+overload .loc with l1lvl_get_loc
+overload .node with l1lvl_get_node
+//
+(* ****** ****** *)
+//
+fun
+print_l1lvl: print_type(l1lvl)
+fun
+prerr_l1lvl: prerr_type(l1lvl)
+fun
+fprint_l1lvl: fprint_type(l1lvl)
+//
+overload print with print_l1lvl
+overload prerr with prerr_l1lvl
+overload fprint with fprint_l1lvl
+//
+(* ****** ****** *)
+//
+datatype
 l1cmd_node =
 //
 | L1CMDmov of
@@ -334,12 +384,8 @@ l1cmd_node =
 | L1CMDpatck of (l1pck)
 | L1CMDmatch of (h0pat, l1val)
 //
-(*
-HX-2020-09-13:
-finding the first matching clause 
-*)
-| L1CMDpcase of
-  (l1tmp(*res*), l1pcklst(*guards*)) 
+| L1CMDassgn of // assignment
+  (l1lvl(*left*), l1val(*right*))
 //
 (* ****** ****** *)
 //
@@ -637,6 +683,8 @@ xemit01_hfarglst
 //
 fun
 xemit01_lvint(FILEref, token): void
+fun
+xemit01_lvchr(FILEref, token): void
 fun
 xemit01_lvstr(FILEref, token): void
 //
