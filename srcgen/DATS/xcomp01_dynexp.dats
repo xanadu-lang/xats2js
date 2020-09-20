@@ -975,6 +975,33 @@ end // end of [local]
 
 (* ****** ****** *)
 
+fun
+auxval_addr
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+//
+val loc0 = h0e0.loc()
+//
+val-
+H0Eaddr
+( h0e1 ) = h0e0.node()
+//
+in
+//
+case+
+h0e1.node() of
+|
+H0Eflat(h0e2) =>
+xcomp01_h0exp_val(env0, h0e2)
+| _ (* else *) =>
+xcomp01_h0exp_val(env0, h0e1)
+//
+end // end of [auxval_addr]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 
 implement
@@ -1057,6 +1084,9 @@ auxset_case(env0, h0e0, tres)
 in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
+//
+| H0Eaddr _ =>
+  auxval_addr(env0, h0e0)
 //
 | _ (* else *) =>
 (
@@ -1726,9 +1756,9 @@ let
 val ( ) =
 xcomp01_lcmdpush_nil(env0)
 //
-val l1v =
+val ini =
 xcomp01_h0exp_val(env0, h0e)
-val ( ) = (res := Some(l1v))
+val ( ) = (res := Some(ini))
 //
 (*
 val ( ) =
@@ -1740,10 +1770,22 @@ in
 end // end of [Some]
 ) : l1blk // end of [val]
 //
+val tmp = 
+xltmpnew_tmp0(env0, loc)
+val ( ) =
+let
+val l1v =
+l1val_make_node
+(loc, L1VALtmp(tmp))
+in
+xcomp01_dvaradd_bind(env0, hdv, l1v)
+end // end of [val]
+//
 in
   LVARDECL@{
     loc=loc
-  , hdv=hdv, ini=res, ini_blk=blk
+  , hdv=hdv, ini=res
+  , hdv_tmp=tmp, ini_blk=blk
   } (* LVARDECL *)
 end // end of [xcomp01_hvardecl]
 

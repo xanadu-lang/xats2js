@@ -241,6 +241,10 @@ fprint!
 (out, "L1VALcarg(", l1v1, "; ", idx2, ")")
 //
 |
+L1VALaddr(l1v1) =>
+fprint!(out, "L1VALaddr(", l1v1, ")")
+//
+|
 L1VALnone0() =>
 fprint!(out, "L1VALnone0(", ")")
 |
@@ -563,8 +567,9 @@ in
   fprint!
   ( out
   , "LVARDECL@{"
-  , ", pat=", rcd.hdv
+  , ", hdv=", rcd.hdv
   , ", ini=", rcd.ini
+  , ", hdv_tmp=", rcd.hdv_tmp
   , ", ini_blk=", rcd.ini_blk, "}")
 end // end of [fprint_lvardecl]
 //

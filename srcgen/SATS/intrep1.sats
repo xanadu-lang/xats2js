@@ -269,6 +269,8 @@ l1val_node =
 | L1VALselab of (l1val, l1lab)
 *)
 //
+| L1VALaddr of (l1val)
+//
 | L1VALnone0 of () | L1VALnone1 of (h0exp)
 //
 (* ****** ****** *)
@@ -551,6 +553,7 @@ LVARDECL of @{
   loc= loc_t
 , hdv= hdvar
 , ini= l1valopt
+, hdv_tmp= l1tmp
 , ini_blk= l1blk
 }
 //

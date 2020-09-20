@@ -1339,6 +1339,92 @@ end // end of [aux_valdecl]
 
 (* ****** ****** *)
 
+fun
+aux_vardecl
+( out
+: FILEref
+, dcl0: l1dcl): void =
+let
+//
+fun
+auxlvd0
+( lvd0
+: lvardecl): void =
+{
+//
+val+
+LVARDECL(rcd) = lvd0
+//
+val () =
+xemit01_txtln(out, "{")
+//
+val () =
+xemit01_l1blk(out, rcd.ini_blk)
+//
+val () =
+let
+val () =
+xemit01_l1tmp(out, rcd.hdv_tmp)
+in(*in-of-let*)
+//
+case+
+rcd.ini of
+|
+None() =>
+{
+  val () =
+  fprint!
+  (out, " = JS_new_var0(")
+  val () = fprint!(out, ");\n")
+}
+|
+Some(ini) =>
+{
+  val () =
+  fprint!
+  (out, " = JS_new_var1(")
+  val () =
+  xemit01_l1val( out, ini )
+  val () = fprint!(out, ");\n")
+}
+//
+end // end of [val]
+//
+val () =
+fprintln!
+( out, "} // val(", rcd.hdv, ")" )
+//
+} (* end of [auxlvd0] *)
+
+(* ****** ****** *)
+//
+and
+auxlvds
+( lvds
+: lvardeclist): void =
+(
+case lvds of
+|
+list_nil() => ()
+|
+list_cons
+(lvd0, lvds) =>
+{
+  val () = auxlvd0(lvd0)
+  val () = auxlvds(lvds)
+}
+) (* end of [auxlvds] *)
+//
+in
+let
+val-
+L1DCLvardecl
+(lvds) = dcl0.node() in auxlvds(lvds)
+end
+end // end of [aux_vardecl]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 //
 implement
@@ -1370,6 +1456,12 @@ val()=aux_fundecl(out, dcl0)
 L1DCLvaldecl _ =>
 {
 val()=aux_valdecl(out, dcl0)
+}
+//
+|
+L1DCLvardecl _ =>
+{
+val()=aux_vardecl(out, dcl0)
 }
 //
 | _ (* else *) => fprint!(out, "//", dcl0)
