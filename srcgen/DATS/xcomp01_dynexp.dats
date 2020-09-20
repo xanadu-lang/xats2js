@@ -1088,6 +1088,9 @@ end
 | H0Eaddr _ =>
   auxval_addr(env0, h0e0)
 //
+| H0Enone0 _ =>
+  l1val_make_node(loc0, L1VALnone0())
+//
 | _ (* else *) =>
 (
 l1val_make_node(loc0, L1VALnone1(h0e0))

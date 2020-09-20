@@ -431,6 +431,11 @@ val () =
 fprint!(out, "[", argi+1, "]")
 }
 //
+| L1VALnone0() =>
+{
+  val () = fprint!(out, "null")
+}
+//
 | _ (* else *) => fprint(out, l1v0)
 //
 ) (* end of [xemit01_l1val] *)
