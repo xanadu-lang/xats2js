@@ -687,6 +687,8 @@ xemit01_hfarglst
 fun
 xemit01_lvint(FILEref, token): void
 fun
+xemit01_lvbtf(FILEref, token): void
+fun
 xemit01_lvchr(FILEref, token): void
 fun
 xemit01_lvstr(FILEref, token): void

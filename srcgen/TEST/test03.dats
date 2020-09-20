@@ -1,8 +1,4 @@
 (* ****** ****** *)
-#staload
-"prelude\
-/DATS/CATS/JS/basics.dats"
-(* ****** ****** *)
 //
 #staload
 "prelude/DATS/gbas.dats"
@@ -24,6 +20,13 @@
 #staload _ =
 "prelude/DATS/list.dats"
 //
+(* ****** ****** *)
+#staload
+"prelude\
+/DATS/CATS/JS/basics.dats"
+#staload
+"prelude\
+/DATS/CATS/JS/unsafe.dats"
 (* ****** ****** *)
 
 #extern

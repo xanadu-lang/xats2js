@@ -52,6 +52,8 @@ overload
 fprint with $STM.fprint_stamp
 overload
 fprint with $SYM.fprint_symbol
+overload
+fprint with $LOC.fprint_location
 (* ****** ****** *)
 #staload "./../SATS/intrep1.sats"
 (* ****** ****** *)
@@ -286,9 +288,26 @@ in
 //
 case- tnd of 
 |
-T_INT1(rep) => fprint(out, rep)
+T_INT1
+  (rep) => fprint(out, rep)
 //
 end // end of [xemit01_lvint]
+(* ****** ****** *)
+//
+implement
+xemit01_lvbtf
+(out, tok) =
+let
+val
+tnd = tok.node()
+in
+//
+case- tnd of 
+|
+T_IDENT_alp
+  (rep) => fprint(out, rep)
+//
+end // end of [xemit01_lvbtf]
 (* ****** ****** *)
 //
 implement
@@ -366,6 +385,9 @@ l1v0.node() of
 |
 L1VALint(tok) =>
 xemit01_lvint(out, tok)
+|
+L1VALbtf(tok) =>
+xemit01_lvbtf(out, tok)
 |
 L1VALchr(tok) =>
 xemit01_lvchr(out, tok)
@@ -1431,6 +1453,12 @@ implement
 xemit01_l1dcl
 (out, dcl0) =
 let
+val
+loc0 = dcl0.loc()
+val () =
+fprint!(out, "//")
+val () =
+fprintln!(out, loc0)
 val () =
 fprint!(out, "//")
 val () =
@@ -1464,7 +1492,10 @@ L1DCLvardecl _ =>
 val()=aux_vardecl(out, dcl0)
 }
 //
-| _ (* else *) => fprint!(out, "//", dcl0)
+| _ (* else *) =>
+{
+val () = fprint!(out, "//", dcl0)
+}
 //
 end // end of [xemit01_l1dcl]
 //
