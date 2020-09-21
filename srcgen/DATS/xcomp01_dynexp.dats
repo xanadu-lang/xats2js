@@ -107,7 +107,8 @@ H0Pdapp
 //
 val
 ltag =
-l1val_ctag(l1v1)
+l1val_ctag
+(l1v1.loc(), l1v1)
 val
 pckf =
 xcomp01_h0pat_ck0
@@ -167,10 +168,14 @@ list_nil() => list_nil()
 list_cons
 (h0p1, h0ps) =>
 let
-val arg1 =
+val
+loc1 = l1v1.loc()
+val
+arg1 =
 l1val_carg
-(l1v1, idx0)
-val pck1 = 
+(loc1, l1v1, idx0)
+val
+pck1 = 
 xcomp01_h0pat_ck0
 (env0, h0p1, arg1)
 in
@@ -292,9 +297,12 @@ end // end of [then]
 else
 let
 val
+loc1 =
+l1v1.loc()
+val
 carg =
 l1val_carg
-(l1v1, idx0)
+(loc1, l1v1, idx0)
 val () =
 xcomp01_h0pat_ck1
 (env0, h0p1, carg)
@@ -683,6 +691,39 @@ end // end of [auxval_timp]
 
 (* ****** ****** *)
 
+fun
+auxval_pcon
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+val
+loc0 = h0e0.loc()
+val-
+H0Epcon
+( h0e1
+, lab2) = h0e0.node()
+//
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+//
+in
+let
+val
+opt2 =
+$LAB.label_get_int(lab2)
+//
+val-~Some_vt(idx2) = opt2
+//
+in
+  l1val_carg(loc0, l1v1, idx2)
+end
+//
+end // end of [auxval_pcon]
+
+(* ****** ****** *)
+
 local
 
 fun
@@ -734,6 +775,49 @@ xcomp01_h0exp_val(env0, h0e1)
 end // end of [auxval_let]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+fun
+auxval_seqn
+( env0:
+! compenv
+, h0e0: h0exp): l1val =
+let
+//
+val
+loc0 = h0e0.loc()
+val-
+H0Eseqn
+( h0es
+, h0ez) = h0e0.node()
+//
+val () =
+auxlst(env0, h0es) where
+{
+fun
+auxlst
+( env0:
+! compenv
+, h0es: h0explst): void =
+(
+case+ h0es of
+|
+list_nil() => ()
+|
+list_cons
+(h0e1, h0es) =>
+auxlst(env0, h0es) where
+{
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+}
+)
+} (* where *) // end-of-val
+//
+in
+  xcomp01_h0exp_val(env0, h0ez)
+end // end of [auxval_seqn]
 
 (* ****** ****** *)
 
@@ -1028,11 +1112,8 @@ in
 //
 case+
 h0e1.node() of
-|
-H0Eflat(h0e2) =>
-xcomp01_h0exp_val(env0, h0e2)
 | _ (* else *) =>
-l1val_addr(l1v1) where
+l1val_addrize(l1v1) where
 {
 val l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
@@ -1059,9 +1140,6 @@ in
 //
 case+
 h0e1.node() of
-|
-H0Eflat(h0e2) =>
-xcomp01_h0exp_val(env0, h0e2)
 |
 _ (* else *) =>
 l1val_flat(l1v1) where
@@ -1092,11 +1170,8 @@ in
 case+
 h0e1.node() of
 |
-H0Eflat(h0e2) =>
-xcomp01_h0exp_val(env0, h0e2)
-|
 _ (* else *) =>
-l1val_talf(l1v1) where
+l1val_talfize(l1v1) where
 {
 val l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
@@ -1135,6 +1210,10 @@ h0e0.node() of
   l1val_make_node
   (loc0, L1VALstr(tok))
 //
+| H0Etop(tok) =>
+  l1val_make_node
+  (loc0, L1VALtop(tok))
+//
 | H0Evar _ =>
   auxval_var(env0, h0e0)
 | H0Evknd _ =>
@@ -1164,8 +1243,20 @@ in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
 //
+|
+H0Epcon _ =>
+auxval_pcon(env0, h0e0)
+(*
+|
+H0Eproj _ =>
+auxval_proj(env0, h0e0)
+*)
+//
 | H0Elet _ =>
   auxval_let( env0, h0e0 )
+//
+| H0Eseqn _ =>
+  auxval_seqn( env0, h0e0 )
 //
 | H0Eassgn _ =>
   auxval_assgn( env0, h0e0 )
@@ -1194,6 +1285,9 @@ end
 //
 | H0Eaddr _ =>
   auxval_addr(env0, h0e0)
+//
+| H0Efold _ =>
+  l1val_make_node(loc0, L1VALnone0())
 //
 | H0Eflat _ =>
   auxval_flat(env0, h0e0)

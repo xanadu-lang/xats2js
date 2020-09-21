@@ -281,6 +281,13 @@ end
 (* ****** ****** *)
 //
 implement
+xemit01_lvtop
+(out, tok) =
+fprint(out, "XATS2JS_top")
+//
+(* ****** ****** *)
+//
+implement
 xemit01_lvint
 (out, tok) =
 let
@@ -291,7 +298,7 @@ in
 case- tnd of 
 |
 T_INT1
-  (rep) => fprint(out, rep)
+( rep ) => fprint(out, rep)
 //
 end // end of [xemit01_lvint]
 (* ****** ****** *)
@@ -396,6 +403,11 @@ xemit01_lvchr(out, tok)
 |
 L1VALstr(tok) =>
 xemit01_lvstr(out, tok)
+//
+|
+L1VALtop(tok) =>
+xemit01_lvtop(out, tok)
+//
 (*
 |
 L1VALcon(hdc1) =>
@@ -434,11 +446,25 @@ fprint!(out, "[", argi+1, "]")
 }
 //
 |
+L1VALcptr(l1v1, argi) =>
+{
+val () =
+fprint!
+( out
+, "XATS2JS_new_cptr(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, ", ", argi+1, ")")
+}
+//
+|
 L1VALflat(l1v1) =>
 {
   val () =
   fprint!
-  (out, "JS_lval_get(")
+  ( out
+  , "XATS2JS_lval_get(")
   val () =
   xemit01_l1val(out, l1v1)
   val () =
@@ -855,7 +881,8 @@ auxblklst(out, 1(*i*), tcas, blks)
 //
 val () =
 fprint!
-(out, "default: JS_matcherr0();\n")
+( out
+, "default: XATS2JS_matcherr0();\n")
 val () =
 xemit01_txtln(out, "} // case-switch")
 //
@@ -912,7 +939,7 @@ val () =
 xemit01_l1val( out, l1v )
 val () =
 xemit01_txtln
-(out, ") JS_patckerr0();")
+(out, ") XATS2JS_patckerr0();")
 }
 |
 L1PCKapp(pck1, pcks) =>
@@ -961,7 +988,8 @@ in
 {
   val () =
   fprint
-  (out, "JS_lval_set(")
+  ( out
+  , "XATS2JS_lval_set(")
   val () =
   xemit01_l1val(out, l1v1)
   val () =
@@ -1449,7 +1477,8 @@ None() =>
 {
   val () =
   fprint!
-  (out, " = JS_new_var0(")
+  ( out
+  , " = XATS2JS_new_var0(")
   val () = fprint!(out, ");\n")
 }
 |
@@ -1457,7 +1486,8 @@ Some(ini) =>
 {
   val () =
   fprint!
-  (out, " = JS_new_var1(")
+  ( out
+  , " = XATS2JS_new_var1(")
   val () =
   xemit01_l1val( out, ini )
   val () = fprint!(out, ");\n")

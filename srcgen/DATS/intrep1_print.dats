@@ -210,18 +210,31 @@ x0.node() of
 |
 L1VALint(tok) =>
 fprint!(out, "L1VALint(", tok, ")")
-//
 |
 L1VALbtf(tok) =>
 fprint!(out, "L1VALbtf(", tok, ")")
-//
 |
 L1VALchr(tok) =>
 fprint!(out, "L1VALchr(", tok, ")")
 //
 |
+L1VALflt(tok) =>
+fprint!(out, "L1VALflt(", tok, ")")
+|
+L1VALstr(tok) =>
+fprint!(out, "L1VALstr(", tok, ")")
+//
+|
+L1VALtop(tok) =>
+fprint!(out, "L1VALtop(", tok, ")")
+//
+|
 L1VALtmp(tmp) =>
 fprint!(out, "L1VALtmp(", tmp, ")")
+//
+|
+L1VALcon(hdc) =>
+fprint!(out, "L1VALcon(", hdc, ")")
 //
 (*
 |
@@ -242,7 +255,13 @@ fprint!(out, "L1VALctag(", l1v1, ")")
 |
 L1VALcarg(l1v1, idx2) =>
 fprint!
-(out, "L1VALcarg(", l1v1, "; ", idx2, ")")
+( out
+, "L1VALcarg(", l1v1, "; ", idx2, ")")
+|
+L1VALcptr(l1v1, idx2) =>
+fprint!
+( out
+, "L1VALcptr(", l1v1, "; ", idx2, ")")
 //
 |
 L1VALaddr(l1v1) =>
@@ -255,14 +274,14 @@ fprint!(out, "L1VALflat(", l1v1, ")")
 L1VALtalf(l1v1) =>
 fprint!(out, "L1VALtalf(", l1v1, ")")
 //
-|
-L1VALnone0() =>
-fprint!(out, "L1VALnone0(", ")")
-|
-L1VALnone1(h0e1) =>
-fprint!(out, "L1VALnone1(", h0e1, ")")
+| L1VALnone0() =>
+  fprint!(out, "L1VALnone0(", ")")
+| L1VALnone1(h0e1) =>
+  fprint!(out, "L1VALnone1(", h0e1, ")")
 //
+(*
 | _ (* else *) => fprint!(out, "L1VAL...(...)")
+*)
 //
 ) (* end of [fprint_l1val] *)
 //

@@ -269,15 +269,23 @@ l1val_node =
 // HX: carg: con_arg
 | L1VALctag of (l1val)
 | L1VALcarg of (l1val, int)
+| L1VALcptr of (l1val, int)
+//
+| L1VALflat of (l1val)
+//
+| L1VALaddr of (l1val)
+| L1VALtalf of (l1val)
 //
 (*
 | L1VALselab of (l1val, l1lab)
 *)
 //
-| L1VALaddr of (l1val)
-//
-| L1VALflat of (l1val)
-| L1VALtalf of (l1val)
+(*
+| L1VALt0arg of (l1val, int) // flat
+| L1VALt0ptr of (l1val, int) // flat
+| L1VALt1arg of (l1val, int) // boxed
+| L1VALt1ptr of (l1val, int) // boxed
+*)
 //
 | L1VALnone0 of () | L1VALnone1 of (h0exp)
 //
@@ -315,18 +323,29 @@ overload fprint with fprint_l1val
 (* ****** ****** *)
 fun
 l1val_ctag
-(l1v0: l1val): l1val
+( loc0: loc_t
+, l1v0: l1val): l1val
 fun
 l1val_carg
-(l1v0: l1val, argi: int): l1val
+( loc0: loc_t
+, l1v0: l1val, idx1: int): l1val
+fun
+l1val_cptr
+( loc0: loc_t
+, l1v0: l1val, idx1: int): l1val
 (* ****** ****** *)
 fun
-l1val_addr(l1v0: l1val): l1val
+l1val_flat(l1v0: l1val): l1val
 //
 fun
-l1val_flat(l1v0: l1val): l1val
+l1val_addr(l1v0: l1val): l1val
 fun
 l1val_talf(l1v0: l1val): l1val
+//
+fun
+l1val_addrize(l1v0: l1val): l1val
+fun
+l1val_talfize(l1v0: l1val): l1val
 //
 (* ****** ****** *)
 (*
@@ -717,6 +736,9 @@ fun
 xemit01_lvchr(FILEref, token): void
 fun
 xemit01_lvstr(FILEref, token): void
+//
+fun
+xemit01_lvtop(FILEref, token): void
 //
 (* ****** ****** *)
 fun

@@ -77,7 +77,7 @@ list_cons
   )
 )
 //
-val xs2 = append(xs, xs)
+(* ****** ****** *)
 //
 val () = g_print( "xs = "  )
 val () = g_print(    xs    )
@@ -85,6 +85,28 @@ val () = g_print(   '\n'   )
 val () = g_print("|xs| = " )
 val () = g_print(length(xs))
 val () = g_print(   '\n'   )
+//
+(* ****** ****** *)
+//
+val xs2 = append(xs, xs)
+//
+val () = g_print( "xs2 = "  )
+val () = g_print(    xs2    )
+val () = g_print(    '\n'   )
+val () = g_print("|xs2| = " )
+val () = g_print(length(xs2))
+val () = g_print(    '\n'   )
+//
+(* ****** ****** *)
+//
+val xs3 = reverse(xs2)
+//
+val () = g_print( "xs3 = "  )
+val () = g_print(    xs3    )
+val () = g_print(    '\n'   )
+val () = g_print("|xs3| = " )
+val () = g_print(length(xs3))
+val () = g_print(    '\n'   )
 //
 (* ****** ****** *)
 
