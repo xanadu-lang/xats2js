@@ -1,19 +1,20 @@
 (* ****** ****** *)
 #staload
-_(*UN*) =
-"prelude/DATS/unsafe.dats"
-(* ****** ****** *)
-
-#staload
 "prelude/DATS/gseq.dats"
-
+(* ****** ****** *)
 #staload
 "prelude/DATS/bool.dats"
 #staload
-"prelude/DATS/list.dats"
+"prelude/DATS/char.dats"
 #staload
 "prelude/DATS/string.dats"
-
+(* ****** ****** *)
+#staload
+"prelude/DATS/list.dats"
+(* ****** ****** *)
+#staload
+_(*UN*) =
+"prelude/DATS/unsafe.dats"
 (* ****** ****** *)
 #staload
 "prelude\
@@ -92,8 +93,9 @@ list_cons(x, list_nil())
 //
 val ans =
 let
-val ans = kxor0((*void*)) in g_print(ans); ans
-end
+val ans =
+kxor0((*void*)) in g_print(ans); g_print('\n'); ans
+end // end of [val]
 //
 (* ****** ****** *)
 
