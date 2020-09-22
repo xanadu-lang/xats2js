@@ -496,6 +496,9 @@ l1cmd_node =
 //
 | L1CMDflat of
   (l1tmp(*res*), l1val(*lval*))
+| L1CMDcarg of
+  ( l1tmp(*res*)
+  , l1val(*lval*), int(*index*))
 | L1CMDtarg of
   ( l1tmp(*res*)
   , l1val(*lval*), int(*index*))

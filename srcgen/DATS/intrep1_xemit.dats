@@ -1149,6 +1149,40 @@ end // end of [aux_flat]
 (* ****** ****** *)
 
 fun
+aux_carg
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+val
+loc0 = lcmd.loc()
+val-
+L1CMDcarg
+( tres
+, l1v1
+, idx2) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tres)
+//
+in
+{
+//
+val () =
+fprint!( out, " = " )
+//
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, "[", idx2+1, "]")
+//
+}
+end // end of [aux_carg]
+
+(* ****** ****** *)
+
+fun
 aux_targ
 ( out
 : FILEref
@@ -1255,6 +1289,8 @@ L1CMDpatck _ => aux_patck(out, lcmd)
 //
 |
 L1CMDflat _ => aux_flat(out, lcmd)
+|
+L1CMDcarg _ => aux_carg(out, lcmd)
 |
 L1CMDtarg _ => aux_targ(out, lcmd)
 //

@@ -378,6 +378,8 @@ case+
 l1v0.node() of
 | L1VALflat _ =>
   aux_flat(env0, l1v0)
+| L1VALcarg _ =>
+  aux_carg(env0, l1v0)
 | L1VALtarg _ =>
   aux_targ(env0, l1v0)
 | _ (*rest-of-l1val*) => (l1v0)
@@ -411,6 +413,37 @@ end
 in
 l1val_make_node(loc0, L1VALtmp(tres))
 end // end of [aux_flat]
+//
+and
+aux_carg
+( env0: 
+! compenv
+, l1v0: l1val): l1val =
+let
+val
+loc0 = l1v0.loc()
+val-
+L1VALcarg
+( l1v1
+, idx2 ) = l1v0.node()
+val
+l1v1 = l1valize(env0, l1v1)
+val
+tres =
+xcomp01_ltmpnew_tmp0(env0, loc0)
+val () =
+let
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0
+  , L1CMDcarg(tres, l1v1, idx2) )
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end // end of [aux_carg]
 //
 and
 aux_targ

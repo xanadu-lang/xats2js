@@ -428,6 +428,15 @@ fprint!
 ( out
 , "L1CMDflat(", tres, "; ", l1v1, ")")
 |
+L1CMDcarg
+(tres, l1v1, idx2) =>
+(
+  fprint!
+  ( out
+  , "L1CMDcarg("
+  , tres, "; ", l1v1, "; ", idx2, ")" )
+)
+|
 L1CMDtarg
 (tres, l1v1, idx2) =>
 (
