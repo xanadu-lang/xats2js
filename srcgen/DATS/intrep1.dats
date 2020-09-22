@@ -230,24 +230,6 @@ end // end of [local]
 (* ****** ****** *)
 //
 implement
-l1val_ctag
-(loc, l1v) =
-l1val_make_node
-(loc, L1VALctag(l1v))
-implement
-l1val_carg
-(loc, l1v, idx) =
-l1val_make_node
-(loc, L1VALcarg(l1v, idx))
-implement
-l1val_cptr
-(loc, l1v, idx) =
-l1val_make_node
-(loc, L1VALcptr(l1v, idx))
-//
-(* ****** ****** *)
-//
-implement
 l1val_flat(l1v) =
 l1val_make_node
 (l1v.loc(), L1VALflat(l1v))
@@ -261,6 +243,8 @@ l1val_talf(l1v) =
 l1val_make_node
 (l1v.loc(), L1VALtalf(l1v))
 //
+(* ****** ****** *)
+//
 implement
 l1val_addrize(l1v0) =
 (
@@ -270,6 +254,8 @@ l1v0.node() of
 L1VALflat(l1v1) => l1v1
 | _(*rest-of-l1val*) => l1val_addr(l1v0)
 )
+//
+(* ****** ****** *)
 //
 implement
 l1val_talfize(l1v0) =
@@ -288,8 +274,48 @@ l1val_cptr
   val l1v1 = l1val_talfize(l1v1)
 }
 //
+|
+L1VALtarg(l1v1, idx2) =>
+l1val_tptr
+(loc0, l1v1, idx2) where
+{
+  val loc0 = l1v0.loc()
+  val l1v1 = l1val_talfize(l1v1)
+}
+//
 | _(*rest-of-l1val*) => l1val_talf(l1v0)
 )
+//
+(* ****** ****** *)
+//
+implement
+l1val_ctag
+(loc, l1v) =
+l1val_make_node
+(loc, L1VALctag(l1v))
+implement
+l1val_carg
+(loc, l1v, idx) =
+l1val_make_node
+(loc, L1VALcarg(l1v, idx))
+implement
+l1val_cptr
+(loc, l1v, idx) =
+l1val_make_node
+(loc, L1VALcptr(l1v, idx))
+//
+(* ****** ****** *)
+//
+implement
+l1val_targ
+(loc, l1v, idx) =
+l1val_make_node
+(loc, L1VALtarg(l1v, idx))
+implement
+l1val_tptr
+(loc, l1v, idx) =
+l1val_make_node
+(loc, L1VALtptr(l1v, idx))
 //
 (* ****** ****** *)
 //

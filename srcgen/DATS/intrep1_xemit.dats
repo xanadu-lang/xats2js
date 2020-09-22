@@ -58,13 +58,6 @@ fprint with $LOC.fprint_location
 #staload "./../SATS/intrep1.sats"
 (* ****** ****** *)
 implement
-xemit01_int
-(out, int) =
-(
-  fprint(out, int)
-)
-(* ****** ****** *)
-implement
 xemit01_txt
 (out, txt) =
 (
@@ -429,6 +422,19 @@ L1VALtcst(ltc1) =>
 xemit01_ltcst(out, ltc1)
 //
 |
+L1VALflat(l1v1) =>
+{
+  val () =
+  fprint!
+  ( out
+  , "XATS2JS_lval_get(")
+  val () =
+  xemit01_l1val(out, l1v1)
+  val () =
+  xemit01_txt00( out, ")" )
+}
+//
+|
 L1VALctag(l1v1) =>
 {
   val () =
@@ -459,16 +465,25 @@ fprint!(out, ", ", argi+1, ")")
 }
 //
 |
-L1VALflat(l1v1) =>
+L1VALtarg(l1v1, argi) =>
 {
-  val () =
-  fprint!
-  ( out
-  , "XATS2JS_lval_get(")
-  val () =
-  xemit01_l1val(out, l1v1)
-  val () =
-  xemit01_txt00( out, ")" )
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, "[", argi+1, "]")
+}
+//
+|
+L1VALtptr(l1v1, argi) =>
+{
+val () =
+fprint!
+( out
+, "XATS2JS_new_tptr(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, ", ", argi+1, ")")
 }
 //
 | L1VALnone0() =>
@@ -527,14 +542,6 @@ xemit01_txt00(out, " = ")
 //
 val () =
 xemit01_txt00(out, "[")
-val () =
-let
-val-
-L1VALcon
-( hdc0 ) = l1f0.node()
-in
-xemit01_hdcon(out, hdc0)
-end
 //
 local
 fun
@@ -561,10 +568,19 @@ val () = xemit01_l1val(out, x0)
 } (* list_cons *)
 )
 in
-val () = loop(1, l1vs)
-end (* end of [local] *)
 //
+val () =
+let
+val-
+L1VALcon
+( hdc0 ) = l1f0.node()
+in
+xemit01_hdcon(out, hdc0)
+end
+val () = loop( 1, l1vs )
 val () = xemit01_txt00(out, "]")
+//
+end (* end of [local] *)
 //
 } where
 {
@@ -574,7 +590,63 @@ L1CMDapp
 ( tres
 , l1f0, l1vs) = lcmd.node()
 //
-} (* end of [aux_con] *)
+} (* where *) // end of [aux_con]
+//
+fun
+aux_tup
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+{
+val () =
+xemit01_l1tmp(out, tres)
+val () =
+xemit01_txt00(out, " = ")
+//
+local
+fun
+loop
+( n0: int
+, xs
+: l1valist): void =
+(
+case+ xs of
+|
+list_nil() => ()
+|
+list_cons(x0, xs) =>
+(
+  loop(n0+1, xs)
+) where
+{
+val () =
+if
+(n0 > 0)
+then
+xemit01_txt00(out, ", ")
+val () =
+xemit01_l1val( out, x0 )
+} (* list_cons *)
+)
+in
+//
+val () =
+fprint!(out, "[", knd0)
+val () = loop( 1, l1vs )
+val () = xemit01_txt00(out, "];")
+//
+end (* end of [local] *)
+//
+} where
+{
+//
+val-
+L1CMDtup
+( tres
+, knd0, l1vs) = lcmd.node()
+//
+} (* where *) // end of [aux_tup]
 //
 fun
 aux_app
@@ -589,9 +661,7 @@ val () =
 xemit01_txt00(out, " = ")
 //
 val () =
-xemit01_l1val(out, l1f0)
-//
-val () = xemit01_txt00(out, "(")
+xemit01_l1val( out, l1f0 )
 //
 local
 fun
@@ -618,10 +688,12 @@ val () = xemit01_l1val(out, x0)
 } (* list_cons *)
 )
 in
-val () = loop(0, l1vs)
-end (* end of [local] *)
-//
+val () =
+xemit01_txt00(out, "(")
+val () = loop( 0, l1vs )
 val () = xemit01_txt00(out, ")")
+//
+end (* end of [local] *)
 //
 } where
 {
@@ -1040,6 +1112,77 @@ list_cons(pck1, pcks) =>
 (* ****** ****** *)
 
 fun
+aux_flat
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+val
+loc0 = lcmd.loc()
+val-
+L1CMDflat
+( tres
+, l1v1) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tres)
+//
+in
+{
+//
+val () =
+fprint!( out, " = " )
+//
+val () =
+fprint
+( out
+, "XATS2JS_lval_get(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+xemit01_txt00( out, ")" )
+//
+}
+end // end of [aux_flat]
+
+(* ****** ****** *)
+
+fun
+aux_targ
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+val
+loc0 = lcmd.loc()
+val-
+L1CMDtarg
+( tres
+, l1v1
+, idx2) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tres)
+//
+in
+{
+//
+val () =
+fprint!( out, " = " )
+//
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, "[", idx2+1, "]")
+//
+}
+end // end of [aux_targ]
+
+(* ****** ****** *)
+
+fun
 aux_assgn
 ( out
 : FILEref
@@ -1054,18 +1197,18 @@ L1CMDassgn
 //
 in
 {
-  val () =
-  fprint
-  ( out
-  , "XATS2JS_lval_set(")
-  val () =
-  xemit01_l1val(out, l1v1)
-  val () =
-  xemit01_txt00(out, ", ")  
-  val () =
-  xemit01_l1val(out, l1v2)
-  val () =
-  xemit01_txt00(out, ");\n")
+val () =
+fprint
+( out
+, "XATS2JS_lval_set(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+xemit01_txt00(out, ", ")  
+val () =
+xemit01_l1val(out, l1v2)
+val () =
+xemit01_txt00(out, ");\n")
 }
 end // end of [aux_assgn]
 
@@ -1092,6 +1235,9 @@ _ (*else*) => aux_app(out, lcmd)
 )
 //
 |
+L1CMDtup _ => aux_tup(out, lcmd)
+//
+|
 L1CMDlam _ => aux_lam(out, lcmd)
 //
 |
@@ -1106,6 +1252,11 @@ L1CMDcase _ => aux_case(out, lcmd)
 //
 |
 L1CMDpatck _ => aux_patck(out, lcmd)
+//
+|
+L1CMDflat _ => aux_flat(out, lcmd)
+|
+L1CMDtarg _ => aux_targ(out, lcmd)
 //
 |
 L1CMDassgn _ => aux_assgn(out, lcmd)

@@ -724,6 +724,114 @@ end // end of [auxval_pcon]
 
 (* ****** ****** *)
 
+fun
+auxval_pbox
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+val
+loc0 = h0e0.loc()
+val-
+H0Epbox
+( h0e1
+, lab2
+, idx2) = h0e0.node()
+//
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+//
+in
+let
+//
+(*
+val
+opt2 =
+$LAB.label_get_int(lab2)
+val-~Some_vt(idx2) = opt2
+*)
+//
+in
+l1val_targ(loc0, l1v1, idx2)
+end // end of [let]
+//
+end // end of [auxval_pbox]
+
+(* ****** ****** *)
+
+fun
+auxval_proj
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+val
+loc0 = h0e0.loc()
+val-
+H0Eproj
+( h0e1
+, lab2
+, idx2) = h0e0.node()
+//
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+//
+in
+let
+//
+(*
+val
+opt2 =
+$LAB.label_get_int(lab2)
+val-~Some_vt(idx2) = opt2
+*)
+//
+in
+l1val_targ(loc0, l1v1, idx2)
+end // end of [let]
+//
+end // end of [auxval_proj]
+
+(* ****** ****** *)
+
+fun
+auxval_plft
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+val
+loc0 = h0e0.loc()
+val-
+H0Eplft
+( h0e1
+, lab2
+, idx2) = h0e0.node()
+//
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+//
+in
+let
+//
+(*
+val
+opt2 =
+$LAB.label_get_int(lab2)
+val-~Some_vt(idx2) = opt2
+*)
+//
+in
+l1val_tptr(loc0, l1v1, idx2)
+end // end of [let]
+//
+end // end of [auxval_plft]
+
+(* ****** ****** *)
+
 local
 
 fun
@@ -887,42 +995,36 @@ end // end of [auxval_addr]
 
 fun
 auxval_flat
-( env0
-: !compenv
+( env0:
+! compenv
 , h0e0: h0exp): l1val =
 let
 //
-val loc0 = h0e0.loc()
-//
+val
+loc0 = h0e0.loc()
 val-
 H0Eflat
 ( h0e1 ) = h0e0.node()
 //
 in
-//
-case+
-h0e1.node() of
-|
-_ (* else *) =>
-l1val_flat(l1v1) where
+  l1val_flat(l1v1) where
 {
 val l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
 }
-//
 end // end of [auxval_flat]
 
 (* ****** ****** *)
 
 fun
 auxval_talf
-( env0
-: !compenv
+( env0:
+! compenv
 , h0e0: h0exp): l1val =
 let
 //
-val loc0 = h0e0.loc()
-//
+val
+loc0 = h0e0.loc()
 val-
 H0Etalf
 ( h0e1 ) = h0e0.node()
@@ -989,7 +1091,55 @@ xcomp01_h0exp_val(env0, h0f0)
 val l1vs =
 xcomp01_h0explst_arg(env0, npf1, h0es)
 }
-end // end of [auxset_dapp]
+end (*let*) // end of [auxset_dapp]
+
+(* ****** ****** *)
+
+fun
+auxset_tuple
+( env0
+: !compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
+let
+//
+val
+loc0 = h0e0.loc()
+//
+val-
+H0Etuple
+( knd0
+, npf1
+, h0es) = h0e0.node()
+//
+val () =
+xcomp01_lcmdpush_nil(env0)
+//
+in
+let
+val
+ltup =
+l1cmd_make_node
+( loc0
+, L1CMDtup(tres, knd0, l1vs))
+val () =
+xcomp01_lcmdadd_lcmd(env0, ltup)
+//
+val lblk =
+l1cmd_make_node
+(loc0, L1CMDblk(blk0)) where
+{
+val
+blk0 = xcomp01_lcmdpop0_blk(env0)
+}
+in
+  xcomp01_lcmdadd_lcmd(env0, lblk)
+end where
+{
+val l1vs =
+xcomp01_h0explst_arg(env0, npf1, h0es)
+}
+end (*let*) // end of [auxset_tuple]
 
 (* ****** ****** *)
 
@@ -1027,7 +1177,7 @@ in
   in
     xcomp01_lcmdadd_lcmd(env0, lcmd)
   end
-end // end of [auxset_if0]
+end (*let*) // end of [ auxset_if0 ]
 
 (* ****** ****** *)
 
@@ -1131,7 +1281,7 @@ list_cons
 )
 //
 in(*in-of-local*)
-//
+
 fun
 auxset_case
 ( env0:
@@ -1174,10 +1324,8 @@ l1cmd_make_node
   , l1v1, tcas, pcks, blks))
 in
   xcomp01_lcmdadd_lcmd(env0, lcmd)
-end
-end // end of [auxset_case]
-//
-end // end of [local]
+end // end-of-let
+end (* auxset_case *) end // [local]
 
 (* ****** ****** *)
 
@@ -1265,7 +1413,7 @@ in
   xcomp01_lcmdadd_lcmd(env0, lcmd)
 end // end of [let]
 end // end of [let]
-end // end of [auxset_lam]
+end (*let*) // end of [auxset_lam]
 
 (* ****** ****** *)
 
@@ -1331,14 +1479,15 @@ in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
 //
-|
-H0Epcon _ =>
-auxval_pcon(env0, h0e0)
-(*
-|
-H0Eproj _ =>
-auxval_proj(env0, h0e0)
-*)
+| H0Epcon _ =>
+  auxval_pcon(env0, h0e0)
+| H0Epbox _ =>
+  auxval_pbox(env0, h0e0)
+//
+| H0Eproj _ =>
+  auxval_proj(env0, h0e0)
+| H0Eplft _ =>
+  auxval_plft(env0, h0e0)
 //
 | H0Elet _ =>
   auxval_let( env0, h0e0 )
@@ -1349,6 +1498,19 @@ auxval_proj(env0, h0e0)
 | H0Eassgn _ =>
   auxval_assgn( env0, h0e0 )
 //
+|
+H0Etuple _ =>
+let
+val
+tres =
+xltmpnew_tmp0(env0, loc0)
+//
+val () =
+auxset_tuple(env0, h0e0, tres)
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end // end of [H0Etuple]
+//
 | H0Eif0 _ =>
 let
 val
@@ -1358,9 +1520,10 @@ val () =
 auxset_if0(env0, h0e0, tres)
 in
 l1val_make_node(loc0, L1VALtmp(tres))
-end
+end // end of [ H0Eif0 ]
 //
-| H0Ecase _ =>
+|
+H0Ecase _ =>
 let
 val
 tres =
@@ -1385,13 +1548,13 @@ end
 | H0Eaddr _ =>
   auxval_addr(env0, h0e0)
 //
-| H0Efold _ =>
-  l1val_make_node(loc0, L1VALnone0())
-//
 | H0Eflat _ =>
   auxval_flat(env0, h0e0)
 | H0Etalf _ =>
   auxval_talf(env0, h0e0)
+//
+| H0Efold _ =>
+  l1val_make_node(loc0, L1VALnone0())
 //
 | H0Enone0 _ =>
   l1val_make_node(loc0, L1VALnone0())
@@ -1418,25 +1581,42 @@ H0Edapp _ =>
 auxset_dapp(env0, h0e0, tres)
 //
 |
+H0Etuple _ =>
+auxset_tuple(env0, h0e0, tres)
+//
+|
 H0Eif0 _ =>
 (
   auxset_if0(env0, h0e0, tres)
 )
-| _ (* else *) =>
+|
+H0Ecase _ =>
+(
+  auxset_case(env0, h0e0, tres)
+)
+//
+| H0Elam _ =>
+(
+  auxset_lam(env0, h0e0, tres)
+)
+//
+|
+_ (*rest-of-h0exp*) =>
 let
 val l1v0 =
 xcomp01_h0exp_val(env0, h0e0)
 in
 let
-  val cmd0 =
-  l1cmd_make_node
-  (loc0, L1CMDmov(tres, l1v0))
+val
+cmd0 =
+l1cmd_make_node
+( loc0, L1CMDmov(tres, l1v0) )
 in
-  xcomp01_lcmdadd_lcmd(env0, cmd0)
+xcomp01_lcmdadd_lcmd(env0, cmd0)
 end
 end // end of [H0Eif0]
 //
-end // end of [xcomp01_h0exp_val]
+end // end of [xcomp01_h0exp_set]
 
 end // end of [local]
 

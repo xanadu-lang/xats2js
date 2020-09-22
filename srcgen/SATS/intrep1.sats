@@ -267,9 +267,6 @@ l1val_node =
 //
 // HX: ctag: con_tag
 // HX: carg: con_arg
-| L1VALctag of (l1val)
-| L1VALcarg of (l1val, int)
-| L1VALcptr of (l1val, int)
 //
 | L1VALflat of (l1val)
 //
@@ -277,15 +274,15 @@ l1val_node =
 | L1VALtalf of (l1val)
 //
 (*
-| L1VALselab of (l1val, l1lab)
+| L1VALselab of (l1val, label)
 *)
 //
-(*
-| L1VALt0arg of (l1val, int) // flat
-| L1VALt0ptr of (l1val, int) // flat
-| L1VALt1arg of (l1val, int) // boxed
-| L1VALt1ptr of (l1val, int) // boxed
-*)
+| L1VALctag of (l1val)
+| L1VALcarg of (l1val, int(*idx*))
+| L1VALcptr of (l1val, int(*idx*))
+//
+| L1VALtarg of (l1val, int(*index*))
+| L1VALtptr of (l1val, int(*index*))
 //
 | L1VALnone0 of () | L1VALnone1 of (h0exp)
 //
@@ -321,19 +318,7 @@ overload prerr with prerr_l1val
 overload fprint with fprint_l1val
 //
 (* ****** ****** *)
-fun
-l1val_ctag
-( loc0: loc_t
-, l1v0: l1val): l1val
-fun
-l1val_carg
-( loc0: loc_t
-, l1v0: l1val, idx1: int): l1val
-fun
-l1val_cptr
-( loc0: loc_t
-, l1v0: l1val, idx1: int): l1val
-(* ****** ****** *)
+//
 fun
 l1val_flat(l1v0: l1val): l1val
 //
@@ -341,6 +326,30 @@ fun
 l1val_addr(l1v0: l1val): l1val
 fun
 l1val_talf(l1v0: l1val): l1val
+//
+(* ****** ****** *)
+fun
+l1val_ctag
+( loc0: loc_t
+, l1v0: l1val): l1val
+fun
+l1val_carg
+( loc0: loc_t
+, l1v1: l1val, idx2: int): l1val
+fun
+l1val_cptr
+( loc0: loc_t
+, l1v1: l1val, idx2: int): l1val
+(* ****** ****** *)
+fun
+l1val_targ
+( loc0: loc_t
+, l1v1: l1val, idx2: int): l1val
+fun
+l1val_tptr
+( loc0: loc_t
+, l1v1: l1val, idx2: int): l1val
+(* ****** ****** *)
 //
 fun
 l1val_addrize(l1v0: l1val): l1val
@@ -352,8 +361,14 @@ l1val_talfize(l1v0: l1val): l1val
 //
 datatype
 l1lvl_node =
+//
 | L1LVLtmp of l1tmp
+//
 | L1LVLpcon of (l1val, label)
+| L1LVLpbox of (l1val, label)
+//
+| L1LVLplft of (l1val, label)
+| L1LVLpptr of (l1val, label)
 //
 *)
 (* ****** ****** *)
@@ -442,12 +457,14 @@ l1cmd_node =
   ( l1tmp(*res*)
   , hdcon(*con*)
   , l1valist(*arg*))
-(*
-| L1CMDcst of
+//
+// HX: 0: flat
+// HX: 1: boxed
+| L1CMDtup of
   ( l1tmp(*res*)
-  , hdcst(*cst*)
+  , int // flt/box
   , l1valist(*arg*))
-*)
+//
 | L1CMDapp of
   ( l1tmp(*res*)
   , l1val(*fun*)
@@ -471,13 +488,20 @@ l1cmd_node =
 | L1CMDcase of
   ( int(*knd*)
   , l1val
-  , l1tmp, l1pcklst, l1blklst)
+  , l1tmp(*tcas*)
+  , l1pcklst, l1blklst)
 //
 | L1CMDpatck of (l1pck)
 | L1CMDmatch of (h0pat, l1val)
 //
+| L1CMDflat of
+  (l1tmp(*res*), l1val(*lval*))
+| L1CMDtarg of
+  ( l1tmp(*res*)
+  , l1val(*lval*), int(*index*))
+//
 | L1CMDassgn of // assignment
-  (l1val(*left*), l1val(*right*))
+  (l1val(*lval*), l1val(*rval*))
 //
 (* ****** ****** *)
 //
@@ -744,9 +768,11 @@ overload fprint with fprint_l1dcl
 //
 (* ****** ****** *)
 //
+(*
 fun
 xemit01_int
 (FILEref, int): void
+*)
 //
 fun
 xemit01_txt
@@ -835,7 +861,7 @@ xemit01_l1dclist(FILEref, l1dclist): void
 //
 fun
 xemit01_program
-  (FILEref, l1dclist(*prog*)): void
+(out:FILEref, prog:l1dclist(*prog*)): void
 //
 (* ****** ****** *)
 

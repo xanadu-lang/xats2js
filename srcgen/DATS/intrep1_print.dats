@@ -250,6 +250,17 @@ L1VALtcst(ltc) =>
 fprint!(out, "L1VALtcst(", ltc, ")")
 //
 |
+L1VALaddr(l1v1) =>
+fprint!(out, "L1VALaddr(", l1v1, ")")
+//
+|
+L1VALflat(l1v1) =>
+fprint!(out, "L1VALflat(", l1v1, ")")
+|
+L1VALtalf(l1v1) =>
+fprint!(out, "L1VALtalf(", l1v1, ")")
+//
+|
 L1VALctag(l1v1) =>
 fprint!(out, "L1VALctag(", l1v1, ")")
 |
@@ -264,15 +275,15 @@ fprint!
 , "L1VALcptr(", l1v1, "; ", idx2, ")")
 //
 |
-L1VALaddr(l1v1) =>
-fprint!(out, "L1VALaddr(", l1v1, ")")
-//
+L1VALtarg(l1v1, idx2) =>
+fprint!
+( out
+, "L1VALtarg(", l1v1, "; ", idx2, ")")
 |
-L1VALflat(l1v1) =>
-fprint!(out, "L1VALflat(", l1v1, ")")
-|
-L1VALtalf(l1v1) =>
-fprint!(out, "L1VALtalf(", l1v1, ")")
+L1VALtptr(l1v1, idx2) =>
+fprint!
+( out
+, "L1VALtptr(", l1v1, "; ", idx2, ")")
 //
 | L1VALnone0() =>
   fprint!(out, "L1VALnone0(", ")")
@@ -341,6 +352,14 @@ fprint!
 ( out
 , "L1CMDcon("
 , tres, "; ", hdc1, "; ", l0vs, ")")
+//
+|
+L1CMDtup
+(tres, knd0, l0vs) =>
+fprint!
+( out
+, "L1CMDtup("
+, tres, "; ", knd0, "; ", l0vs, ")")
 (*
 |
 L1CMDcst
@@ -401,6 +420,22 @@ L1CMDmatch
 fprint!
 ( out
 , "L1CMDmatch(", h0p1, "; ", l1v2, ")")
+//
+|
+L1CMDflat
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDflat(", tres, "; ", l1v1, ")")
+|
+L1CMDtarg
+(tres, l1v1, idx2) =>
+(
+  fprint!
+  ( out
+  , "L1CMDtarg("
+  , tres, "; ", l1v1, "; ", idx2, ")" )
+)
 //
 |
 L1CMDassgn
