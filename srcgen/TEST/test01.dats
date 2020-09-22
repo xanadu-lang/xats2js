@@ -68,7 +68,7 @@ fact2(x)(r) =
 if x > 0 then fact2(x-1)(x*r) else r
 *)
 (* ****** ****** *)
-
+(*
 fun
 test_p2tr_get
 ((*void*)): int =
@@ -79,6 +79,20 @@ val () = (x0 := 10)
 in
   x0 := x0 + x0; x0
 end
+*)
+(* ****** ****** *)
+
+val
+_2_times =
+lam(x: int) => x+x
+
+(* ****** ****** *)
+
+val () =
+g_print("10 + 10 = ")
+val () =
+g_print(_2_times( 10 ))
+val () = g_print( "\n" )
 
 (* ****** ****** *)
 

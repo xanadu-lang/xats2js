@@ -394,6 +394,43 @@ overload fprint with fprint_l1lvl
 //
 *)
 (* ****** ****** *)
+
+datatype
+l1lamexp =
+L1LAMEXP of @{
+  loc= loc_t
+//
+, hag= hfarglst
+//
+, def= l1valopt
+//
+, lev= int//fun
+, lts= l1tmplst
+//
+, hag_blk= l1blk
+, def_blk= l1blk
+//
+} (* L1LAMEXP *)
+
+datatype
+l1fixexp =
+L1FIXEXP of @{
+  loc= loc_t
+//
+, nam= hdvar
+, hag= hfarglst
+//
+, def= l1valopt
+//
+, lev= int//fun
+, lts= l1tmplst
+//
+, hag_blk= l1blk
+, def_blk= l1blk
+//
+} (* L1FIXEXP *)
+
+(* ****** ****** *)
 //
 datatype
 l1cmd_node =
@@ -402,19 +439,28 @@ l1cmd_node =
   (l1tmp, l1val)
 //
 | L1CMDcon of
-  ( l1tmp(*ret*)
+  ( l1tmp(*res*)
   , hdcon(*con*)
   , l1valist(*arg*))
 (*
 | L1CMDcst of
-  ( l1tmp(*ret*)
+  ( l1tmp(*res*)
   , hdcst(*cst*)
   , l1valist(*arg*))
 *)
 | L1CMDapp of
-  ( l1tmp(*ret*)
+  ( l1tmp(*res*)
   , l1val(*fun*)
   , l1valist(*arg*))
+//
+| L1CMDlam of
+  ( l1tmp(*res*)
+  , l1lamexp(*fun*))
+(*
+| L1CMDfix of
+  ( l1tmp(*res*)
+  , l1fixexp(*fun*))
+*)
 //
 | L1CMDblk of (l1blk)
 | L1CMDdcl of (l1dcl)
@@ -463,6 +509,22 @@ fprint_l1cmd: fprint_type(l1cmd)
 overload print with print_l1cmd
 overload prerr with prerr_l1cmd
 overload fprint with fprint_l1cmd
+//
+(* ****** ****** *)
+//
+fun
+print_l1lamexp:
+print_type(l1lamexp)
+fun
+prerr_l1lamexp:
+prerr_type(l1lamexp)
+fun
+fprint_l1lamexp:
+fprint_type(l1lamexp)
+//
+overload print with print_l1lamexp
+overload prerr with prerr_l1lamexp
+overload fprint with fprint_l1lamexp
 //
 (* ****** ****** *)
 //
@@ -757,10 +819,11 @@ fun
 xemit01_l1blk(FILEref, l1blk): void
 //
 (* ****** ****** *)
-//
 fun
 xemit01_l1cmdlst(FILEref, l1cmdlst): void
-//
+(* ****** ****** *)
+fun
+xemit01_ftmpdecs(FILEref, l1tmplst): void
 (* ****** ****** *)
 //
 fun

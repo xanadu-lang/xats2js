@@ -360,6 +360,13 @@ fprint!
 , tres, "; ", l0v1, "; ", l0vs, ")")
 //
 |
+L1CMDlam
+(tres, l1am) =>
+fprint!
+( out,
+ "L1CMDlam(", tres, "; ", l1am, ")")
+//
+|
 L1CMDblk(blk1) =>
 fprint!(out, "L1CMDblk(", blk1, ")")
 //
@@ -490,6 +497,34 @@ fprint!(out, "L1DCLvardecl(", lvds, ")")
 
 end // end of [local]
 
+(* ****** ****** *)
+//
+implement
+print_l1lamexp(x0) =
+fprint_l1lamexp(stdout_ref, x0)
+implement
+prerr_l1lamexp(x0) =
+fprint_l1lamexp(stderr_ref, x0)
+//
+implement
+fprint_l1lamexp
+  (out, x0) = let
+//
+val+
+L1LAMEXP(rcd) = x0
+//
+in
+//
+fprint!
+( out
+, "L1LAMEXP@{"
+, "hag=", rcd.hag, ", "
+, "def=", rcd.def, ", "
+, "hag_blk=", rcd.hag_blk, ", "
+, "def_blk=", rcd.def_blk, ", ", "}")
+//
+end // end of [fprint_l1lamexp]
+//
 (* ****** ****** *)
 //
 implement

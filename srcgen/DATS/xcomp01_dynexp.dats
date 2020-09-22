@@ -858,6 +858,92 @@ end // end of [auxval_assgn]
 (* ****** ****** *)
 
 fun
+auxval_addr
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+//
+val loc0 = h0e0.loc()
+//
+val-
+H0Eaddr
+( h0e1 ) = h0e0.node()
+//
+in
+//
+case+
+h0e1.node() of
+| _ (* else *) =>
+l1val_addrize(l1v1) where
+{
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+}
+//
+end // end of [auxval_addr]
+
+(* ****** ****** *)
+
+fun
+auxval_flat
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+//
+val loc0 = h0e0.loc()
+//
+val-
+H0Eflat
+( h0e1 ) = h0e0.node()
+//
+in
+//
+case+
+h0e1.node() of
+|
+_ (* else *) =>
+l1val_flat(l1v1) where
+{
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+}
+//
+end // end of [auxval_flat]
+
+(* ****** ****** *)
+
+fun
+auxval_talf
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+//
+val loc0 = h0e0.loc()
+//
+val-
+H0Etalf
+( h0e1 ) = h0e0.node()
+//
+in
+//
+case+
+h0e1.node() of
+|
+_ (* else *) =>
+l1val_talfize(l1v1) where
+{
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+}
+//
+end // end of [auxval_talf]
+
+(* ****** ****** *)
+
+fun
 auxset_dapp
 ( env0:
 ! compenv
@@ -1059,7 +1145,7 @@ loc0 = h0e0.loc()
 //
 val-
 H0Ecase
-( knd
+( knd0
 , h0e1
 , hcls) = h0e0.node()
 //
@@ -1084,7 +1170,7 @@ lcmd =
 l1cmd_make_node
 ( loc0,
   L1CMDcase
-  ( knd
+  ( knd0
   , l1v1, tcas, pcks, blks))
 in
   xcomp01_lcmdadd_lcmd(env0, lcmd)
@@ -1096,88 +1182,90 @@ end // end of [local]
 (* ****** ****** *)
 
 fun
-auxval_addr
-( env0
-: !compenv
-, h0e0: h0exp): l1val =
+auxset_lam
+( env0:
+! compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
 let
 //
-val loc0 = h0e0.loc()
+val
+loc0 = h0e0.loc()
 //
 val-
-H0Eaddr
-( h0e1 ) = h0e0.node()
+H0Elam
+( knd0
+, hfgs
+, h0e1) = h0e0.node()
 //
-in
+var res1
+  : l1valopt = None()
 //
-case+
-h0e1.node() of
-| _ (* else *) =>
-l1val_addrize(l1v1) where
-{
-val l1v1 =
-xcomp01_h0exp_val(env0, h0e1)
-}
+val () =
+xcomp01_flevinc(env0)
+val () =
+xcomp01_dvaradd_fun0(env0)
+val () =
+xcomp01_ltmpadd_fun0(env0)
 //
-end // end of [auxval_addr]
-
-(* ****** ****** *)
-
-fun
-auxval_flat
-( env0
-: !compenv
-, h0e0: h0exp): l1val =
+val
+flev =
+xcomp01_flevget(env0)
+//
+val
+blk0 =
+xcomp01_hfarglst_ck01
+  (env0, hfgs(*multi*))
+//
+val
+blk1 =
 let
-//
-val loc0 = h0e0.loc()
-//
-val-
-H0Eflat
-( h0e1 ) = h0e0.node()
+val () =
+xcomp01_lcmdpush_nil(env0)
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+val () = (res1 := Some(l1v1))
 //
 in
+  xcomp01_lcmdpop0_blk( env0 )
+end : l1blk // end of [val]
 //
-case+
-h0e1.node() of
-|
-_ (* else *) =>
-l1val_flat(l1v1) where
-{
-val l1v1 =
-xcomp01_h0exp_val(env0, h0e1)
-}
-//
-end // end of [auxval_flat]
-
-(* ****** ****** *)
-
-fun
-auxval_talf
-( env0
-: !compenv
-, h0e0: h0exp): l1val =
+in
 let
+  val () =
+  xcomp01_flevdec(env0)
+  val () =
+  xcomp01_dvarpop_fun0(env0)
+  val flts =
+  xcomp01_ltmppop_fun0(env0)
 //
-val loc0 = h0e0.loc()
-//
-val-
-H0Etalf
-( h0e1 ) = h0e0.node()
+(*
+val () =
+println!("auxset_lam: lts = ", lts)
+*)
 //
 in
-//
-case+
-h0e1.node() of
-|
-_ (* else *) =>
-l1val_talfize(l1v1) where
-{
-val l1v1 =
-xcomp01_h0exp_val(env0, h0e1)
-}
-//
-end // end of [auxval_talf]
+let
+  val
+  l1am =
+  L1LAMEXP@{
+    loc=loc0
+  , hag=hfgs
+  , def=res1
+  , lev=flev
+  , lts=flts
+  , hag_blk=blk0, def_blk=blk1
+  } (* L1LAMEXP *)
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDlam(tres, l1am) )
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end // end of [let]
+end // end of [let]
+end // end of [auxset_lam]
 
 (* ****** ****** *)
 
@@ -1279,6 +1367,17 @@ tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_case(env0, h0e0, tres)
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end
+//
+| H0Elam _ =>
+let
+val
+tres =
+xltmpnew_tmp0(env0, loc0)
+val () =
+auxset_lam(env0, h0e0, tres)
 in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
@@ -1439,7 +1538,7 @@ val
 loc0 = dcl0.loc()
 val-
 H0Cfundecl
-( knd
+( knd0
 , mopt
 , tqas, hfds) = dcl0.node()
 in
@@ -1460,7 +1559,7 @@ val
 loc0 = dcl0.loc()
 val-
 H0Cfundecl
-( knd
+( knd0
 , mopt
 , tqas, hfds) = dcl0.node()
 val
@@ -1497,7 +1596,7 @@ val
 loc0 = dcl0.loc()
 val-
 H0Cvaldecl
-( knd
+( knd0
 , mopt, hvds) = dcl0.node()
 val
 lvds =
@@ -1518,7 +1617,7 @@ val
 loc0 = dcl0.loc()
 val-
 H0Cvardecl
-( knd
+( knd0
 , mopt, hvds) = dcl0.node()
 val
 lvds =

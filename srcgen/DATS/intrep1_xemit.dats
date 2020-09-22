@@ -631,7 +631,75 @@ L1CMDapp
 ( tres
 , l1f0, l1vs) = lcmd.node()
 //
-} (* end of [aux_app] *)
+} (* where *) // end of [aux_app]
+//
+fun
+aux_lam
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+{
+//
+val+
+L1LAMEXP(rcd) = l1am
+//
+val () =
+xemit01_l1tmp(out, tres)
+val () =
+xemit01_txt00(out, " =\n")
+//
+val () =
+xemit01_txtln
+(out, "function")
+//
+val
+argcnt =
+xemit01_hfarglst
+( out
+, rcd.lev
+, rcd.hag, 0(*base*))
+val () = xemit01_newln(out)
+//
+val () =
+xemit01_txtln(out, "{")
+//
+val () =
+xemit01_ftmpdecs(out, rcd.lts)
+//
+val () =
+xemit01_l1blk(out, rcd.hag_blk)
+val () =
+xemit01_l1blk(out, rcd.def_blk)
+val () =
+(
+case+
+rcd.def of
+|
+None() => ()
+|
+Some(res) =>
+{
+//
+val () =
+xemit01_txt00(out, "return ")
+val () = xemit01_l1val(out, res)
+val () = xemit01_txt00(out, ";\n")
+//
+}
+) : void // end-of-val
+//
+val () =
+fprintln!(out, "} // lam-function")
+//
+} where
+{
+//
+val-
+L1CMDlam
+(tres, l1am) = lcmd.node()
+//
+} (* where *) // end of [aux_lam]
 //
 fun
 aux_blk
@@ -1022,6 +1090,10 @@ L1VALcon _ => aux_con(out, lcmd)
 |
 _ (*else*) => aux_app(out, lcmd)
 )
+//
+|
+L1CMDlam _ => aux_lam(out, lcmd)
+//
 |
 L1CMDblk _ => aux_blk(out, lcmd)
 |
@@ -1089,16 +1161,9 @@ val()=xemit01_l1cmdlst(out, cmds)
 ) (* end of [xemit01_l1blk] *)
 (* ****** ****** *)
 
-local
-
-(* ****** ****** *)
-
-fun
-aux_ltmplst
-( out
-: FILEref
-, tmps
-: l1tmplst): void =
+implement
+xemit01_ftmpdecs
+( out, tmps ) =
 (
 case+ tmps of
 |
@@ -1112,27 +1177,27 @@ if
 (i0 > 0)
 then
 (
-aux_ltmplst(out, ts)
+xemit01_ftmpdecs(out, ts)
 )
 else
 (
-aux_ltmplst(out, ts)
+xemit01_ftmpdecs(out, ts)
 ) where
 {
 //
-  val () =
-  xemit01_txt00
-  (out, "var ")
+val () =
+xemit01_txt00(out, "var ")
 //
-  val () =
-  xemit01_l1tmp(out, t1)
-//
-  val () =
-  xemit01_txtln(out, ";")
+val () = xemit01_l1tmp(out, t1)
+val () = xemit01_txtln(out, ";")
 //
 } (* end of [else] *)
 end // end of [let]
-) (* end of [aux_ltmplst] *)
+) (* end of [xemit01_ftmpdecs] *)
+
+(* ****** ****** *)
+
+local
 
 (* ****** ****** *)
 
@@ -1259,7 +1324,7 @@ val () =
 xemit01_txtln(out, "{")
 //
 val () =
-aux_ltmplst(out, rcd.lts)
+xemit01_ftmpdecs(out, rcd.lts)
 //
 val () =
 xemit01_l1blk(out, rcd.def_blk)
@@ -1332,7 +1397,7 @@ val () =
 xemit01_txtln(out, "{")
 //
 val () =
-aux_ltmplst(out, rcd.lts)
+xemit01_ftmpdecs(out, rcd.lts)
 val () =
 xemit01_l1blk(out, rcd.def_blk)
 //
