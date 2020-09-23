@@ -69,7 +69,7 @@ val () =
 ; g_print(y1); g_print('\n') )
 //
 (* ****** ****** *)
-////
+//
 var
 z01:
 (int, int) = (10, 11)
@@ -77,6 +77,13 @@ z01:
 val () =
 pswap((&z01).0, (&z01).1)
 val z0 = z01.0 and z1 = z01.1
+//
+val () =
+( g_print("z0 = ")
+; g_print(z0); g_print('\n') )
+val () =
+( g_print("z1 = ")
+; g_print(z1); g_print('\n') )
 //
 (* ****** ****** *)
 

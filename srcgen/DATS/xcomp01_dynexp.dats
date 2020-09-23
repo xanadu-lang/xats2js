@@ -832,6 +832,42 @@ end // end of [auxval_plft]
 
 (* ****** ****** *)
 
+fun
+auxval_pptr
+( env0
+: !compenv
+, h0e0: h0exp): l1val =
+let
+val
+loc0 = h0e0.loc()
+val-
+H0Epptr
+( h0e1
+, lab2
+, idx2) = h0e0.node()
+//
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+//
+in
+let
+//
+(*
+val
+opt2 =
+$LAB.label_get_int(lab2)
+val-~Some_vt(idx2) = opt2
+*)
+//
+in
+l1val_tptr(loc0, l1v1, idx2)
+end // end of [let]
+//
+end // end of [auxval_pptr]
+
+(* ****** ****** *)
+
 local
 
 fun
@@ -1525,6 +1561,8 @@ end
   auxval_proj(env0, h0e0)
 | H0Eplft _ =>
   auxval_plft(env0, h0e0)
+| H0Epptr _ =>
+  auxval_pptr(env0, h0e0)
 //
 | H0Elet _ =>
   auxval_let( env0, h0e0 )
