@@ -1046,6 +1046,43 @@ end // end of [auxval_talf]
 (* ****** ****** *)
 
 fun
+auxval_eval
+( env0:
+! compenv
+, h0e0: h0exp): l1val =
+let
+//
+val
+loc0 = h0e0.loc()
+val-
+H0Eeval
+( knd0
+, h0e1 ) = h0e0.node()
+//
+in
+//
+case+
+h0e1.node() of
+|
+_ (* else *) =>
+//
+// HX-2020-09-22:
+// knd0=0: undecided
+// knd0=1: derefence
+// knd0=2: lazy-eval
+// knd0=3: llazy-eval
+l1val_eval
+(knd0, l1v1(*src*)) where
+{
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+}
+//
+end // end of [auxval_eval]
+
+(* ****** ****** *)
+
+fun
 auxset_dapp
 ( env0:
 ! compenv
@@ -1552,6 +1589,9 @@ end
   auxval_flat(env0, h0e0)
 | H0Etalf _ =>
   auxval_talf(env0, h0e0)
+//
+| H0Eeval _ =>
+  auxval_eval(env0, h0e0)
 //
 | H0Efold _ =>
   l1val_make_node(loc0, L1VALnone0())

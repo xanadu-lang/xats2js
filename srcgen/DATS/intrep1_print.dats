@@ -285,6 +285,23 @@ fprint!
 ( out
 , "L1VALtptr(", l1v1, "; ", idx2, ")")
 //
+|
+L1VALeval0(l1v1) =>
+fprint!
+( out, "L1VALeval0(", "; ", l1v1, ")" )
+|
+L1VALeval1(l1v1) =>
+fprint!
+( out, "L1VALeval1(", "; ", l1v1, ")" )
+|
+L1VALeval2(l1v1) =>
+fprint!
+( out, "L1VALeval2(", "; ", l1v1, ")" )
+|
+L1VALeval3(l1v1) =>
+fprint!
+( out, "L1VALeval3(", "; ", l1v1, ")" )
+//
 | L1VALnone0() =>
   fprint!(out, "L1VALnone0(", ")")
 | L1VALnone1(h0e1) =>
@@ -452,6 +469,31 @@ L1CMDassgn
 fprint!
 ( out
 , "L1CMDassgn(", l1v1, "; ", l1v2, ")")
+//
+|
+L1CMDeval0
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDeval0(", tres, "; ", l1v1, ")")
+|
+L1CMDeval1
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDeval1(", tres, "; ", l1v1, ")")
+|
+L1CMDeval2
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDeval2(", tres, "; ", l1v1, ")")
+|
+L1CMDeval3
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDeval3(", tres, "; ", l1v1, ")")
 //
 (*
 | _ (* else *) => fprint!(out, "L1CMD...(...)")

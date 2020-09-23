@@ -273,16 +273,21 @@ l1val_node =
 | L1VALaddr of (l1val)
 | L1VALtalf of (l1val)
 //
-(*
-| L1VALselab of (l1val, label)
-*)
-//
 | L1VALctag of (l1val)
 | L1VALcarg of (l1val, int(*idx*))
 | L1VALcptr of (l1val, int(*idx*))
 //
 | L1VALtarg of (l1val, int(*index*))
 | L1VALtptr of (l1val, int(*index*))
+//
+| L1VALeval0 of (l1val(*src*))
+| L1VALeval1 of (l1val(*src*))
+| L1VALeval2 of (l1val(*src*))
+| L1VALeval3 of (l1val(*src*))
+//
+(*
+| L1VALselab of (l1val, label)
+*)
 //
 | L1VALnone0 of () | L1VALnone1 of (h0exp)
 //
@@ -327,6 +332,10 @@ l1val_addr(l1v0: l1val): l1val
 fun
 l1val_talf(l1v0: l1val): l1val
 //
+(* ****** ****** *)
+fun
+l1val_eval
+(knd0: int, l1v1: l1val): l1val
 (* ****** ****** *)
 fun
 l1val_ctag
@@ -505,6 +514,15 @@ l1cmd_node =
 //
 | L1CMDassgn of // assignment
   (l1val(*lval*), l1val(*rval*))
+//
+| L1CMDeval0 of // unknown
+  (l1tmp(*res*), l1val(*source*))
+| L1CMDeval1 of // ptr-deref
+  (l1tmp(*res*), l1val(*source*))
+| L1CMDeval2 of // lazy-eval
+  (l1tmp(*res*), l1val(*source*))
+| L1CMDeval3 of // llazy-eval
+  (l1tmp(*res*), l1val(*source*))
 //
 (* ****** ****** *)
 //

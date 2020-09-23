@@ -244,6 +244,22 @@ l1val_make_node
 (l1v.loc(), L1VALtalf(l1v))
 //
 (* ****** ****** *)
+implement
+l1val_eval(knd, l1v) =
+let
+val loc = l1v.loc()
+in
+ifcase
+| knd = 1 =>
+l1val_make_node(loc, L1VALeval1(l1v))
+| knd = 2 =>
+l1val_make_node(loc, L1VALeval2(l1v))
+| knd = 3 =>
+l1val_make_node(loc, L1VALeval3(l1v))
+| _ (*else*) =>
+l1val_make_node(loc, L1VALeval0(l1v))
+end // end of [l1val_eval]
+(* ****** ****** *)
 //
 implement
 l1val_addrize(l1v0) =
@@ -282,6 +298,8 @@ l1val_tptr
   val loc0 = l1v0.loc()
   val l1v1 = l1val_talfize(l1v1)
 }
+//
+| L1VALeval1(l1v1) => l1v1
 //
 | _(*rest-of-l1val*) => l1val_talf(l1v0)
 )
