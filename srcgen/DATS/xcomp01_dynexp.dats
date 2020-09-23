@@ -1785,7 +1785,12 @@ case+ opt0 of
 (* ****** ****** *)
 
 local
-
+//
+(*
+HX-2020-09-23:
+Recusion is handled
+*)
+//
 fun
 aux_fundecl
 ( env0:
@@ -1819,10 +1824,59 @@ val-
 H0Cfundecl
 ( knd0
 , mopt
-, tqas, hfds) = dcl0.node()
+, tqas
+, hfds) = dcl0.node()
+//
+val () =
+xcomp01_dvaradd_fun0(env0)
+//
+val () =
+let
+//
+// HX: for recursion
+//
+fun
+auxlst_bind
+( env0
+: !compenv
+, hfds
+: hfundeclist): void =
+(
+case+ hfds of
+|
+list_nil() => ()
+|
+list_cons
+(hfd1, hfds) =>
+let
+  val+
+  HFUNDECL
+  ( rcd ) = hfd1
+  val loc = rcd.loc
+  val nam = rcd.nam
+  val hdc = rcd.hdc
+  val
+  itm =
+  l1val_make_node
+  (loc, L1VALfcst(hdc))
+  val () =
+  xcomp01_dvaradd_bind
+  (env0, nam, itm(*l1val*))
+in
+  auxlst_bind( env0, hfds )
+end
+) (* end of [auxlst_bind] *)
+//
+in
+  auxlst_bind( env0, hfds )
+end
+//
 val
 lfds =
 xcomp01_hfundeclist(env0, hfds)
+//
+val () = xcomp01_dvarpop_fun0(env0)
+//
 in
 l1dcl_make_node(loc0, L1DCLfundecl(lfds))
 end // end of [aux_fundecl_none]
@@ -1835,15 +1889,20 @@ aux_fundecl_some
 let
 //
 val loc0 = dcl0.loc()
-//
-// HX: should template be compiled?
-//
+(*
+HX: should template be compiled?
+*)
 in
 l1dcl_make_node(loc0, L1DCLnone0(*void*))
 end // end of [aux_fundecl_some]
 //
 (* ****** ****** *)
-
+//
+(*
+HX-2020-09-23:
+non-recursion is assumed
+*)
+//
 fun
 aux_valdecl
 ( env0:
@@ -1862,7 +1921,7 @@ xcomp01_hvaldeclist(env0, hvds)
 in
 l1dcl_make_node(loc0, L1DCLvaldecl(lvds))
 end // end of [aux_valdecl]
-
+//
 (* ****** ****** *)
 
 fun
@@ -2128,6 +2187,14 @@ xcomp01_dvaradd_fun0(env0)
 val () =
 xcomp01_ltmpadd_fun0(env0)
 //
+(*
+//
+(*
+HX:
+This needs to be done
+earlier due to recursion
+*)
+//
 local
   val
   itm =
@@ -2138,6 +2205,8 @@ in
   xcomp01_dvaradd_bind
   (env0, nam, itm(*l1val*))
 end // end of [local]
+//
+*)
 //
 val
 flev =
