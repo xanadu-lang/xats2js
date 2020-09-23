@@ -250,6 +250,10 @@ L1VALtcst(ltc) =>
 fprint!(out, "L1VALtcst(", ltc, ")")
 //
 |
+L1VALvfix(hdv) =>
+fprint!(out, "L1VALvfix(", hdv, ")")
+//
+|
 L1VALaddr(l1v1) =>
 fprint!(out, "L1VALaddr(", l1v1, ")")
 //
@@ -401,6 +405,12 @@ L1CMDlam
 fprint!
 ( out,
  "L1CMDlam(", tres, "; ", l1am, ")")
+|
+L1CMDfix
+(tres, lfix) =>
+fprint!
+( out,
+ "L1CMDfix(", tres, "; ", lfix, ")")
 //
 |
 L1CMDblk(blk1) =>
@@ -610,6 +620,35 @@ fprint!
 , "def_blk=", rcd.def_blk, ", ", "}")
 //
 end // end of [fprint_l1lamexp]
+//
+(* ****** ****** *)
+//
+implement
+print_l1fixexp(x0) =
+fprint_l1fixexp(stdout_ref, x0)
+implement
+prerr_l1fixexp(x0) =
+fprint_l1fixexp(stderr_ref, x0)
+//
+implement
+fprint_l1fixexp
+  (out, x0) = let
+//
+val+
+L1FIXEXP(rcd) = x0
+//
+in
+//
+fprint!
+( out
+, "L1FIXEXP@{"
+, "nam=", rcd.nam, ", "
+, "hag=", rcd.hag, ", "
+, "def=", rcd.def, ", "
+, "hag_blk=", rcd.hag_blk, ", "
+, "def_blk=", rcd.def_blk, ", ", "}")
+//
+end // end of [fprint_l1fixexp]
 //
 (* ****** ****** *)
 //

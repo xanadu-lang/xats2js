@@ -126,6 +126,11 @@ val () = xemit01_blnk1(out)
 
 (* ****** ****** *)
 implement
+xemit01_hdvar
+(out, hdv) =
+fprint(out, hdv.sym())
+(* ****** ****** *)
+implement
 xemit01_hdcon
 (out, hdc) =
 let
@@ -420,6 +425,10 @@ xemit01_hdcst(out, hdc1)
 |
 L1VALtcst(ltc1) =>
 xemit01_ltcst(out, ltc1)
+//
+|
+L1VALvfix(hdv1) =>
+xemit01_hdvar(out, hdv1)
 //
 |
 L1VALflat(l1v1) =>
@@ -788,6 +797,77 @@ L1CMDlam
 (tres, l1am) = lcmd.node()
 //
 } (* where *) // end of [aux_lam]
+//
+fun
+aux_fix
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+{
+//
+val+
+L1FIXEXP(rcd) = lfix
+//
+val () =
+xemit01_l1tmp(out, tres)
+val () =
+xemit01_txt00(out, " =\n")
+//
+val () =
+xemit01_txtln
+(out, "function")
+//
+val () =
+xemit01_hdvar(out, rcd.nam)
+//
+val
+argcnt =
+xemit01_hfarglst
+( out
+, rcd.lev
+, rcd.hag, 0(*base*))
+val () = xemit01_newln(out)
+//
+val () =
+xemit01_txtln(out, "{")
+//
+val () =
+xemit01_ftmpdecs(out, rcd.lts)
+//
+val () =
+xemit01_l1blk(out, rcd.hag_blk)
+val () =
+xemit01_l1blk(out, rcd.def_blk)
+val () =
+(
+case+
+rcd.def of
+|
+None() => ()
+|
+Some(res) =>
+{
+//
+val () =
+xemit01_txt00(out, "return ")
+val () = xemit01_l1val(out, res)
+val () = xemit01_txt00(out, ";\n")
+//
+}
+) : void // end-of-val
+//
+val () =
+fprintln!(out, "} // fix-function")
+//
+} where
+{
+//
+val-
+L1CMDfix
+(tres, lfix) = lcmd.node()
+//
+} (* where *) // end of [aux_fix]
 //
 fun
 aux_blk
@@ -1324,6 +1404,8 @@ L1CMDtup _ => aux_tup(out, lcmd)
 //
 |
 L1CMDlam _ => aux_lam(out, lcmd)
+|
+L1CMDfix _ => aux_fix(out, lcmd)
 //
 |
 L1CMDblk _ => aux_blk(out, lcmd)

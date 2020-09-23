@@ -550,6 +550,16 @@ end // end of [local]
 
 local
 
+(*
+#define VARG 0 // arg. vars
+#define VLOC 0 // local vars
+#define VENV 1 // environ. vars
+*)
+#define VFIX 2 // fixed binding
+(*
+#define VTOP %(~1) // top-level vars
+*)
+
 fun
 auxval_var
 ( env0:
@@ -571,8 +581,10 @@ case+ opt0 of
 Some_vt(l1v1) => l1v1
 | ~
 None_vt((*void*)) =>
-l1val_make_node(loc0, L1VALnone1(h0e0))
+l1val_make_node(loc0, L1VALvfix(x0))
+//
 end // end of [auxval_var]
+
 fun
 auxval_vknd
 ( env0:
@@ -583,10 +595,23 @@ let
 val 
 loc0 = h0e0.loc()
 val-
-H0Evknd(k0, x0) = h0e0.node()
+H0Evknd
+(k0, x0) = h0e0.node()
 //
+in
+//
+ifcase
+|
+k0 = VFIX =>
+l1val_make_node
+( loc0, L1VALvfix(x0) )
+|
+_ (* else *) =>
+let
 val
-opt0 = xcomp01_dvarfind(env0, x0)
+opt0 =
+xcomp01_dvarfind(env0, x0)
+//
 in
 //
 case+ opt0 of
@@ -595,6 +620,8 @@ Some_vt(l1v1) => l1v1
 | ~
 None_vt((*void*)) =>
 l1val_make_node(loc0, L1VALnone1(h0e0))
+//
+end // end-of-else
 end // end of [auxval_vknd]
 
 (* ****** ****** *)
@@ -1490,6 +1517,96 @@ end (*let*) // end of [auxset_lam]
 
 (* ****** ****** *)
 
+fun
+auxset_fix
+( env0:
+! compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
+let
+//
+val
+loc0 = h0e0.loc()
+//
+val-
+H0Efix
+( knd0
+, hdv0
+, hfgs
+, h0e1) = h0e0.node()
+//
+var res1
+  : l1valopt = None()
+//
+val () =
+xcomp01_flevinc(env0)
+val () =
+xcomp01_dvaradd_fun0(env0)
+val () =
+xcomp01_ltmpadd_fun0(env0)
+//
+val
+flev =
+xcomp01_flevget(env0)
+//
+val
+blk0 =
+xcomp01_hfarglst_ck01
+  (env0, hfgs(*multi*))
+//
+val
+blk1 =
+let
+val () =
+xcomp01_lcmdpush_nil(env0)
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+val () = (res1 := Some(l1v1))
+//
+in
+  xcomp01_lcmdpop0_blk( env0 )
+end : l1blk // end of [val]
+//
+in
+let
+  val () =
+  xcomp01_flevdec(env0)
+  val () =
+  xcomp01_dvarpop_fun0(env0)
+  val flts =
+  xcomp01_ltmppop_fun0(env0)
+//
+(*
+val () =
+println!("auxset_fix: lts = ", lts)
+*)
+//
+in
+let
+  val
+  lfix =
+  L1FIXEXP@{
+    loc=loc0
+  , nam=hdv0
+  , hag=hfgs
+  , def=res1
+  , lev=flev
+  , lts=flts
+  , hag_blk=blk0, def_blk=blk1
+  } (* L1FIXEXP *)
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDfix(tres, lfix) )
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end // end of [let]
+end // end of [let]
+end (*let*) // end of [auxset_fix]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 
 implement
@@ -1620,6 +1737,17 @@ in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
 //
+| H0Efix _ =>
+let
+val
+tres =
+xltmpnew_tmp0(env0, loc0)
+val () =
+auxset_fix(env0, h0e0, tres)
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end
+//
 | H0Eaddr _ =>
   auxval_addr(env0, h0e0)
 //
@@ -1676,6 +1804,10 @@ H0Ecase _ =>
 | H0Elam _ =>
 (
   auxset_lam(env0, h0e0, tres)
+)
+| H0Efix _ =>
+(
+  auxset_fix(env0, h0e0, tres)
 )
 //
 |
@@ -2125,12 +2257,13 @@ aux_fundecl_none(env0, dcl0)
 H0Cimpdecl3 _ =>
 aux_impdecl3_none(env0, dcl0)
 //
-| _ (* else *) =>
-  let
+|
+_ (* else *) =>
+let
   val loc0 = dcl0.loc()
-  in
-  l1dcl_make_node(loc0, L1DCLnone1(dcl0))
-  end
+in
+l1dcl_make_node(loc0, L1DCLnone1(dcl0))
+end // end of [non-H0Cfundecl]
 //
 ) (* end of [xcomp01_h0dcl_timp] *)
 

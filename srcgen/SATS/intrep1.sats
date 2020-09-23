@@ -265,6 +265,8 @@ l1val_node =
 | L1VALfcst of (hdcst)
 | L1VALtcst of (ltcst)
 //
+| L1VALvfix of (hdvar)
+//
 // HX: ctag: con_tag
 // HX: carg: con_arg
 //
@@ -482,11 +484,9 @@ l1cmd_node =
 | L1CMDlam of
   ( l1tmp(*res*)
   , l1lamexp(*fun*))
-(*
 | L1CMDfix of
   ( l1tmp(*res*)
   , l1fixexp(*fun*))
-*)
 //
 | L1CMDblk of (l1blk)
 | L1CMDdcl of (l1dcl)
@@ -570,6 +570,22 @@ fprint_type(l1lamexp)
 overload print with print_l1lamexp
 overload prerr with prerr_l1lamexp
 overload fprint with fprint_l1lamexp
+//
+(* ****** ****** *)
+//
+fun
+print_l1fixexp:
+print_type(l1fixexp)
+fun
+prerr_l1fixexp:
+prerr_type(l1fixexp)
+fun
+fprint_l1fixexp:
+fprint_type(l1fixexp)
+//
+overload print with print_l1fixexp
+overload prerr with prerr_l1fixexp
+overload fprint with fprint_l1fixexp
 //
 (* ****** ****** *)
 //
@@ -816,6 +832,9 @@ xemit01_nblnk(FILEref, int): void
 fun
 xemit01_indnt(FILEref, int): void
 //
+(* ****** ****** *)
+fun
+xemit01_hdvar(FILEref, hdvar): void
 (* ****** ****** *)
 fun
 xemit01_hdcon(FILEref, hdcon): void
