@@ -291,20 +291,16 @@ fprint!
 //
 |
 L1VALeval0(l1v1) =>
-fprint!
-( out, "L1VALeval0(", "; ", l1v1, ")" )
+fprint!(out, "L1VALeval0(", l1v1, ")")
 |
 L1VALeval1(l1v1) =>
-fprint!
-( out, "L1VALeval1(", "; ", l1v1, ")" )
+fprint!(out, "L1VALeval1(", l1v1, ")")
 |
 L1VALeval2(l1v1) =>
-fprint!
-( out, "L1VALeval2(", "; ", l1v1, ")" )
+fprint!(out, "L1VALeval2(", l1v1, ")")
 |
 L1VALeval3(l1v1) =>
-fprint!
-( out, "L1VALeval3(", "; ", l1v1, ")" )
+fprint!(out, "L1VALeval3(", l1v1, ")")
 //
 | L1VALnone0() =>
   fprint!(out, "L1VALnone0(", ")")
@@ -411,6 +407,14 @@ L1CMDfix
 fprint!
 ( out,
  "L1CMDfix(", tres, "; ", lfix, ")")
+//
+|
+L1CMDlazy
+(tres, l1v1) =>
+fprint!
+( out,
+ "L1CMDlazy(", tres, "; ", l1v1, ")"
+) (* L1CMDlazy *)
 //
 |
 L1CMDblk(blk1) =>

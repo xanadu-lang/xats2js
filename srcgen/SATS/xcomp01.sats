@@ -94,6 +94,14 @@ xcomp01_dvarfind
 (* ****** ****** *)
 //
 fun
+xcomp01_l1valize
+( env0:
+! compenv
+, l1v0: l1val): l1val
+//
+(* ****** ****** *)
+//
+fun
 xcomp01_dvaradd_bind
 ( env0:
 ! compenv

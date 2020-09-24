@@ -500,6 +500,7 @@ hfg0.node() of
   ( env0
   , arg0, npf0, h0ps)
 //
+| HFARGnone0() => arg0
 | HFARGnone1(ptr) => arg0
 )
 and
@@ -1261,7 +1262,13 @@ H0Eif0
 , opt3) = h0e0.node()
 //
 val l1v1 =
+xcomp01_l1valize
+  (env0, l1v1) where
+{
+val l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
+}
+//
 val blk2 =
 xcomp01_h0exp_blk(env0, h0e2, tres)
 val blk3 =
@@ -1401,7 +1408,13 @@ H0Ecase
 //
 val
 l1v1 =
+xcomp01_l1valize
+  ( env0, l1v1 ) where
+{
+val
+l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
+}
 //
 val
 tcas =
@@ -1607,6 +1620,115 @@ end (*let*) // end of [auxset_fix]
 
 (* ****** ****** *)
 
+fun
+auxset_lazy
+( env0:
+! compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
+let
+//
+val
+loc0 = h0e0.loc()
+//
+val-
+H0Elazy
+( h0e1 ) = h0e0.node()
+//
+val
+hfg0 =
+hfarg_make_node
+(loc0, HFARGnone0())
+val
+hfgs = list_sing(hfg0)
+//
+var res1
+  : l1valopt = None( )
+//
+val () =
+xcomp01_flevinc( env0 )
+val () =
+xcomp01_dvaradd_fun0(env0)
+val () =
+xcomp01_ltmpadd_fun0(env0)
+//
+val
+flev =
+xcomp01_flevget(env0)
+//
+val
+blk0 = l1blk_none()
+//
+val
+blk1 =
+let
+val () =
+xcomp01_lcmdpush_nil(env0)
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+val () = (res1 := Some(l1v1))
+//
+in
+  xcomp01_lcmdpop0_blk( env0 )
+end : l1blk // end of [val]
+//
+in
+let
+  val () =
+  xcomp01_flevdec(env0)
+  val () =
+  xcomp01_dvarpop_fun0(env0)
+  val flts =
+  xcomp01_ltmppop_fun0(env0)
+//
+(*
+val () =
+println!("auxset_lam: lts = ", lts)
+*)
+//
+in
+let
+  val
+  l1am =
+  L1LAMEXP@{
+    loc=loc0
+  , hag=hfgs
+  , def=res1
+  , lev=flev
+  , lts=flts
+  , hag_blk=blk0, def_blk=blk1
+  } (* L1LAMEXP *)
+  val
+  tlam =
+  xltmpnew_tmp0(env0, loc0)
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDlam(tlam, l1am) )
+  val () =
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+in
+//
+let
+  val
+  l1v1 =
+  l1val_make_node
+  ( loc0, L1VALtmp(tlam) )
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDlazy(tres, l1v1) )  
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end // end of [let]
+//
+end // end of [let]
+end // end of [let]
+end (*let*) // end of [auxset_lazy]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 
 implement
@@ -1751,6 +1873,21 @@ end
 | H0Eaddr _ =>
   auxval_addr(env0, h0e0)
 //
+| H0Elazy _ =>
+let
+val
+tres =
+xltmpnew_tmp0(env0, loc0)
+val () =
+auxset_lazy(env0, h0e0, tres)
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end
+(*
+| H0Ellazy _ =>
+  auxval_llazy(env0, h0e0)
+*)
+//
 | H0Eflat _ =>
   auxval_flat(env0, h0e0)
 | H0Etalf _ =>
@@ -1811,9 +1948,16 @@ H0Ecase _ =>
 )
 //
 |
+H0Elazy _ =>
+(
+  auxset_lazy(env0, h0e0, tres)
+)
+//
+|
 _ (*rest-of-h0exp*) =>
 let
-val l1v0 =
+val
+l1v0 =
 xcomp01_h0exp_val(env0, h0e0)
 in
 let
@@ -1824,7 +1968,7 @@ l1cmd_make_node
 in
 xcomp01_lcmdadd_lcmd(env0, cmd0)
 end
-end // end of [H0Eif0]
+end // end of [rest-of-h0exp]
 //
 end // end of [xcomp01_h0exp_set]
 
@@ -2460,8 +2604,14 @@ xcomp01_lcmdpush_nil(env0)
 //
 val
 l1v1 =
+xcomp01_l1valize
+  (env0, l1v1) where
+{
+val
+l1v1 =
 xcomp01_h0exp_val(env0, h0e1)
-val () = (res := Some(l1v1))
+}
+val () = ( res := Some(l1v1) )
 //
 val () =
 xcomp01_h0pat_ck01(env0, pat, l1v1)

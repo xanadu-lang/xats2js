@@ -488,6 +488,10 @@ l1cmd_node =
   ( l1tmp(*res*)
   , l1fixexp(*fun*))
 //
+| L1CMDlazy of
+  ( l1tmp(*res*)
+  , l1val(*thunk*) )
+//
 | L1CMDblk of (l1blk)
 | L1CMDdcl of (l1dcl)
 //

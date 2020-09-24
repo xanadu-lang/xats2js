@@ -366,169 +366,11 @@ val-
 //
 (* ****** ****** *)
 //
-local
-//
-fun
-l1valize
-( env0: 
-! compenv
-, l1v0: l1val): l1val =
-(
-case+
-l1v0.node() of
-| L1VALflat _ =>
-  aux_flat(env0, l1v0)
-| L1VALcarg _ =>
-  aux_carg(env0, l1v0)
-| L1VALtarg _ =>
-  aux_targ(env0, l1v0)
-| L1VALeval1 _ =>
-  aux_eval1(env0, l1v0)
-| _ (*rest-of-l1val*) => (l1v0)
-)
-
-(* ****** ****** *)
-
-and
-aux_flat
-( env0: 
-! compenv
-, l1v0: l1val): l1val =
-let
-val
-loc0 = l1v0.loc()
-val-
-L1VALflat
-( l1v1 ) = l1v0.node()
-val
-l1v1 = l1valize(env0, l1v1)
-val
-tres =
-xcomp01_ltmpnew_tmp0(env0, loc0)
-val () =
-let
-  val
-  lcmd =
-  l1cmd_make_node
-  ( loc0, L1CMDflat(tres, l1v1) )
-in
-  xcomp01_lcmdadd_lcmd(env0, lcmd)
-end
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end // end of [aux_flat]
-
-(* ****** ****** *)
-
-and
-aux_carg
-( env0: 
-! compenv
-, l1v0: l1val): l1val =
-let
-val
-loc0 = l1v0.loc()
-val-
-L1VALcarg
-( l1v1
-, idx2 ) = l1v0.node()
-val
-l1v1 = l1valize(env0, l1v1)
-val
-tres =
-xcomp01_ltmpnew_tmp0(env0, loc0)
-val () =
-let
-  val
-  lcmd =
-  l1cmd_make_node
-  ( loc0
-  , L1CMDcarg(tres, l1v1, idx2) )
-in
-  xcomp01_lcmdadd_lcmd(env0, lcmd)
-end
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end // end of [aux_carg]
-
-(* ****** ****** *)
-
-and
-aux_targ
-( env0: 
-! compenv
-, l1v0: l1val): l1val =
-let
-val
-loc0 = l1v0.loc()
-val-
-L1VALtarg
-( l1v1
-, idx2 ) = l1v0.node()
-val
-l1v1 = l1valize(env0, l1v1)
-val
-tres =
-xcomp01_ltmpnew_tmp0(env0, loc0)
-val () =
-let
-  val
-  lcmd =
-  l1cmd_make_node
-  ( loc0
-  , L1CMDtarg(tres, l1v1, idx2) )
-in
-  xcomp01_lcmdadd_lcmd(env0, lcmd)
-end
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end // end of [aux_targ]
-
-(* ****** ****** *)
-
-and
-aux_eval1
-( env0: 
-! compenv
-, l1v0: l1val): l1val =
-let
-val
-loc0 = l1v0.loc()
-val-
-L1VALeval1
- ( l1v1 ) = l1v0.node()
-val
-l1v1 = l1valize(env0, l1v1)
-val
-tres =
-xcomp01_ltmpnew_tmp0(env0, loc0)
-val () =
-let
-  val
-  lcmd =
-  l1cmd_make_node
-  ( loc0, L1CMDeval1(tres, l1v1) )
-in
-  xcomp01_lcmdadd_lcmd(env0, lcmd)
-end
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end // end of [aux_eval1]
-
-(* ****** ****** *)
-
-in(*in-of-local*)
-
-(* ****** ****** *)
-
 implement
 xcomp01_dvaradd_bind
   (env0, x0, v0) =
   fold@(env0) where
 {
-//
-val v0 =
-l1valize(env0, v0)
 //
 val+
 @COMPENV(rcd) = env0
@@ -541,9 +383,10 @@ the_dvarmap_insert_exn(x0, v0)
 val () =
 rcd.hdvarstk := hdvarstk_cons(x0, xs)
 //
+} where
+{
+val v0 = xcomp01_l1valize(env0, v0)
 } (* end of [xcomp01_dvaradd_bind] *)
-//
-end // end of [local]
 //
 (* ****** ****** *)
 //
