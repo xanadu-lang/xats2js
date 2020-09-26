@@ -528,7 +528,13 @@ l1cmd_node =
 | L1CMDcarg of
   ( l1tmp(*res*)
   , l1val(*lval*), int(*index*))
+| L1CMDcofs of
+  ( l1tmp(*res*)
+  , l1val(*lval*), int(*index*))
 | L1CMDtarg of
+  ( l1tmp(*res*)
+  , l1val(*lval*), int(*index*))
+| L1CMDtofs of
   ( l1tmp(*res*)
   , l1val(*lval*), int(*index*))
 //

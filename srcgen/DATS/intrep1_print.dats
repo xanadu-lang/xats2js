@@ -485,12 +485,31 @@ L1CMDcarg
   , tres, "; ", l1v1, "; ", idx2, ")" )
 )
 |
+L1CMDcofs
+(tres, l1v1, idx2) =>
+(
+  fprint!
+  ( out
+  , "L1CMDcofs("
+  , tres, "; ", l1v1, "; ", idx2, ")" )
+)
+//
+|
 L1CMDtarg
 (tres, l1v1, idx2) =>
 (
   fprint!
   ( out
   , "L1CMDtarg("
+  , tres, "; ", l1v1, "; ", idx2, ")" )
+)
+|
+L1CMDtofs
+(tres, l1v1, idx2) =>
+(
+  fprint!
+  ( out
+  , "L1CMDtofs("
   , tres, "; ", l1v1, "; ", idx2, ")" )
 )
 //

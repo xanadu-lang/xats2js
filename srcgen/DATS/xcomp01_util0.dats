@@ -121,6 +121,40 @@ end // end of [aux_carg]
 (* ****** ****** *)
 
 fun
+aux_cofs
+( env0: 
+! compenv
+, l1v0: l1val): l1val =
+let
+val
+loc0 = l1v0.loc()
+val-
+L1VALcofs
+( l1v1
+, idx2 ) = l1v0.node()
+val
+l1v1 =
+xcomp01_l1valize(env0, l1v1)
+val
+tres =
+xcomp01_ltmpnew_tmp0(env0, loc0)
+val () =
+let
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0
+  , L1CMDcofs(tres, l1v1, idx2) )
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end // end of [aux_cofs]
+
+(* ****** ****** *)
+
+fun
 aux_targ
 ( env0: 
 ! compenv
@@ -151,6 +185,40 @@ end
 in
 l1val_make_node(loc0, L1VALtmp(tres))
 end // end of [aux_targ]
+
+(* ****** ****** *)
+
+fun
+aux_tofs
+( env0: 
+! compenv
+, l1v0: l1val): l1val =
+let
+val
+loc0 = l1v0.loc()
+val-
+L1VALtofs
+( l1v1
+, idx2 ) = l1v0.node()
+val
+l1v1 =
+xcomp01_l1valize(env0, l1v1)
+val
+tres =
+xcomp01_ltmpnew_tmp0(env0, loc0)
+val () =
+let
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0
+  , L1CMDtofs(tres, l1v1, idx2) )
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end // end of [aux_tofs]
 
 (* ****** ****** *)
 
@@ -230,14 +298,22 @@ case+
 l1v0.node() of
 | L1VALflat _ =>
   aux_flat(env0, l1v0)
+//
 | L1VALcarg _ =>
   aux_carg(env0, l1v0)
+| L1VALcofs _ =>
+  aux_cofs(env0, l1v0)
+//
 | L1VALtarg _ =>
   aux_targ(env0, l1v0)
+| L1VALtofs _ =>
+  aux_tofs(env0, l1v0)
+//
 | L1VALeval1 _ =>
   aux_eval1(env0, l1v0)
 | L1VALeval2 _ =>
   aux_eval2(env0, l1v0)
+//
 | _ (*rest-of-l1val*) => (l1v0)
 )
 //

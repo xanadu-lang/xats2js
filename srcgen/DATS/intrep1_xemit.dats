@@ -1328,6 +1328,46 @@ end // end of [aux_carg]
 (* ****** ****** *)
 
 fun
+aux_cofs
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+(*
+val
+loc0 = lcmd.loc()
+*)
+val-
+L1CMDcofs
+( tres
+, l1v1
+, idx2) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tres)
+//
+in
+{
+//
+val () =
+fprint( out, " = " )
+//
+val () =
+fprint
+( out
+, "XATS2JS_new_cofs(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, ",", idx2+1, ")")
+//
+}
+end // end of [aux_cofs]
+
+(* ****** ****** *)
+
+fun
 aux_targ
 ( out
 : FILEref
@@ -1360,6 +1400,46 @@ fprint!(out, "[", idx2+1, "]")
 //
 }
 end // end of [aux_targ]
+
+(* ****** ****** *)
+
+fun
+aux_tofs
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+(*
+val
+loc0 = lcmd.loc()
+*)
+val-
+L1CMDtofs
+( tres
+, l1v1
+, idx2) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tres)
+//
+in
+{
+//
+val () =
+fprint( out, " = " )
+//
+val () =
+fprint
+( out
+, "XATS2JS_new_tofs(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, ",", idx2+1, ")")
+//
+}
+end // end of [aux_tofs]
 
 (* ****** ****** *)
 
@@ -1557,10 +1637,16 @@ L1CMDpatck _ => aux_patck(out, lcmd)
 //
 |
 L1CMDflat _ => aux_flat(out, lcmd)
+//
 |
 L1CMDcarg _ => aux_carg(out, lcmd)
 |
+L1CMDcofs _ => aux_cofs(out, lcmd)
+//
+|
 L1CMDtarg _ => aux_targ(out, lcmd)
+|
+L1CMDtofs _ => aux_tofs(out, lcmd)
 //
 (*
 |
