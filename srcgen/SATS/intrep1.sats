@@ -816,9 +816,6 @@ xemit01_int
 *)
 //
 fun
-xemit01_txt
-(FILEref, string): void
-fun
 xemit01_txt00
 (FILEref, string): void
 fun

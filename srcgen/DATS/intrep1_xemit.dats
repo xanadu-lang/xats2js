@@ -58,12 +58,6 @@ fprint with $LOC.fprint_location
 #staload "./../SATS/intrep1.sats"
 (* ****** ****** *)
 implement
-xemit01_txt
-(out, txt) =
-(
-fprint(out, txt)
-)
-implement
 xemit01_txt00
 (out, txt) =
 (
@@ -73,8 +67,7 @@ implement
 xemit01_txtln
 (out, txt) =
 (
-fprint(out, txt);
-fprint(out, '\n');
+fprint!(out, txt, '\n')
 )
 (* ****** ****** *)
 implement
@@ -212,8 +205,7 @@ val () = xemit01_txt00(out, ")")
 HFARGnone1 _ => i0 // skipped
 (*
 let
-  val () =
-  fprint(out, "(*ERROR*)") in i0
+val () = fprint(out, "(*ERROR*)") in i0
 end
 *)
 ) where
@@ -672,7 +664,13 @@ xemit01_l1val( out, x0 )
 in
 //
 val () =
-fprint!(out, "[", knd0)
+if
+knd0 <= 0
+then // flat
+fprint!(out, "[", ~1)
+else // boxed
+fprint!(out, "[",  0)
+//
 val () = loop( 1, l1vs )
 val () = xemit01_txt00(out, "];")
 //
