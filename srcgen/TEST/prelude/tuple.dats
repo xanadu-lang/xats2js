@@ -74,9 +74,18 @@ val () =
 (* ****** ****** *)
 //
 val uv = $(10, 20)
+val () =
+( g_print
+  ("uv(bef) = ")
+; g_print( uv ); g_print('\n'))
+//
 val $(!u1, !v2) = uv
 val ((*void*)) = u1 := v2
 val ((*void*)) = v2 := u1
+val () =
+( g_print
+  ("uv(aft) = ")
+; g_print( uv ); g_print('\n'))
 //
 (* ****** ****** *)
 

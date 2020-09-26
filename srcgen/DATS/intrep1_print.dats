@@ -178,11 +178,18 @@ case+ x0 of
   fprint!
   ( out
   , "L1PCKcon(", hdc1, "; ", l1v2, ")")
+//
 | L1PCKapp
   (pck1, pcks) =>
   fprint!
   ( out
   , "L1PCKapp(", pck1, "; ", pcks, ")")
+//
+| L1PCKtup
+  (knd0, pcks) =>
+  fprint!
+  ( out
+  , "L1PCKtup(", knd0, "; ", pcks, ")")
 //
 | L1PCKpat
   (h0p1, l1v2) =>
@@ -273,6 +280,11 @@ fprint!
 ( out
 , "L1VALcarg(", l1v1, "; ", idx2, ")")
 |
+L1VALcofs(l1v1, idx2) =>
+fprint!
+( out
+, "L1VALcofs(", l1v1, "; ", idx2, ")")
+|
 L1VALcptr(l1v1, idx2) =>
 fprint!
 ( out
@@ -283,6 +295,11 @@ L1VALtarg(l1v1, idx2) =>
 fprint!
 ( out
 , "L1VALtarg(", l1v1, "; ", idx2, ")")
+|
+L1VALtofs(l1v1, idx2) =>
+fprint!
+( out
+, "L1VALtofs(", l1v1, "; ", idx2, ")")
 |
 L1VALtptr(l1v1, idx2) =>
 fprint!

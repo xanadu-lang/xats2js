@@ -317,6 +317,11 @@ l1val_carg
 l1val_make_node
 (loc, L1VALcarg(l1v, idx))
 implement
+l1val_cofs
+(loc, l1v, idx) =
+l1val_make_node
+(loc, L1VALcofs(l1v, idx))
+implement
 l1val_cptr
 (loc, l1v, idx) =
 l1val_make_node
@@ -329,6 +334,11 @@ l1val_targ
 (loc, l1v, idx) =
 l1val_make_node
 (loc, L1VALtarg(l1v, idx))
+implement
+l1val_tofs
+(loc, l1v, idx) =
+l1val_make_node
+(loc, L1VALtofs(l1v, idx))
 implement
 l1val_tptr
 (loc, l1v, idx) =

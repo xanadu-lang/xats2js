@@ -189,6 +189,98 @@ end
 //
 } (* end of [auxdapp] *)
 
+(* ****** ****** *)
+
+fun
+aux_tuple
+( env0
+: !compenv
+, h0p0
+: h0pat
+, l1v1
+: l1val): l1pck =
+let
+val-
+H0Ptuple
+( knd0
+, npf1
+, h0ps) = h0p0.node()
+//
+in
+L1PCKtup
+( knd0
+, auxnps(env0, npf1, h0ps))
+end where
+{
+//
+fun
+auxnps
+( env0:
+! compenv
+, npf1: int
+, h0ps
+: h0patlst): l1pcklst =
+(
+case+ h0ps of
+|
+list_nil() =>
+list_nil()
+|
+list_cons _ =>
+if
+(npf1 > 0)
+then
+let
+val
+npf1 = npf1 - 1
+val-
+list_cons
+(_, h0ps) = h0ps
+in
+auxnps
+(env0, npf1, h0ps)
+end
+else
+auxlst
+(env0, h0ps, 0(*idx0*))
+) (* end of [auxnps] *)
+//
+and
+auxlst
+( env0:
+! compenv
+, h0ps
+: h0patlst
+, idx0: int): l1pcklst =
+(
+case+ h0ps of
+|
+list_nil() => list_nil()
+|
+list_cons
+(h0p1, h0ps) =>
+let
+val
+loc1 = l1v1.loc()
+val
+arg1 =
+l1val_targ
+(loc1, l1v1, idx0)
+val
+pck1 = 
+xcomp01_h0pat_ck0
+(env0, h0p1, arg1)
+in
+list_cons(pck1, pcks) where
+{
+val
+pcks = auxlst(env0, h0ps, idx0+1)
+}
+end
+) (* end of [auxlst] *)
+//
+} (* end of [aux_tuple] *)
+
 in(*in-of-local*)
 
 implement
@@ -216,7 +308,14 @@ L1PCKcon(hdc, l1v1(*ctag*))
 H0Pdapp _ =>
 (
   auxdapp
-  (env0, h0p0, l1v1(*dcon*))
+  (env0, h0p0, l1v1(*con-val*))
+)
+//
+|
+H0Ptuple _ =>
+(
+  aux_tuple
+  (env0, h0p0, l1v1(*tup-val*))
 )
 //
 |
@@ -247,6 +346,69 @@ val loc0 = h0p0.loc()
 val-
 H0Pvar(hdv0) = h0p0.node()
 } (* end of [auxvar] *)
+
+(* ****** ****** *)
+
+local
+
+fun
+auxtalf
+( l1v0
+: l1val): l1val =
+(
+case+
+l1v0.node() of
+|
+L1VALcarg
+(l1v1, idx2) => //boxed!
+let
+  val loc0 = l1v0.loc( )
+in
+  l1val_cofs(loc0, l1v1, idx2)
+end
+//
+|
+L1VALtarg
+(l1v1, idx2) => //boxed!
+let
+  val loc0 = l1v0.loc( )
+in
+  l1val_tofs(loc0, l1v1, idx2)
+end
+//
+| _(*rest-of-l1val*) => l1val_talf(l1v0)
+)
+
+in(* in-of-local *)
+
+fun
+auxbang
+( env0:
+! compenv
+, h0p0: h0pat
+, l1v1: l1val): void =
+let
+(*
+val loc0 = h0p0.loc()
+*)
+val-
+H0Pbang
+( h0p1 ) = h0p0.node()
+//
+val
+lptr = auxtalf(l1v1)
+//
+(*
+val () =
+println!
+("auxbang: lptr = ", lptr)
+*)
+//
+in
+xcomp01_h0pat_ck1(env0, h0p1, lptr)
+end (*let*) // end of [auxbang]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -322,7 +484,85 @@ auxh0ps
 , npf1, h0ps, 0(*idx0*))
 end // end of [let]
 //
-end (* end of [auxdapp] *)
+end (*let*) // end of [auxdapp]
+
+(* ****** ****** *)
+
+fun
+aux_tuple
+( env0:
+! compenv
+, h0p0: h0pat
+, l1v1: l1val): void =
+let
+//
+val
+loc0 = h0p0.loc()
+//
+val-
+H0Ptuple
+( knd0
+, npf1
+, h0ps) = h0p0.node()
+//
+in
+let
+//
+fun
+auxh0ps
+( env0:
+! compenv
+, npf1: int
+, h0ps
+: h0patlst
+, idx0: int): void =
+(
+case+ h0ps of
+|
+list_nil() => ()
+|
+list_cons
+(h0p1, h0ps) =>
+if
+npf1 > 0
+then
+let
+val npf1 = npf1-1
+in
+auxh0ps
+(env0, npf1, h0ps, idx0)
+end // end of [then]
+else
+let
+val
+loc1 =
+l1v1.loc()
+val
+carg =
+l1val_targ
+(loc1, l1v1, idx0)
+val () =
+xcomp01_h0pat_ck1
+(env0, h0p1, carg)
+in
+let
+val idx0 = idx0+1
+in
+auxh0ps
+(env0, npf1, h0ps, idx0)
+end
+end // end of [else]
+) (* end of [auxh0ps] *)
+//
+in
+auxh0ps
+( env0
+, npf1, h0ps, 0(*idx0*))
+end // end of [let]
+//
+end (*let*) // end of [aux_tuple]
+
+(* ****** ****** *)
 
 in(*in-of-local*)
 
@@ -343,8 +583,14 @@ h0p0.node() of
 | H0Pvar _ =>
   auxvar(env0, h0p0, l1v1)
 //
+| H0Pbang _ =>
+  auxbang(env0, h0p0, l1v1)
+//
 | H0Pdapp _ =>
   auxdapp(env0, h0p0, l1v1)
+//
+| H0Ptuple _ =>
+  aux_tuple(env0, h0p0, l1v1)
 //
 |
 _ (* else *) =>

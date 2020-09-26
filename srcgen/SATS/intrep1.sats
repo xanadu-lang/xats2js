@@ -221,10 +221,16 @@ l1pck =
 | L1PCKint of (int, l1val)
 | L1PCKbtf of (bool, l1val)
 *)
-| L1PCKcon of (hdcon, l1val)
+| L1PCKcon of
+  ( hdcon, l1val )
 //
 | L1PCKapp of
-  (l1pck(*con*), l1pcklst(*arg*))
+  ( l1pck(*con-tag*)
+  , l1pcklst(*con-arg*) )
+//
+| L1PCKtup of
+  ( int//(*tup-knd*)
+  , l1pcklst(*tup-arg*) )
 //
 | L1PCKpat of (h0pat, l1val)
 //
@@ -277,20 +283,21 @@ l1val_node =
 //
 | L1VALctag of (l1val)
 | L1VALcarg of (l1val, int(*idx*))
+| L1VALcofs of (l1val, int(*idx*))
 | L1VALcptr of (l1val, int(*idx*))
 //
-| L1VALtarg of (l1val, int(*index*))
-| L1VALtptr of (l1val, int(*index*))
+| L1VALtarg of (l1val, int(*idx*))
+| L1VALtofs of (l1val, int(*idx*))
+| L1VALtptr of (l1val, int(*idx*))
 //
-| L1VALeval0 of (l1val(*src*))
-| L1VALeval1 of (l1val(*src*))
-| L1VALeval2 of (l1val(*src*))
-| L1VALeval3 of (l1val(*src*))
+| L1VALeval0 of (l1val(*src*)) // general
+| L1VALeval1 of (l1val(*src*)) // ptr-deref
+| L1VALeval2 of (l1val(*src*)) // lazy-eval
+| L1VALeval3 of (l1val(*src*)) // llazy-eval
 //
 (*
 | L1VALselab of (l1val, label)
 *)
-//
 | L1VALnone0 of () | L1VALnone1 of (h0exp)
 //
 (* ****** ****** *)
@@ -336,15 +343,15 @@ l1val_talf(l1v0: l1val): l1val
 //
 (* ****** ****** *)
 fun
-l1val_eval
-(knd0: int, l1v1: l1val): l1val
-(* ****** ****** *)
-fun
 l1val_ctag
 ( loc0: loc_t
 , l1v0: l1val): l1val
 fun
 l1val_carg
+( loc0: loc_t
+, l1v1: l1val, idx2: int): l1val
+fun
+l1val_cofs
 ( loc0: loc_t
 , l1v1: l1val, idx2: int): l1val
 fun
@@ -357,9 +364,17 @@ l1val_targ
 ( loc0: loc_t
 , l1v1: l1val, idx2: int): l1val
 fun
+l1val_tofs
+( loc0: loc_t
+, l1v1: l1val, idx2: int): l1val
+fun
 l1val_tptr
 ( loc0: loc_t
 , l1v1: l1val, idx2: int): l1val
+(* ****** ****** *)
+fun
+l1val_eval
+( knd0: int, l1v1: l1val ): l1val
 (* ****** ****** *)
 //
 fun
@@ -509,6 +524,7 @@ l1cmd_node =
 //
 | L1CMDflat of
   (l1tmp(*res*), l1val(*lval*))
+//
 | L1CMDcarg of
   ( l1tmp(*res*)
   , l1val(*lval*), int(*index*))

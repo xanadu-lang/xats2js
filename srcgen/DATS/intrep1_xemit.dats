@@ -456,7 +456,18 @@ xemit01_l1val(out, l1v1)
 val () =
 fprint!(out, "[", argi+1, "]")
 }
-//
+|
+L1VALcofs(l1v1, idx2) =>
+{
+val () =
+fprint
+( out
+, "XATS2JS_new_cofs(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, ",", idx2+1, ")")
+}
 |
 L1VALcptr(l1v1, argi) =>
 {
@@ -478,7 +489,18 @@ xemit01_l1val(out, l1v1)
 val () =
 fprint!(out, "[", argi+1, "]")
 }
-//
+|
+L1VALtofs(l1v1, idx2) =>
+{
+val () =
+fprint
+( out
+, "XATS2JS_new_tofs(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+fprint!(out, ",", idx2+1, ")")
+}
 |
 L1VALtptr(l1v1, argi) =>
 {
@@ -977,6 +999,7 @@ auxpck0
 case+ pck0 of
 |
 L1PCKany() => ()
+//
 |
 L1PCKcon(hdc, l1v) =>
 {
@@ -991,16 +1014,23 @@ xemit01_l1val( out, l1v )
 val () =
 xemit01_txtln(out, ") break;")
 }
+//
 |
 L1PCKapp(pck1, pcks) =>
 {
   val () = auxpck0(pck1)
   val () = auxpcks(pcks)
 }
+//
+|
+L1PCKtup(knd0, pcks) =>
+{
+  val () = auxpcks(pcks)
+}
+//
 | _ (* else *) =>
 {
-  val () =
-  fprint!(out, "//", pck0)
+  val () = fprint!(out, "//", pck0)
 }
 )
 //
@@ -1531,6 +1561,11 @@ L1CMDflat _ => aux_flat(out, lcmd)
 L1CMDcarg _ => aux_carg(out, lcmd)
 |
 L1CMDtarg _ => aux_targ(out, lcmd)
+//
+(*
+|
+L1CMDpofs _ => aux_pofs(out, lcmd)
+*)
 //
 |
 L1CMDlazy _ => aux_lazy(out, lcmd)
