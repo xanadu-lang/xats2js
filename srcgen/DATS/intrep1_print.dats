@@ -432,6 +432,14 @@ fprint!
 ( out,
  "L1CMDlazy(", tres, "; ", l1v1, ")"
 ) (* L1CMDlazy *)
+|
+L1CMDllazy
+(tres, l1v1, l1v2) =>
+fprint!
+( out,
+ "L1CMDllazy("
+ , tres, "; ", l1v1, "; ", l1v2, ")"
+) (* L1CMDllazy *)
 //
 |
 L1CMDblk(blk1) =>

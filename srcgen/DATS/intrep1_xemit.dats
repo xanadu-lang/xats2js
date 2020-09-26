@@ -540,6 +540,19 @@ L1VALeval2(l1v1) =>
   xemit01_txt00( out, ")" )
 }
 //
+|
+L1VALeval3(l1v1) =>
+{
+  val () =
+  fprint
+  ( out
+  , "XATS2JS_llazy_eval(")
+  val () =
+  xemit01_l1val(out, l1v1)
+  val () =
+  xemit01_txt00( out, ")" )
+}
+//
 | L1VALnone0() =>
 {
   val () = fprint( out, "null" )
@@ -1456,7 +1469,7 @@ loc0 = lcmd.loc()
 *)
 val-
 L1CMDlazy
-(tres
+( tres
 , l1v1) = lcmd.node()
 //
 val () =
@@ -1479,6 +1492,50 @@ xemit01_txt00( out, ")" )
 //
 }
 end // end of [aux_lazy]
+
+(* ****** ****** *)
+
+fun
+aux_llazy
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+(*
+val
+loc0 = lcmd.loc()
+*)
+val-
+L1CMDllazy
+( tres
+, l1v1
+, l1v2) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tres)
+//
+in
+{
+//
+val () =
+fprint( out, " = " )
+//
+val () =
+fprint
+( out
+, "XATS2JS_new_llazy(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+xemit01_txt00( out, "," )
+val () =
+xemit01_l1val(out, l1v2)
+val () =
+xemit01_txt00( out, ")" )
+//
+}
+end // end of [aux_llazy]
 
 (* ****** ****** *)
 
@@ -1592,6 +1649,44 @@ end // end of [aux_eval2]
 
 (* ****** ****** *)
 
+fun
+aux_eval3
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+(*
+val
+loc0 = lcmd.loc()
+*)
+val-
+L1CMDeval3
+( tres
+, l1v1 ) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tres)
+//
+in
+{
+//
+val () =
+fprint( out, " = " )
+//
+val () =
+fprint
+( out
+, "XATS2JS_llazy_eval(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+xemit01_txt00( out, ")" )
+}
+end // end of [aux_eval3]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 //
 implement
@@ -1655,6 +1750,8 @@ L1CMDpofs _ => aux_pofs(out, lcmd)
 //
 |
 L1CMDlazy _ => aux_lazy(out, lcmd)
+|
+L1CMDllazy _ => aux_llazy(out, lcmd)
 //
 |
 L1CMDassgn _ => aux_assgn(out, lcmd)
@@ -1663,6 +1760,8 @@ L1CMDassgn _ => aux_assgn(out, lcmd)
 L1CMDeval1 _ => aux_eval1(out, lcmd)
 |
 L1CMDeval2 _ => aux_eval2(out, lcmd)
+|
+L1CMDeval3 _ => aux_eval3(out, lcmd)
 //
 |
 _ (* else *) => fprint!(out, "//", lcmd)

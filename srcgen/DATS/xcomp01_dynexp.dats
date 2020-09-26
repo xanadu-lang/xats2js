@@ -301,6 +301,15 @@ H0Pany _ => L1PCKany()
 H0Pvar _ => L1PCKany()
 //
 |
+H0Pbang(h0p1) =>
+xcomp01_h0pat_ck0
+(env0, h0p1(*var*), l1v1)
+|
+H0Pfree(h0p1) =>
+xcomp01_h0pat_ck0
+(env0, h0p1(*con*), l1v1)
+//
+|
 H0Pcon(hdc) =>
 L1PCKcon(hdc, l1v1(*ctag*))
 //
@@ -409,6 +418,25 @@ xcomp01_h0pat_ck1(env0, h0p1, lptr)
 end (*let*) // end of [auxbang]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+fun
+auxfree
+( env0:
+! compenv
+, h0p0: h0pat
+, l1v1: l1val): void =
+let
+(*
+val loc0 = h0p0.loc()
+*)
+val-
+H0Pfree
+( h0p1 ) = h0p0.node()
+in
+xcomp01_h0pat_ck1(env0, h0p1, l1v1)
+end (*let*) // end of [auxfree]
 
 (* ****** ****** *)
 
@@ -585,6 +613,9 @@ h0p0.node() of
 //
 | H0Pbang _ =>
   auxbang(env0, h0p0, l1v1)
+//
+| H0Pfree _ =>
+  auxfree(env0, h0p0, l1v1)
 //
 | H0Pdapp _ =>
   auxdapp(env0, h0p0, l1v1)
@@ -1740,6 +1771,7 @@ end : l1blk // end of [val]
 //
 in
 let
+//
   val () =
   xcomp01_flevdec(env0)
   val () =
@@ -1829,6 +1861,7 @@ end : l1blk // end of [val]
 //
 in
 let
+//
   val () =
   xcomp01_flevdec(env0)
   val () =
@@ -1921,6 +1954,7 @@ end : l1blk // end of [val]
 //
 in
 let
+//
   val () =
   xcomp01_flevdec(env0)
   val () =
@@ -1972,6 +2006,178 @@ end // end of [let]
 end // end of [let]
 end // end of [let]
 end (*let*) // end of [auxset_lazy]
+
+(* ****** ****** *)
+
+fun
+auxset_llazy
+( env0:
+! compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
+let
+//
+val
+loc0 = h0e0.loc()
+//
+val-
+H0Ellazy
+( h0e1
+, h0es ) = h0e0.node()
+//
+val
+hfg0 =
+hfarg_make_node
+(loc0, HFARGnone0())
+val
+hfgs = list_sing(hfg0)
+//
+var res1
+  : l1valopt = None( )
+var res2
+  : l1valopt = None( )
+//
+val () =
+xcomp01_flevinc( env0 )
+val () =
+xcomp01_dvaradd_fun0(env0)
+val () =
+xcomp01_ltmpadd_fun0(env0)
+//
+val
+flev =
+xcomp01_flevget(env0)
+//
+val
+blk0 =
+l1blk_none() // argless
+//
+val
+blk1 =
+let
+val () =
+xcomp01_lcmdpush_nil(env0)
+val
+lres =
+xcomp01_h0exp_val(env0, h0e1)
+val () = (res1 := Some(lres))
+//
+in
+  xcomp01_lcmdpop0_blk( env0 )
+end : l1blk // end of [val blk1]
+//
+val
+blk2 =
+let
+fun
+auxlst
+( env0:
+! compenv
+, xs: h0explst): void =
+(
+case+ xs of
+|
+list_nil() => ()
+|
+list_cons(x0, xs) =>
+(
+  auxlst(env0, xs)
+) where
+{
+val _ =
+xcomp01_h0exp_val(env0, x0)
+}
+) (* end of [auxlst] *)
+//
+val () =
+xcomp01_lcmdpush_nil(env0)
+val () = auxlst(env0, h0es)
+//
+in
+  xcomp01_lcmdpop0_blk(env0)
+end : l1blk // end of [val blk2]
+//
+in
+let
+//
+  val () =
+  xcomp01_flevdec(env0)
+  val () =
+  xcomp01_dvarpop_fun0(env0)
+  val flts =
+  xcomp01_ltmppop_fun0(env0)
+//
+(*
+val () =
+println!("auxset_lam: lts = ", lts)
+*)
+//
+in
+let
+//
+  val
+  l1am =
+  L1LAMEXP@{
+    loc=loc0
+  , hag=hfgs
+  , def=res1
+  , lev=flev
+  , lts=flts
+  , hag_blk=blk0, def_blk=blk1
+  } (* L1LAMEXP *)
+  val
+  tlam =
+  xltmpnew_tmp0(env0, loc0)
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDlam(tlam, l1am) )
+  val () =
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+//
+  val
+  lfrs =
+  L1LAMEXP@{
+    loc=loc0
+  , hag=hfgs
+  , def=res2
+  , lev=flev
+  , lts=flts
+  , hag_blk=blk0, def_blk=blk2
+  } (* L1LAMEXP *)
+  val
+  tfrs =
+  xltmpnew_tmp0(env0, loc0)
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDlam(tfrs, lfrs) )
+  val () =
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+//
+in
+//
+let
+  val
+  l1v1 =
+  l1val_make_node
+  ( loc0, L1VALtmp(tlam) )
+  val
+  l1v2 =
+  l1val_make_node
+  ( loc0, L1VALtmp(tfrs) )
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0
+  , L1CMDllazy(tres, l1v1, l1v2))
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end // end of [let]
+//
+end // end of [let]
+end // end of [let]
+end (*let*) // end of [auxset_llazy]
 
 (* ****** ****** *)
 
@@ -2129,10 +2335,17 @@ auxset_lazy(env0, h0e0, tres)
 in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
-(*
+//
 | H0Ellazy _ =>
-  auxval_llazy(env0, h0e0)
-*)
+let
+val
+tres =
+xltmpnew_tmp0(env0, loc0)
+val () =
+auxset_llazy(env0, h0e0, tres)
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end
 //
 | H0Eflat _ =>
   auxval_flat(env0, h0e0)
@@ -2197,6 +2410,11 @@ H0Ecase _ =>
 H0Elazy _ =>
 (
   auxset_lazy(env0, h0e0, tres)
+)
+|
+H0Ellazy _ =>
+(
+  auxset_llazy(env0, h0e0, tres)
 )
 //
 |
@@ -2523,7 +2741,8 @@ xcomp01_flevget(env0)
 //
 val
 blk0 =
-xcomp01_hfarglst_ck01(env0, hfgs)
+xcomp01_hfarglst_ck01
+  (env0, hfgs(*multi*))
 //
 val
 blk1 =
@@ -2740,10 +2959,12 @@ blk0 =
 (
 case+ hag of
 |
-None() => l1blk_none()
+None() =>
+l1blk_none()
 |
 Some(hfgs) =>
-xcomp01_hfarglst_ck01(env0, hfgs)
+xcomp01_hfarglst_ck01
+( env0, hfgs(*multi*) )
 ) : l1blk // end-of-val
 //
 val
@@ -2771,6 +2992,7 @@ end // end of [Some]
 //
 in
 let
+//
   val () =
   xcomp01_flevdec(env0)
   val () =

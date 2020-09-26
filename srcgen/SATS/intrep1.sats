@@ -506,6 +506,10 @@ l1cmd_node =
 | L1CMDlazy of
   ( l1tmp(*res*)
   , l1val(*thunk*) )
+| L1CMDllazy of
+  ( l1tmp(*res*)
+  , l1val(*thunk*)
+  , l1val(*frees*) )
 //
 | L1CMDblk of (l1blk)
 | L1CMDdcl of (l1dcl)
