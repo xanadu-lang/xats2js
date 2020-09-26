@@ -468,18 +468,6 @@ xemit01_l1val(out, l1v1)
 val () =
 fprint!(out, ",", idx2+1, ")")
 }
-|
-L1VALcptr(l1v1, argi) =>
-{
-val () =
-fprint!
-( out
-, "XATS2JS_new_cptr(")
-val () =
-xemit01_l1val(out, l1v1)
-val () =
-fprint!(out, ",", argi+1, ")")
-}
 //
 |
 L1VALtarg(l1v1, argi) =>
@@ -488,18 +476,6 @@ val () =
 xemit01_l1val(out, l1v1)
 val () =
 fprint!(out, "[", argi+1, "]")
-}
-|
-L1VALtofs(l1v1, idx2) =>
-{
-val () =
-fprint
-( out
-, "XATS2JS_new_tofs(")
-val () =
-xemit01_l1val(out, l1v1)
-val () =
-fprint!(out, ",", idx2+1, ")")
 }
 |
 L1VALtptr(l1v1, argi) =>

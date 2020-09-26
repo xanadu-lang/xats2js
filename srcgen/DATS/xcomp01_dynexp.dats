@@ -206,13 +206,6 @@ H0Ptuple
 , npf1
 , h0ps) = h0p0.node()
 //
-in
-L1PCKtup
-( knd0
-, auxnps(env0, npf1, h0ps))
-end where
-{
-//
 fun
 auxnps
 ( env0:
@@ -264,22 +257,35 @@ val
 loc1 = l1v1.loc()
 val
 arg1 =
-l1val_targ
+(
+if
+(knd0 > 0)
+then
+l1val_carg
 (loc1, l1v1, idx0)
+else
+l1val_targ
+(loc1, l1v1, idx0)): l1val
+//
 val
 pck1 = 
 xcomp01_h0pat_ck0
 (env0, h0p1, arg1)
+//
 in
 list_cons(pck1, pcks) where
 {
 val
-pcks = auxlst(env0, h0ps, idx0+1)
+pcks =
+auxlst(env0, h0ps, idx0+1)
 }
 end
 ) (* end of [auxlst] *)
 //
-} (* end of [aux_tuple] *)
+in
+L1PCKtup
+(knd0, auxnps(env0, npf1, h0ps))
+end (* end of [aux_tuple] *)
 
 in(*in-of-local*)
 
@@ -374,15 +380,6 @@ let
   val loc0 = l1v0.loc( )
 in
   l1val_cofs(loc0, l1v1, idx2)
-end
-//
-|
-L1VALtarg
-(l1v1, idx2) => //boxed!
-let
-  val loc0 = l1v0.loc( )
-in
-  l1val_tofs(loc0, l1v1, idx2)
 end
 //
 | _(*rest-of-l1val*) => l1val_talf(l1v0)
@@ -563,29 +560,32 @@ end // end of [then]
 else
 let
 val
-loc1 =
-l1v1.loc()
+loc1 = l1v1.loc()
 val
-carg =
-l1val_targ
+arg1 =
+(
+if
+(knd0 > 0)
+then
+l1val_carg
 (loc1, l1v1, idx0)
+else
+l1val_targ
+(loc1, l1v1, idx0)): l1val
+//
 val () =
 xcomp01_h0pat_ck1
-(env0, h0p1, carg)
-in
-let
-val idx0 = idx0+1
+(env0, h0p1, arg1)
+//
 in
 auxh0ps
-(env0, npf1, h0ps, idx0)
-end
+(env0, npf1, h0ps, idx0+1)
 end // end of [else]
 ) (* end of [auxh0ps] *)
 //
 in
 auxh0ps
-( env0
-, npf1, h0ps, 0(*idx0*))
+(env0, npf1, h0ps, 0(*idx0*))
 end // end of [let]
 //
 end (*let*) // end of [aux_tuple]
@@ -1058,7 +1058,7 @@ val-~Some_vt(idx2) = opt2
 *)
 //
 in
-l1val_targ(loc0, l1v1, idx2)
+l1val_carg(loc0, l1v1, idx2)
 end // end of [let]
 //
 end // end of [auxval_pbox]

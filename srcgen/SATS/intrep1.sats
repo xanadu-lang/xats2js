@@ -281,13 +281,13 @@ l1val_node =
 | L1VALaddr of (l1val)
 | L1VALtalf of (l1val)
 //
+// For boxed
 | L1VALctag of (l1val)
 | L1VALcarg of (l1val, int(*idx*))
 | L1VALcofs of (l1val, int(*idx*))
-| L1VALcptr of (l1val, int(*idx*))
 //
+// For flat (tuples)
 | L1VALtarg of (l1val, int(*idx*))
-| L1VALtofs of (l1val, int(*idx*))
 | L1VALtptr of (l1val, int(*idx*))
 //
 | L1VALeval0 of (l1val(*src*)) // general
@@ -359,17 +359,9 @@ fun
 l1val_cofs
 ( loc0: loc_t
 , l1v1: l1val, idx2: int): l1val
-fun
-l1val_cptr
-( loc0: loc_t
-, l1v1: l1val, idx2: int): l1val
 (* ****** ****** *)
 fun
 l1val_targ
-( loc0: loc_t
-, l1v1: l1val, idx2: int): l1val
-fun
-l1val_tofs
 ( loc0: loc_t
 , l1v1: l1val, idx2: int): l1val
 fun

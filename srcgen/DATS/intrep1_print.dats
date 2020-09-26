@@ -284,22 +284,12 @@ L1VALcofs(l1v1, idx2) =>
 fprint!
 ( out
 , "L1VALcofs(", l1v1, "; ", idx2, ")")
-|
-L1VALcptr(l1v1, idx2) =>
-fprint!
-( out
-, "L1VALcptr(", l1v1, "; ", idx2, ")")
 //
 |
 L1VALtarg(l1v1, idx2) =>
 fprint!
 ( out
 , "L1VALtarg(", l1v1, "; ", idx2, ")")
-|
-L1VALtofs(l1v1, idx2) =>
-fprint!
-( out
-, "L1VALtofs(", l1v1, "; ", idx2, ")")
 |
 L1VALtptr(l1v1, idx2) =>
 fprint!
