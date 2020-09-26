@@ -260,6 +260,22 @@ l1val_make_node(loc, L1VALeval3(l1v))
 l1val_make_node(loc, L1VALeval0(l1v))
 end // end of [l1val_eval]
 (* ****** ****** *)
+implement
+l1val_free(knd, l1v) =
+let
+val loc = l1v.loc()
+in
+ifcase
+| knd = 1 =>
+l1val_make_node(loc, L1VALfree1(l1v))
+| knd = 2 =>
+l1val_make_node(loc, L1VALfree2(l1v))
+| knd = 3 =>
+l1val_make_node(loc, L1VALfree3(l1v))
+| _ (*else*) =>
+l1val_make_node(loc, L1VALfree0(l1v))
+end // end of [l1val_free]
+(* ****** ****** *)
 //
 implement
 l1val_addrize(l1v0) =

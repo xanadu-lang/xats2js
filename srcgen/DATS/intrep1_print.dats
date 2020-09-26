@@ -319,6 +319,19 @@ fprint!(out, "L1VALeval2(", l1v1, ")")
 L1VALeval3(l1v1) =>
 fprint!(out, "L1VALeval3(", l1v1, ")")
 //
+|
+L1VALfree0(l1v1) =>
+fprint!(out, "L1VALfree0(", l1v1, ")")
+|
+L1VALfree1(l1v1) =>
+fprint!(out, "L1VALfree1(", l1v1, ")")
+|
+L1VALfree2(l1v1) =>
+fprint!(out, "L1VALfree2(", l1v1, ")")
+|
+L1VALfree3(l1v1) =>
+fprint!(out, "L1VALfree3(", l1v1, ")")
+//
 | L1VALnone0() =>
   fprint!(out, "L1VALnone0(", ")")
 | L1VALnone1(h0e1) =>
@@ -552,6 +565,31 @@ L1CMDeval3
 fprint!
 ( out
 , "L1CMDeval3(", tres, "; ", l1v1, ")")
+//
+|
+L1CMDfree0
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDfree0(", tres, "; ", l1v1, ")")
+|
+L1CMDfree1
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDfree1(", tres, "; ", l1v1, ")")
+|
+L1CMDfree2
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDfree2(", tres, "; ", l1v1, ")")
+|
+L1CMDfree3
+(tres, l1v1) =>
+fprint!
+( out
+, "L1CMDfree3(", tres, "; ", l1v1, ")")
 //
 (*
 | _ (* else *) => fprint!(out, "L1CMD...(...)")

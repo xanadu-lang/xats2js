@@ -553,6 +553,19 @@ L1VALeval3(l1v1) =>
   xemit01_txt00( out, ")" )
 }
 //
+|
+L1VALfree3(l1v1) =>
+{
+  val () =
+  fprint
+  ( out
+  , "XATS2JS_llazy_free(")
+  val () =
+  xemit01_l1val(out, l1v1)
+  val () =
+  xemit01_txt00( out, ")" )
+}
+//
 | L1VALnone0() =>
 {
   val () = fprint( out, "null" )
@@ -1687,6 +1700,44 @@ end // end of [aux_eval3]
 
 (* ****** ****** *)
 
+fun
+aux_free3
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+(*
+val
+loc0 = lcmd.loc()
+*)
+val-
+L1CMDfree3
+( tres
+, l1v1 ) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tres)
+//
+in
+{
+//
+val () =
+fprint( out, " = " )
+//
+val () =
+fprint
+( out
+, "XATS2JS_llazy_free(")
+val () =
+xemit01_l1val(out, l1v1)
+val () =
+xemit01_txt00( out, ")" )
+}
+end // end of [aux_free3]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 //
 implement
@@ -1762,6 +1813,9 @@ L1CMDeval1 _ => aux_eval1(out, lcmd)
 L1CMDeval2 _ => aux_eval2(out, lcmd)
 |
 L1CMDeval3 _ => aux_eval3(out, lcmd)
+//
+|
+L1CMDfree3 _ => aux_free3(out, lcmd)
 //
 |
 _ (* else *) => fprint!(out, "//", lcmd)

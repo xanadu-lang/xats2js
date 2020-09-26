@@ -318,6 +318,102 @@ end // end of [aux_eval3]
 
 (* ****** ****** *)
 
+fun
+aux_free1
+( env0: 
+! compenv
+, l1v0: l1val): l1val =
+let
+val
+loc0 = l1v0.loc()
+val-
+L1VALfree1
+ ( l1v1 ) = l1v0.node()
+val
+l1v1 =
+xcomp01_l1valize(env0, l1v1)
+val
+tres =
+xcomp01_ltmpnew_tmp0(env0, loc0)
+val () =
+let
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDfree1(tres, l1v1) )
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end // end of [aux_free1]
+
+(* ****** ****** *)
+
+fun
+aux_free2
+( env0: 
+! compenv
+, l1v0: l1val): l1val =
+let
+val
+loc0 = l1v0.loc()
+val-
+L1VALfree2
+ ( l1v1 ) = l1v0.node()
+val
+l1v1 =
+xcomp01_l1valize(env0, l1v1)
+val
+tres =
+xcomp01_ltmpnew_tmp0(env0, loc0)
+val () =
+let
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDfree2(tres, l1v1) )
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end // end of [aux_free2]
+
+(* ****** ****** *)
+
+fun
+aux_free3
+( env0: 
+! compenv
+, l1v0: l1val): l1val =
+let
+val
+loc0 = l1v0.loc()
+val-
+L1VALfree3
+ ( l1v1 ) = l1v0.node()
+val
+l1v1 =
+xcomp01_l1valize(env0, l1v1)
+val
+tres =
+xcomp01_ltmpnew_tmp0(env0, loc0)
+val () =
+let
+  val
+  lcmd =
+  l1cmd_make_node
+  ( loc0, L1CMDfree3(tres, l1v1) )
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end // end of [aux_free3]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 
 (* ****** ****** *)
@@ -347,6 +443,13 @@ l1v0.node() of
   aux_eval2(env0, l1v0)
 | L1VALeval3 _ =>
   aux_eval3(env0, l1v0)
+//
+| L1VALfree1 _ =>
+  aux_free1(env0, l1v0)
+| L1VALfree2 _ =>
+  aux_free2(env0, l1v0)
+| L1VALfree3 _ =>
+  aux_free3(env0, l1v0)
 //
 | _ (*rest-of-l1val*) => (l1v0)
 )

@@ -291,9 +291,14 @@ l1val_node =
 | L1VALtptr of (l1val, int(*idx*))
 //
 | L1VALeval0 of (l1val(*src*)) // general
-| L1VALeval1 of (l1val(*src*)) // ptr-deref
+| L1VALeval1 of (l1val(*src*)) // ptr-dref
 | L1VALeval2 of (l1val(*src*)) // lazy-eval
 | L1VALeval3 of (l1val(*src*)) // llazy-eval
+//
+| L1VALfree0 of (l1val(*src*)) // general
+| L1VALfree1 of (l1val(*src*)) // ptr-free
+| L1VALfree2 of (l1val(*src*)) // con-free
+| L1VALfree3 of (l1val(*src*)) // llazy-free
 //
 (*
 | L1VALselab of (l1val, label)
@@ -374,6 +379,10 @@ l1val_tptr
 (* ****** ****** *)
 fun
 l1val_eval
+( knd0: int, l1v1: l1val ): l1val
+(* ****** ****** *)
+fun
+l1val_free
 ( knd0: int, l1v1: l1val ): l1val
 (* ****** ****** *)
 //
@@ -547,11 +556,20 @@ l1cmd_node =
 //
 | L1CMDeval0 of // unknown
   (l1tmp(*res*), l1val(*source*))
-| L1CMDeval1 of // ptr-deref
+| L1CMDeval1 of // ptr-dref
   (l1tmp(*res*), l1val(*source*))
 | L1CMDeval2 of // lazy-eval
   (l1tmp(*res*), l1val(*source*))
 | L1CMDeval3 of // llazy-eval
+  (l1tmp(*res*), l1val(*source*))
+//
+| L1CMDfree0 of // unknown
+  (l1tmp(*res*), l1val(*source*))
+| L1CMDfree1 of // ptr-free
+  (l1tmp(*res*), l1val(*source*))
+| L1CMDfree2 of // con-free
+  (l1tmp(*res*), l1val(*source*))
+| L1CMDfree3 of // llazy-free
   (l1tmp(*res*), l1val(*source*))
 //
 (* ****** ****** *)
