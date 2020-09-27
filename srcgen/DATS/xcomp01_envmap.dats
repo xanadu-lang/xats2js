@@ -52,22 +52,16 @@ UN = "prelude/SATS/unsafe.sats"
 static
 fun
 the_dvarmap_search_ref
-(hdv: hdvar): P2tr0(l1val)
-and
-the_dvarmap_search_opt
-(hdv: hdvar): Option_vt(l1val)
+(hdv: hdvar): P2tr0(l1valist)
 //
 static
 fun
-the_dvarmap_insert_any
-(hdv: hdvar, l1v1: l1val): void
-and
-the_dvarmap_insert_exn
+the_dvarmap_insert_one
 (hdv: hdvar, l1v1: l1val): void
 //
 static
 fun
-the_dvarmap_remove_exn(hdvar): void
+the_dvarmap_remove_one(hdvar): void
 //
 (* ****** ****** *)
 //
@@ -108,7 +102,7 @@ hdvarstk_cons
   auxstk(xs) where
 {
   val () = 
-  the_dvarmap_remove_exn(x0)
+  the_dvarmap_remove_one(x0)
 }
 //
 | _ (* non-hdvarstk *) => (xs)
@@ -321,10 +315,20 @@ rcd.flevel := rcd.flevel - 1
 (* ****** ****** *)
 implement
 xcomp01_dvarfind
-  (env0, x0) =
-(
-  the_dvarmap_search_opt(x0)
-) (* end of [xcomp01_dvarfind] *)
+  (env0, k0) =
+let
+val p2 =
+the_dvarmap_search_ref(k0)
+in
+if
+iseqz(p2)
+then None_vt()
+else let
+  val xs = $UN.p2tr_get(p2)
+  val-
+  list_cons(x0, xs) = xs in Some_vt(x0)
+end // end of [if]
+end (* end of [xcomp01_dvarfind] *)
 (* ****** ****** *)
 //
 implement
@@ -378,7 +382,7 @@ val+
 val xs = rcd.hdvarstk
 //
 val () =
-the_dvarmap_insert_exn(x0, v0)
+the_dvarmap_insert_one(x0, v0)
 //
 val () =
 rcd.hdvarstk := hdvarstk_cons(x0, xs)
@@ -586,7 +590,7 @@ local
 typedef
 key = hdvar
 and
-itm = l1val
+itm = List0(l1val)
 vtypedef
 dvarmap = map(key, itm)
 
@@ -615,13 +619,13 @@ in(*in-of-local*)
 
 implement
 the_dvarmap_search_ref
-  (hdv0) = let
+  (k0) = let
 //
 val
 map =
 $UN.ptr0_get<dvarmap>(the_dvarmap)
 val ref =
-linmap_search_ref<key,itm>(map,hdv0)
+linmap_search_ref<key,itm>(map, k0)
 //
 in
 let
@@ -630,79 +634,77 @@ prval () = lemma_p2tr_param(ref) in ref
 end
 end // end of [the_dvarmap_search_ref]
 
+(* ****** ****** *)
+
 implement
-the_dvarmap_search_opt
-  (hdv0) = let
-//
-val
-ref = the_dvarmap_search_ref(hdv0)
-//
+the_dvarmap_insert_one
+  (k0, x0) =
+let
+val p2 =
+the_dvarmap_search_ref(k0)
 in
-//
 if
-iseqz(ref)
-then None_vt()
-else Some_vt($UN.p2tr_get<itm>(ref))
-//
-end // end of [the_dvarmap_search_opt]
+isneqz(p2)
+then
+let
+  val xs = $UN.p2tr_get(p2)
+in
+$UN.p2tr_set(p2, list_cons(x0, xs))
+end // end of then
+else let
+  var
+  map =
+  $UN.ptr0_get<dvarmap>(the_dvarmap)
+in
+(
+$UN.ptr0_set<dvarmap>(the_dvarmap, map)
+) where
+{
+val xs = list_sing(x0)
+val () =
+linmap_insert_any<key,itm>(map, k0, xs)
+}
+end // end of [else]
+end // end of [the_dvarmap_insert_one]
 
 (* ****** ****** *)
 
 implement
-the_dvarmap_insert_any
-  (hdv0, l1v1) = let
+the_dvarmap_remove_one
+  ( k0 ) = let
 //
 var
 map =
 $UN.ptr0_get<dvarmap>(the_dvarmap)
+val
+opt =
+linmap_takeout_opt<key,itm>(map, k0)
 //
 in
+//
+case- opt of
+|
+~Some_vt(xs) =>
+let
+val-
+list_cons(x0, xs) = xs
+in
+case+ xs of
+|
+list_nil _ =>
+$UN.ptr0_set<dvarmap>(the_dvarmap, map)
+|
+list_cons _ =>
 (
 $UN.ptr0_set<dvarmap>(the_dvarmap, map)
 ) where
 {
 val () =
-linmap_insert_any<key,itm>(map, hdv0, l1v1)
+linmap_insert_any<key,itm>(map, k0, xs)
 }
-end // end of [the_dvarmap_insert_any]
-
-implement
-the_dvarmap_insert_exn
-  (hdv0, l1v1) = let
+end // end of [let]
 //
-var
-map =
-$UN.ptr0_get<dvarmap>(the_dvarmap)
-//
-in
-(
-$UN.ptr0_set<dvarmap>(the_dvarmap, map)
-) where
-{
-val-
-~None_vt() =
-linmap_insert_opt<key,itm>(map, hdv0, l1v1)
-}
-end // end of [the_dvarmap_insert_exn]
-
-(* ****** ****** *)
-
-implement
-the_dvarmap_remove_exn
-  (hdv0) = let
-//
-var
-map =
-$UN.ptr0_get<dvarmap>(the_dvarmap)
-//
-in
-(
-$UN.ptr0_set<dvarmap>(the_dvarmap, map)
-) where
-{
-val-true = linmap_remove<key,itm>(map, hdv0)
-}
-end // end of [the_dvarmap_remove_exn]
+end // end of [the_dvarmap_remove_one]
 
 (* ****** ****** *)
 

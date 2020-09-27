@@ -311,6 +311,10 @@ H0Pbang(h0p1) =>
 xcomp01_h0pat_ck0
 (env0, h0p1(*var*), l1v1)
 |
+H0Pflat(h0p1) =>
+xcomp01_h0pat_ck0
+(env0, h0p1(*con*), l1v1)
+|
 H0Pfree(h0p1) =>
 xcomp01_h0pat_ck0
 (env0, h0p1(*con*), l1v1)
@@ -382,7 +386,7 @@ in
   l1val_cofs(loc0, l1v1, idx2)
 end
 //
-| _(*rest-of-l1val*) => l1val_talf(l1v0)
+| _(* else *) => l1val_talf(l1v0)
 )
 
 in(* in-of-local *)
@@ -401,20 +405,48 @@ val-
 H0Pbang
 ( h0p1 ) = h0p0.node()
 //
+in
+case+
+h0p1.node() of
+|
+H0Pvar _ =>
+let
 val
 lptr = auxtalf(l1v1)
 //
 (*
 val () =
 println!
-("auxbang: lptr = ", lptr)
+("auxbang: H0Pvar: lptr = ", lptr)
 *)
 //
 in
 xcomp01_h0pat_ck1(env0, h0p1, lptr)
+end // end of [H0Pvar]
+| _ (* else *) =>
+xcomp01_h0pat_ck1(env0, h0p1, l1v1)
 end (*let*) // end of [auxbang]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+fun
+auxflat
+( env0:
+! compenv
+, h0p0: h0pat
+, l1v1: l1val): void =
+let
+(*
+val loc0 = h0p0.loc()
+*)
+val-
+H0Pflat
+( h0p1 ) = h0p0.node()
+in
+xcomp01_h0pat_ck1(env0, h0p1, l1v1)
+end (*let*) // end of [auxflat]
 
 (* ****** ****** *)
 
@@ -613,7 +645,8 @@ h0p0.node() of
 //
 | H0Pbang _ =>
   auxbang(env0, h0p0, l1v1)
-//
+| H0Pflat _ =>
+  auxflat(env0, h0p0, l1v1)
 | H0Pfree _ =>
   auxfree(env0, h0p0, l1v1)
 //
