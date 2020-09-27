@@ -333,12 +333,20 @@ in
 case- tnd of 
 |
 T_CHAR_char
-  (rep) =>
-  fprint(out, rep) // HX: FIXME!!!
+  (rep) => // FIXME?
+(
+fprint!
+( out
+, "XATS2JS_char(", rep, ")")
+)
 |
-T_CHAR_slash
+T_CHAR_slash // FIXME?
   (rep) =>
-  fprint(out, rep) // HX: FIXME!!!
+(
+fprint!
+( out
+, "XATS2JS_char(", rep, ")")
+)
 //
 end // end of [xemit01_lvchr]
 (* ****** ****** *)
