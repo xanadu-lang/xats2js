@@ -983,7 +983,19 @@ val-
 H0Efcst(hdc) = h0e0.node()
 //
 in
-  l1val_make_node(loc0, L1VALfcst(hdc))
+//
+if
+hdcst_fcastq(hdc)
+then
+let
+val
+nam = "XATS2JS_fcast"
+in
+l1val_make_node(loc0, L1VALnam(nam))
+end
+else
+l1val_make_node(loc0, L1VALfcst(hdc))
+//
 end // end of [auxval_fcst]
 
 (* ****** ****** *)

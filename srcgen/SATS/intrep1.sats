@@ -249,6 +249,9 @@ overload fprint with fprint_l1pck
 //
 (* ****** ****** *)
 //
+typedef
+lvnam = string
+//
 datatype
 l1val_node =
 //
@@ -259,6 +262,8 @@ l1val_node =
 | L1VALstr of (token)
 //
 | L1VALtop of (token)
+//
+| L1VALnam of (lvnam)
 //
 | L1VALtmp of (l1tmp)
 //
@@ -273,15 +278,13 @@ l1val_node =
 //
 | L1VALvfix of (hdvar)
 //
-// HX: ctag: con_tag
-// HX: carg: con_arg
-//
-| L1VALflat of (l1val)
-//
 | L1VALaddr of (l1val)
+| L1VALflat of (l1val)
 | L1VALtalf of (l1val)
 //
 // For boxed
+// HX: ctag: con_tag
+// HX: carg: con_arg
 | L1VALctag of (l1val)
 | L1VALcarg of (l1val, int(*idx*))
 | L1VALcofs of (l1val, int(*idx*))
@@ -905,6 +908,9 @@ xemit01_lvstr(FILEref, token): void
 fun
 xemit01_lvtop(FILEref, token): void
 //
+(* ****** ****** *)
+fun
+xemit01_lvnam(FILEref, lvnam): void
 (* ****** ****** *)
 fun
 xemit01_l1tmp(FILEref, l1tmp): void

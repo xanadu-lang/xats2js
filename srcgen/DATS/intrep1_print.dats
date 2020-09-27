@@ -236,6 +236,10 @@ L1VALtop(tok) =>
 fprint!(out, "L1VALtop(", tok, ")")
 //
 |
+L1VALnam(nam) =>
+fprint!(out, "L1VALnam(", nam, ")")
+//
+|
 L1VALtmp(tmp) =>
 fprint!(out, "L1VALtmp(", tmp, ")")
 //

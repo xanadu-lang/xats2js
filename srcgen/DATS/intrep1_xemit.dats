@@ -277,6 +277,13 @@ end
 (* ****** ****** *)
 //
 implement
+xemit01_lvnam
+(out, nam) =
+fprint(out, nam)
+//
+(* ****** ****** *)
+//
+implement
 xemit01_lvtop
 (out, tok) =
 fprint(out, "XATS2JS_top")
@@ -403,6 +410,10 @@ xemit01_lvstr(out, tok)
 |
 L1VALtop(tok) =>
 xemit01_lvtop(out, tok)
+//
+|
+L1VALnam(nam) =>
+xemit01_lvnam(out, nam)
 //
 (*
 |
