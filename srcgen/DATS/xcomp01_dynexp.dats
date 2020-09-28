@@ -326,15 +326,15 @@ L1PCKcon(hdc, l1v1(*ctag*))
 |
 H0Pdapp _ =>
 (
-  auxdapp
-  (env0, h0p0, l1v1(*con-val*))
+auxdapp
+(env0, h0p0, l1v1(*con-val*))
 )
 //
 |
 H0Ptuple _ =>
 (
-  aux_tuple
-  (env0, h0p0, l1v1(*tup-val*))
+aux_tuple
+(env0, h0p0, l1v1(*tup-val*))
 )
 //
 |
@@ -537,8 +537,7 @@ end // end of [else]
 //
 in
 auxh0ps
-( env0
-, npf1, h0ps, 0(*idx0*))
+(env0, npf1, h0ps, 0(*idx0*))
 end // end of [let]
 //
 end (*let*) // end of [auxdapp]
@@ -3269,8 +3268,7 @@ xcomp01_hvardeclist
 (
 case+ xs of
 |
-list_nil() =>
-list_nil()
+list_nil() => list_nil()
 |
 list_cons(x0, xs) =>
 list_cons(x0, xs) where

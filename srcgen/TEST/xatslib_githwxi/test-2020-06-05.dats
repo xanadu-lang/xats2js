@@ -54,7 +54,8 @@ gseq_permutize<string><cgtz>(cs)
 
 val cs1 = "12345"
 val css = string_permutize(cs1)
-val css = stream_vt_listize(css)
+val css = stream_vt_print_len(css, 6)
+val ( ) = g_print("\n")
 
 (* ****** ****** *)
 

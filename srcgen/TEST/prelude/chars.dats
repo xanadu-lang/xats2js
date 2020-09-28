@@ -37,6 +37,7 @@ val a = 'a'
 val b = 'b'
 val () = g_print(a)
 val () = g_print(b)
+val () = g_print('\n')
 
 (* ****** ****** *)
 
@@ -60,7 +61,9 @@ val
 alphabet =
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 val () = g_print(alphabet)
+val () = g_print(char(eol))
 val () = gseq_print(alphabet)
+val () = g_print(char(eol))
 
 (* ****** ****** *)
 
@@ -109,16 +112,19 @@ and b = abc[1]
 and c = abc[2]
 //
 (* ****** ****** *)
-
+//
 val xyz =
 let
 val x = sint('x')
 in
 string_tabulate_cfr(3, lam(i) => char(x+i))
 end // end of [val]
-
+val () =
+( g_print("xyz = ")
+; g_print( xyz ); g_print('\n'))
+//
 (* ****** ****** *)
-
+//
 val avg =
 (
 gseq_map_add(xyz) / 3
@@ -127,13 +133,11 @@ gseq_map_add(xyz) / 3
 impltmp
 map$fopr<char><sint>(c) = sint(c)
 }
-
-(* ****** ****** *)
-
+//
 val () =
 ( g_print("avg = ")
-; g_print( avg ); g_print('\n') )
-
+; g_print( avg ); g_print('\n'))
+//
 (* ****** ****** *)
 
 (* end of [chars.dats] *)
