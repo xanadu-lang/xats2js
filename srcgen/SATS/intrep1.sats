@@ -376,6 +376,17 @@ overload fprint with fprint_l1val
 (* ****** ****** *)
 //
 fun
+l1val_exn(exn: l1exn): l1val
+//
+fun
+l1val_tmp(tmp: l1tmp): l1val
+fun
+l1val_tmp2
+(loc:loc_t, tmp:l1tmp): l1val
+//
+(* ****** ****** *)
+//
+fun
 l1val_flat(l1v0: l1val): l1val
 //
 fun

@@ -281,6 +281,22 @@ end // end of [local]
 (* ****** ****** *)
 //
 implement
+l1val_exn(exn) =
+l1val_make_node
+(exn.loc(), L1VALexn(exn))
+//
+implement
+l1val_tmp(tmp) =
+l1val_make_node
+(tmp.loc(), L1VALtmp(tmp))
+implement
+l1val_tmp2(loc, tmp) =
+l1val_make_node
+(loc(*new*), L1VALtmp(tmp))
+//
+(* ****** ****** *)
+//
+implement
 l1val_flat(l1v) =
 l1val_make_node
 (l1v.loc(), L1VALflat(l1v))

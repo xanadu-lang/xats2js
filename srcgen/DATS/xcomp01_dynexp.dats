@@ -742,9 +742,7 @@ val
 loc0 = h0p1.loc()
 //
 val l1v0 =
-l1val_make_node
-( loc0
-, L1VALtmp(tmp0)) where
+l1val_tmp(tmp0) where
 {
 val tmp0 =
 xltmpnew_arg1(env0, loc0, arg0)
@@ -2142,9 +2140,7 @@ in
 //
 let
   val
-  l1v1 =
-  l1val_make_node
-  ( loc0, L1VALtmp(tlam) )
+  l1v1 = l1val_tmp(tlam)
   val
   lcmd =
   l1cmd_make_node
@@ -2310,13 +2306,9 @@ in
 //
 let
   val
-  l1v1 =
-  l1val_make_node
-  ( loc0, L1VALtmp(tlam) )
+  l1v1 = l1val_tmp(tlam)
   val
-  l1v2 =
-  l1val_make_node
-  ( loc0, L1VALtmp(tfrs) )
+  l1v2 = l1val_tmp(tfrs)
   val
   lcmd =
   l1cmd_make_node
@@ -2383,16 +2375,16 @@ h0e0.node() of
 //
 |
 H0Edapp _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
-//
 val () =
 auxset_dapp(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end
+} (* end of [H0Edapp] *)
 //
 | H0Epcon _ =>
   auxval_pcon(env0, h0e0)
@@ -2417,72 +2409,77 @@ end
 //
 |
 H0Etuple _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
-//
 val () =
 auxset_tuple(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end // end of [H0Etuple]
+} (* end of [H0Etuple] *)
 //
 | H0Eif0 _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_if0(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end // end of [ H0Eif0 ]
+} (* end of [ H0Eif0 ] *)
 //
 |
 H0Ecase _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_case(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end
+} (* end of [H0Ecase] *)
 //
 | H0Elam _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_lam(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end
+} (* end of [ H0Elam ] *)
 //
 | H0Efix _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_fix(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end
+} (* end of [ H0Efix ] *)
 //
 | H0Etry0 _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_try0(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end
+} (* end of [H0Etry0] *)
 //
 | H0Eaddr _ =>
   auxval_addr(env0, h0e0)
@@ -2498,11 +2495,13 @@ end
 //
 |
 H0Efold _ =>
-l1val_make_node(loc0, L1VALnone0())
+l1val_make_node
+(loc0, L1VALnone0(*void*))
 //
 |
 H0Enone0 _ =>
-l1val_make_node(loc0, L1VALnone0())
+l1val_make_node
+(loc0, L1VALnone0(*void*))
 //
 |
 H0Eraise _ =>
@@ -2511,26 +2510,28 @@ H0Eraise _ =>
 )
 //
 | H0Elazy _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_lazy(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end
+} (* end of [H0Elazy] *)
 //
 | H0Ellazy _ =>
-let
+(
+  l1val_tmp(tres)
+) where
+{
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
 auxset_llazy(env0, h0e0, tres)
-in
-l1val_make_node(loc0, L1VALtmp(tres))
-end
+} (* end of [H0Ellazy] *)
 //
 | _ (* else *) =>
 (
