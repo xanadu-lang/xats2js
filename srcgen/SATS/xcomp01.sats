@@ -164,6 +164,14 @@ xcomp01_lcmdpop0_lst
 //
 (* ****** ****** *)
 //
+fun
+xcomp01_hdcon
+( env0:
+! compenv
+, hdc0: hdcon): ldcon
+//
+(* ****** ****** *)
+//
 // HX:
 // for checking whether
 // the pattern matches the value

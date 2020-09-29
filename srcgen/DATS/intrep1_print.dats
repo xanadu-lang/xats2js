@@ -77,6 +77,8 @@ fprint_val<l1tmp> = fprint_l1tmp
 (* ****** ****** *)
 implement
 fprint_val<ltcst> = fprint_ltcst
+implement
+fprint_val<ldcon> = fprint_ldcon
 (* ****** ****** *)
 implement
 fprint_val<l1val> = fprint_l1val
@@ -147,6 +149,26 @@ implement
 fprint_ltcst(out, x0) =
 fprint!
 (out, x0.hdc(), "(", x0.stamp(), ")")
+//
+(* ****** ****** *)
+//
+implement
+print_ldcon(x0) =
+fprint_ldcon(stdout_ref, x0)
+implement
+prerr_ldcon(x0) =
+fprint_ldcon(stderr_ref, x0)
+implement
+fprint_ldcon(out, x0) =
+(
+case+ x0 of
+|
+LDCONcon(hdc) =>
+fprint!(out, "LDCONcon(", hdc, ")")
+|
+LDCONval(l1v) =>
+fprint!(out, "LDCONval(", l1v, ")")
+)
 //
 (* ****** ****** *)
 (*
@@ -558,11 +580,18 @@ L1CMDtofs
 )
 //
 |
-L1CMDraise
-(  lexn  ) =>
+L1CMDexcon
+(  tmp1  ) =>
 (
  fprint!
- (out, "L1CMDraise(", lexn(*lin*), ")")
+ (out, "L1CMDexcon(", tmp1(*tag*), ")")
+)
+|
+L1CMDraise
+(  exn1  ) =>
+(
+ fprint!
+ (out, "L1CMDraise(", exn1(*lin*), ")")
 )
 //
 |
@@ -696,6 +725,13 @@ fprint!(out, "L1DCLvaldecl(", lvds, ")")
 |
 L1DCLvardecl(lvds) =>
 fprint!(out, "L1DCLvardecl(", lvds, ")")
+//
+|
+L1DCLexcptcon
+(hdcs, blk0(*init*)) =>
+fprint!
+( out
+, "L1DCLexcptcon(", hdcs, "; ", blk0, ")")
 //
 | L1DCLnone0() =>
   fprint!(out, "L1DCLnone0(", ")")

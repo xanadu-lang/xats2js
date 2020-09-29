@@ -70,6 +70,7 @@ for template instances
 //
 abstype ltcst_tbox = ptr
 typedef ltcst = ltcst_tbox
+typedef ltcstlst = List0(ltcst)
 //
 (* ****** ****** *)
 //
@@ -211,6 +212,25 @@ ltcst_get_stamp(ltcst): stamp
 overload .stamp with ltcst_get_stamp
 (* ****** ****** *)
 //
+datatype ldcon =
+| LDCONcon of hdcon // non-ext
+| LDCONval of l1val // ext-con
+//
+(* ****** ****** *)
+//
+fun
+print_ldcon: print_type(ldcon)
+fun
+prerr_ldcon: prerr_type(ldcon)
+fun
+fprint_ldcon: fprint_type(ldcon)
+//
+overload print with print_ldcon
+overload prerr with prerr_ldcon
+overload fprint with fprint_ldcon
+//
+(* ****** ****** *)
+//
 fun
 print_ltcst: print_type(ltcst)
 fun
@@ -223,29 +243,6 @@ overload prerr with prerr_ltcst
 overload fprint with fprint_ltcst
 //
 (* ****** ****** *)
-(*
-//
-datatype
-l1int =
-| L1INTint of int
-| L1INTtmp of l1tmp
-(*
-| L1INTval of l1val
-*)
-//
-fun
-print_l1int: print_type(l1int)
-fun
-prerr_l1int: prerr_type(l1int)
-fun
-fprint_l1int: fprint_type(l1int)
-//
-overload print with print_l1int
-overload prerr with prerr_l1int
-overload fprint with fprint_l1int
-//
-*)
-(* ****** ****** *)
 //
 datatype
 l1pck =
@@ -255,7 +252,7 @@ l1pck =
 | L1PCKbtf of (bool, l1val)
 *)
 | L1PCKcon of
-  ( hdcon, l1val )
+  ( ldcon, l1val )
 //
 | L1PCKapp of
   ( l1pck(*con-tag*)
@@ -305,7 +302,7 @@ l1val_node =
 | L1VALlvl of (l1lvl)
 *)
 //
-| L1VALcon of (hdcon)
+| L1VALcon of (ldcon)
 //
 | L1VALfcst of (hdcst)
 | L1VALtcst of (ltcst)
@@ -597,6 +594,7 @@ l1cmd_node =
   ( l1tmp(*res*)
   , l1val(*lval*), int(*index*))
 //
+| L1CMDexcon of l1tmp(*exc-tag*)
 | L1CMDraise of l1val(*lin-exn*)
 //
 | L1CMDassgn of // assignment
@@ -861,6 +859,9 @@ L1DCLvaldecl of (lvaldeclist)
 |
 L1DCLvardecl of (lvardeclist)
 //
+|
+L1DCLexcptcon of (hdconlst, l1blk)
+//
 | L1DCLnone0 of () | L1DCLnone1 of h0dcl
 //
 (* ****** ****** *)
@@ -933,6 +934,9 @@ fun
 xemit01_hdcon(FILEref, hdcon): void
 fun
 xemit01_hdcst(FILEref, hdcst): void
+(* ****** ****** *)
+fun
+xemit01_ldcon(FILEref, ldcon): void
 (* ****** ****** *)
 fun
 xemit01_ltcst(FILEref, ltcst): void

@@ -180,6 +180,19 @@ fprint(out, stmp)
 (* ****** ****** *)
 
 implement
+xemit01_ldcon
+(out, ldc) =
+(
+case+ ldc of
+| LDCONcon(hdc) =>
+  xemit01_hdcon(out, hdc)
+| LDCONval(l1v) =>
+  xemit01_l1val(out, l1v)
+) (* end of [xemit01_ldcon] *)
+
+(* ****** ****** *)
+
+implement
 xemit01_hfarg
 ( out
 , lev
@@ -443,8 +456,8 @@ L1VALtmp(tmp1) =>
 xemit01_l1tmp(out, tmp1)
 //
 |
-L1VALcon(hdc1) =>
-xemit01_hdcon(out, hdc1)
+L1VALcon(ldc1) =>
+xemit01_ldcon(out, ldc1)
 //
 |
 L1VALfcst(hdc1) =>
@@ -658,9 +671,9 @@ val () =
 let
 val-
 L1VALcon
-( hdc0 ) = l1f0.node()
+( ldc0 ) = l1f0.node()
 in
-xemit01_hdcon(out, hdc0)
+xemit01_ldcon(out, ldc0)
 end
 val () = loop( 1, l1vs )
 val () = xemit01_txt00(out, "]")
@@ -1034,12 +1047,12 @@ case+ pck0 of
 L1PCKany() => ()
 //
 |
-L1PCKcon(hdc, l1v) =>
+L1PCKcon(ldc, l1v) =>
 {
 val () =
 xemit01_txt00(out, "if(")
 val () =
-xemit01_hdcon( out, hdc )
+xemit01_ldcon( out, ldc )
 val () =
 xemit01_txt00(out, "!==")
 val () =
@@ -1307,12 +1320,12 @@ case+ pck0 of
 |
 L1PCKany() => ()
 |
-L1PCKcon(hdc, l1v) =>
+L1PCKcon(ldc, l1v) =>
 {
 val () =
 xemit01_txt00(out, "if(")
 val () =
-xemit01_hdcon( out, hdc )
+xemit01_ldcon( out, ldc )
 val () =
 xemit01_txt00(out, "!==")
 val () =
@@ -1622,6 +1635,39 @@ xemit01_txt00( out, ")" )
 //
 }
 end // end of [aux_llazy]
+
+(* ****** ****** *)
+
+fun
+aux_excon
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+(*
+val
+loc0 = lcmd.loc()
+*)
+val-
+L1CMDexcon
+( tmp1 ) = lcmd.node()
+//
+val () =
+xemit01_l1tmp(out, tmp1)
+//
+in
+{
+//
+val () =
+fprint( out, " = " )
+//
+val () =
+fprint
+( out
+, "XATS2JS_new_excon()")
+}
+end // end of [aux_excon]
 
 (* ****** ****** *)
 
@@ -2409,6 +2455,23 @@ end // end of [aux_vardecl]
 
 (* ****** ****** *)
 
+fun
+aux_excptcon
+( out
+: FILEref
+, dcl0: l1dcl): void =
+let
+//
+val-
+L1DCLexcptcon
+(hdcs, blk0) = dcl0.node()
+//
+in
+  xemit01_l1blk(out, blk0(*init*))
+end // end of [aux_excptcon]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 //
 implement
@@ -2454,9 +2517,15 @@ L1DCLvardecl _ =>
 val()=aux_vardecl(out, dcl0)
 }
 //
+|
+L1DCLexcptcon _ =>
+{
+val()=aux_excptcon(out, dcl0)
+}
+//
 | _ (* else *) =>
 {
-val () = fprint!(out, "//", dcl0)
+  val () = fprint!(out, "//", dcl0)
 }
 //
 end // end of [xemit01_l1dcl]
