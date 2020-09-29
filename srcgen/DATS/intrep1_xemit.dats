@@ -1548,6 +1548,35 @@ end // end of [aux_llazy]
 (* ****** ****** *)
 
 fun
+aux_raise
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+let
+(*
+val
+loc0 = lcmd.loc()
+*)
+val-
+L1CMDraise
+( l1v1 ) = lcmd.node()
+//
+in
+{
+val () =
+fprint
+( out
+, "XATS2JS_raise(")
+val () =
+xemit01_l1val(out, l1v1)
+val () = fprint(out, ")")
+}
+end // end of [aux_raise]
+
+(* ****** ****** *)
+
+fun
 aux_assgn
 ( out
 : FILEref
@@ -1561,7 +1590,7 @@ loc0 = lcmd.loc()
 val-
 L1CMDassgn
 ( l1v1
-, l1v2) = lcmd.node()
+, l1v2 ) = lcmd.node()
 //
 in
 {
@@ -1798,6 +1827,9 @@ L1CMDpofs _ => aux_pofs(out, lcmd)
 L1CMDlazy _ => aux_lazy(out, lcmd)
 |
 L1CMDllazy _ => aux_llazy(out, lcmd)
+//
+|
+L1CMDraise _ => aux_raise(out, lcmd)
 //
 |
 L1CMDassgn _ => aux_assgn(out, lcmd)

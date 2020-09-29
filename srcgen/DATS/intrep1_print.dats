@@ -70,15 +70,13 @@ fprint_val<hfarg> = fprint_hfarg
 implement
 fprint_val<htqarg> = fprint_htqarg
 (* ****** ****** *)
-
 implement
-fprint_val<ltcst> = fprint_ltcst
+fprint_val<l1exn> = fprint_l1exn
 implement
 fprint_val<l1tmp> = fprint_l1tmp
-
 (* ****** ****** *)
 implement
-fprint_val<l1pck> = fprint_l1pck
+fprint_val<ltcst> = fprint_ltcst
 (* ****** ****** *)
 implement
 fprint_val<l1val> = fprint_l1val
@@ -86,6 +84,9 @@ fprint_val<l1val> = fprint_l1val
 implement
 fprint_val<l1lvl> = fprint_l1lvl
 *)
+(* ****** ****** *)
+implement
+fprint_val<l1pck> = fprint_l1pck
 (* ****** ****** *)
 implement
 fprint_val<l1cmd> = fprint_l1cmd
@@ -99,15 +100,16 @@ fprint_val<l1dcl> = fprint_l1dcl
 (* ****** ****** *)
 //
 implement
-print_ltcst(x0) =
-fprint_ltcst(stdout_ref, x0)
+print_l1exn(x0) =
+fprint_l1exn(stdout_ref, x0)
 implement
-prerr_ltcst(x0) =
-fprint_ltcst(stderr_ref, x0)
+prerr_l1exn(x0) =
+fprint_l1exn(stderr_ref, x0)
+//
 implement
-fprint_ltcst(out, x0) =
+fprint_l1exn(out, x0) =
 fprint!
-(out, x0.hdc(), "(", x0.stamp(), ")")
+(out, "exn(", x0.stamp(), ")")
 //
 (* ****** ****** *)
 //
@@ -117,6 +119,7 @@ fprint_l1tmp(stdout_ref, x0)
 implement
 prerr_l1tmp(x0) =
 fprint_l1tmp(stderr_ref, x0)
+//
 implement
 fprint_l1tmp(out, x0) =
 let
@@ -131,6 +134,19 @@ else
 fprint!
 (out, "arg[", arg, "](", x0.stamp(), ")")
 end // end of [fprint_l1tmp]
+//
+(* ****** ****** *)
+//
+implement
+print_ltcst(x0) =
+fprint_ltcst(stdout_ref, x0)
+implement
+prerr_ltcst(x0) =
+fprint_ltcst(stderr_ref, x0)
+implement
+fprint_ltcst(out, x0) =
+fprint!
+(out, x0.hdc(), "(", x0.stamp(), ")")
 //
 (* ****** ****** *)
 (*
@@ -239,6 +255,9 @@ fprint!(out, "L1VALtop(", tok, ")")
 L1VALnam(nam) =>
 fprint!(out, "L1VALnam(", nam, ")")
 //
+|
+L1VALexn(exn) =>
+fprint!(out, "L1VALexn(", exn, ")")
 |
 L1VALtmp(tmp) =>
 fprint!(out, "L1VALtmp(", tmp, ")")
@@ -526,6 +545,14 @@ L1CMDtofs
   ( out
   , "L1CMDtofs("
   , tres, "; ", l1v1, "; ", idx2, ")" )
+)
+//
+|
+L1CMDraise
+(  lexn  ) =>
+(
+ fprint!
+ (out, "L1CMDraise(", lexn(*lin*), ")")
 )
 //
 |

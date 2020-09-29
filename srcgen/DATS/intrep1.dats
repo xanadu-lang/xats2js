@@ -54,12 +54,14 @@ UN = "prelude/SATS/unsafe.sats"
 local
 
 val
-stamper = $STM.stamper_new()
+stamper =
+$STM.stamper_new()
 
 in (* in-of-local *)
 
 implement
-ltcst_stamp_new() = $STM.stamper_getinc(stamper)
+l1exn_stamp_new() =
+$STM.stamper_getinc(stamper)
 
 end // end of [local]
 
@@ -67,36 +69,31 @@ end // end of [local]
 local
 
 absimpl
-ltcst_tbox = $rec
+l1exn_tbox = $rec
 {
-  ltcst_loc= loc_t // location
-, ltcst_hdc= hdcst // original
-, ltcst_stamp= stamp (* unicity *)
-} // end of [ltcst]
+  l1exn_loc= loc_t // location
+, l1exn_stamp= stamp (* unicity *)
+} // end of [l1exn]
 
 in (* in-of-local *)
 
 implement
-ltcst_new_hdc
-  (loc, hdc) =
+l1exn_new_loc
+  (  loc  ) =
 $rec
-{
-  ltcst_loc= loc
-, ltcst_hdc= hdc
-, ltcst_stamp= stamp(*unicity*)
+{ l1exn_loc= loc
+, l1exn_stamp= stamp(*unicity*)
 } where
 {
-  val stamp = ltcst_stamp_new()
+  val stamp = l1exn_stamp_new()
 }
 
 (* ****** ****** *)
-
 implement
-ltcst_get_loc(ltc) = ltc.ltcst_loc
+l1exn_get_loc(ltc) = ltc.l1exn_loc
 implement
-ltcst_get_hdc(ltc) = ltc.ltcst_hdc
-implement
-ltcst_get_stamp(ltc) = ltc.ltcst_stamp
+l1exn_get_stamp(ltc) = ltc.l1exn_stamp
+(* ****** ****** *)
 
 end // end of [local]
 (* ****** ****** *)
@@ -104,12 +101,14 @@ end // end of [local]
 local
 
 val
-stamper = $STM.stamper_new()
+stamper =
+$STM.stamper_new()
 
 in (* in-of-local *)
 
 implement
-l1tmp_stamp_new() = $STM.stamper_getinc(stamper)
+l1tmp_stamp_new() =
+$STM.stamper_getinc(stamper)
 
 end // end of [local]
 
@@ -195,6 +194,58 @@ l1tmp_get_stamp(tmp) = tmp->l1tmp_stamp
 
 end // end of [local]
 
+(* ****** ****** *)
+local
+
+val
+stamper =
+$STM.stamper_new()
+
+in (* in-of-local *)
+
+implement
+ltcst_stamp_new() =
+$STM.stamper_getinc(stamper)
+
+end // end of [local]
+
+(* ****** ****** *)
+local
+
+absimpl
+ltcst_tbox = $rec
+{
+  ltcst_loc= loc_t // location
+, ltcst_hdc= hdcst // original
+, ltcst_stamp= stamp (* unicity *)
+} // end of [ltcst]
+
+in (* in-of-local *)
+
+implement
+ltcst_new_hdc
+  (loc, hdc) =
+$rec
+{
+  ltcst_loc= loc
+, ltcst_hdc= hdc
+, ltcst_stamp= stamp(*unicity*)
+} where
+{
+  val stamp = ltcst_stamp_new()
+}
+(* ****** ****** *)
+
+implement
+ltcst_get_loc(ltc) = ltc.ltcst_loc
+implement
+ltcst_get_hdc(ltc) = ltc.ltcst_hdc
+implement
+ltcst_get_stamp(ltc) = ltc.ltcst_stamp
+
+(* ****** ****** *)
+
+end // end of [local]
 (* ****** ****** *)
 
 local

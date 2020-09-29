@@ -50,13 +50,8 @@ typedef token = $LEX.token
 //
 (* ****** ****** *)
 //
-(*
-HX-2020-09-06:
-for template instances
-*)
-//
-abstype ltcst_tbox = ptr
-typedef ltcst = ltcst_tbox
+abstype l1exn_tbox = ptr
+typedef l1exn = l1exn_tbox
 //
 (* ****** ****** *)
 //
@@ -65,6 +60,16 @@ typedef l1tmp = l1tmp_tbox
 //
 typedef l1tmplst = List0(l1tmp)
 typedef l1tmpopt = Option(l1tmp)
+//
+(* ****** ****** *)
+//
+(*
+HX-2020-09-06:
+for template instances
+*)
+//
+abstype ltcst_tbox = ptr
+typedef ltcst = ltcst_tbox
 //
 (* ****** ****** *)
 //
@@ -117,6 +122,77 @@ typedef l1dclopt = Option(l1dcl)
 (* ****** ****** *)
 //
 fun
+l1exn_new_loc
+(loc: loc_t): l1exn
+fun
+l1exn_stamp_new(): stamp
+//
+fun
+l1exn_get_loc(l1exn): loc_t
+overload .loc with l1exn_get_loc
+fun
+l1exn_get_stamp(l1exn): stamp
+overload .stamp with l1exn_get_stamp
+//
+(* ****** ****** *)
+//
+fun
+print_l1exn: print_type(l1exn)
+fun
+prerr_l1exn: prerr_type(l1exn)
+fun
+fprint_l1exn: fprint_type(l1exn)
+//
+overload print with print_l1exn
+overload prerr with prerr_l1exn
+overload fprint with fprint_l1exn
+//
+(* ****** ****** *)
+fun
+l1tmp_new_tmp
+(loc: loc_t): l1tmp
+fun
+l1tmp_new_arg
+(loc: loc_t, idx: int): l1tmp
+//
+fun
+l1tmp_get_loc(l1tmp): loc_t
+overload .loc with l1tmp_get_loc
+fun
+l1tmp_get_arg(tmp: l1tmp): int
+overload .arg with l1tmp_get_arg
+fun
+l1tmp_get_ref(tmp: l1tmp): int
+overload .ref with l1tmp_get_ref
+(* ****** ****** *)
+fun
+l1tmp_get_lev(tmp: l1tmp): int
+overload .lev with l1tmp_get_lev
+fun
+l1tmp_set_lev(l1tmp, int): void
+overload .lev with l1tmp_set_lev
+(* ****** ****** *)
+fun
+l1tmp_stamp_new(): stamp
+fun
+l1tmp_get_stamp(l1tmp): stamp
+overload .stamp with l1tmp_get_stamp
+(* ****** ****** *)
+//
+fun
+print_l1tmp: print_type(l1tmp)
+fun
+prerr_l1tmp: prerr_type(l1tmp)
+fun
+fprint_l1tmp: fprint_type(l1tmp)
+//
+overload print with print_l1tmp
+overload prerr with prerr_l1tmp
+overload fprint with fprint_l1tmp
+//
+(* ****** ****** *)
+//
+fun
 ltcst_new_hdc
 (loc: loc_t, hdc: hdcst): ltcst
 //
@@ -145,49 +221,6 @@ fprint_ltcst: fprint_type(ltcst)
 overload print with print_ltcst
 overload prerr with prerr_ltcst
 overload fprint with fprint_ltcst
-//
-(* ****** ****** *)
-fun
-l1tmp_new_tmp
-(loc: loc_t): l1tmp
-fun
-l1tmp_new_arg
-(loc: loc_t, idx: int): l1tmp
-//
-fun
-l1tmp_get_loc(l1tmp): loc_t
-overload .loc with l1tmp_get_loc
-fun
-l1tmp_get_arg(tmp: l1tmp): int
-overload .arg with l1tmp_get_arg
-fun
-l1tmp_get_ref(tmp: l1tmp): int
-overload .ref with l1tmp_get_ref
-(* ****** ****** *)
-fun
-l1tmp_get_lev(tmp: l1tmp): int
-overload .lev with l1tmp_get_lev
-fun
-l1tmp_set_lev(l1tmp, int): void
-overload .lev with l1tmp_set_lev
-(* ****** ****** *)
-fun
-l1tmp_stamp_new((*void*)): stamp
-fun
-l1tmp_get_stamp(l1tmp): stamp
-overload .stamp with l1tmp_get_stamp
-(* ****** ****** *)
-//
-fun
-print_l1tmp: print_type(l1tmp)
-fun
-prerr_l1tmp: prerr_type(l1tmp)
-fun
-fprint_l1tmp: fprint_type(l1tmp)
-//
-overload print with print_l1tmp
-overload prerr with prerr_l1tmp
-overload fprint with fprint_l1tmp
 //
 (* ****** ****** *)
 (*
@@ -265,6 +298,7 @@ l1val_node =
 //
 | L1VALnam of (lvnam)
 //
+| L1VALexn of (l1exn)
 | L1VALtmp of (l1tmp)
 //
 (*
@@ -545,6 +579,8 @@ l1cmd_node =
 | L1CMDtofs of
   ( l1tmp(*res*)
   , l1val(*lval*), int(*index*))
+//
+| L1CMDraise of l1val(*lin-exn*)
 //
 | L1CMDassgn of // assignment
   (l1val(*lval*), l1val(*rval*))

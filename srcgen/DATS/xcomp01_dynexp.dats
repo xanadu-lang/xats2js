@@ -1505,6 +1505,41 @@ end // end of [auxval_free]
 (* ****** ****** *)
 
 fun
+auxval_raise
+( env0:
+! compenv
+, h0e0: h0exp): l1val =
+let
+//
+val
+loc0 = h0e0.loc()
+val-
+H0Eraise
+( h0e1 ) = h0e0.node()
+//
+val () =
+let
+val
+lcmd =
+l1cmd_make_node
+( loc0
+, L1CMDraise(l1v1)) where
+{
+val
+l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+}
+in
+xcomp01_lcmdadd_lcmd(env0, lcmd)
+end // end of [val]
+//
+in
+l1val_make_node(loc0, L1VALnone0())
+end // end of [auxval_raise]
+
+(* ****** ****** *)
+
+fun
 auxset_dapp
 ( env0:
 ! compenv
@@ -1514,7 +1549,6 @@ let
 //
 val
 loc0 = h0e0.loc()
-//
 val-
 H0Edapp
 ( h0f0
@@ -1564,7 +1598,6 @@ let
 //
 val
 loc0 = h0e0.loc()
-//
 val-
 H0Etuple
 ( knd0
@@ -1612,7 +1645,6 @@ let
 //
 val
 loc0 = h0e0.loc()
-//
 val-
 H0Eif0
 ( h0e1
@@ -1757,7 +1789,6 @@ let
 //
 val
 loc0 = h0e0.loc()
-//
 val-
 H0Ecase
 ( knd0
@@ -1810,7 +1841,6 @@ let
 //
 val
 loc0 = h0e0.loc()
-//
 val-
 H0Elam
 ( knd0
@@ -1862,7 +1892,10 @@ let
 //
 (*
 val () =
-println!("auxset_lam: lts = ", lts)
+(
+ println!
+ ("auxset_lam: lts = ", lts)
+)
 *)
 //
 in
@@ -1899,7 +1932,6 @@ let
 //
 val
 loc0 = h0e0.loc()
-//
 val-
 H0Efix
 ( knd0
@@ -1981,6 +2013,42 @@ end (*let*) // end of [auxset_fix]
 (* ****** ****** *)
 
 fun
+auxset_try
+( env0:
+! compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
+let
+//
+val
+loc0 = h0e0.loc()
+val-
+H0Etry
+( tok0
+, h0e1
+, hcls) = h0e0.node()
+//
+val
+blk1 =
+let
+val () =
+xcomp01_lcmdpush_nil(env0)
+in
+let
+val () =
+xcomp01_h0exp_set
+(env0, h0e1, tres)
+in
+xcomp01_lcmdpop0_blk(env0)
+end // end of [let]
+end // end of [let]
+//
+in
+end // end of [ auxval_try ]
+
+(* ****** ****** *)
+
+fun
 auxset_lazy
 ( env0:
 ! compenv
@@ -2045,7 +2113,8 @@ let
 //
 (*
 val () =
-println!("auxset_lam: lts = ", lts)
+println!
+("auxset_lazy: lts = ", lts)
 *)
 //
 in
@@ -2190,7 +2259,8 @@ let
 //
 (*
 val () =
-println!("auxset_lam: lts = ", lts)
+println!
+("auxset_llazy: lts = ", lts)
 *)
 //
 in
@@ -2403,6 +2473,17 @@ in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
 //
+| H0Etry _ =>
+let
+val
+tres =
+xltmpnew_tmp0(env0, loc0)
+val () =
+auxset_try(env0, h0e0, tres)
+in
+l1val_make_node(loc0, L1VALtmp(tres))
+end
+//
 | H0Eaddr _ =>
   auxval_addr(env0, h0e0)
 | H0Eflat _ =>
@@ -2423,6 +2504,11 @@ l1val_make_node(loc0, L1VALnone0())
 H0Enone0 _ =>
 l1val_make_node(loc0, L1VALnone0())
 //
+|
+H0Eraise _ =>
+(
+  auxval_raise(env0, h0e0)
+)
 //
 | H0Elazy _ =>
 let
@@ -2487,6 +2573,11 @@ H0Ecase _ =>
   auxset_lam(env0, h0e0, tres)
 )
 | H0Efix _ =>
+(
+  auxset_fix(env0, h0e0, tres)
+)
+//
+| H0Etry _ =>
 (
   auxset_fix(env0, h0e0, tres)
 )
