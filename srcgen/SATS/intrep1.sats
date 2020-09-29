@@ -561,6 +561,12 @@ l1cmd_node =
   , l1tmp(*tcas*)
   , l1pcklst, l1blklst)
 //
+| L1CMDtry0 of
+  ( l1blk(*try*)
+  , l1exn(*texn*)
+  , l1exn(*tcas*)
+  , l1pcklst, l1blklst)
+//
 | L1CMDpatck of (l1pck)
 | L1CMDmatch of (h0pat, l1val)
 //

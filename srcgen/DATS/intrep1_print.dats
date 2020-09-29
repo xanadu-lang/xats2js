@@ -494,6 +494,16 @@ fprint!
 , tcas, "; ", pcks, "; ", blks, ")")
 //
 |
+L1CMDtry0
+( blk1
+, texn, tcas, pcks, blks) =>
+fprint!
+( out
+, "L1CMDtry0("
+, blk1, "; ", texn, "; "
+, tcas, "; ", pcks, "; ", blks, ")")
+//
+|
 L1CMDpatck(lpck) =>
 fprint!(out, "L1CMDpatck(", lpck, ")")
 |

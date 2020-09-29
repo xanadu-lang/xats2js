@@ -2013,7 +2013,7 @@ end (*let*) // end of [auxset_fix]
 (* ****** ****** *)
 
 fun
-auxset_try
+auxset_try0
 ( env0:
 ! compenv
 , h0e0: h0exp
@@ -2023,7 +2023,7 @@ let
 val
 loc0 = h0e0.loc()
 val-
-H0Etry
+H0Etry0
 ( tok0
 , h0e1
 , hcls) = h0e0.node()
@@ -2473,13 +2473,13 @@ in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
 //
-| H0Etry _ =>
+| H0Etry0 _ =>
 let
 val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
-auxset_try(env0, h0e0, tres)
+auxset_try0(env0, h0e0, tres)
 in
 l1val_make_node(loc0, L1VALtmp(tres))
 end
@@ -2577,9 +2577,9 @@ H0Ecase _ =>
   auxset_fix(env0, h0e0, tres)
 )
 //
-| H0Etry _ =>
+| H0Etry0 _ =>
 (
-  auxset_fix(env0, h0e0, tres)
+  auxset_try0(env0, h0e0, tres)
 )
 //
 |
