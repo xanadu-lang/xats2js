@@ -575,7 +575,7 @@ l1cmd_node =
 | L1CMDtry0 of
   ( l1blk(*try*)
   , l1exn(*texn*)
-  , l1exn(*tcas*)
+  , l1tmp(*tcas*)
   , l1pcklst, l1blklst)
 //
 | L1CMDpatck of (l1pck)
@@ -965,6 +965,8 @@ xemit01_lvtop(FILEref, token): void
 fun
 xemit01_lvnam(FILEref, lvnam): void
 (* ****** ****** *)
+fun
+xemit01_l1exn(FILEref, l1exn): void
 fun
 xemit01_l1tmp(FILEref, l1tmp): void
 (* ****** ****** *)

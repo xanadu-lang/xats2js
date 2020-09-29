@@ -1777,6 +1777,8 @@ list_cons
 //
 in(*in-of-local*)
 
+(* ****** ****** *)
+
 fun
 auxset_case
 ( env0:
@@ -1824,8 +1826,72 @@ l1cmd_make_node
   , l1v1, tcas, pcks, blks))
 in
   xcomp01_lcmdadd_lcmd(env0, lcmd)
-end // end-of-let
-end (* auxset_case *) end // [local]
+end (* end-of-let *) end (* auxset_case *)
+
+(* ****** ****** *)
+
+fun
+auxset_try0
+( env0:
+! compenv
+, h0e0: h0exp
+, tres: l1tmp): void =
+let
+//
+val
+loc0 = h0e0.loc()
+val-
+H0Etry0
+( tok0
+, h0e1
+, hcls) = h0e0.node()
+//
+val
+blk1 =
+let
+val () =
+xcomp01_lcmdpush_nil(env0)
+in
+let
+val () =
+xcomp01_h0exp_set
+(env0, h0e1, tres)
+in
+xcomp01_lcmdpop0_blk(env0)
+end // end of [let]
+end // end of [let]
+//
+val
+texn =
+l1exn_new_loc(loc0)
+val
+l1v1 = l1val_exn(texn)
+val
+tcas =
+xltmpnew_tmp0(env0, loc0)
+val
+pcks =
+auxpck0lst(env0, l1v1, hcls)
+val
+blks =
+auxpck1lst(env0, l1v1, hcls, tres)
+//
+in
+let
+val
+lcmd =
+l1cmd_make_node
+( loc0,
+  L1CMDtry0
+  ( blk1
+  , texn, tcas, pcks, blks))
+in
+  xcomp01_lcmdadd_lcmd(env0, lcmd)
+end (* end-of-let *) end (* auxset_try0 *)
+
+(* ****** ****** *)
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -2007,42 +2073,6 @@ in
 end // end of [let]
 end // end of [let]
 end (*let*) // end of [auxset_fix]
-
-(* ****** ****** *)
-
-fun
-auxset_try0
-( env0:
-! compenv
-, h0e0: h0exp
-, tres: l1tmp): void =
-let
-//
-val
-loc0 = h0e0.loc()
-val-
-H0Etry0
-( tok0
-, h0e1
-, hcls) = h0e0.node()
-//
-val
-blk1 =
-let
-val () =
-xcomp01_lcmdpush_nil(env0)
-in
-let
-val () =
-xcomp01_h0exp_set
-(env0, h0e1, tres)
-in
-xcomp01_lcmdpop0_blk(env0)
-end // end of [let]
-end // end of [let]
-//
-in
-end // end of [ auxval_try ]
 
 (* ****** ****** *)
 

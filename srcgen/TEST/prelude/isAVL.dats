@@ -101,4 +101,13 @@ val ans3 = isAVL(t3)
 
 (* ****** ****** *)
 
+val (  ) =
+( g_print("ans2 = ")
+; g_print( ans2 ); g_print("\n"))
+val (  ) =
+( g_print("ans3 = ")
+; g_print( ans3 ); g_print("\n"))
+
+(* ****** ****** *)
+
 (* end of [isAVL.dats] *)

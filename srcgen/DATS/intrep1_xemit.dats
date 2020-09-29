@@ -369,6 +369,18 @@ end // end of [xemit01_lvstr]
 (* ****** ****** *)
 //
 implement
+xemit01_l1exn
+(out, exn0) =
+let
+val
+stm = exn0.stamp()
+in
+  fprint!(out, "exn", stm)
+end // end of [let]
+//
+(* ****** ****** *)
+//
+implement
 xemit01_l1tmp
 (out, tmp0) =
 let
@@ -423,11 +435,9 @@ xemit01_lvtop(out, tok)
 L1VALnam(nam) =>
 xemit01_lvnam(out, nam)
 //
-(*
 |
-L1VALcon(hdc1) =>
-xemit01_hdcon(out, hdc1)
-*)
+L1VALexn(exn1) =>
+xemit01_l1exn(out, exn1)
 |
 L1VALtmp(tmp1) =>
 xemit01_l1tmp(out, tmp1)
@@ -1004,6 +1014,8 @@ L1CMDif0
 
 local
 
+(* ****** ****** *)
+
 fun
 auxpcklst
 ( out
@@ -1141,6 +1153,8 @@ auxblklst(out, icas+1, tcas, blks)
 end (* end-of-let *)
 end (* end-of-let *) // end of [auxblklst]
 
+(* ****** ****** *)
+
 in(* in-of-local*)
 
 fun
@@ -1191,14 +1205,78 @@ xemit01_txtln(out, "} // case-switch")
 //
 val-
 L1CMDcase
-( knd
-, l1v1
-, tcas
-, pcks, blks) = lcmd.node()
+( knd0
+, l1v1, tcas, pcks, blks) = lcmd.node()
 //
-} (* where *)
+} (* where *) // end of [aux_case]
+
+(* ****** ****** *)
+
+fun
+aux_try0
+( out
+: FILEref
+, lcmd
+: l1cmd): void =
+{
 //
-end (* end-of-local *)// end of [aux_case]
+val () =
+fprint!(out, "try\n{\n")
+val () =
+xemit01_l1blk(out, blk1)
+val () =
+fprint!(out, "}//try\n")
+val () =
+fprint!(out, "catch\n(")
+val () =
+xemit01_l1exn(out, texn)
+val () =
+xemit01_txt00(out, ") {\n")
+//
+val () =
+xemit01_l1tmp(out, tcas)
+val () =
+xemit01_txtln(out, " = 0;")
+val () =
+xemit01_txt00(out, "do {\n")
+val () =
+auxpcklst(out, 1(*i*), tcas, pcks)
+val () =
+fprint!( out, "} while(false);\n" )
+//
+val () =
+xemit01_txt00
+(out, "switch\n(")
+val () =
+xemit01_l1tmp(out, tcas)
+val () =
+xemit01_txt00(out, ") {\n")
+//
+val () =
+auxblklst(out, 1(*i*), tcas, blks)
+//
+val () =
+fprint!
+( out
+, "default: XATS2JS_matcherr0();\n")
+val () =
+xemit01_txtln(out, "} // with-switch")
+val () =
+xemit01_txtln(out, "} // try0-with-catch")
+//
+} where
+{
+//
+val-
+L1CMDtry0
+( blk1
+, texn, tcas, pcks, blks) = lcmd.node()
+//
+} (* where *) // end of [aux_try0]
+
+(* ****** ****** *)
+
+end (* end-of-local *) 
 
 (* ****** ****** *)
 
@@ -1801,6 +1879,8 @@ L1CMDif0 _ => aux_if0(out, lcmd)
 //
 |
 L1CMDcase _ => aux_case(out, lcmd)
+|
+L1CMDtry0 _ => aux_try0(out, lcmd)
 //
 |
 L1CMDpatck _ => aux_patck(out, lcmd)
