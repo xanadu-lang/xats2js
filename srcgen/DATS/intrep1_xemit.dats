@@ -1270,8 +1270,14 @@ auxblklst(out, 1(*i*), tcas, blks)
 //
 val () =
 fprint!
-( out
-, "default: XATS2JS_matcherr0();\n")
+(out, "default: ")
+val () =
+fprint!
+(out, "XATS2JS_reraise(")
+val () =
+xemit01_l1exn( out, texn )
+val () = fprint!(out, ");\n")
+//
 val () =
 xemit01_txtln(out, "} // with-switch")
 val () =
@@ -1665,7 +1671,7 @@ fprint( out, " = " )
 val () =
 fprint
 ( out
-, "XATS2JS_new_excon()")
+, "XATS2JS_new_exctag()")
 }
 end // end of [aux_excon]
 
@@ -1954,6 +1960,8 @@ L1CMDlazy _ => aux_lazy(out, lcmd)
 |
 L1CMDllazy _ => aux_llazy(out, lcmd)
 //
+|
+L1CMDexcon _ => aux_excon(out, lcmd)
 |
 L1CMDraise _ => aux_raise(out, lcmd)
 //
