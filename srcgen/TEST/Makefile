@@ -11,6 +11,8 @@ ECHO=echo
 XATS2JS="./../../bin/xats2js"
 
 ######
+all:: test
+######
 #
 test:: bools
 bools: ; \
