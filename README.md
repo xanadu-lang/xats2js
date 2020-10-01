@@ -2,6 +2,10 @@
 
 For compiling ATS/Xanadu to JS
 
+## Build Status
+
+* [![Build Status](https://travis-ci.org/xanadu-lang/xats2js.svg?branch=master)](https://travis-ci.org/xanadu-lang/xats2js) Ubuntu
+
 ### Download
 
 ```
