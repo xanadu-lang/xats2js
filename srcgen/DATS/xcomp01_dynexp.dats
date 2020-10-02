@@ -2792,6 +2792,29 @@ case+ opt0 of
 
 local
 //
+fun
+aux_local
+( env0:
+! compenv
+, dcl0: h0dcl): l1dcl =
+let
+val
+loc0 = dcl0.loc()
+val-
+H0Clocal
+( head
+, body) = dcl0.node()
+//
+val head =
+xcomp01_h0dclist(env0, head)
+val body =
+xcomp01_h0dclist(env0, body)
+//
+in
+l1dcl_make_node
+( loc0, L1DCLlocal(head, body) )
+end // end of [aux_local]
+//
 (*
 HX-2020-09-23:
 Recusion is handled
@@ -3176,6 +3199,10 @@ in
 //
 case+
 dcl0.node() of
+//
+|
+H0Clocal _ =>
+aux_local(env0, dcl0)
 //
 |
 H0Cfundecl _ =>

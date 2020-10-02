@@ -701,17 +701,21 @@ fprint_l1dcl(out, x0) =
 case+
 x0.node() of
 //
+(*
+|
+L1DCLnil() =>
+fprint!(out, "L1DCLnil(", ")")
+|
+L1DCLlist(xs) =>
+fprint!(out, "L1DCLcons(", xs, ")")
+*)
+//
 |
 L1DCLlocal
 (head, body) =>
 fprint!
 ( out
 , "L1DCLlocal(", head, "; ", body, ")")
-//
-| L1DCLnil() =>
-  fprint!(out, "L1DCLnil(", ")")
-| L1DCLlist(xs) =>
-  fprint!(out, "L1DCLcons(", xs, ")")
 //
 |
 L1DCLimpdecl(limp) =>

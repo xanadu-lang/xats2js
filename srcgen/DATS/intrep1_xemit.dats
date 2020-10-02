@@ -365,6 +365,22 @@ end // end of [xemit01_lvchr]
 (* ****** ****** *)
 //
 implement
+xemit01_lvflt
+(out, tok) =
+let
+val
+tnd = tok.node()
+in
+//
+case- tnd of 
+|
+T_FLOAT1(rep) =>
+  fprint(out, rep) // HX: FIXME!!!
+//
+end // end of [xemit01_lvstr]
+(* ****** ****** *)
+//
+implement
 xemit01_lvstr
 (out, tok) =
 let
@@ -439,6 +455,9 @@ xemit01_lvchr(out, tok)
 |
 L1VALstr(tok) =>
 xemit01_lvstr(out, tok)
+|
+L1VALflt(tok) =>
+xemit01_lvflt(out, tok)
 //
 |
 L1VALtop(tok) =>
@@ -2502,6 +2521,22 @@ case+
 dcl0.node() of
 //
 |
+L1DCLlocal
+(head, body) =>
+{
+val () =
+fprint(out, "{ // local\n")
+val () =
+xemit01_l1dclist(out, head)
+val () =
+fprint(out, "// in-of-local\n")
+val () =
+xemit01_l1dclist(out, body)
+val () =
+fprint(out, "} // end-of-local\n")
+}
+//
+|
 L1DCLimpdecl _ =>
 {
 val()=aux_impdecl(out, dcl0)
@@ -2539,6 +2574,37 @@ val()=aux_excptcon(out, dcl0)
 end // end of [xemit01_l1dcl]
 //
 end // end of [local]
+
+(* ****** ****** *)
+
+implement
+xemit01_l1dclist
+  (out, dcls) =
+(
+  auxlst(dcls)
+) where
+{
+fun
+auxlst
+( dcls
+: l1dclist): void =
+(
+case+ dcls of
+|
+list_nil
+((*void*)) => ()
+|
+list_cons
+(dcl1, dcls) =>
+let
+val () =
+xemit01_l1dcl
+( out, dcl1 )
+val () =
+xemit01_newln(out) in auxlst(dcls)
+end // list_cons]
+) (* end of [auxlst] *)
+} (*where*) // end of [xemit01_l1dclist]
 
 (* ****** ****** *)
 

@@ -232,7 +232,7 @@ fun
 main0(): void =
 let
 //
-val () =
+val (  ) =
 print_board
 @(0, 1, 2, 3, 4, 5, 6, 7)
 //
@@ -240,7 +240,7 @@ val nsol =
 search
 ((0, 0, 0, 0, 0, 0, 0, 0), 0, 0, 0)
 //
-val () =
+val (  ) =
 ( g_print("nsol = ")
 ; g_print( nsol ); print_newline())
 //

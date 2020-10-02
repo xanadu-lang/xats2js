@@ -842,9 +842,6 @@ overload fprint with fprint_lvardecl
 datatype
 l1dcl_node =
 //
-| L1DCLnil of ()
-| L1DCLlist of (l1dclist)
-//
 |
 L1DCLlocal of
 ( l1dclist(*head*)
@@ -959,8 +956,15 @@ fun
 xemit01_lvbtf(FILEref, token): void
 fun
 xemit01_lvchr(FILEref, token): void
+//
+(* ****** ****** *)
+//
+fun
+xemit01_lvflt(FILEref, token): void
 fun
 xemit01_lvstr(FILEref, token): void
+//
+(* ****** ****** *)
 //
 fun
 xemit01_lvtop(FILEref, token): void
