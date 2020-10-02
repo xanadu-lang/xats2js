@@ -13,84 +13,133 @@ XATS2JS="./../../bin/xats2js"
 ######
 all:: test
 ######
+PRELUDE=./prelude
+######
 #
 test:: bools
 bools: ; \
-$(XATS2JS) -d ./prelude/bools.dats
+$(XATS2JS) -d $(PRELUDE)/bools.dats
 test:: chars
 chars: ; \
-$(XATS2JS) -d ./prelude/chars.dats
+$(XATS2JS) -d $(PRELUDE)/chars.dats
 #
 ######
 #
 test:: lists
 lists: ; \
-$(XATS2JS) -d ./prelude/lists.dats
+$(XATS2JS) -d $(PRELUDE)/lists.dats
 test:: strms
 strms: ; \
-$(XATS2JS) -d ./prelude/strms.dats
+$(XATS2JS) -d $(PRELUDE)/strms.dats
 #
 ######
 #
 test:: addrs
 addrs: ; \
-$(XATS2JS) -d ./prelude/addrs.dats
+$(XATS2JS) -d $(PRELUDE)/addrs.dats
 #
 test:: pswap
 pswap: ; \
-$(XATS2JS) -d ./prelude/pswap.dats
+$(XATS2JS) -d $(PRELUDE)/pswap.dats
 #
 ######
 #
 test:: cbref
 cbref: ; \
-$(XATS2JS) -d ./prelude/cbref.dats
+$(XATS2JS) -d $(PRELUDE)/cbref.dats
 #
 ######
 #
 test:: foldl
 foldl: ; \
-$(XATS2JS) -d ./prelude/foldl.dats
+$(XATS2JS) -d $(PRELUDE)/foldl.dats
 #
 ######
 #
 test:: kfact
 kfact: ; \
-$(XATS2JS) -d ./prelude/kfact.dats
+$(XATS2JS) -d $(PRELUDE)/kfact.dats
 test:: kfibo
 kfibo: ; \
-$(XATS2JS) -d ./prelude/kfibo.dats
+$(XATS2JS) -d $(PRELUDE)/kfibo.dats
 test:: kisevn
 kisevn: ; \
-$(XATS2JS) -d ./prelude/kisevn.dats
+$(XATS2JS) -d $(PRELUDE)/kisevn.dats
 #
 ######
 test:: koka-amb
 koka-amb: ; \
-$(XATS2JS) -d ./prelude/koka-amb.dats
+$(XATS2JS) -d $(PRELUDE)/koka-amb.dats
 ######
 #
 test:: isAVL
 isAVL: ; \
-$(XATS2JS) -d ./prelude/isAVL.dats
+$(XATS2JS) -d $(PRELUDE)/isAVL.dats
 test:: rfind
 rfind: ; \
-$(XATS2JS) -d ./prelude/rfind.dats
+$(XATS2JS) -d $(PRELUDE)/rfind.dats
 #
 ######
 test:: sieve
 sieve: ; \
-$(XATS2JS) -d ./prelude/sieve.dats
+$(XATS2JS) -d $(PRELUDE)/sieve.dats
 test:: sieve1
 sieve1: ; \
-$(XATS2JS) -d ./prelude/sieve1.dats
+$(XATS2JS) -d $(PRELUDE)/sieve1.dats
 ######
 test:: sieve_vt
 sieve_vt: ; \
-$(XATS2JS) -d ./prelude/sieve_vt.dats
+$(XATS2JS) -d $(PRELUDE)/sieve_vt.dats
 test:: sieve1_vt
 sieve1_vt: ; \
-$(XATS2JS) -d ./prelude/sieve1_vt.dats
+$(XATS2JS) -d $(PRELUDE)/sieve1_vt.dats
+######
+GITHWXI=./xatslib/githwxi
+######
+test:: \
+test-2020-03-21
+test-2020-03-21: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-03-21.dats
+######
+test:: \
+test-2020-03-22
+test-2020-03-22: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-03-22.dats
+######
+test:: \
+test-2020-04-29
+test-2020-04-29: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-04-29.dats
+######
+test:: \
+test-2020-06-05
+test-2020-06-05: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-06-05.dats
+######
+test:: \
+test-2020-06-20
+test-2020-06-20: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-06-20.dats
+######
+test:: \
+test-2020-07-10
+test-2020-07-10: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-07-10.dats
+######
+test:: \
+test-2020-09-29
+test-2020-09-29: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-09-29.dats
+######
+test:: \
+test-2020-10-01
+test-2020-10-01: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-10-01.dats
+######
+test:: \
+test-ats2-queens
+test-ats2-queens: ; \
+$(XATS2JS) -d $(GITHWXI)/test-ats2-queens.dats
 ######
 #
 # HX: for cleaning up
