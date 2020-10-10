@@ -94,7 +94,7 @@ test:: sieve1_vt
 sieve1_vt: ; \
 $(XATS2JS) -d $(PRELUDE)/sieve1_vt.dats
 ######
-GITHWXI=./xatslib/githwxi
+GITHWXI=./xatslib_githwxi
 ######
 test:: \
 test-2020-03-21
