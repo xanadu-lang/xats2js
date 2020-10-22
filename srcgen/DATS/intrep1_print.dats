@@ -253,6 +253,16 @@ case+
 x0.node() of
 //
 |
+L1VALi00(int) =>
+fprint!(out, "L1VALi00(", int, ")")
+|
+L1VALb00(btf) =>
+fprint!(out, "L1VALb00(", btf, ")")
+|
+L1VALs00(str) =>
+fprint!(out, "L1VALs00(", str, ")")
+//
+|
 L1VALint(tok) =>
 fprint!(out, "L1VALint(", tok, ")")
 |

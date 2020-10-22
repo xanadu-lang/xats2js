@@ -71,9 +71,12 @@
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
 (* ****** ****** *)
-
+//
+(*
 val N = 8
-
+*)
+#define N 8
+//
 (* ****** ****** *)
 
 typedef int8 =

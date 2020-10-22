@@ -285,9 +285,14 @@ lvnam = string
 datatype
 l1val_node =
 //
+| L1VALi00 of (int)
+| L1VALb00 of (bool)
+| L1VALs00 of string
+//
 | L1VALint of (token)
 | L1VALbtf of (token)
 | L1VALchr of (token)
+//
 | L1VALflt of (token)
 | L1VALstr of (token)
 //
@@ -948,6 +953,13 @@ xemit01_hfarglst
 ( FILEref
 , int(*flvl*)
 , hfarglst, int(*base*)): int
+(* ****** ****** *)
+//
+fun
+xemit01_lvi00(FILEref, int): void
+fun
+xemit01_lvb00(FILEref, bool): void
+//
 (* ****** ****** *)
 //
 fun

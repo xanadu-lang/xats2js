@@ -2425,6 +2425,16 @@ in(*in-of-let*)
 case+
 h0e0.node() of
 //
+| H0Ei00(int) =>
+  l1val_make_node
+  (loc0, L1VALi00(int))
+| H0Eb00(btf) =>
+  l1val_make_node
+  (loc0, L1VALb00(btf))
+| H0Es00(str) =>
+  l1val_make_node
+  (loc0, L1VALs00(str))
+//
 | H0Eint(tok) =>
   l1val_make_node
   (loc0, L1VALint(tok))

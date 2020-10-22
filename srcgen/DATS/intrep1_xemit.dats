@@ -304,6 +304,17 @@ fprint(out, "XATS2JS_top")
 (* ****** ****** *)
 //
 implement
+xemit01_lvi00
+( out
+, int) = fprint(out, int)
+implement
+xemit01_lvb00
+( out
+, btf) = fprint(out, btf)
+//
+(* ****** ****** *)
+//
+implement
 xemit01_lvint
 (out, tok) =
 let
@@ -317,6 +328,7 @@ T_INT1
 ( rep ) => fprint(out, rep)
 //
 end // end of [xemit01_lvint]
+//
 (* ****** ****** *)
 //
 implement
@@ -330,9 +342,10 @@ in
 case- tnd of 
 |
 T_IDENT_alp
-  (rep) => fprint(out, rep)
+( rep ) => fprint(out, rep)
 //
 end // end of [xemit01_lvbtf]
+//
 (* ****** ****** *)
 //
 implement
@@ -346,7 +359,7 @@ in
 case- tnd of 
 |
 T_CHAR_char
-  (rep) => // FIXME?
+( rep ) => // FIXME?
 (
 fprint!
 ( out
@@ -354,7 +367,7 @@ fprint!
 )
 |
 T_CHAR_slash // FIXME?
-  (rep) =>
+( rep ) =>
 (
 fprint!
 ( out
@@ -442,6 +455,18 @@ xemit01_l1val
 (
 case+
 l1v0.node() of
+//
+|
+L1VALi00(int) =>
+xemit01_lvi00(out, int)
+|
+L1VALb00(btf) =>
+xemit01_lvb00(out, btf)
+(*
+|
+L1VALs00(str) =>
+xemit01_lvs00(out, str)
+*)
 //
 |
 L1VALint(tok) =>
