@@ -75,7 +75,7 @@
 (*
 val N = 8
 *)
-#define N 8
+#define N 8 // HX: testing g1macro
 //
 (* ****** ****** *)
 
