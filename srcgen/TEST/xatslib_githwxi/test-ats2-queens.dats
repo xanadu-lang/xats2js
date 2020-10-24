@@ -71,6 +71,8 @@
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
 (* ****** ****** *)
+#staload "./../print.dats"
+(* ****** ****** *)
 //
 (*
 val N = 8
@@ -243,9 +245,7 @@ val nsol =
 search
 ((0, 0, 0, 0, 0, 0, 0, 0), 0, 0, 0)
 //
-val (  ) =
-( g_print("nsol = ")
-; g_print( nsol ); print_newline())
+val (  ) = println("nsol = ", nsol)
 //
 end (* end of [main0] *)
 }

@@ -44,6 +44,8 @@
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
 (* ****** ****** *)
+#staload "./../print.dats"
+(* ****** ****** *)
 //
 typedef
 rat = double
@@ -322,7 +324,8 @@ val
 sol_3_3_8_8 =
 let
 val xs = play(3, 3, 8, 8)
-val-cons_vt(x0, xs) = !xs in $free(xs); x0
+val-
+cons_vt(x0, xs) = !xs in $free(xs); x0
 end
 //
 val () =
@@ -335,12 +338,12 @@ val
 sol_4_4_10_10 =
 let
 val xs = play(4, 4, 10, 10)
-val-cons_vt(x0, xs) = !xs in $free(xs); x0
+val-
+cons_vt(x0, xs) = !xs in $free(xs); x0
 end
 //
 val () =
-( g_print("sol_4_4_10_10 = ")
-; g_print( sol_4_4_10_10 ); g_print('\n'))
+println("sol_4_4_10_10 = ", sol_4_4_10_10)
 //
 (* ****** ****** *)
 
