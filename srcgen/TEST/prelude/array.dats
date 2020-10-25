@@ -122,15 +122,15 @@ a1ref_make_list_vt(xs) where
 }
 
 (* ****** ****** *)
-
+//
 val xss =
 gseq_permutize(B3) where
 {
-impltmp a1ref_length<int>(B1) = 3
+impltmp a1ref_length<int>(_) = 3
 }
 val len = length(xss)
 val ( ) = println("|xss| = ", len)
-
+//
 (* ****** ****** *)
 
 (* end of [array.dats] *)
