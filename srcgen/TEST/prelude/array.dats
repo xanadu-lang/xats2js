@@ -53,9 +53,10 @@ a0ref_get<int>(A0)
 val () = println(A0)
 //
 (* ****** ****** *)
-////
+
 val B1 =
-a1ref_make_nval<int>(10, 0)
+a1ref_make_nval<int>
+  (10, 0)
 val y0 = get_at(B1, 0)
 val () = set_at(B1, 1, 1)
 val y1 = get_at(B1, 1)
@@ -63,7 +64,7 @@ val () = set_at(B1, 2, 2)
 val y2 = get_at(B1, 2)
 
 (* ****** ****** *)
-////
+
 val () =
 rforeach(length(B1)) where
 {
@@ -74,7 +75,7 @@ rforeach$work<int>(i0) = set_at(B1, i0, i0+1)
 }
 
 (* ****** ****** *)
-////
+//
 val
 bs =
 gseq_map_list(B1) where
@@ -84,15 +85,21 @@ gseq_map_list(B1) where
   impltmp
   map$fopr<int><int>(x) = (x)
 }
-
+//
+val bs = list_vt2t(bs)
+val () = println("bs = ", bs)
+//
 (* ****** ****** *)
-
+//
 val
 sum = gseq_add(B1) where
 {
-  impltmp a1ref_length<int>(B1) = 10
+  impltmp
+  a1ref_length<int>(B1) = 10
 }
-
+//
+val () = println("sum = ", sum)
+//
 (* ****** ****** *)
 
 val B2 =
@@ -122,6 +129,7 @@ gseq_permutize(B3) where
 impltmp a1ref_length<int>(B1) = 3
 }
 val len = length(xss)
+val ( ) = println("|xss| = ", len)
 
 (* ****** ****** *)
 
