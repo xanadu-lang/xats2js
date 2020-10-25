@@ -263,7 +263,8 @@ print6
 //
 (* ****** ****** *)
 impltmp
-println0<>
+println0
+<>(*tmp*)
 ((*_*)) = g_print("\n")
 (* ****** ****** *)
 //
@@ -280,8 +281,7 @@ end // end of [println1]
 (* ****** ****** *)
 //
 impltmp
-<a1>
-<a2>
+<a1><a2>
 println2
 ( x1
 , x2 ) =
@@ -295,8 +295,7 @@ end // end of [println2]
 //
 impltmp
 <a1>
-<a2>
-<a3>
+<a2><a3>
 println3
 ( x1
 , x2
@@ -311,10 +310,8 @@ end // end of [println3]
 (* ****** ****** *)
 //
 impltmp
-<a1>
-<a2>
-<a3>
-<a4>
+<a1><a2>
+<a3><a4>
 println4
 ( x1
 , x2
@@ -331,10 +328,8 @@ end // end of [println4]
 //
 impltmp
 <a1>
-<a2>
-<a3>
-<a4>
-<a5>
+<a2><a3>
+<a4><a5>
 println5
 ( x1
 , x2
@@ -352,12 +347,9 @@ end // end of [println5]
 (* ****** ****** *)
 //
 impltmp
-<a1>
-<a2>
-<a3>
-<a4>
-<a5>
-<a6>
+<a1><a2>
+<a3><a4>
+<a5><a6>
 println6
 ( x1
 , x2

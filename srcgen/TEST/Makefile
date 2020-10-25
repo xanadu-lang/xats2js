@@ -33,6 +33,10 @@ strms: ; \
 $(XATS2JS) -d $(PRELUDE)/strms.dats
 #
 ######
+test:: array
+array: ; \
+$(XATS2JS) -d $(PRELUDE)/array.dats
+######
 #
 test:: addrs
 addrs: ; \
