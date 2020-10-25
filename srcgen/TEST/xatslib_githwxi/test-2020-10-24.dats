@@ -1,12 +1,4 @@
 (* ****** ****** *)
-//
-(*
-HX-2020-09-19:
-This is actually
-for testing xats2js!
-*)
-//
-(* ****** ****** *)
 #staload
 "prelude/DATS/gbas.dats"
 #staload
@@ -62,7 +54,7 @@ val () = g_print('\n')
 
 (* ****** ****** *)
 
-val () = println(1, '2', "3")
+val () = println(false, 1, '2', "3")
 
 (* ****** ****** *)
 

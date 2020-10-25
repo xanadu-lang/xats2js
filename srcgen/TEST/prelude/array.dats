@@ -69,7 +69,7 @@ val () =
 rforeach(length(B1)) where
 {
 impltmp
-a1ref_length<int>(B1) = 10
+a1ref_length<int>(_) = 10
 impltmp
 rforeach$work<int>(i0) = set_at(B1, i0, i0+1)
 }
@@ -81,7 +81,7 @@ bs =
 gseq_map_list(B1) where
 {
   impltmp
-  a1ref_length<int>(B1) = 10
+  a1ref_length<int>(_) = 10
   impltmp
   map$fopr<int><int>(x) = (x)
 }
@@ -95,7 +95,7 @@ val
 sum = gseq_add(B1) where
 {
   impltmp
-  a1ref_length<int>(B1) = 10
+  a1ref_length<int>(_) = 10
 }
 //
 val () = println("sum = ", sum)
