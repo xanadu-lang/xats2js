@@ -80,7 +80,7 @@ datatype t0erm = // level-0
   ( t0opr
   , t0erm(*arg1*), t0erm(*arg2*))
 //
-| T0Mif0 of 
+| T0Mcond of 
   ( t0erm(*cond*)
   , t0erm(*then*), t0erm(*else*))
 //
@@ -128,9 +128,9 @@ case+ t0 of
   print
   ("T0Mopr2(", x0, "; ", t1, "; ", t2, ")")
 //
-| T0Mif0(t1, t2, t3) =>
+| T0Mcond(t1, t2, t3) =>
   print
-  ("T0Mif0(", t1, "; ", t2, "; ", t3, ")")
+  ("T0Mcond(", t1, "; ", t2, "; ", t3, ")")
 //
 ) (* end of [print_t0erm] *)
 (* ****** ****** *)
@@ -192,8 +192,8 @@ T0Mopr2
 , t0erm_subst(t2, x0, sub))
 //
 |
-T0Mif0(t1, t2, t3) =>
-T0Mif0
+T0Mcond(t1, t2, t3) =>
+T0Mcond
 ( t0erm_subst(t1, x0, sub)
 , t0erm_subst(t2, x0, sub)
 , t0erm_subst(t3, x0, sub))
@@ -257,6 +257,21 @@ in
     val-T0Mint(i1) = t1
     val-T0Mint(i2) = t2 in T0Mbtf(i1 = i2)
     end
+  | "<=" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mbtf(i1 <= i2)
+    end
+  | ">=" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mbtf(i1 >= i2)
+    end
+  | "!=" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mbtf(i1 != i2)
+    end
 //
   | "+" =>
     let
@@ -277,7 +292,7 @@ in
 end
 //
 |
-T0Mif0(t1, t2, t3) =>
+T0Mcond(t1, t2, t3) =>
 let
 val
 t1 = t0erm_interp(t1)
@@ -287,7 +302,7 @@ case+ t1 of
   if btf
   then t0erm_interp(t2) else t0erm_interp(t3)
 | _(*non-T0Mbtf*) =>
-  T0Mif0(t1, t0erm_interp(t2), t0erm_interp(t3))
+  T0Mcond(t1, t0erm_interp(t2), t0erm_interp(t3))
 end
 //
 | _ (* rest-of-t0erm *) => t0 // HX: error-handling is needed
@@ -307,7 +322,7 @@ T0Mfix
 "f"
 ,
 T0Mlam("x",
-T0Mif0(
+T0Mcond(
 T0Mopr2(">", x, T0Mint(0))
 ,
 T0Mopr2
@@ -319,13 +334,42 @@ T0Mint(1)
 )
 )
 end // end of [let] // end of [val]
-
-(* ****** ****** *)
-
 val () =
 println
 ( "fact(10) = "
 , t0erm_interp(T0Mapp(fact, T0Mint(10))))
+
+(* ****** ****** *)
+
+val
+fibo =
+let
+val f = T0Mvar("f")
+val x = T0Mvar("x")
+in
+T0Mfix
+(
+"f"
+,
+T0Mlam("x",
+T0Mcond(
+T0Mopr2("<", x, T0Mint(2))
+,
+x
+,
+T0Mopr2
+( "+"
+, T0Mapp(f, T0Mopr2("-", x, T0Mint(2)))
+, T0Mapp(f, T0Mopr2("-", x, T0Mint(1)))
+)
+)
+)
+)
+end // end of [let] // end of [val]
+val () =
+println
+( "fibo(10) = "
+, t0erm_interp(T0Mapp(fibo, T0Mint(10))))
 
 (* ****** ****** *)
 
