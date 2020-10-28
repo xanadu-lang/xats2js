@@ -202,15 +202,21 @@ T0Mif0
 
 (* ****** ****** *)
 
+#extern
+fun
+t0erm_interp
+(t0: t0erm): t0erm
+
 implement
-t0erm_interp(t0) =
+t0erm_interp
+  (t0) =
 (
 case+ t0 of
 //
 | T0Mint _ => t0
 | T0Mbtf _ => t0
 //
-| T0Mlam _ => t0
+| T0Mlam(_, _) => t0
 | T0Mfix(f1, t2) =>
   t0erm_interp
   (t0erm_subst(t2, f1, t0))
@@ -268,6 +274,20 @@ in
     val-T0Mint(i2) = t2 in T0Mint(i1 * i2)
     end
 //
+end
+//
+|
+T0Mif0(t1, t2, t3) =>
+let
+val
+t1 = t0erm_interp(t1)
+in
+case+ t1 of
+| T0Mbtf(btf) =>
+  if btf
+  then t0erm_interp(t2) else t0erm_interp(t3)
+| _(*non-T0Mbtf*) =>
+  T0Mif0(t1, t0erm_interp(t2), t0erm_interp(t3))
 end
 //
 | _ (* rest-of-t0erm *) => t0 // HX: error-handling is needed
