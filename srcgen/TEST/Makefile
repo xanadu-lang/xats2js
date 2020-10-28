@@ -60,6 +60,12 @@ $(XATS2JS) -d $(PRELUDE)/foldl.dats
 #
 ######
 #
+test:: gpats
+gpats: ; \
+$(XATS2JS) -d $(PRELUDE)/gpats.dats
+#
+######
+#
 test:: kfact
 kfact: ; \
 $(XATS2JS) -d $(PRELUDE)/kfact.dats

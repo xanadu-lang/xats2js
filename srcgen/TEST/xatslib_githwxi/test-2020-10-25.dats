@@ -10,6 +10,7 @@
 "prelude/DATS/gfor.dats"
 #staload
 "prelude/DATS/gfun.dats"
+(* ****** ****** *)
 #staload
 "prelude/DATS/gseq.dats"
 (* ****** ****** *)
@@ -33,6 +34,11 @@
 #staload
 "prelude/DATS/string_vt.dats"
 //
+(* ****** ****** *)
+#staload
+"prelude/DATS/stream.dats"
+#staload
+"prelude/DATS/stream_vt.dats"
 (* ****** ****** *)
 #staload
 "prelude/DATS/unsafe.dats"
@@ -129,6 +135,147 @@ case+ t0 of
 ) (* end of [print_t0erm] *)
 (* ****** ****** *)
 
+#extern
+fun
+t0erm_subst
+( t0: t0erm
+, x0: t0var
+, sub: t0erm): t0erm
+(* ****** ****** *)
+
+implement
+t0erm_subst
+(t0, x0, sub) =
+(
+case+ t0 of
+//
+| T0Mint _ => t0
+| T0Mbtf _ => t0
+//
+| T0Mvar(x1) =>
+  if
+  (x0 = x1)
+  then sub else t0
+//
+|
+T0Mlam(x1, t1) =>
+if (x0 = x1)
+then t0 else
+T0Mlam
+( x1
+, t0erm_subst(t1, x0, sub))
+//
+|
+T0Mfix(f1, t1) =>
+if (x0 = f1)
+then t0 else
+T0Mfix
+( f1
+, t0erm_subst(t1, x0, sub))
+//
+|
+T0Mapp(t1, t2) =>
+T0Mapp
+( t0erm_subst(t1, x0, sub)
+, t0erm_subst(t2, x0, sub))
+//
+|
+T0Mopr1(opr, t1) =>
+T0Mopr1
+( opr
+, t0erm_subst(t1, x0, sub))
+|
+T0Mopr2(opr, t1, t2) =>
+T0Mopr2
+( opr
+, t0erm_subst(t1, x0, sub)
+, t0erm_subst(t2, x0, sub))
+//
+|
+T0Mif0(t1, t2, t3) =>
+T0Mif0
+( t0erm_subst(t1, x0, sub)
+, t0erm_subst(t2, x0, sub)
+, t0erm_subst(t3, x0, sub))
+//
+) (* end of [t0erm_subst] *)
+
+(* ****** ****** *)
+
+implement
+t0erm_interp(t0) =
+(
+case+ t0 of
+//
+| T0Mint _ => t0
+| T0Mbtf _ => t0
+//
+| T0Mlam _ => t0
+| T0Mfix(f1, t2) =>
+  t0erm_interp
+  (t0erm_subst(t2, f1, t0))
+//
+| T0Mapp(t1, t2) =>
+  let
+    val t1 = t0erm_interp(t1)
+    val t2 = t0erm_interp(t2)
+  in
+    case+ t1 of
+    | T0Mlam(x0, t1) =>
+      t0erm_interp
+      (t0erm_subst(t1, x0, t2))
+    | _ (* non-T0Mlam *) => T0Mapp(t1, t2)
+  end
+//
+|
+T0Mopr2(opr, t1, t2) =>
+let
+  val t1 = t0erm_interp(t1)
+  val t2 = t0erm_interp(t2)
+in
+//
+  case+ opr of
+//
+  | "<" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mbtf(i1 < i2)
+    end
+  | ">" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mbtf(i1 > i2)
+    end
+  | "=" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mbtf(i1 = i2)
+    end
+//
+  | "+" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mint(i1 + i2)
+    end
+  | "-" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mint(i1 - i2)
+    end
+  | "*" =>
+    let
+    val-T0Mint(i1) = t1
+    val-T0Mint(i2) = t2 in T0Mint(i1 * i2)
+    end
+//
+end
+//
+| _ (* rest-of-t0erm *) => t0 // HX: error-handling is needed
+//
+) (* end of [t0erm_interp] *)
+
+(* ****** ****** *)
+
 val
 fact =
 let
@@ -143,7 +290,9 @@ T0Mlam("x",
 T0Mif0(
 T0Mopr2(">", x, T0Mint(0))
 ,
-T0Mopr2("*", x, T0Mapp(f, T0Mopr2("-", x, T0Mint(1))))
+T0Mopr2
+( "*", x
+, T0Mapp(f, T0Mopr2("-", x, T0Mint(1))))
 ,
 T0Mint(1)
 )
@@ -153,7 +302,10 @@ end // end of [let] // end of [val]
 
 (* ****** ****** *)
 
-val () = println("fact = ", fact)
+val () =
+println
+( "fact(10) = "
+, t0erm_interp(T0Mapp(fact, T0Mint(10))))
 
 (* ****** ****** *)
 

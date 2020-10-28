@@ -1091,6 +1091,21 @@ case+ pck0 of
 L1PCKany() => ()
 //
 |
+L1PCKint(int, l1v) =>
+{
+val () =
+xemit01_txt00(out, "if(")
+val () =
+xemit01_lvint( out, int )
+val () =
+xemit01_txt00(out, "!==")
+val () =
+xemit01_l1val( out, l1v )
+val () =
+xemit01_txtln(out, ") break;")
+}
+//
+|
 L1PCKcon(ldc, l1v) =>
 {
 val () =

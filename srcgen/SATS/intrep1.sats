@@ -251,6 +251,16 @@ l1pck =
 | L1PCKint of (int, l1val)
 | L1PCKbtf of (bool, l1val)
 *)
+//
+| L1PCKint of
+  ( token, l1val )
+| L1PCKbtf of
+  ( token, l1val )
+| L1PCKchr of
+  ( token, l1val )
+| L1PCKstr of
+  ( token, l1val )
+//
 | L1PCKcon of
   ( ldcon, l1val )
 //

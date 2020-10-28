@@ -346,25 +346,38 @@ H0Pany _ => L1PCKany()
 H0Pvar _ => L1PCKany()
 //
 |
+H0Pint
+( tok1 ) =>
+(
+  L1PCKint(tok1, l1v1)
+)
+|
+H0Pstr
+( tok1 ) =>
+(
+  L1PCKstr(tok1, l1v1)
+)
+//
+|
 H0Pbang(h0p1) =>
 xcomp01_h0pat_ck0
-(env0, h0p1(*var*), l1v1)
+( env0, h0p1(*var*), l1v1 )
 |
 H0Pflat(h0p1) =>
 xcomp01_h0pat_ck0
-(env0, h0p1(*con*), l1v1)
+( env0, h0p1(*con*), l1v1 )
 |
 H0Pfree(h0p1) =>
 xcomp01_h0pat_ck0
-(env0, h0p1(*con*), l1v1)
+( env0, h0p1(*con*), l1v1 )
 //
 |
-H0Pcon(hdc) =>
+H0Pcon( hdc1 ) =>
 let
-val ldc =
-xcomp01_hdcon(env0, hdc)
+val ldc1 =
+xcomp01_hdcon(env0, hdc1)
 in
-L1PCKcon(ldc, l1v1(*ctag*))
+  L1PCKcon(ldc1, l1v1(*ctag*))
 end
 //
 |

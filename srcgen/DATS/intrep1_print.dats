@@ -211,6 +211,27 @@ case+ x0 of
 | L1PCKany() =>
   fprint!(out, "L1PCKany(", ")")
 //
+| L1PCKint
+  (int1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKint(", int1, "; ", l1v2, ")")
+| L1PCKbtf
+  (btf1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKbtf(", btf1, "; ", l1v2, ")")
+| L1PCKchr
+  (chr1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKchr(", chr1, "; ", l1v2, ")")
+| L1PCKstr
+  (str1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKstr(", str1, "; ", l1v2, ")")
+//
 | L1PCKcon
   (hdc1, l1v2) =>
   fprint!
