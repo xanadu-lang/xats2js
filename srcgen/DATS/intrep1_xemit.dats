@@ -1135,6 +1135,21 @@ xemit01_txtln(out, ") break;")
 }
 //
 |
+L1PCKbtf(btf, l1v) =>
+{
+val () =
+xemit01_txt00(out, "if(")
+val () =
+xemit01_lvbtf( out, btf )
+val () =
+xemit01_txt00(out, "!==")
+val () =
+xemit01_l1val( out, l1v )
+val () =
+xemit01_txtln(out, ") break;")
+}
+//
+|
 L1PCKchr(chr, l1v) =>
 {
 val () =
@@ -1194,7 +1209,8 @@ L1PCKtup(knd0, pcks) =>
 //
 | _ (* else *) =>
 {
-  val () = fprint!(out, "//", pck0)
+val () =
+fprintln!(out, "//", pck0, ";")
 }
 )
 //

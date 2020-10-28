@@ -35,6 +35,21 @@
 (* ****** ****** *)
 
 fun
+not
+(b0: bool): bool =
+(
+case+ b0 of
+| true => false
+| false => true
+)
+val () =
+println("not(true) = ", not(true))
+val () =
+println("not(false) = ", not(false))
+
+(* ****** ****** *)
+
+fun
 digit
 (c0: char): sint =
 (
