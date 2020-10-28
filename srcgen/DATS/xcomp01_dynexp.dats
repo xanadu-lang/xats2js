@@ -352,6 +352,12 @@ H0Pint
   L1PCKint(tok1, l1v1)
 )
 |
+H0Pchr
+( tok1 ) =>
+(
+  L1PCKchr(tok1, l1v1)
+)
+|
 H0Pstr
 ( tok1 ) =>
 (

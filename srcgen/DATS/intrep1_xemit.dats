@@ -57,6 +57,35 @@ fprint with $LOC.fprint_location
 (* ****** ****** *)
 #staload "./../SATS/intrep1.sats"
 (* ****** ****** *)
+
+fun
+chrunq
+( rep
+: string): char =
+xatsopt_chrunq(rep) where
+{
+extern
+fun
+xatsopt_chrunq
+( rep
+: string
+) : char = "ext#xatsopt_chrunq"
+}
+fun
+strunq
+( rep
+: string): char =
+xatsopt_strunq(rep) where
+{
+extern
+fun
+xatsopt_strunq
+( rep
+: string
+) : char = "ext#xatsopt_strunq"
+}
+
+(* ****** ****** *)
 implement
 xemit01_txt00
 (out, txt) =
@@ -1097,6 +1126,21 @@ val () =
 xemit01_txt00(out, "if(")
 val () =
 xemit01_lvint( out, int )
+val () =
+xemit01_txt00(out, "!==")
+val () =
+xemit01_l1val( out, l1v )
+val () =
+xemit01_txtln(out, ") break;")
+}
+//
+|
+L1PCKchr(chr, l1v) =>
+{
+val () =
+xemit01_txt00(out, "if(")
+val () =
+xemit01_lvchr( out, chr )
 val () =
 xemit01_txt00(out, "!==")
 val () =
