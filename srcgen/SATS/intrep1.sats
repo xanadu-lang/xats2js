@@ -272,7 +272,14 @@ l1pck =
   ( int//(*tup-knd*)
   , l1pcklst(*tup-arg*) )
 //
-| L1PCKpat of (h0pat, l1val)
+| L1PCKgpat of
+  ( l1pck(*gpat-pat*)
+  , l1pcklst(*gpat-gua*) )
+| L1PCKgexp of (l1val, l1blk)
+| L1PCKgmat of (h0exp, h0pat)
+//
+//
+| L1PCKxpat of (h0pat, l1val)
 //
 where l1pcklst = List0(l1pck)
 //

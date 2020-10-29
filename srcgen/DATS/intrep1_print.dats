@@ -250,11 +250,28 @@ case+ x0 of
   ( out
   , "L1PCKtup(", knd0, "; ", pcks, ")")
 //
-| L1PCKpat
+| L1PCKgpat
+  (pck1, pcks) =>
+  fprint!
+  ( out
+  , "L1PCKgpat(", pck1, "; ", pcks, ")")
+//
+| L1PCKgexp
+  (l1v1, blk1) =>
+  fprint!
+  ( out
+  , "L1PCKgexp(", l1v1, "; ", blk1, ")")
+| L1PCKgmat
+  (h0e1, h0p2) =>
+  fprint!
+  ( out
+  , "L1PCKgmat(", h0e1, "; ", h0p2, ")")
+//
+| L1PCKxpat
   (h0p1, l1v2) =>
   fprint!
   ( out
-  , "L1PCKpat(", h0p1, "; ", l1v2, ")")
+  , "L1PCKxpat(", h0p1, "; ", l1v2, ")")
 //
 ) (* end of [fprint_l1pck] *)
 //

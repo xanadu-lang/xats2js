@@ -407,7 +407,7 @@ aux_tuple
 )
 //
 |
-_ (*else*) => L1PCKpat(h0p0, l1v1)
+_ (*else*) => L1PCKxpat(h0p0, l1v1)
 //
 end // end of [xcomp01_h0pat_ck0]
 
@@ -761,6 +761,64 @@ xcomp01_h0pat_ck1(env0, h0p0, l1v1)
 end // end of [xcomp01_h0pat_ck01]
 (* ****** ****** *)
 
+local
+
+fun
+auxh0g0
+( env0:
+! compenv
+, h0g0
+: h0gua): l1pck =
+(
+case+
+h0g0.node() of
+|
+H0GUAexp
+(h0e1) =>
+let
+val () =
+xcomp01_lcmdpush_nil(env0)
+val l1v1 =
+xcomp01_h0exp_val(env0, h0e1)
+in
+L1PCKgexp(l1v1, blk1) where
+{
+  val
+  blk1 =
+  xcomp01_lcmdpop0_blk(env0)
+}
+end // end of [H0GUAexp]
+|
+H0GUAmat
+( h0e1
+, h0p2) =>
+L1PCKgmat(h0e1, h0p2)
+)
+and
+auxh0gs
+( env0:
+! compenv
+, h0gs
+: h0gualst): l1pcklst =
+(
+case+ h0gs of
+|
+list_nil() =>
+list_nil()
+|
+list_cons
+(h0g1, h0gs) =>
+(
+list_cons(pck1, pcks)
+) where
+{
+val pck1 = auxh0g0(env0, h0g1)
+val pcks = auxh0gs(env0, h0gs)
+}
+)
+
+in(*in-of-local*)
+
 implement
 xcomp01_h0gpat_ck0
 ( env0
@@ -768,13 +826,35 @@ xcomp01_h0gpat_ck0
 (
 case-
 hgp0.node() of
-| H0GPATpat(h0p1) =>
-  xcomp01_h0pat_ck0
-  ( env0, h0p1, l1v1 )
-(*
-| H0GPATgua of (h0pat, h0gualst)
-*)
-) (* end of [xcomp01_h0gpat_ck0] *)
+|
+H0GPATpat(h0p1) =>
+xcomp01_h0pat_ck0
+( env0, h0p1, l1v1 )
+|
+H0GPATgua(h0p1, h0gs) =>
+let
+//
+val
+pck1 =
+xcomp01_h0pat_ck0
+( env0, h0p1, l1v1 )
+//
+val
+pcks =
+auxh0gs( env0, h0gs )
+//
+in
+  L1PCKgpat(pck1, pcks)
+end
+) where
+{
+val () =
+println! (
+"xcomp01_h0gpat_ck0: hgp0 = ", hgp0
+) (* println! *)
+} (* end of [xcomp01_h0gpat_ck0] *)
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -785,12 +865,21 @@ xcomp01_h0gpat_ck1
 (
 case-
 hgp0.node() of
-| H0GPATpat(h0p1) =>
+|
+H0GPATpat(h0p1) =>
+xcomp01_h0pat_ck1
+( env0, h0p1, l1v1 )
+|
+H0GPATgua(h0p1, h0gs) =>
+let
+  val () = 
   xcomp01_h0pat_ck1
   ( env0, h0p1, l1v1 )
+in
 (*
-| H0GPATgua of (h0pat, h0gualst)
+  xcomp01_h0gualst_ck1(h0gs)
 *)
+end
 ) (* end of [xcomp01_h0gpat_ck1] *)
 
 (* ****** ****** *)
