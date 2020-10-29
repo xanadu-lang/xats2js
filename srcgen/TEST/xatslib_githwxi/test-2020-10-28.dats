@@ -455,14 +455,13 @@ T0Mfix(f0, t0m1) =>
   vlam = VALlam(t0m1, env0)
 }
 //
-| T0Mapp(_, _) =>
-  aux_app(t0m0, env0)
+|
+T0Mapp _ => aux_app(t0m0, env0)
+|
+T0Mopr2 _ => aux_opr2(t0m0, env0)
 //
-| T0Mopr2(_, _, _) =>
-  aux_opr2(t0m0, env0)
-//
-| T0Mcond(_, _, _) =>
-  aux_cond(t0m0, env0)
+|
+T0Mcond _ => aux_cond(t0m0, env0)
 //
 ) where
 {
