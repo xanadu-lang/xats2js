@@ -216,7 +216,7 @@ case+ t0 of
 | T0Mint _ => t0
 | T0Mbtf _ => t0
 //
-| T0Mlam(_, _) => t0
+| T0Mlam _ => t0
 | T0Mfix(f1, t2) =>
   t0erm_interp
   (t0erm_subst(t2, f1, t0))

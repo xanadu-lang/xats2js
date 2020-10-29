@@ -129,6 +129,32 @@ end // end of [xcomp01_hdcon]
 
 local
 
+(* ****** ****** *)
+
+fun
+auxdap1
+( env0
+: !compenv
+, h0p0
+: h0pat
+, l1v1
+: l1val): l1pck =
+let
+val-
+H0Pdap1
+( h0f0) = h0p0.node()
+in
+xcomp01_h0pat_ck0
+(env0, h0f0, ltag) where
+{
+val
+ltag =
+l1val_ctag(l1v1.loc(), l1v1)
+}
+end // end of [auxdap1]
+
+(* ****** ****** *)
+
 fun
 auxdapp
 ( env0
@@ -151,7 +177,7 @@ l1val_ctag
 val
 pckf =
 xcomp01_h0pat_ck0
-( env0, h0f0, ltag)
+( env0, h0f0, ltag )
 //
 in
 L1PCKapp
@@ -391,6 +417,13 @@ xcomp01_hdcon(env0, hdc1)
 in
   L1PCKcon(ldc1, l1v1(*ctag*))
 end
+//
+|
+H0Pdap1 _ =>
+(
+auxdap1
+(env0, h0p0, l1v1(*con-val*))
+)
 //
 |
 H0Pdapp _ =>
@@ -718,6 +751,7 @@ h0p0.node() of
 | H0Pfree _ =>
   auxfree(env0, h0p0, l1v1)
 //
+| H0Pdap1 _ => ()
 | H0Pdapp _ =>
   auxdapp(env0, h0p0, l1v1)
 //
