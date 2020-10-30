@@ -162,6 +162,11 @@ test-2020-10-28: ; \
 $(XATS2JS) -d $(GITHWXI)/test-2020-10-28.dats
 ######
 test:: \
+test-2020-10-29
+test-2020-10-29: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-10-29.dats
+######
+test:: \
 test-ats2-queens
 test-ats2-queens: ; \
 $(XATS2JS) -d $(GITHWXI)/test-ats2-queens.dats

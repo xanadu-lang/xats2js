@@ -50,6 +50,8 @@ val a = "a"
 val b = "b"
 val ab = "ab"
 val cd = "cd"
+val lte = ab <= cd
+val gte = ab >= cd
 val sgn = g_cmp(a, ab)
 val sgn = g_cmp(b, ab)
 val sgn = g_cmp(ab, ab)

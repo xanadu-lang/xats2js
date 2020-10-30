@@ -60,35 +60,47 @@
 
 (* ****** ****** *)
 
-datatype ab =
-| A of int | B of string
+datatype
+abc =
+| A of int
+| B of string
+| C of (abc, abc)
 
 (* ****** ****** *)
 
+#extern
 fun
-print_ab(ab) =
+print_abc
+(x0: abc): void
+impltmp
+g_print<abc> = print_abc
+
+(* ****** ****** *)
+
+implfun
+print_abc(x0) =
 (
-case+ ab of
+case+ x0 of
 | A(int) =>
   print("A(", int, ")")
 | B(str) =>
   print("B(", str, ")")
+| C(x1, x2) =>
+  print
+  ("C(", x1, "; ", x2, ")")
 )
 
 (* ****** ****** *)
 
-impltmp
-g_print<ab> = print_ab
+val a1 = A(5)
+val b2 = B("5")
+val c3 = C(a1, b2)
 
 (* ****** ****** *)
 
-val ab1 = A(5)
-val ab2 = B("5")
-
-(* ****** ****** *)
-
-val () = println("ab1 = ", ab1)
-val () = println("ab2 = ", ab2)
+val () = println("a1 = ", a1)
+val () = println("b2 = ", b2)
+val () = println("c3 = ", c3)
 
 (* ****** ****** *)
 
