@@ -105,6 +105,27 @@ print8
 , x6: !a6
 , x7: !a7
 , x8: !a8 ) : void
+#extern
+fun
+<a1:vt>
+<a2:vt>
+<a3:vt>
+<a4:vt>
+<a5:vt>
+<a6:vt>
+<a7:vt>
+<a8:vt>
+<a9:vt>
+print9
+( x1: !a1
+, x2: !a2
+, x3: !a3
+, x4: !a4
+, x5: !a5
+, x6: !a6
+, x7: !a7
+, x8: !a8
+, x9: !a9 ) : void
 (* ****** ****** *)
 //
 #symload print with print1
@@ -115,6 +136,7 @@ print8
 #symload print with print6
 #symload print with print7
 #symload print with print8
+#symload print with print9
 //
 (* ****** ****** *)
 #extern
@@ -208,7 +230,7 @@ fun
 <a6:vt>
 <a7:vt>
 <a8:vt>
-println7
+println8
 ( x1: !a1
 , x2: !a2
 , x3: !a3
@@ -217,6 +239,27 @@ println7
 , x6: !a6
 , x7: !a7
 , x8: !a8 ) : void
+#extern
+fun
+<a1:vt>
+<a2:vt>
+<a3:vt>
+<a4:vt>
+<a5:vt>
+<a6:vt>
+<a7:vt>
+<a8:vt>
+<a9:vt>
+println9
+( x1: !a1
+, x2: !a2
+, x3: !a3
+, x4: !a4
+, x5: !a5
+, x6: !a6
+, x7: !a7
+, x8: !a8
+, x9: !a9 ) : void
 (* ****** ****** *)
 //
 #symload println with println0
@@ -228,6 +271,7 @@ println7
 #symload println with println6
 #symload println with println7
 #symload println with println8
+#symload println with println9
 //
 (* ****** ****** *)
 //
@@ -390,6 +434,36 @@ print8
 }
 //
 (* ****** ****** *)
+//
+impltmp
+<a1>
+<a2>
+<a3>
+<a4>
+<a5>
+<a6>
+<a7>
+<a8>
+<a9>
+print9
+( x1
+, x2, x3
+, x4, x5
+, x6, x7
+, x8, x9 ) = () where
+{
+  val () = g_print<a1>(x1)
+  val () = g_print<a2>(x2)
+  val () = g_print<a3>(x3)
+  val () = g_print<a4>(x4)
+  val () = g_print<a5>(x5)
+  val () = g_print<a6>(x6)
+  val () = g_print<a7>(x7)
+  val () = g_print<a8>(x8)
+  val () = g_print<a9>(x9)
+}
+//
+(* ****** ****** *)
 impltmp
 println0
 <>(*tmp*)
@@ -400,11 +474,10 @@ impltmp
 <a1>
 println1
 ( x1 ) =
-let
-val () =
+(
 print1
-( x1 ) in println0<>()
-end // end of [println1]
+( x1 ) ; println0<>()
+) (* end of [println1] *)
 //
 (* ****** ****** *)
 //
@@ -413,11 +486,10 @@ impltmp
 println2
 ( x1
 , x2 ) =
-let
-val () =
+(
 print2
-( x1, x2 ) in println0<>()
-end // end of [println2]
+( x1, x2 ) ; println0<>()
+) (* end of [println2] *)
 //
 (* ****** ****** *)
 //
@@ -428,12 +500,11 @@ println3
 ( x1
 , x2
 , x3 ) =
-let
-val () =
+(
 print3
 ( x1
-, x2, x3 ) in println0<>()
-end // end of [println3]
+, x2, x3 ) ; println0<>()
+) (* end of [println3] *)
 //
 (* ****** ****** *)
 //
@@ -445,12 +516,11 @@ println4
 , x2
 , x3
 , x4 ) =
-let
-val () =
+(
 print4
 ( x1, x2
-, x3, x4 ) in println0<>()
-end // end of [println4]
+, x3, x4 ) ; println0<>()
+) (* end of [println4] *)
 //
 (* ****** ****** *)
 //
@@ -464,13 +534,12 @@ println5
 , x3
 , x4
 , x5 ) =
-let
-val () =
+(
 print5
 ( x1
 , x2, x3
-, x4, x5 ) in println0<>()
-end // end of [println5]
+, x4, x5 ) ; println0<>()
+) (* end of [println5] *)
 //
 (* ****** ****** *)
 //
@@ -485,13 +554,12 @@ println6
 , x4
 , x5
 , x6 ) =
-let
-val () =
+(
 print6
 ( x1, x2
 , x3, x4
-, x5, x6 ) in println0<>()
-end // end of [println6]
+, x5, x6 ) ; println0<>()
+) (* end of [println6] *)
 //
 (* ****** ****** *)
 //
@@ -505,14 +573,13 @@ println7
 , x2, x3
 , x4, x5
 , x6, x7 ) =
-let
-val () =
+(
 print7
 ( x1
 , x2, x3
 , x4, x5
-, x6, x7 ) in println0<>()
-end // end of [println7]
+, x6, x7 ) ; println0<>()
+) (* end of [println7] *)
 //
 (* ****** ****** *)
 //
@@ -526,14 +593,36 @@ println8
 , x3, x4
 , x5, x6
 , x7, x8 ) =
-let
-val () =
-print7
+(
+print8
 ( x1, x2
 , x3, x4
 , x5, x6
-, x7, x8 ) in println0<>()
-end // end of [println8]
+, x7, x8 ) ; println0<>()
+) (* end of [println8] *)
+//
+(* ****** ****** *)
+//
+impltmp
+<a1>
+<a2><a3>
+<a4><a5>
+<a6><a7>
+<a8><a9>
+println9
+( x1
+, x2, x3
+, x4, x5
+, x6, x7
+, x8, x9 ) =
+(
+print9
+( x1
+, x2, x3
+, x4, x5
+, x6, x7
+, x8, x9 ) ; println0<>()
+) (* end of [println9] *)
 //
 (* ****** ****** *)
 
