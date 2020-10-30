@@ -55,9 +55,11 @@
 "prelude\
 /DATS/CATS/JS/basics.dats"
 (* ****** ****** *)
-
 #staload "./../print.dats"
-
+(* ****** ****** *)
+#staload
+"prelude\
+/DATS/CATS/JS/g_print.dats"
 (* ****** ****** *)
 
 datatype

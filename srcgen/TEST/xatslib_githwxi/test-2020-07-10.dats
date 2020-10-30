@@ -52,6 +52,10 @@
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
 (* ****** ****** *)
+#staload
+"prelude\
+/DATS/CATS/JS/g_print.dats"
+(* ****** ****** *)
 
 val xs =
 list_cons(1,

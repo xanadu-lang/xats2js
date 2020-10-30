@@ -50,9 +50,11 @@
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
 (* ****** ****** *)
-
 #staload "./../print.dats"
-
+(* ****** ****** *)
+#staload
+"prelude\
+/DATS/CATS/JS/g_print.dats"
 (* ****** ****** *)
 //
 // creating an alias

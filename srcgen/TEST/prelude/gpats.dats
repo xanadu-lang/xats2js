@@ -28,6 +28,9 @@
 #staload _ =
 "prelude\
 /DATS/CATS/JS/basics.dats"
+#staload
+"prelude\
+/DATS/CATS/JS/g_print.dats"
 (* ****** ****** *)
 
 #staload "./../print.dats"

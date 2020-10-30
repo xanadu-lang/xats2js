@@ -40,6 +40,10 @@
 (* ****** ****** *)
 #staload "./../print.dats"
 (* ****** ****** *)
+#staload
+"prelude\
+/DATS/CATS/JS/g_print.dats"
+(* ****** ****** *)
 //
 val A0 =
 a0ref_make(0)
