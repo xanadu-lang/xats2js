@@ -52,7 +52,7 @@
 ** node --stack-size=8000 ...
 *)
 (* ****** ****** *)
-#staload "./../print.dats"
+#staload "./../myprint.dats"
 (* ****** ****** *)
 #include
 "./../../..\

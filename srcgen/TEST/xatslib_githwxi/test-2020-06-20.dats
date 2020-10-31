@@ -3,7 +3,7 @@
 // Game-of-24
 *)
 (* ****** ****** *)
-#staload "./../print.dats"
+#staload "./../myprint.dats"
 (* ****** ****** *)
 #include
 "./../../..\

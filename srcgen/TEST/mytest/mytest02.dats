@@ -36,4 +36,4 @@ val foo1_tmp_res = foo1<>()
 
 (* ****** ****** *)
 
-(* end of [test02.dats] *)
+(* end of [mytest02.dats] *)

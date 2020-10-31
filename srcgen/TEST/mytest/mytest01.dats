@@ -106,4 +106,4 @@ val () = g_print( "\n" )
 
 (* ****** ****** *)
 
-(* end of [test01.dats] *)
+(* end of [mytest01.dats] *)

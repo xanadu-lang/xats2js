@@ -1,5 +1,5 @@
 (* ****** ****** *)
-#staload "./../print.dats"
+#staload "./../myprint.dats"
 (* ****** ****** *)
 #include
 "./../../..\

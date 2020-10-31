@@ -33,7 +33,7 @@
 /DATS/CATS/JS/g_print.dats"
 (* ****** ****** *)
 
-#staload "./../print.dats"
+#staload "./../myprint.dats"
 
 (* ****** ****** *)
 

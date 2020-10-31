@@ -3,7 +3,7 @@
 ** A solution to Hanoi Towers
 *)
 (* ****** ****** *)
-#staload "./../print.dats"
+#staload "./../myprint.dats"
 (* ****** ****** *)
 #include
 "./../../..\

@@ -38,11 +38,9 @@
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
 (* ****** ****** *)
-#staload "./../print.dats"
-(* ****** ****** *)
+#staload "./../myprint.dats"
 #staload
-"prelude\
-/DATS/CATS/JS/g_print.dats"
+"prelude/DATS/CATS/JS/g_print.dats"
 (* ****** ****** *)
 //
 val A0 =

@@ -17,7 +17,7 @@
 // implementation of exceptions
 //
 (* ****** ****** *)
-#staload "./../print.dats"
+#staload "./../myprint.dats"
 (* ****** ****** *)
 #include
 "./../../..\
