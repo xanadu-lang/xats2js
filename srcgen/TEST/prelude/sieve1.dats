@@ -17,9 +17,11 @@
 #staload
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
+(* ****** ****** *)
+#staload "./../print.dats"
 #staload
 "prelude\
-/DATS/CATS/JS/g_print.dats"
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 
 impltmp
@@ -89,24 +91,12 @@ strmcon_cons(x5, xs) = !xs // x5 = 13
 
 (* ****** ****** *)
 
-val () =
-( g_print("x0 = ")
-; g_print(x0); g_print('\n') )
-val () =
-( g_print("x1 = ")
-; g_print(x1); g_print('\n') )
-val () =
-( g_print("x2 = ")
-; g_print(x2); g_print('\n') )
-val () =
-( g_print("x3 = ")
-; g_print(x3); g_print('\n') )
-val () =
-( g_print("x4 = ")
-; g_print(x4); g_print('\n') )
-val () =
-( g_print("x5 = ")
-; g_print(x5); g_print('\n') )
+val () = println("x0 = ", x0)
+val () = println("x1 = ", x1)
+val () = println("x2 = ", x2)
+val () = println("x3 = ", x3)
+val () = println("x4 = ", x4)
+val () = println("x5 = ", x5)
 
 (* ****** ****** *)
 
