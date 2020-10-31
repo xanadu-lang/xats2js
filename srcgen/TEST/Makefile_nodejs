@@ -23,16 +23,58 @@ PRELUDE=./prelude
 GITHWXI=./xatslib_githwxi
 ######
 test:: \
+test-2020-03-21
+test-2020-03-21:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-03-21.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+test:: \
+test-2020-03-22
+test-2020-03-22:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-03-22.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+test:: \
+test-2020-04-19
+test-2020-04-19:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-04-19.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+test:: \
+test-2020-06-05
+test-2020-06-05:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-06-05.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+test:: \
 test-2020-06-20
 test-2020-06-20:: ; \
 $(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-06-20.dats && $(NODE) --stack-size=8000 output_dats.js
 ######
 test:: \
+test-2020-07-10
+test-2020-07-10:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-07-10.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+test:: \
 test-2020-07-25
 test-2020-07-25:: ; \
 $(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-07-25.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+test:: \
+test-2020-09-19
+test-2020-09-19:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-09-19.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+test:: \
+test-2020-10-01
+test-2020-10-01:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-10-01.dats && $(NODE) --stack-size=8000 output_dats.js
 ######
 test:: \
 test-ats2-queens
