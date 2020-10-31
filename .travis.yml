@@ -35,8 +35,7 @@ before_script:
   - date
 
 script:
-  - which node
-  - which nodejs
+  # which node
   # Building ATS2
   - cd ${PATSHOME}
   - ./configure&&make CC=${GCC} all

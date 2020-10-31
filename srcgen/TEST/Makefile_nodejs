@@ -1,0 +1,53 @@
+######
+#
+# For testing xats2js
+#
+######
+
+CAT=cat
+CPF=cp -f
+ECHO=echo
+NODE=node
+
+######
+XANADU=./../../xanadu
+XATS2JS="./../../bin/xats2js"
+######
+all:: test
+######
+PRELUDE=./prelude
+GITHWXI=./xatslib_githwxi
+######
+test:: \
+xats2js_cats
+xats2js_cats:: ; \
+$(ECHO) > xats2js_cats.js
+xats2js_cats:: ; \
+$(CAT) \
+$(XANADU)/prelude/DATS/CATS/JS/runtime.cats >> xats2js_cats.js
+xats2js_cats:: ; \
+$(CAT) \
+$(XANADU)/prelude/DATS/CATS/JS/Node/g_print.cats >> xats2js_cats.js
+######
+test:: \
+test-2020-06-20
+test-2020-06-20:: ; \
+$(CAT) xats2js_cats.js > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-06-20.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+test:: \
+test-ats2-queens
+test-ats2-queens:: ; \
+$(CAT) xats2js_cats.js > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-ats2-queens.dats && $(NODE) --stack-size=8000 output_dats.js
+######
+#
+# HX: for cleaning up
+#
+######
+clean:: ; rm -f *~
+######
+cleanall:: clean
+cleanall:: ; rm -f output
+######
+###### end of [Makefile_nodejs] ######
