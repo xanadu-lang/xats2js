@@ -308,14 +308,14 @@ extern
 fun
 the_fixity_load
 (
-XATSHOME: string
+XATSENV: string
 ) : void =
   "ext#libxatsopt_the_fixity_load"
 extern
 fun
 the_basics_load
 (
-XATSHOME: string
+XATSENV: string
 ,
 stadyn: int, given: string
 ) : void =
@@ -325,7 +325,7 @@ extern
 fun
 the_prelude_load
 (
-XATSHOME: string
+XATSENV: string
 ,
 stadyn: int, given: string
 ) : void =
@@ -335,7 +335,7 @@ extern
 fun
 the_preludes_load
 (
-  XATSHOME: string
+ XATSENV: string
 ) : void =
   "ext#libxatsopt_the_preludes_load"
 //
@@ -423,7 +423,7 @@ arg0= commarg
 ,
 wtk0= waitknd
 ,
-ATSHOME= string
+XATSENV= string
 ,
 prelude= int
 ,
@@ -544,8 +544,8 @@ end // end of [local]
 
 fun
 cmdstate_set_outchan
-(
-st0: &cmdstate >> _, out1: outchan
+( st0:
+& cmdstate >> _, out1: outchan
 ) : void = let
   val out0 = st0.outchan
   val ((*void*)) = st0.outchan := out1
@@ -564,29 +564,36 @@ end // end of [cmdstate_set_outchan]
 extern
 fun
 outchan_make_fname
-( st0
-: &cmdstate, fname: string
+( st0:
+& cmdstate
+, fname: string
 ) : outchan // end-of-fun
 implement
 outchan_make_fname
   (st0, fname) =
 (
-case+ fname of
-| "-" => OUTCHANref(stdout_ref)
-//
-| _(*unspecial*) => auxmain(st0, fname)
+ifcase
+|
+("_" = fname) =>
+OUTCHANref(stdout_ref)
+| _(* else *) =>
+(
+  auxmain(st0, fname)
+)
 //
 ) where
 {
 fun
 auxmain
-( st0
-: &cmdstate, fname: string
+( st0:
+& cmdstate
+, fname: string
 ) : outchan = let
 //
 val
 filp =
-$STDIO.fopen(fname, st0.outmode)
+$STDIO.fopen
+(fname, st0.outmode)
 //
 in
 //
@@ -615,7 +622,9 @@ end // end of [auxmain]
 extern
 fun
 xatsopt_commarg_warning
-  (out: FILEref, arg: string): void
+  ( out
+  : FILEref
+  , arg: string): void
 implement
 xatsopt_commarg_warning
   (out, arg) = () where
@@ -642,13 +651,13 @@ process_stdin
 static
 fun
 process_fpath
-( st0
-: &cmdstate >> _, fp0: fpath_t): void
+( st0:
+& cmdstate >> _, fp0: fpath_t): void
 static
 fun
 process_given
-( st0
-: &cmdstate >> _, given: string): void
+( st0:
+& cmdstate >> _, given: string): void
 //
 static
 fun
@@ -683,7 +692,7 @@ stadyn =
 waitknd_get_stadyn(wtk0)
 //
 val
-XATSHOME = st0.ATSHOME
+XATSENV = st0.XATSENV
 //
 val () =
 ifcase
@@ -692,19 +701,22 @@ $FP0.filpath_is_stdin(fp0) =>
 $FP0.the_dirpathlst_ppush_cwd()
 | _ (* regular filename *) =>
 let
+//
 val
 dp0 =
 $FP0.dirpath_make
 ($FP0.filpath_get_dirname(fp0))
+//
+(*
 val () =
 let
 val out = stdout_ref
 in
-(*
 fprint(out, "dirpath = ");
 $FP0.fprintln_dirpath(out, dp0)
-*)
 end
+*)
+//
 in
   $FP0.the_filpathlst_ppush(fp0);
   $FP0.the_dirpathlst_ppush(dp0)
@@ -721,7 +733,7 @@ then
 //
 val () =
 the_preludes_load_if
-(XATSHOME, st0.prelude)
+(XATSENV, st0.prelude)
 // end of [val]
 //
 val () = (st0.inpfil0 := fp0)
@@ -874,75 +886,110 @@ val () =
 *)
 //
 val
-dcls =
+hdcls =
 let
 val
-dcls = tcomp30_program(d3cs)
+hdcls = tcomp30_program(d3cs)
 in
-dcls where
+hdcls where
 {
 (*
-val () =
-fprintln!
-( stdout_ref
-, "process_fpath: dcls = ", dcls)
-*)
 //
 val () =
 fprintln!
-( stdout_ref
-, "//process_fpath: dcls = ")
+( stderr_ref
+, "//process_fpath: hdcls = ")
+//
 val () =
-loop(dcls) where
+loop(hdcls) where
 {
 //
 fun
 loop
-(h0cs: h0dclist): void =
+( hdcls
+: h0dclist): void =
 (
-case+ h0cs of
+case+
+hdcls of
 |
-list_nil() => ((*void*))
+list_nil() =>
+fprint_newline(stderr_ref)
 |
 list_cons
-(h0c1, h0cs) =>
-loop(h0cs) where
+(hdcl1, hdcls) =>
+loop(hdcls) where
 {
-val () =
-fprintln!(stdout_ref, "//", h0c1) 
+  val () =
+  fprintln!
+  (stderr_ref, "//", hdcl1) 
 } (* end-of-where *)
 ) (* end of [val] *)
 //
 } // end-of-where
+*)
 } // end-of-where
 //
-end // end of [let]
-val () =
-(
-  fprint_newline(stdout_ref)
-)
-//
+end // end of [val hdcls]
+
+(* ****** ****** *)
+
 val
-dcls =
+ldcls =
 let
 val
-dcls = xcomp01_program(dcls)
+ldcls = xcomp01_program(hdcls)
 in
-dcls where
+ldcls where
 {
 //
 val () =
-xemit01_program(stdout_ref, dcls)
+let
+val out =
+outchan_get_filref
+(st0.outchan)
+in
+xemit01_program(out, ldcls)
+end // end of [let]
 //
 (*
 val () =
+{
+val () =
 fprintln!
-( stdout_ref
-, "process_fpath: dcls = ", dcls)
+( stderr_ref
+, "//process_fpath: ldcls = ")
+val () =
+loop(ldcls) where
+{
+//
+fun
+loop
+( ldcls
+: l1dclist): void =
+(
+case+
+ldcls of
+|
+list_nil() => ()
+fprint_newline(stderr_ref)
+|
+list_cons
+(ldcl1, ldcls) =>
+loop(ldcls) where
+{
+  val () =
+  fprintln!
+  (stderr_ref, "//", ldcl1) 
+} (* end-of-where *)
+) (* end of [val] *)
+//
+} // end of [where]
+} // end of [where]
 *)
-}
-end // end of [let]
-val () = fprint_newline(stdout_ref)
+//
+} // end of [where]
+//
+end // end of [val ldcls]
 //
 } (* end of [then] *)
 else
@@ -951,7 +998,9 @@ else
 } (* end of [else] *)
 //
 end // end of [process_fpath]
-//
+
+(* ****** ****** *)
+
 implement
 process_given
   (st0, arg0) = let
@@ -995,7 +1044,9 @@ case+ args of
   )
 //
 end // end of [process_cmdline]
-//
+
+(* ****** ****** *)
+
 implement
 process_cmdline2
   (st0, arg0, args) = let
@@ -1009,7 +1060,7 @@ println!
 fun
 auxkey1
 ( st0:
- &cmdstate >> _
+& cmdstate >> _
 , key: string): void = let
 //
 val () =
@@ -1352,11 +1403,11 @@ xats2js_main0
   (argc, argv) = let
 //
 val
-XATSHOME =
+XATSENV =
 $GLO.the_XATSHOME_get((*void*))
 //
 val () = 
-$FP0.the_includes_push(XATSHOME)
+$FP0.the_includes_push(XATSENV)
 //
 val+
 list_cons
@@ -1373,7 +1424,7 @@ st0: cmdstate =
   arg0= arg0
 , wtk0= WTKnone()
 //
-, ATSHOME= XATSHOME
+, XATSENV= XATSENV
 //
 , prelude= 0(*~loaded*)
 //
