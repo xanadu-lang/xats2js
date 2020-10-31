@@ -17,27 +17,18 @@
 // implementation of exceptions
 //
 (* ****** ****** *)
-//
-#staload
-"prelude/DATS/bool.dats"
-#staload
-"prelude/DATS/char.dats"
-#staload
-"prelude/DATS/gint.dats"
-//
+#staload "./../print.dats"
+(* ****** ****** *)
+#include
+"./../../..\
+/share/xats2js_prelude.hats"
+(* ****** ****** *)
+#staload _ =
+"prelude\
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 #staload
-"prelude/DATS/string.dats"
-(* ****** ****** *)
-#staload
-"prelude\
-/DATS/CATS/JS/basics.dats"
-#staload
-"prelude\
-/DATS/CATS/JS/unsafe.dats"
-#staload
-"prelude\
-/DATS/CATS/JS/g_print.dats"
+"xatslib/githwxi/DATS/mygist.dats"
 (* ****** ****** *)
 
 fun
@@ -52,14 +43,13 @@ if
 then
 $raise bar(0)
 else
-try 1+foo(x-1) with ~bar(y) => y endtry
+try
+1+foo(x-1) with ~bar(y) => y endtry
 end // end of [foo]
 
 (* ****** ****** *)
 val foo1 = foo(1)
-val (  ) =
-( g_print("foo1 = ")
-; g_print( foo1 ); g_print("\n"))
+val (  ) = println("foo1 = ", foo1)
 (* ****** ****** *)
 
 (* end of [bug-2017-09-29] *)

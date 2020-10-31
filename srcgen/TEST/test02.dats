@@ -1,15 +1,9 @@
 (* ****** ****** *)
-#staload _ =
-"prelude\
-/DATS/CATS/JS/basics.dats"
-(* ****** ****** *)
 
 #extern
-fun<>
-foo1(): void
+fun<>foo1(): void
 #extern
-fun<>
-foo2(): void
+fun<>foo2(): void
 
 (* ****** ****** *)
 

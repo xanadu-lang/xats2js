@@ -1,26 +1,23 @@
 (* ****** ****** *)
 //
-#staload
-"prelude/DATS/bool.dats"
-#staload
-"prelude/DATS/char.dats"
-#staload
-"prelude/DATS/gint.dats"
+// HX-2020-10-31:
+// This example is directly
+// taken from the Intro-to-ATS
+// book!
 //
 (* ****** ****** *)
-#staload
-"prelude/DATS/string.dats"
+#staload "./../print.dats"
+(* ****** ****** *)
+#include
+"./../../..\
+/share/xats2js_prelude.hats"
+(* ****** ****** *)
+#staload _ =
+"prelude\
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 #staload
-"prelude\
-/DATS/CATS/JS/basics.dats"
-#staload
-"prelude\
-/DATS/CATS/JS/unsafe.dats"
-(* ****** ****** *)
-#staload
-"prelude\
-/DATS/CATS/JS/g_print.dats"
+"xatslib/githwxi/DATS/mygist.dats"
 (* ****** ****** *)
 //
 typedef
@@ -73,9 +70,9 @@ end // end of [coin_change]
 val ans = coin_change(100)
 //
 val () =
-( g_print
-  ("coin_change(100) = ")
-; g_print(ans); g_print('\n')
+(
+println
+("coin_change(100) = ", ans)
 )
 //
 (* ****** ****** *)

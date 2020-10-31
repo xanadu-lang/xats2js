@@ -1,60 +1,14 @@
 (* ****** ****** *)
-#staload
-"prelude/DATS/gbas.dats"
-#staload
-"prelude/DATS/gnum.dats"
-#staload
-"prelude/DATS/gord.dats"
+#include
+"./../../..\
+/share/xats2js_prelude.hats"
 (* ****** ****** *)
-#staload
-"prelude/DATS/gfor.dats"
-#staload
-"prelude/DATS/gfun.dats"
-#staload
-"prelude/DATS/gseq.dats"
-(* ****** ****** *)
-//
-#staload
-"prelude/DATS/bool.dats"
-#staload
-"prelude/DATS/char.dats"
-#staload
-"prelude/DATS/gint.dats"
-#staload
-"prelude/DATS/gflt.dats"
-#staload
-"prelude/DATS/string.dats"
-#staload
-"prelude/DATS/string_vt.dats"
-//
-(* ****** ****** *)
-#staload
-"prelude/DATS/unsafe.dats"
-(* ****** ****** *)
-//
-#staload
-"prelude/DATS/list.dats"
-#staload
-"prelude/DATS/array.dats"
-#staload
-"prelude/DATS/stream.dats"
-//
-#staload
-"prelude/DATS/list_vt.dats"
-#staload
-"prelude/DATS/stream_vt.dats"
-//
-(* ****** ****** *)
-#staload
+#staload _ =
 "prelude\
-/DATS/CATS/JS/basics.dats"
-#staload
-"prelude\
-/DATS/CATS/JS/unsafe.dats"
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 #staload
-"prelude\
-/DATS/CATS/JS/g_print.dats"
+"xatslib/githwxi/DATS/mygist.dats"
 (* ****** ****** *)
 
 val xs =

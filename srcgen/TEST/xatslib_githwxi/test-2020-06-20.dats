@@ -3,52 +3,18 @@
 // Game-of-24
 *)
 (* ****** ****** *)
-#staload
-"prelude/DATS/gbas.dats"
-#staload
-"prelude/DATS/gord.dats"
+#staload "./../print.dats"
 (* ****** ****** *)
-#staload
-"prelude/DATS/gseq.dats"
+#include
+"./../../..\
+/share/xats2js_prelude.hats"
 (* ****** ****** *)
-//
-#staload
-"prelude/DATS/bool.dats"
-#staload
-"prelude/DATS/char.dats"
-#staload
-"prelude/DATS/gint.dats"
-#staload
-"prelude/DATS/gflt.dats"
-#staload
-"prelude/DATS/string.dats"
-//
-(* ****** ****** *)
-#staload
-"prelude/DATS/unsafe.dats"
-(* ****** ****** *)
-//
-#staload
-"prelude/DATS/list.dats"
-#staload
-"prelude/DATS/stream_vt.dats"
-//
+#staload _ =
+"prelude\
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 #staload
 "xatslib/githwxi/DATS/mygist.dats"
-(* ****** ****** *)
-#staload
-"prelude\
-/DATS/CATS/JS/basics.dats"
-#staload
-"prelude\
-/DATS/CATS/JS/unsafe.dats"
-(* ****** ****** *)
-#staload "./../print.dats"
-(* ****** ****** *)
-#staload
-"prelude\
-/DATS/CATS/JS/g_print.dats"
 (* ****** ****** *)
 //
 typedef

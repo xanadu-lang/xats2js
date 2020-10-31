@@ -49,33 +49,21 @@
 ** A deep stack may be needed if there is no tail-call
 ** optimization:
 **
-** node --stack-size=10000 ...
+** node --stack-size=8000 ...
 *)
-(* ****** ****** *)
-//
-#staload
-"prelude/DATS/bool.dats"
-#staload
-"prelude/DATS/char.dats"
-#staload
-"prelude/DATS/gint.dats"
-//
-(* ****** ****** *)
-#staload
-"prelude/DATS/string.dats"
-(* ****** ****** *)
-#staload
-"prelude\
-/DATS/CATS/JS/basics.dats"
-#staload
-"prelude\
-/DATS/CATS/JS/unsafe.dats"
 (* ****** ****** *)
 #staload "./../print.dats"
 (* ****** ****** *)
-#staload
+#include
+"./../../..\
+/share/xats2js_prelude.hats"
+(* ****** ****** *)
+#staload _ =
 "prelude\
-/DATS/CATS/JS/g_print.dats"
+/DATS/CATS/JS/Node/g_print.dats"
+(* ****** ****** *)
+#staload
+"xatslib/githwxi/DATS/mygist.dats"
 (* ****** ****** *)
 //
 (*

@@ -1,49 +1,14 @@
 (* ****** ****** *)
-#staload
-"prelude/DATS/gbas.dats"
-#staload
-"prelude/DATS/gord.dats"
+#include
+"./../../..\
+/share/xats2js_prelude.hats"
 (* ****** ****** *)
-#staload
-"prelude/DATS/gseq.dats"
-#staload
-"prelude/DATS/gseq_vt.dats"
-(* ****** ****** *)
-//
-#staload
-"prelude/DATS/bool.dats"
-#staload
-"prelude/DATS/char.dats"
-#staload
-"prelude/DATS/gint.dats"
-//
-#staload
-"prelude/DATS/unsafe.dats"
-//
-(* ****** ****** *)
-#staload
-"prelude/DATS/string.dats"
-(* ****** ****** *)
-#staload
-"prelude/DATS/list.dats"
-#staload
-"prelude/DATS/list_vt.dats"
-(* ****** ****** *)
-#staload
-"prelude/DATS/stream_vt.dats"
+#staload _ =
+"prelude\
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 #staload
 "xatslib/githwxi/DATS/mygist.dats"
-(* ****** ****** *)
-#staload
-"prelude\
-/DATS/CATS/JS/basics.dats"
-#staload
-"prelude\
-/DATS/CATS/JS/unsafe.dats"
-#staload
-"prelude\
-/DATS/CATS/JS/g_print.dats"
 (* ****** ****** *)
 //
 fun
