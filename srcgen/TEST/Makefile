@@ -31,6 +31,4 @@ clean:: ; rm -f *~
 cleanall:: clean
 cleanall:: ; rm -f output
 cleanall:: ; rm -f output_dats.js
-cleanall:: ; rm -f xatsjs_cats.js
-######
 ###### end of [Makefile] ######
