@@ -137,6 +137,11 @@ test-2020-07-10: ; \
 $(XATS2JS) -d $(GITHWXI)/test-2020-07-10.dats
 ######
 test:: \
+test-2020-07-25
+test-2020-07-25: ; \
+$(XATS2JS) -d $(GITHWXI)/test-2020-07-25.dats
+######
+test:: \
 test-2020-09-29
 test-2020-09-29: ; \
 $(XATS2JS) -d $(GITHWXI)/test-2020-09-29.dats
