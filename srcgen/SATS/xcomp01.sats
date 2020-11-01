@@ -60,19 +60,18 @@ vtypedef
 l1valopt_vt = Option_vt(l1val)
 //
 (* ****** ****** *)
-//
 fun
 compenv_make_nil
   ((*void*)): compenv
+(* ****** ****** *)
 fun
-compenv_free_nil
-  (env0: compenv): void
-//
+compenv_free_top
+  ( compenv ): l1tmplst
 (* ****** ****** *)
 //
 fun
 xcomp01_program
-  (prog: h0dclist): l1dclist
+  (prog: h0pkg): l1pkg
 //
 (* ****** ****** *)
 fun

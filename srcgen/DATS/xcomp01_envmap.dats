@@ -257,9 +257,12 @@ end // end of [compenv_make_nil]
 (* ****** ****** *)
 
 implement
-compenv_free_nil
+compenv_free_top
   ( env0 ) =
-  free@(env0) where
+let
+val () =
+free@(env0) in tmps
+end where
 {
 //
 val+
@@ -267,7 +270,7 @@ val+
 //
 val () =
 hdvarstk_pop_top(rcd.hdvarstk)
-val ts =
+val tmps =
 l1tmpstk_pop_top(rcd.l1tmpstk)
 //
 val-( 0 ) = rcd.flevel

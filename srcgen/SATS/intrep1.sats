@@ -862,6 +862,13 @@ overload fprint with fprint_lvardecl
 (* ****** ****** *)
 //
 datatype
+l1pkg =
+L1PKG of
+(l1tmplst, l1dclist)
+//
+(* ****** ****** *)
+//
+datatype
 l1dcl_node =
 //
 |
@@ -1021,22 +1028,23 @@ xemit01_l1blk(FILEref, l1blk): void
 //
 (* ****** ****** *)
 fun
-xemit01_l1cmdlst(FILEref, l1cmdlst): void
+xemit01_l1cmdlst
+(out: FILEref, cmds: l1cmdlst): void
 (* ****** ****** *)
 fun
-xemit01_ftmpdecs(FILEref, l1tmplst): void
-(* ****** ****** *)
-//
-fun
-xemit01_l1dcl(FILEref, l1dcl): void
-fun
-xemit01_l1dclist(FILEref, l1dclist): void
-//
+xemit01_ftmpdecs
+(out: FILEref, tmps: l1tmplst): void
 (* ****** ****** *)
 //
 fun
-xemit01_program
-(out:FILEref, prog:l1dclist(*prog*)): void
+xemit01_l1dcl
+(out: FILEref, dcl0: l1dcl): void
+fun
+xemit01_l1dclist
+(out: FILEref, dcls: l1dclist): void
+//
+fun
+xemit01_program(FILEref, l1pkg): void
 //
 (* ****** ****** *)
 

@@ -469,9 +469,17 @@ fprint!
 end // end of [then]
 else
 let
+val lev = tmp0.lev()
 val stm = tmp0.stamp()
 in
-  fprint!(out, "tmp", stm)
+//
+if
+(lev > 0)
+then
+fprint!(out, "xtmp", stm)
+else
+fprint!(out, "xtop", stm)
+//
 end // end of [else]
 //
 end // end of [xemit01_l1tmp]
@@ -916,7 +924,15 @@ val () =
 xemit01_txtln(out, "{")
 //
 val () =
+xemit01_txtln
+( out
+, "// XEMIT01_FTMPDECS: BEG" )
+val () =
 xemit01_ftmpdecs(out, rcd.lts)
+val () =
+xemit01_txtln
+( out
+, "// XEMIT01_FTMPDECS: END" )
 //
 val () =
 xemit01_l1blk(out, rcd.hag_blk)
@@ -2285,12 +2301,14 @@ list_cons _ =>
 //
 val () =
 xemit01_txtln
-(out, "{ // val-binding")
+( out
+, "// { // val-binding" )
 val () =
 xemit01_l1cmdlst(out, xs)
 val () =
 xemit01_txtln
-( out, "} // val-binding" )
+( out
+, "// } // val-binding" )
 //
 } (* [list_cons] *)
 ) (* [L1BLKsome] *)
@@ -2666,15 +2684,18 @@ L1DCLlocal
 (head, body) =>
 {
 val () =
-fprint(out, "{ // local\n")
+fprint
+(out, "// { // local\n")
 val () =
 xemit01_l1dclist(out, head)
 val () =
-fprint(out, "// in-of-local\n")
+fprint
+(out, "// in-of-local\n")
 val () =
 xemit01_l1dclist(out, body)
 val () =
-fprint(out, "} // end-of-local\n")
+fprint
+(out, "// } // end-of-local\n")
 }
 //
 |
@@ -2751,13 +2772,39 @@ end // list_cons]
 
 implement
 xemit01_program
-  (out, dcls) =
-(
-  auxlst(dcls) 
-) where
+  (out, lpkg) =
 {
+val () = auxtmps(tmps)
+val () = auxdcls(dcls) 
+} where
+{
+//
+val+
+L1PKG
+(tmps, dcls) = lpkg
+//
 fun
-auxlst
+auxtmps
+( xs
+: l1tmplst): void =
+(
+case+ xs of
+|
+list_nil() => ()
+|
+list_cons(x0, xs) =>
+(
+  auxtmps(xs)) where
+{
+  val () =
+  xemit01_txt00(out, "var ")
+  val () = xemit01_l1tmp(out, x0)
+  val () = xemit01_txtln(out, ";")
+} (* list_cons *)
+) (* end of [auxtmps] *)
+//
+fun
+auxdcls
 ( xs
 : l1dclist): void =
 (
@@ -2768,14 +2815,14 @@ list_nil() => ()
 list_cons(x0, xs) =>
 let
 (*
-  val () = xindnt(0)
+val () = xindnt(0)
 *)
-  val () =
-  xemit01_l1dcl(out, x0)
-  val () = xemit01_newln(out)
-  val () = xemit01_newln(out) in auxlst(xs)
-end
-) (* auxlst *)
+val () =
+xemit01_l1dcl(out, x0)
+val () = xemit01_newln(out)
+val () = xemit01_newln(out) in auxdcls(xs)
+end // list_cons
+) (* end of [auxdcls] *)
 } (* end of [xemit01_program] *)
 
 (* ****** ****** *)

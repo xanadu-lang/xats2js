@@ -66,7 +66,11 @@ fprint_val<l1tmp> = fprint_l1tmp
 
 implement
 xcomp01_program
-  (dcls) = dcls where
+  (hpkg) =
+(
+  L1PKG
+  (ltmps, ldcls)
+) where
 {
 //
 (*
@@ -78,11 +82,15 @@ val
 env0 =
 compenv_make_nil()
 //
-val
-dcls =
-xcomp01_h0dclist(env0, dcls)
+val+
+H0PKG(hdcls) = hpkg
 //
-val () = compenv_free_nil(env0)
+val
+ldcls =
+xcomp01_h0dclist(env0, hdcls)
+//
+val
+ltmps = compenv_free_top(env0)
 //
 } (* end of [xcomp01_program] *)
 

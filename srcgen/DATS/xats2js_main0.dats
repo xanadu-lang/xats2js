@@ -747,15 +747,17 @@ $FP0.the_filpathlst_push(fp0)
 val
 d0cs =
 let
-val opt =
-parse_from_filpath_toplevel
+val opt0 =
+  parse_from_filpath_toplevel
   (stadyn, fp0)
 in
-case+ opt of
+//
+case+ opt0 of
 | ~
 Some_vt(d0cs) => d0cs
 | ~
 None_vt((*void*)) => list_nil()
+//
 end : d0eclist // end-of-val
 //
 prval () = $UN.castview0{void}(pf0)
@@ -891,14 +893,17 @@ val () =
 *)
 //
 val
-hdcls =
+hpkg =
 let
 val
-hdcls = tcomp30_program(d3cs)
+hpkg = tcomp30_program(d3cs)
 in
-hdcls where
+hpkg where
 {
 (*
+//
+val+
+H0PKG(hdcls) = hpkg
 //
 val () =
 fprintln!
@@ -939,12 +944,13 @@ end // end of [val hdcls]
 (* ****** ****** *)
 
 val
-ldcls =
+lpkg =
 let
-val
-ldcls = xcomp01_program(hdcls)
+  val
+  lpkg =
+  xcomp01_program(hpkg)
 in
-ldcls where
+lpkg where
 {
 //
 val () =
@@ -953,12 +959,14 @@ val out =
 outchan_get_filref
 (st0.outchan)
 in
-xemit01_program(out, ldcls)
+  xemit01_program(out, lpkg)
 end // end of [let]
 //
 (*
 val () =
 {
+val+
+L1PKG(ldcls) = lpkg
 val () =
 fprintln!
 ( stderr_ref
