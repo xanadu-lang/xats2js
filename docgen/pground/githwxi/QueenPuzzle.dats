@@ -49,7 +49,8 @@ implfun
 board_cons(x0, xs) = list_cons(x0, xs)
 
 impltmp
-gseq_streamize<board><int>(xs) = list_streamize<int>(xs)
+gseq_streamize
+<board><int>(xs) = list_streamize<int>(xs)
 
 end (* end of [local] *)
 
@@ -90,11 +91,11 @@ board_check
 gseq_iforall<board><int>(xs)
 ) where
 {
-  impltmp
-  iforall$test<int>(i1, x1) =
-  if
-  (x0 != x1)
-  then (abs(x0 - x1) != i1 + 1) else false
+impltmp
+iforall$test<int>(i1, x1) =
+if
+(x0 != x1)
+then (abs(x0 - x1) != i1 + 1) else false
 } (* end of [board_check] *)
 
 (* ****** ****** *)
@@ -111,12 +112,12 @@ if
 (i0 < N) then
 (
 if
-board_check(i0, xs)
-then
+~board_check
+ ( i0 , xs )
+then auxmain(i0+1)
+else
 list_cons
 (board_cons(i0, xs), auxmain(i0+1))
-else
-auxmain(i0+1)
 )
 else list_nil((*void*))
 }
@@ -160,8 +161,7 @@ xss = qsolve()
 //
 val () =
 (
-gseq_iforeach
-<list(board)><board>(xss)
+gseq_iforeach(xss)
 ) where
 {
 impltmp
