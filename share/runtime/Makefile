@@ -18,7 +18,10 @@ XANADU=./../../xanadu
 XATS2JS="./../../bin/xats2js"
 ######
 xats2js_runtime:: ; \
-$(ECHO) > xats2js_runtime.js
+$(ECHO) \
+"/* ****** ****** */\n" > xats2js_runtime.js \
+&& \
+$(ECHO) "'use strict';\n" >> xats2js_runtime.js
 xats2js_runtime:: ; \
 $(CAT) \
 $(XANADU)/prelude/DATS/CATS/JS/runtime.cats >> xats2js_runtime.js
