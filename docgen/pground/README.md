@@ -5,3 +5,5 @@ Please play with xats2js by constructing programs in ATS/Xanadu
 a directory of the name `githwxi` containing some simple programs
 written in ATS3 and also a Makefile for compiling and testing these
 programs.
+
+Happy programming in ATS!
