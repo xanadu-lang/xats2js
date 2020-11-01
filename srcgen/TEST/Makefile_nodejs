@@ -77,6 +77,30 @@ $(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-10-01.dats && $(NODE) output_dats.js
 ######
 test:: \
+test-2020-10-24
+test-2020-10-24:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-10-24.dats && $(NODE) output_dats.js
+######
+test:: \
+test-2020-10-25
+test-2020-10-25:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-10-25.dats && $(NODE) output_dats.js
+######
+test:: \
+test-2020-10-28
+test-2020-10-28:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-10-28.dats && $(NODE) output_dats.js
+######
+test:: \
+test-2020-10-29
+test-2020-10-29:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-10-29.dats && $(NODE) output_dats.js
+######
+test:: \
 test-ats2-queens
 test-ats2-queens:: ; \
 $(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
