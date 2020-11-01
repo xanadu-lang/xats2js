@@ -85,7 +85,7 @@ end (* end of [board_print] *)
 
 fun
 board_check
-(x0: int, xs: board): bool =
+  (x0, xs) =
 (
 gseq_iforall<board><int>(xs)
 ) where
@@ -101,7 +101,7 @@ gseq_iforall<board><int>(xs)
 
 fun
 board_extend
-(xs: board): list(board) =
+  (xs) =
 (
   auxmain(0) ) where
 {
@@ -122,8 +122,7 @@ else list_nil((*void*))
 }
 
 fun
-boardlst_extend
-(xss: list(board)): list(board) =
+boardlst_extend(xss) =
 (
 gseq_foldr<xz><xs><r0>(xss, list_nil())
 ) where
@@ -132,20 +131,22 @@ typedef xs = board
 typedef xz = list(board)
 typedef r0 = list(board)
 impltmp
-foldr$fopr<xs><r0>(xs, r0) = list_append(board_extend(xs), r0)
+foldr$fopr
+<xs><r0>
+(xs, r0) = list_append(board_extend(xs), r0)
 }
 
 (* ****** ****** *)
 
 fun
-qsolve(): list(board) =
+qsolve() =
 (
   loop(0, list_sing(board_nil()))
 ) where
 {
   fun
   loop
-  (i0: int, xss: list(board)): list(board) =
+  (i0: int, xss) =
   if i0 < N then loop(i0+1, boardlst_extend(xss)) else xss
 }
 
