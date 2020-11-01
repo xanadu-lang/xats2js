@@ -229,8 +229,10 @@ implement
 fprint_commarg(out, x0) =
 (
 case+ x0 of
-| COMMARG(i, k) =>
-  fprint!(out, "COMMARG(", i, ", ", k, ")")
+|
+COMMARG(i, k) =>
+fprint!
+(out, "COMMARG(", i, ", ", k, ")")
 ) (* end of [fprint_commarg] *)
 //
 (* ****** ****** *)
@@ -361,16 +363,17 @@ HX-2020-03-08:
 The runtime for primitive functions
 *)
 //
+(*
+//
+// HX-2020-10-31:
+// This should be loaded last!
+//
 val () =
 the_prelude_load
 ( XHOME
 , 1(*dynamic*)
-, "prelude/DATS/CATS/Xint/runtime.dats")
-val () =
-the_prelude_load
-( XHOME
-, 1(*dynamic*)
-, "xatslib/libc/DATS/CATS/Xint/runtime.dats")
+, "prelude/DATS/CATS/JS/basics.dats")
+*)
 //
 } (* end of [then] *) // end-of-if
 ) (* end of [the_preludes_load_if] *)
@@ -749,8 +752,10 @@ parse_from_filpath_toplevel
   (stadyn, fp0)
 in
 case+ opt of
-| ~Some_vt(d0cs) => d0cs
-| ~None_vt((*void*)) => list_nil()
+| ~
+Some_vt(d0cs) => d0cs
+| ~
+None_vt((*void*)) => list_nil()
 end : d0eclist // end-of-val
 //
 prval () = $UN.castview0{void}(pf0)
