@@ -1,0 +1,16 @@
+######
+#
+# For testing
+# xats2js/docgen/pground
+#
+######
+all::
+######
+MAKE=make
+######
+all:: \
+githwxi
+githwxi:: ; \
+$(MAKE) -C githwxi test cleanall > /dev/null
+######
+###### end of [Makefile_test] ######

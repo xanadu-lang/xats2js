@@ -39,10 +39,12 @@ script:
   # Building ATS2
   - cd ${PATSHOME}
   - ./configure&&make CC=${GCC} all
-  # Building Xanadu
+  # Building Xats2js
   - cd ${XATS2JS0}
   - (sh ./build.sh)
-  - (cd srcgen/TEST && time make > output)
+  - (cd srcgen/TEST && time make -f Makefile_test)
+  # Regression Testing
+  - (cd docgen/pground && time make -f Makefile_test)
 
 after_script:
   - date
