@@ -890,10 +890,12 @@ in
 end
 ) where
 {
+(*
 val () =
 println! (
 "xcomp01_h0gpat_ck0: hgp0 = ", hgp0
 ) (* println! *)
+*)
 } (* end of [xcomp01_h0gpat_ck0] *)
 
 end // end of [local]
@@ -3550,9 +3552,9 @@ let
   xcomp01_ltmppop_fun0(env0)
 //
 (*
-  val ( ) =
-  println!
-  ("xcomp01_hfundecl: lts = ", lts)
+val ( ) =
+println!
+("xcomp01_hfundecl: lts = ", lts)
 *)
 //
 in

@@ -2230,7 +2230,7 @@ xemit01_ftmpdecs(out, ts)
 {
 //
 val () =
-xemit01_txt00(out, "var ")
+xemit01_txt00(out, "let ")
 //
 val () = xemit01_l1tmp(out, t1)
 val () = xemit01_txtln(out, ";")
