@@ -121,4 +121,6 @@ clean:: ; rm -f *~
 cleanall:: clean
 cleanall:: ; rm -f output
 ######
+# export XATSHOME=$(XANADU)
+######
 ###### end of [Makefile_nodejs] ######
