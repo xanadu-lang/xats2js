@@ -17,8 +17,6 @@ val cs =
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 val cs = listize(cs)
 val () = println("cs = ", cs)
-val cs = list_vt2t(cs)
-val () = println("cs = ", cs)
 
 (* ****** ****** *)
 val

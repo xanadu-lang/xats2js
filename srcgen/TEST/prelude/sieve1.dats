@@ -1,5 +1,8 @@
 (* ****** ****** *)
 #staload
+"prelude/DATS/gbas.dats"
+(* ****** ****** *)
+#staload
 "prelude/DATS/gint.dats"
 #staload
 "prelude/DATS/bool.dats"
