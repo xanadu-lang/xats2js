@@ -11,20 +11,17 @@
 "xatslib/githwxi/DATS/mygist.dats"
 (* ****** ****** *)
 //
-fun
-string_permutize
-( cs
-: string)
-: stream_vt(string) =
-gseq_permutize<string><cgtz>(cs)
-//
-(* ****** ****** *)
-
 val cs1 = "12345"
-val css = string_permutize(cs1)
-val css = stream_vt_print_len(css, 6)
-val ( ) = g_print("\n")
-
+//
+val css =
+gseq_permutize(cs1)
+val ( ) =
+( print("css=")
+; gl_print0(css); println()) where
+{
+impltmp stream_vt_print$len<>() = 6
+}
+//
 (* ****** ****** *)
 
 (* end of [test-2020-06-05.dats] *)

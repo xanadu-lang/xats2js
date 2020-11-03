@@ -23,6 +23,30 @@ PRELUDE=./prelude
 GITHWXI=./xatslib_githwxi
 ######
 test:: \
+sieve
+sieve:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/sieve.dats && $(NODE) output_dats.js
+######
+test:: \
+sieve1
+sieve1:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/sieve1.dats && $(NODE) output_dats.js
+######
+test:: \
+sieve_vt
+sieve_vt:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/sieve_vt.dats && $(NODE) output_dats.js
+######
+test:: \
+sieve1_vt
+sieve1_vt:: ; \
+$(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/sieve1_vt.dats && $(NODE) output_dats.js
+######
+test:: \
 test-2020-03-21
 test-2020-03-21:: ; \
 $(CAT) $(XATS2JS_RUNTIME) > output_dats.js && \
