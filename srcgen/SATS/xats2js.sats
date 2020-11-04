@@ -34,6 +34,11 @@
 (* ****** ****** *)
 //
 fun
+the_XATSHOME_get((*void*)): string
+//
+(* ****** ****** *)
+//
+fun
 xats2js_main0
 {n:int | n >= 1}(int(n), !argv(n)): void
 //

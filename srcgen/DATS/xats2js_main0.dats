@@ -53,7 +53,13 @@ $extfcall
 #include
 "share/atspre_staload.hats"
 #staload
-UN = "prelude/SATS/unsafe.sats"
+UN="prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+#staload
+STDIO =
+"libats/libc/SATS/stdio.sats"
 //
 (* ****** ****** *)
 //
@@ -69,17 +75,16 @@ UN = "prelude/SATS/unsafe.sats"
 #staload "./../SATS/xats2js.sats"
 //
 (* ****** ****** *)
+implement
+the_XATSHOME_get() =
+$GLO.the_XATSHOME_get((*void*))
+(* ****** ****** *)
 
 #staload
 _(*TMP*) = "./intrep1_print.dats"
 #staload
 _(*TMP*) = "./intrep1_xemit.dats"
 
-(* ****** ****** *)
-//
-#staload
-STDIO = "libats/libc/SATS/stdio.sats"
-//
 (* ****** ****** *)
 //
 datatype
