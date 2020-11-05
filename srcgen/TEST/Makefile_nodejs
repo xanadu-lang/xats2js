@@ -11,7 +11,6 @@ NODE=node
 
 ######
 SHARE=./../../share
-XANADU=./../../xanadu
 XATS2JS="./../../bin/xats2js"
 ######
 XATS2JS_RUNTIME=\
@@ -146,5 +145,6 @@ cleanall:: clean
 cleanall:: ; rm -f output
 ######
 # export XATSHOME=$(XANADU)
+# XANADU=$(shell pwd)/../../xanadu
 ######
 ###### end of [Makefile_nodejs] ######
