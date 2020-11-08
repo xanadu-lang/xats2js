@@ -18,14 +18,23 @@ XATS2JS_PRELUDE=\
 test:: \
 hello
 hello:: ; \
-$(CAT) $(XATS2JS_PRELUDE) > hello_dats.js && \
+$(CAT) \
+$(XATS2JS_PRELUDE) > hello_dats.js && \
 $(XATS2JS) 1>/dev/null 2>&1 --output-a hello_dats.js -d ./hello.dats && $(NODE) hello_dats.js
 ######
 test:: \
 QueenPuzzle
 QueenPuzzle:: ; \
-$(CAT) $(XATS2JS_PRELUDE) > QueenPuzzle_dats.js && \
+$(CAT) \
+$(XATS2JS_PRELUDE) > QueenPuzzle_dats.js && \
 $(XATS2JS) 1>/dev/null 2>&1 --output-a QueenPuzzle_dats.js -d ./QueenPuzzle.dats && $(NODE) QueenPuzzle_dats.js
+######
+test:: \
+readfile
+readfile:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > readfile_dats.js && \
+$(CAT) $(XANADU)/xatslib/libc/DATS/CATS/JS/Node/prelude.cats >> readfile_dats.js && \
+$(XATS2JS) 1>/dev/null 2>&1 --output-a readfile_dats.js -d ./readfile.dats && $(NODE) readfile_dats.js
 ######
 test:: \
 readline
