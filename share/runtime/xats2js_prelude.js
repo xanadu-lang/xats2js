@@ -318,6 +318,13 @@ if
 } // end of [XATS2JS_llazy_free]
 
 /* ****** ****** */
+
+/* end of [XATS2JS_runtime.cats] */
+/* ****** ****** */
+/*
+Basics for Xats2js
+*/
+/* ****** ****** */
 //
 // prelude/bool.sats
 //
@@ -951,7 +958,7 @@ XATS2JS_UN_p2tr_set
 //
 /* ****** ****** */
 
-/* end of [XATS2JS_runtime.cats] */
+/* end of [XATS2JS_prelude.cats] */
 /* ****** ****** */
 /*
 G_print for Xats2js/Node
