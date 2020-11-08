@@ -3,12 +3,10 @@
 # For testing xats2js
 #
 ######
-
 CAT=cat
 CPF=cp -f
 ECHO=echo
 NODE=node
-
 ######
 SHARE=./../../share
 XATS2JS="./../../bin/xats2js"
