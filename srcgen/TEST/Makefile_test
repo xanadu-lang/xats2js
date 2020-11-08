@@ -8,6 +8,11 @@ all::
 MAKE=make
 ######
 all:: \
+mytest
+mytest:: ; \
+make -C mytest -f Makefile test > /dev/null
+######
+all:: \
 test_output
 test_output:: ; \
 $(MAKE) -f Makefile_output test cleanall > /dev/null
