@@ -65,8 +65,8 @@ fprint_val<l1tmp> = fprint_l1tmp
 (* ****** ****** *)
 
 implement
-xcomp01_program
-  (hpkg) =
+xcomp01_package
+  (h0pkg) =
 (
   L1PKG
   (ltmps, ldcls)
@@ -83,7 +83,16 @@ env0 =
 compenv_make_nil()
 //
 val+
-H0PKG(hdcls) = hpkg
+H0COMPED(rcd) = h0pkg
+//
+val hdcls =
+(
+case+
+rcd.comped of
+| None() =>
+  list_nil((*void*))
+| Some(hdcls) => hdcls
+) : h0dclist // end-of-val
 //
 val
 ldcls =
@@ -92,7 +101,7 @@ xcomp01_h0dclist(env0, hdcls)
 val
 ltmps = compenv_free_top(env0)
 //
-} (* end of [xcomp01_program] *)
+} (* end of [xcomp01_package] *)
 
 (* ****** ****** *)
 

@@ -46,10 +46,14 @@ XANADU_targetloc
 "{$XANADU}/SATS/tread01.sats"
 //
 #staload
+"{$XANADU}/SATS/dynexp2.sats"
+#staload
 "{$XANADU}/SATS/trans12.sats"
 #staload
 "{$XANADU}/SATS/tread12.sats"
 //
+#staload
+"{$XANADU}/SATS/dynexp3.sats"
 #staload
 "{$XANADU}/SATS/trans23.sats"
 #staload
@@ -76,20 +80,20 @@ XANADU_targetloc
 "{$XANADU}/SATS/tcomp30.sats"
 //
 (* ****** ****** *)
-//
 #staload
-GLO =
-"{$XANADU}/SATS/global.sats"
+"{$XANADU}/SATS/xatsopt.sats"
+(* ****** ****** *)
 //
-#staload
-ERR =
-"{$XANADU}/SATS/xerrory.sats"
+#staload GLO =
+  "{$XANADU}/SATS/global.sats"
+//
+#staload ERR =
+  "{$XANADU}/SATS/xerrory.sats"
 //
 (* ****** ****** *)
 //
-#staload
-FP0 =
-"{$XANADU}/SATS/filpath.sats"
+#staload FP0 =
+  "{$XANADU}/SATS/filpath.sats"
 //
   typedef
   fpath_t = $FP0.filpath
@@ -102,9 +106,9 @@ FP0 =
 (* ****** ****** *)
 //
 #staload S2E =
-"{$XANADU}/SATS/staexp2.sats"
+  "{$XANADU}/SATS/staexp2.sats"
 #staload D2E =
-"{$XANADU}/SATS/dynexp2.sats"
+  "{$XANADU}/SATS/dynexp2.sats"
 //
 (* ****** ****** *)
 //

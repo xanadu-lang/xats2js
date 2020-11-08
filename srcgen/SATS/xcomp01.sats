@@ -70,8 +70,8 @@ compenv_free_top
 (* ****** ****** *)
 //
 fun
-xcomp01_program
-  (prog: h0pkg): l1pkg
+xcomp01_package
+(h0pkg: h0comped): l1pkg
 //
 (* ****** ****** *)
 fun

@@ -57,14 +57,14 @@ UN="prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-#staload
-STDIO =
-"libats/libc/SATS/stdio.sats"
+#include
+"./../HATS/libxatsopt.hats"
 //
 (* ****** ****** *)
 //
-#include
-"./../HATS/libxatsopt.hats"
+#staload
+STDIO =
+"libats/libc/SATS/stdio.sats"
 //
 (* ****** ****** *)
 //
@@ -290,24 +290,6 @@ fprintln! (out, "  --tycheck (for typechecking only)");
 fprint_newline (out); // HX: needed for flushing out the output
 //
 end // end of [xatsopt_usage]
-//
-(* ****** ****** *)
-//
-extern
-fun
-xatsopt_version
-  (out: FILEref): void
-implement
-xatsopt_version
-  (out) = let
-  val MAJOR = 0
-  val MINOR = 0
-  val MICRO = 0
-in
-  fprint!(out, "ATS/Xanadu version ");
-  fprint!(out, MAJOR, ".", MINOR, ".", MICRO);
-  fprintln!(out, " Copyright (c) 2018-20?? Hongwei Xi")
-end // end of [xatsopt_version]
 //
 (* ****** ****** *)
 //
@@ -693,14 +675,14 @@ implement
 process_fpath
   (st0, fp0) = let
 //
+//
 val
 wtk0 = st0.wtk0
 val
 stadyn =
 waitknd_get_stadyn(wtk0)
 //
-val
-XATSENV = st0.XATSENV
+val XATSENV = st0.XATSENV
 //
 val () =
 ifcase
@@ -709,12 +691,10 @@ $FP0.filpath_is_stdin(fp0) =>
 $FP0.the_dirpathlst_ppush_cwd()
 | _ (* regular filename *) =>
 let
-//
 val
 dp0 =
 $FP0.dirpath_make
 ($FP0.filpath_get_dirname(fp0))
-//
 (*
 val () =
 let
@@ -724,10 +704,9 @@ fprint(out, "dirpath = ");
 $FP0.fprintln_dirpath(out, dp0)
 end
 *)
-//
 in
   $FP0.the_filpathlst_ppush(fp0);
-  $FP0.the_dirpathlst_ppush(dp0)
+  $FP0.the_dirpathlst_ppush(dp0);
 end (* let *) // end of [ifcase]
 //
 in
@@ -744,218 +723,65 @@ the_preludes_load_if
 (XATSENV, st0.prelude)
 // end of [val]
 //
-val () = (st0.inpfil0 := fp0)
-//
+val () =
+( st0.inpfil0 := fp0 )
 val
 (pf0 | ()) =
 $FP0.the_filpathlst_push(fp0)
+//
 val
-d0cs =
-let
-val opt0 =
-  parse_from_filpath_toplevel
+p0kg =
+parse_from_filpath_toplevel
   (stadyn, fp0)
-in
-//
-case+ opt0 of
-| ~
-Some_vt(d0cs) => d0cs
-| ~
-None_vt((*void*)) => list_nil()
-//
-end : d0eclist // end-of-val
 //
 prval () = $UN.castview0{void}(pf0)
+//
 (*
 val
 ((*popped*)) =
 $FP0.the_filpathlst_pout(pf0 | (*none*))
 *)
-//
-val () =
-synread_program(d0cs)
-//
 (*
 val () =
-println!
-("process_fpath: d0cs = ", d0cs)
+println!("//process_fpath: d0cs = ", d0cs)
 *)
-//
-val
-d1cs =
-let
-val
-d1cs = trans01_declist(d0cs)
-in
-d1cs where
-{
-val () = tread01_program(d1cs)
-}
-end // end of [val]
 (*
 val () =
-println!
-("process_fpath: d1cs = ", d1cs)
+println!("//process_fpath: d1cs = ", d1cs)
 *)
-//
-val
-d2cs = 
-let
-val
-d2cs = trans12_declist(d1cs)
-in
-d2cs where
-{
-val () = tread12_program(d2cs)
-}
-end // end of [val]
 (*
 val () =
-println!
-("process_fpath: d2cs = ", d2cs)
+println!("//process_fpath: d2cs = ", d2cs)
 *)
-//
-val
-d3cs =
-let
-val
-d3cs = trans23_declist(d2cs)
-in
-d3cs where
-{
-val () = tread23_program(d3cs)
-}
-end // end of [val]
 (*
 val () =
-println!
-("process_fpath: d3cs = ", d3cs)
+println!("//process_fpath: d3cs = ", d3cs)
 *)
-//
-val
-d3cs =
-let
-val
-d3cs = trans33_program(d3cs)
-in
-d3cs where
-{
-val () = tread33_program(d3cs)
-}
-end // end of [val]
 (*
 val () =
-println!
-("process_fpath: d3cs = ", d3cs)
+println!("//process_fpath: d3cs = ", d3cs)
 *)
-//
-val
-d3cs =
-let
-val
-d3cs = trans3t_program(d3cs)
-val
-d3cs = trans3x_program(d3cs)
-in
-let
-val () = tread3x_program(d3cs) in d3cs
-end
-end // end of [val]
 (*
 val () =
-println!
-("process_fpath: d3cs = ", d3cs)
+println!("//process_fpath: d3cs = ", d3cs)
 *)
 //
-(*
-val () =
-println!
-("process_fpath: the_sortenv:")
-val () =
-(
-  the_sortenv_println((*void*))
-)
-*)
-//
-(*
-val () =
-println!
-("process_fpath: the_sexpenv:")
-val () =
-(
-  the_sexpenv_println((*void*))
-)
-*)
-//
-(*
-val () =
-println!
-("process_fpath: the_dexpenv:")
-val () =
-(
-  the_dexpenv_println((*void*))
-)
-*)
+(* ****** ****** *)
 //
 val
-hpkg =
-let
-val
-hpkg = tcomp30_program(d3cs)
-in
-hpkg where
-{
-(*
+h0pkg =
+trs03cmp30_package(p0kg)
 //
-val+
-H0PKG(hdcls) = hpkg
-//
-val () =
-fprintln!
-( stderr_ref
-, "//process_fpath: hdcls = ")
-//
-val () =
-loop(hdcls) where
-{
-//
-fun
-loop
-( hdcls
-: h0dclist): void =
-(
-case+
-hdcls of
-|
-list_nil() =>
-fprint_newline(stderr_ref)
-|
-list_cons
-(hdcl1, hdcls) =>
-loop(hdcls) where
-{
-  val () =
-  fprintln!
-  (stderr_ref, "//", hdcl1) 
-} (* end-of-where *)
-) (* end of [val] *)
-//
-} // end-of-where
-*)
-} // end-of-where
-//
-end // end of [val hdcls]
-
 (* ****** ****** *)
 
 val
-lpkg =
+l1pkg =
 let
   val
-  lpkg =
-  xcomp01_program(hpkg)
+  l1pkg =
+  xcomp01_package(h0pkg)
 in
-lpkg where
+l1pkg where
 {
 //
 val () =
@@ -964,14 +790,14 @@ val out =
 outchan_get_filref
 (st0.outchan)
 in
-  xemit01_program(out, lpkg)
+  xemit01_program(out, l1pkg)
 end // end of [let]
 //
 (*
 val () =
 {
 val+
-L1PKG(ldcls) = lpkg
+L1PKG(ldcls) = l1pkg
 val () =
 fprintln!
 ( stderr_ref
@@ -1466,7 +1292,7 @@ in
 //
 if (st0.nxerror > 0) then $ERR.abort()
 //
-end // end of [xatsopt_main0]
+end // end of [xats2js_main0]
 
 end // end of [local]
 
