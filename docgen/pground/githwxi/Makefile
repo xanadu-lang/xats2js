@@ -27,6 +27,13 @@ QueenPuzzle:: ; \
 $(CAT) $(XATS2JS_RUNTIME) > QueenPuzzle_dats.js && \
 $(XATS2JS) 1>/dev/null 2>&1 --output-a QueenPuzzle_dats.js -d ./QueenPuzzle.dats && $(NODE) QueenPuzzle_dats.js
 ######
+test:: \
+readline
+readline:: ; \
+$(CAT) readline.cats > readline_dats.js && \
+$(CAT) $(XATS2JS_RUNTIME) >> readline_dats.js && \
+$(XATS2JS) 1>/dev/null 2>&1 --output-a readline_dats.js -d ./readline.dats && $(CAT) readline.cats | $(NODE) readline_dats.js
+######
 #
 # HX: for cleaning up
 #
