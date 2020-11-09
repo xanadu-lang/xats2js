@@ -22,6 +22,11 @@ XANADU_targetloc
   "{$XANADU}/SATS/lexing.sats"
 //
 (* ****** ****** *)
+#staload S1E =
+  "{$XANADU}/SATS/staexp1.sats"
+#staload S2E =
+  "{$XANADU}/SATS/staexp2.sats"
+(* ****** ****** *)
 //
 #staload INTREP0 =
   "{$XANADU}/SATS/intrep0.sats"

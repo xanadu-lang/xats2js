@@ -46,6 +46,9 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 #staload $LEX(* open *)
 (* ****** ****** *)
+#staload $S1E(* open *)
+#staload $S2E(* open *)
+(* ****** ****** *)
 #staload $INTREP0(* open *)
 (* ****** ****** *)
 overload
@@ -167,25 +170,132 @@ else
 fprint(out, hdc.sym())
 end // end of [xemit01_hdcon]
 (* ****** ****** *)
+local
+
+(* ****** ****** *)
+
+fun
+auxnone
+( out
+: FILEref
+, hdc: hdcst): void =
+{
+//
+val
+sym = hdc.sym()
+val
+loc = hdc.loc()
+//
+val () =
+fprint(out, sym)
+//
+val () =
+let
+val
+ntot = loc.beg_ntot()
+in
+fprint!(out, "_", ntot, "_")
+end // end of [let]
+//
+} (* end of [auxnone] *)
+
+(* ****** ****** *)
+
+fun
+auxsome
+( out
+: FILEref
+, gnm: g1nam
+, hdc: hdcst): void =
+(
+case+ gnm of
+| G1Nnil() =>
+  auxsome_nil(out, hdc, gnm)
+| G1Nid0(id0) =>
+  auxsome_id0(out, hdc, gnm)
+| G1Nnone0() =>
+  auxsome_none(out, hdc, gnm)
+| _(*rest-of-g1nam*) =>
+  auxsome_rest(out, hdc, gnm)
+)
+
+and
+auxsome_nil
+( out
+: FILEref
+, hdc: hdcst
+, gnm: g1nam): void =
+let
+val
+sym = hdc.sym()
+in
+  fprint!(out, sym)
+end // end of [auxsome_nil]
+
+and
+auxsome_id0
+( out
+: FILEref
+, hdc: hdcst
+, gnm: g1nam): void =
+let
+val-
+G1Nid0(sym) = gnm
+in
+  fprint!(out, sym)
+end // end of [auxsome_nil]
+
+and
+auxsome_none
+( out
+: FILEref
+, hdc: hdcst
+, gnm: g1nam): void =
+(
+  auxsome_nil(out, hdc, gnm)
+)
+
+and
+auxsome_rest
+( out
+: FILEref
+, hdc: hdcst
+, gnm: g1nam): void =
+let
+val
+sym = hdc.sym()
+in
+  fprint!
+  (out, sym, "_**EXNAME**_")
+end // end of [auxsome_rest]
+
+(* ****** ****** *)
+
+in(*in-of-local*)
+//
 implement
 xemit01_hdcst
 (out, hdc) =
-{
-val () =
-fprint(out, sym)
-(*
-val () =
-fprint(out, "__")
-val () =
-fprint(out, stmp)
-*)
-} where
-{
-  val sym = hdc.sym()
-(*
-  val stmp = hdc.stamp()
-*)
-} (* end of [xemit01_hdcst] *)
+let
+val
+xnm = hdc.xnam()
+in
+//
+case+ xnm of
+|
+X2NAMnone() =>
+(
+  auxnone(out, hdc)
+)
+|
+X2NAMsome(gnm) =>
+(
+  auxsome(out, gnm, hdc)
+)
+//
+end // end of [xemit01_hdcst]
+//
+end // end of [local]
 (* ****** ****** *)
 implement
 xemit01_ltcst
@@ -205,7 +315,7 @@ fprint(out, stmp)
 (*
   val stmp = ltc.stamp()
 *)
-} (* end of [xemit01_ltcst] *)
+} (*where*) // [xemit01_ltcst]
 (* ****** ****** *)
 
 implement
