@@ -33,15 +33,18 @@ end (* let *) // end-of-val
 
 val () =
 let
-val ls =
-fpath_streamize_line
-("./readfile.dats")
+val
+lines =
+fpath_streamize_line("./readfile.dats")
 in
-stream_vt_foreach0(ls)
-where
+(
+iforeach0(lines)
+) where
 {
-impltmp
-foreach0$work<string>(l0) = println(l0)
+  impltmp
+  iforeach0$work
+  <string>
+  (i0, line) = println("(line#", i0, ")\t", line)
 }
 end (* let *) // end-of-val
 
