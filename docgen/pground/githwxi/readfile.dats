@@ -31,4 +31,20 @@ end (* let *) // end-of-val
 
 (* ****** ****** *)
 
+val () =
+let
+val ls =
+fpath_streamize_line
+("./readfile.dats")
+in
+stream_vt_foreach0(ls)
+where
+{
+impltmp
+foreach0$work<string>(l0) = println(l0)
+}
+end (* let *) // end-of-val
+
+(* ****** ****** *)
+
 (* end of [readfile.dats] *)
