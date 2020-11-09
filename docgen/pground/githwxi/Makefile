@@ -25,6 +25,13 @@ $(XATS2JS_PRELUDE) > hello_dats.js && \
 $(XATS2JS) 1>/dev/null 2>&1 --output-a hello_dats.js -d ./hello.dats && $(NODE) hello_dats.js
 ######
 test:: \
+acker2
+acker2:: ; \
+$(CAT) \
+$(XATS2JS_PRELUDE) > acker2_dats.js && \
+$(XATS2JS) 1>/dev/null 2>&1 --output-a acker2_dats.js -d ./acker2.dats && $(NODE) acker2_dats.js
+######
+test:: \
 QueenPuzzle
 QueenPuzzle:: ; \
 $(CAT) \
