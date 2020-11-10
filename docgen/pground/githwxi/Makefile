@@ -1,6 +1,6 @@
 ######
 #
-# For testing xats2js
+# A simple Makefile
 #
 ######
 CAT=cat
@@ -62,4 +62,4 @@ cleanall:: clean
 cleanall:: ; rm -f output
 cleanall:: ; rm -f *_dats.js
 ######
-###### end of [Makefile_nodejs] ######
+###### end of [Makefile] ######

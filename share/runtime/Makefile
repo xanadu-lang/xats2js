@@ -40,6 +40,9 @@ $(CAT) \
 $(XANADU)/prelude/DATS/CATS/JS/prelude.cats >> xats2js_prelude.js
 xats2js_prelude:: ; \
 $(CAT) \
+$(XANADU)/prelude/DATS/CATS/JS/g_print.cats >> xats2js_prelude.js
+xats2js_prelude:: ; \
+$(CAT) \
 $(XANADU)/prelude/DATS/CATS/JS/Node/g_print.cats >> xats2js_prelude.js
 ######
 xats2js_xatslib_libc:: ; \
