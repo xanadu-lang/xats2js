@@ -63,6 +63,7 @@ datatype expr =
 //
 (* ****** ****** *)
 //
+(*
 impltmp
 g_print
 <expr> =
@@ -70,7 +71,7 @@ myprint where
 {
 fun
 myprint
-(x0: expr): void=
+(x0: expr): void =
 (
 case+ x0 of
 | Int(i0) =>
@@ -93,6 +94,30 @@ case+ x0 of
   ; g_print(')') )
 )
 } (* end of [g_print] *)
+*)
+//
+#extern
+fun
+print_expr(x0:expr): void
+impltmp
+g_print<expr> = print_expr
+//
+implement
+print_expr(x0) =
+(
+case+ x0 of
+//
+| Int(i0) => print(i0)
+//
+| Add(x1, x2) =>
+  print('(', x1, '+', x2, ')')
+| Sub(x1, x2) =>
+  print('(', x1, '-', x2, ')')
+| Mul(x1, x2) =>
+  print('(', x1, '*', x2, ')')
+| Div(x1, x2) =>
+  print('(', x1, '/', x2, ')')
+)
 //
 (* ****** ****** *)
 
@@ -290,7 +315,8 @@ val xs = list_cons(Int(n1), xs)
 #extern
 fun
 Game_of_24_play_print
-(n1: int, n2: int, n3: int, n4: int): void = $exname()
+( n1: int, n2: int
+, n3: int, n4: int): void = $exname()
 //
 (* ****** ****** *)
 
@@ -305,7 +331,7 @@ case+ !xs of
 | ~
 strmcon_vt_nil() =>
 println
-("There is no solution!")
+("No solution is found!")
 | ~
 strmcon_vt_cons(x0, xs) =>
 (
