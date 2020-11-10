@@ -301,11 +301,24 @@ let
 val xs =
 play(n1, n2, n3, n4)
 in
+case+ !xs of
+| ~
+strmcon_vt_nil() =>
+println
+("There is no solution!")
+| ~
+strmcon_vt_cons(x0, xs) =>
+(
+//
+println(x0);
+//
 stream_vt_foreach0(xs) where
 {
 impltmp
 foreach0$work<expr>(x0) = println(x0)
 }
+//
+) (* end of [strmcon_vt_cons] *)
 end // end of [Game_of_24_play_print]
 
 (* ****** ****** *)
