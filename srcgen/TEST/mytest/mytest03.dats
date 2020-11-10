@@ -19,5 +19,8 @@ val () = println("ab = ", ab)
 val () = println("AB = ", AB)
 
 (* ****** ****** *)
+val () =
+println("('a' - 'b') = ", 'a' - 'b')
+(* ****** ****** *)
 
 (* end of [mytest03.dats] *)
