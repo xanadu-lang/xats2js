@@ -41,7 +41,7 @@ end // end of [acker]
 (* ****** ****** *)
 
 val () =
-println("acker(3, 3) = ", acker(3, 3))
+println("acker (3, 3) = ", acker (3, 3))
 
 (* ****** ****** *)
 
