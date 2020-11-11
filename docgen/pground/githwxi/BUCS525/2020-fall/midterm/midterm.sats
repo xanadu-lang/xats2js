@@ -50,8 +50,7 @@ T0Pstring: type0 // string
 (* ****** ****** *)
 //
 fun
-print_type0
-(x0: type0): void
+print_type0(x0: type0): void
 //
 (* ****** ****** *)
 //
@@ -107,15 +106,14 @@ typedef t0ermopt = myoptn(t0erm)
 //
 (* ****** ****** *)
 fun
-print_t0erm
-(x0: t0erm): void
+print_t0erm(t0erm): void
 (* ****** ****** *)
-
+//
 datatype
 s0env =
-S0ENV of
-mylist(@(t0var, type0))
-
+| S0ENV of
+  mylist(@(t0var, type0))
+//
 (* ****** ****** *)
 
 fun
@@ -165,8 +163,16 @@ typedef valuelst = mylist(value)
 (* ****** ****** *)
 //
 fun
-print_value
-(x0: value): void
+print_value(x0: value): void
+//
+(* ****** ****** *)
+//
+fun
+d0env_extend
+(d0env, t0var, value): d0env
+fun
+d0env_search
+(d0env, t0var): myoptn(value)
 //
 (* ****** ****** *)
 
