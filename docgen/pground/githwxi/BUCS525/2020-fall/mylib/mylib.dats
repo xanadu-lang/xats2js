@@ -1,4 +1,9 @@
 (* ****** ****** *)
+//
+// HX: For use in
+// BUCS525-2020-fall
+//
+(* ****** ****** *)
 (*
 HX: Option type
 *)
@@ -12,8 +17,10 @@ HX: Type For lists
 *)
 datatype
 mylist(a:type) =
-| mylist_nil of ()
-| mylist_cons of (a, mylist(a))
+|
+mylist_nil of ()
+|
+mylist_cons of (a, mylist(a))
 //
 (* ****** ****** *)
 #extern
@@ -27,7 +34,7 @@ impltmp
 g_print
 <myoptn(a)> = print_myoptn<a>
 (* ****** ****** *)
-implement
+impltmp
 <a>(*tmp*)
 print_myoptn
   (xs) = 
@@ -35,10 +42,10 @@ print_myoptn
 case+ xs of
 |
 myoptn_nil() => 
-print(out, "nil()")
+print("nil()")
 |
 myoptn_cons(x0) =>
-print(out, "cons(", x0, ")")
+print("cons(", x0, ")")
 ) (* end of [print_myoptn] *)
 (* ****** ****** *)
 #extern
@@ -53,7 +60,7 @@ g_print
 <mylist(a)> = print_mylist<a>
 (* ****** ****** *)
 
-implement
+impltmp
 {a:t0}
 print_mylist
   (xs) =
@@ -72,10 +79,12 @@ mylist_nil() => ()
 |
 mylist_cons(x0, xs) =>
 (
-  if
-  i0 > 0
-  then print(out, ";");
-  print(x0); auxlst(i0+1, xs)
+(
+if
+i0 > 0
+then print(";")) ;
+print(x0); auxlst(i0+1, xs)
+//
 )
 ) (* end of [auxlst] *)
 } (* end of [print_mylist] *)

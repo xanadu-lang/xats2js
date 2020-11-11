@@ -1,7 +1,4 @@
 (* ****** ****** *)
-#staload
-"./../mylib/mylib.dats"
-(* ****** ****** *)
 typedef
 tpnam = string
 (* ****** ****** *)
@@ -13,6 +10,9 @@ t0var = string
 abstype tpext_type
 typedef
 tpext = tpext_type
+(* ****** ****** *)
+#staload
+"./../mylib/mylib.dats"
 (* ****** ****** *)
 //
 datatype type0 =
@@ -50,7 +50,8 @@ T0Pstring: type0 // string
 (* ****** ****** *)
 //
 fun
-print_type0(xs: type0): void
+print_type0
+(x0: type0): void
 //
 (* ****** ****** *)
 //
@@ -73,7 +74,7 @@ and t0erm =
 | T0Mlam of
   ( t0var
   , type0opt, t0erm)
-| T0Mfix1 of
+| T0Mfix of
   ( t0var
   , type0opt, t0erm)
 //
@@ -107,7 +108,7 @@ typedef t0ermopt = myoptn(t0erm)
 (* ****** ****** *)
 fun
 print_t0erm
-(xs: t0erm): void
+(x0: t0erm): void
 (* ****** ****** *)
 
 datatype
@@ -163,14 +164,18 @@ typedef valuelst = mylist(value)
 
 (* ****** ****** *)
 //
-fun print_value(value): void
+fun
+print_value
+(x0: value): void
 //
 (* ****** ****** *)
 
 fun
-t0erm_interp0(prog: t0erm): value
+t0erm_interp0
+(prog: t0erm): value
 fun
-t0erm_interp1(t0m: t0erm, env: d0env): value
+t0erm_interp1
+(t0m: t0erm, env: d0env): value
 
 (* ****** ****** *)
 
