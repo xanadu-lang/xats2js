@@ -90,5 +90,70 @@ print(x0); auxlst(i0+1, xs)
 } (* end of [print_mylist] *)
 
 (* ****** ****** *)
+//
+#extern
+fun
+<a:type>
+mylist_get_at_opt
+( xs
+: mylist(a), i0: int): myoptn(a)
+//
+(* ****** ****** *)
+//
+impltmp
+<a>
+mylist_get_at_opt
+( xs, i0 ) =
+(
+  auxlst(xs, i0)
+) where
+{
+fun
+auxlst
+(xs: mylist(a), i0: int): myoptn(a) =
+(
+case+ xs of
+| mylist_nil() =>
+  myoptn_nil()
+| mylist_cons(x0, xs) =>
+  if
+  (i0 > 0)
+  then auxlst(xs, i0-1) else myoptn_cons(x0)
+)
+} (* end of [mylist_get_at_opt] *)
+//
+(* ****** ****** *)
+//
+#extern
+fun
+<a:type>
+<b:type>
+mylist_map_cfr
+( xs
+: mylist(a)
+, f0: (a) -<cfr> b): mylist(b)
+//
+(* ****** ****** *)
+
+impltmp
+<a><b>
+mylist_map_cfr
+(xs, f0) =
+auxlst(xs) where
+{
+fun
+auxlst
+( xs
+: mylist(a)): mylist(b) =
+(
+case+ xs of
+| mylist_nil() =>
+  mylist_nil()
+| mylist_cons(x0, xs) =>
+  mylist_cons(f0(x0), auxlst(xs))
+)
+}
+
+(* ****** ****** *)
 
 (* end of [mylib.dats] *)
