@@ -1,11 +1,17 @@
 ############
-
+CAT=cat
+ECHO=echo
+############
 XJSHOME =\
 "./../../../../../../.."
-
+############
 XATS2JS =\
 "$(XJSHOME)/bin/xats2js"
-
+############
+XATS2JS_PRELUDE=\
+"$(XJSHOME)/share/runtime/xats2js_prelude.js"
+XATS2JS_XATSLIB_LIBC=\
+"$(XJSHOME)/share/runtime/xats2js_xatslib_libc.js"
 ############
 all:: start
 ############
@@ -13,11 +19,14 @@ all:: midterm
 all:: midterm_type0
 all:: midterm_t0erm
 all:: midterm_s0env
+all:: midterm_value
 all:: midterm_d0env
-all:: midterm_interp
+all:: midterm_intrp
+all:: midterm_main0
 ############
 start:: ; \
-$(ECHO) > midterm_output.js
+echo > midterm_output.js && \
+$(CAT) $(XATS2JS_PRELUDE) >> midterm_output.js
 ############
 midterm:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm.dats
@@ -34,10 +43,22 @@ $(XATS2JS) --output-a midterm_output.js -d ./midterm_s0env.dats
 midterm_d0env:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm_d0env.dats
 ############
-midterm_interp:: ; \
-$(XATS2JS) --output-a midterm_output.js -d ./midterm_interp.dats
+midterm_value:: ; \
+$(XATS2JS) --output-a midterm_output.js -d ./midterm_value.dats
+############
+midterm_intrp:: ; \
+$(XATS2JS) --output-a midterm_output.js -d ./midterm_intrp.dats
+############
+midterm_intrp:: ; \
+$(XATS2JS) --output-a midterm_output.js -d ./midterm_intrp.dats
+############
+midterm_main0:: ; \
+$(XATS2JS) --output-a midterm_output.js -d ./midterm_main0.dats
 ############
 
-cleanal:: ; rm -f midterm_output.js
+clean:: ; rm -f *~
+
+cleanall:: clean
+cleanall:: ; rm -f midterm_output.js
 
 ############ end of [Makefile] ############

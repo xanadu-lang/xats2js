@@ -15,6 +15,12 @@
 (* ****** ****** *)
 
 implfun
+d0env_nil() =
+D0ENV(mylist_nil())
+
+(* ****** ****** *)
+
+implfun
 d0env_extend
 (env, x0, v0) =
 let

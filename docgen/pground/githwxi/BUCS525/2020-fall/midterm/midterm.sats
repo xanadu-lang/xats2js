@@ -117,6 +117,8 @@ s0env =
 (* ****** ****** *)
 
 fun
+s0env_nil(): s0env
+fun
 s0env_extend
 (s0env, t0var, type0): s0env
 fun
@@ -163,6 +165,9 @@ print_value(x0: value): void
 (* ****** ****** *)
 //
 fun
+d0env_nil(): d0env
+//
+fun
 d0env_extend
 (d0env, t0var, value): d0env
 fun
@@ -172,10 +177,10 @@ d0env_search
 (* ****** ****** *)
 
 fun
-t0erm_interp0
+t0erm_intrp0
 (prog: t0erm): value
 fun
-t0erm_interp1
+t0erm_intrp1
 (t0m0: t0erm, env0: d0env): value
 
 (* ****** ****** *)

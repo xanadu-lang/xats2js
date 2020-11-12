@@ -14,15 +14,15 @@
 /DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 //
-implement
+implval
 T0Pnil = T0Pbas("nil")
-implement
+implval
 T0Pint = T0Pbas("int")
 //
-implement
+implval
 T0Pbool = T0Pbas("bool")
 //
-implement
+implval
 T0Pstring = T0Pbas("string")
 //
 (* ****** ****** *)

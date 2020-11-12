@@ -19,6 +19,7 @@ print_t0erm
   (tm0) =
 (
 case+ tm0 of
+//
 | T0Mnil() =>
   print("T0Mnil(", ")")
 //
@@ -33,11 +34,9 @@ case+ tm0 of
 | T0Mlam(x0, opt, tm2) =>
   print
   ("T0Mlam(", x0, "; ", opt, "; ", tm2, ")")
-(*
 | T0Mfix(f0, opt, tm2) =>
   print
   ("T0Mfix(", f0, "; ", opt, "; ", tm2, ")")
-*)
 //
 | T0Mapp(tm1, tm2) =>
   print("T0Mapp(", tm1, "; ", tm2, ")")
@@ -62,11 +61,9 @@ case+ tm0 of
 | T0Manno(tm1, tp2) =>
   print("T0Manno(", tm1, "; ", tp2, ")")
 //
-(*
 | T0Mcond(tm1, tm2, opt) =>
   print
   ("T0Mcond(", tm1, "; ", tm2, "; ", opt, ")")
-*)
 //
 )
 
