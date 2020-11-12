@@ -48,6 +48,11 @@ val
 T0Pstring: type0 // string
 //
 (* ****** ****** *)
+fun
+tpext_get
+(X0: tpext): type0opt
+#symload get with tpext_get
+(* ****** ****** *)
 //
 fun
 print_type0(x0: type0): void
@@ -131,10 +136,10 @@ s0env_search
 // then TypeErrExn is raised
 //
 fun
-t0erm_tcheck0
+t0erm_tpinf0
 (prog: t0erm): type0
 fun
-t0erm_tcheck1
+t0erm_tpinf1
 (t0m0: t0erm, senv: s0env): type0
 //
 (* ****** ****** *)

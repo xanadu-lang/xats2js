@@ -131,7 +131,7 @@ test:: \
 test-ats2-queens
 test-ats2-queens:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
-$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-ats2-queens.dats && $(NODE) --stack-size=8000 output_dats.js
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-ats2-queens.dats && $(NODE) --stack-size=8192 output_dats.js
 ######
 #
 # HX: for cleaning up
