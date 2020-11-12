@@ -53,8 +53,10 @@ T0Mapp(fact, T0Mint(10))
 
 (* ****** ****** *)
 
+(*
 val () =
 println("fact = ", fact)
+*)
 val () =
 println("fact(10) = ", t0erm_intrp0(fact10))
 

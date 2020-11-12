@@ -819,10 +819,10 @@ in
 fprint!
 ( out
 , "L1LAMEXP@{"
-, "hag=", rcd.hag, ", "
-, "def=", rcd.def, ", "
-, "hag_blk=", rcd.hag_blk, ", "
-, "def_blk=", rcd.def_blk, ", ", "}")
+, "hag=", rcd.hag, "; "
+, "def=", rcd.def, "; "
+, "hag_blk=", rcd.hag_blk, "; "
+, "def_blk=", rcd.def_blk, "; ", "}")
 //
 end // end of [fprint_l1lamexp]
 //
@@ -847,11 +847,11 @@ in
 fprint!
 ( out
 , "L1FIXEXP@{"
-, "nam=", rcd.nam, ", "
-, "hag=", rcd.hag, ", "
-, "def=", rcd.def, ", "
-, "hag_blk=", rcd.hag_blk, ", "
-, "def_blk=", rcd.def_blk, ", ", "}")
+, "nam=", rcd.nam, "; "
+, "hag=", rcd.hag, "; "
+, "def=", rcd.def, "; "
+, "hag_blk=", rcd.hag_blk, "; "
+, "def_blk=", rcd.def_blk, "; ", "}")
 //
 end // end of [fprint_l1fixexp]
 //
@@ -875,11 +875,13 @@ in
 fprint!
 ( out
 , "LIMPDECL@{"
-, "hdc=", rcd.hdc, ", "
-, "hag=", rcd.hag, ", "
-, "def=", rcd.def, ", "
-, "hag_blk=", rcd.hag_blk, ", "
-, "def_blk=", rcd.def_blk, ", ", "}")
+, "hdc=", rcd.hdc, "; "
+, "hag=", rcd.hag, "; "
+, "def=", rcd.def, "; "
+, "lev=(", rcd.lev, "); "
+, "lts=(", rcd.lts, "); "
+, "hag_blk=", rcd.hag_blk, "; "
+, "def_blk=", rcd.def_blk, "; ", "}")
 //
 end // end of [fprint_limpdecl]
 //
@@ -907,19 +909,19 @@ None() =>
 fprint!
 ( out
 , "LFUNDECL@{"
-, "nam=", rcd.nam, ", "
-, "hdc=", rcd.hdc, ", ", "}")
+, "nam=", rcd.nam, "; "
+, "hdc=", rcd.hdc, "; ", "}")
 |
 Some(rcd_hag) =>
 fprint!
 ( out
 , "LFUNDECL@{"
-, "nam=", rcd.nam, ", "
-, "hdc=", rcd.hdc, ", "
-, "hag=", rcd_hag, ", "
-, "def=", rcd.def, ", "
-, "hag_blk=", rcd.hag_blk, ", "
-, "def_blk=", rcd.def_blk, ", ", "}")
+, "nam=", rcd.nam, "; "
+, "hdc=", rcd.hdc, "; "
+, "hag=", rcd_hag, "; "
+, "def=", rcd.def, "; "
+, "hag_blk=", rcd.hag_blk, "; "
+, "def_blk=", rcd.def_blk, "; ", "}")
 //
 end // end of [fprint_lfundecl]
 //

@@ -2392,33 +2392,39 @@ val+
 LIMPDECL(rcd) = limp
 //
 val () =
+xemit01_txtln
+( out
+, "// { // val-binding" )
+//
+val () =
 let
 val
-blk = rcd.def_blk
+lts = rcd.lts
+in
+xemit01_ftmpdecs(out, lts)
+end // end of [val]
+//
+val () =
+let
+val
+blk =
+rcd.def_blk
 in
 case+ blk of
 |
 L1BLKnone() => ()
 |
-L1BLKsome(xs) =>
+L1BLKsome(cmds) =>
 (
-case+ xs of
+case+ cmds of
 |
-list_nil _ => ()
+list_nil _ => ((*void*))
 |
 list_cons _ =>
 {
 //
 val () =
-xemit01_txtln
-( out
-, "// { // val-binding" )
-val () =
-xemit01_l1cmdlst(out, xs)
-val () =
-xemit01_txtln
-( out
-, "// } // val-binding" )
+xemit01_l1cmdlst(out, cmds)
 //
 } (* [list_cons] *)
 ) (* [L1BLKsome] *)
@@ -2426,7 +2432,12 @@ end // end of [val]
 //
 val () =
 xemit01_txtln
-(out, "var // fun")
+( out
+, "// } // val-binding" )
+//
+val () =
+xemit01_txtln
+(out, "const // implval/fun")
 val () =
 xemit01_hdcst(out, rcd.hdc)
 //
