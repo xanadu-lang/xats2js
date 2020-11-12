@@ -32,11 +32,11 @@
 (* ****** ****** *)
 
 val () =
-println("0===0: ", g_eqref(0, 0))
+println("0===0: ", 0===0)
 val () =
-println("'0'==='0': ", g_eqref('0', '0'))
+println("'0'==='0': ", '0' === '0')
 val () =
-println("true!==true: ", g_neqrf(true, true))
+println("true!==true: ", true !== true)
 
 (* ****** ****** *)
 
