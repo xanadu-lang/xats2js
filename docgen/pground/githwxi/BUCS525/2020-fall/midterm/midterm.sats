@@ -136,7 +136,7 @@ t0erm_tcheck1
 (t0m0: t0erm, senv: s0env): type0
 //
 (* ****** ****** *)
-
+//
 datatype
 value =
 //
@@ -154,12 +154,7 @@ and
 d0env =
 | D0ENV of
   mylist(@(t0var, value))
-
-where
-{
-typedef valuelst = mylist(value)
-}
-
+//
 (* ****** ****** *)
 //
 fun
@@ -181,7 +176,7 @@ t0erm_interp0
 (prog: t0erm): value
 fun
 t0erm_interp1
-(t0m: t0erm, env: d0env): value
+(t0m0: t0erm, env0: d0env): value
 
 (* ****** ****** *)
 

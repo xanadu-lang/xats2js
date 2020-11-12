@@ -19,7 +19,7 @@ local
 fun
 aux_var
 ( t0m0: t0erm
-, env0: s0env): value =
+, env0: d0env): value =
 let
 //
 (*
@@ -30,7 +30,7 @@ println
 //
 val-T0Mvar(x0) = t0m0
 val
-opt = s0env_search(env0, x0)
+opt = d0env_search(env0, x0)
 //
 in
 case- opt of myoptn_cons(v0) => v0
@@ -41,7 +41,7 @@ end // end of [aux_var]
 fun
 aux_app
 ( t0m0: t0erm
-, env0: s0env): value =
+, env0: d0env): value =
 let
 //
 val-
@@ -59,11 +59,12 @@ case- vfun of
 VALlam(tlam, elam) =>
 let
 val-
-T0Mlam(x0, body) = tlam
+T0Mlam
+(x0, topt, body) = tlam
 in
   t0erm_interp1
   ( body
-  , s0env_extend(elam, x0, varg))
+  , d0env_extend(elam, x0, varg))
 end
 |
 VALfix(f0, vlam) =>
@@ -71,13 +72,14 @@ let
 val-
 VALlam(t0, elam) = vlam
 val-
-T0Mlam(x0, body) = t0
+T0Mlam
+(x0, topt, body) = t0
 val efix =
-s0env_extend(elam, f0, vfun)
+d0env_extend(elam, f0, vfun)
 in
   t0erm_interp1
   ( body
-  , s0env_extend(efix, x0, varg))
+  , d0env_extend(efix, x0, varg))
 end
   
 end // end of [aux_app]
@@ -87,20 +89,18 @@ end // end of [aux_app]
 fun
 aux_tup
 ( t0m0: t0erm
-, env0: s0env): value =
+, env0: d0env): value =
 (
-  VALtup(vs)
+  VALtup(v1, v2)
 ) where
 {
 //
 val-
-T0Mtup(ts) = t0m0
+T0Mtup(t0m1, t0m2) = t0m0
 //
-val vs =
-mylist_map_cfr
-( ts
-, lam(t0) => t0erm_interp1(t0, env0)
-)
+val v1 = t0erm_interp1(t0m1, env0)
+val v2 = t0erm_interp1(t0m2, env0)
+//
 } (* end of [aux_tup] *)
 
 (* ****** ****** *)
@@ -108,21 +108,19 @@ mylist_map_cfr
 fun
 aux_prj
 ( t0m0: t0erm
-, env0: s0env): value =
+, env0: d0env): value =
+(
 let
-val
-opt =
-mylist_get_at_opt
-  (vs, i2)
+val-
+VALtup(v0, v1) = vtup
 in
-  case- opt of
-  | myoptn_cons(v1) => v1
-end where
+if i2 <= 0 then v0 else v1
+end
+) where
 {
 val-
-T0Mprj(tup1, i2) = t0m0
-val-
-VALtup(vs) = t0erm_interp1(tup1, env0)
+T0Mprj(t0m1, i2) = t0m0
+val vtup = t0erm_interp1(t0m1, env0)
 } (* end of [aux_prj] *)
 
 (* ****** ****** *)
@@ -130,25 +128,32 @@ VALtup(vs) = t0erm_interp1(tup1, env0)
 fun
 aux_cond
 ( t0m0: t0erm
-, env0: s0env): value =
+, env0: d0env): value =
 let
 //
 val-
 T0Mcond
-(t1, t2, t3) = t0m0
+(t0m1, t0m2, opt3) = t0m0
 //
 in
 let
 val v1 =
-t0erm_interp1(t1, env0)
+t0erm_interp1(t0m1, env0)
 in
 case- v1 of
 |
 VALbtf(b1) =>
 (
   if b1
-  then t0erm_interp1(t2, env0)
-  else t0erm_interp1(t3, env0)
+  then
+  t0erm_interp1(t0m2, env0)
+  else
+  (
+  case+ opt3 of
+  | myoptn_nil() => VALnil()
+  | myoptn_cons(t0m3) =>
+    t0erm_interp1(t0m3, env0)
+  )
 )
 end(*let*)
 end(*let*) // end of [aux_cond]
@@ -158,7 +163,7 @@ end(*let*) // end of [aux_cond]
 fun
 aux_opr1
 ( t0m0: t0erm
-, env0: s0env): value =
+, env0: d0env): value =
 let
 //
 val-
@@ -174,12 +179,12 @@ case+ opr of
 | "-" =>
 (
 case- v1 of
-| VALint(i1) => VALint(~i1)
+| VALint(i1) => VALint(-i1)
 )
 | "~" =>
 (
 case- v1 of
-| VALint(i1) => VALint(~i1)
+| VALint(i1) => VALint(-i1)
 | VALbtf(b1) => VALbtf(~b1)
 )
 //
@@ -200,7 +205,7 @@ end (*let*) end (*let*) // end of [aux_opr1]
 fun
 aux_opr2
 ( t0m0: t0erm
-, env0: s0env): value =
+, env0: d0env): value =
 let
 //
 val-
@@ -306,7 +311,8 @@ case+ t0m0 of
   aux_prj(t0m0, env0)
 //
 |
-T0Mfix1(f0, t0m1) =>
+T0Mfix
+(f0, topt, t0m1) =>
 (
   VALfix(f0, vlam)
 ) where
