@@ -20,6 +20,7 @@ all:: midterm_type0
 all:: midterm_tpext
 all:: midterm_t0erm
 all:: midterm_s0env
+all:: midterm_tpinf
 all:: midterm_value
 all:: midterm_d0env
 all:: midterm_intrp
@@ -47,11 +48,11 @@ $(XATS2JS) --output-a midterm_output.js -d ./midterm_s0env.dats
 midterm_tpinf:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm_tpinf.dats
 ############
-midterm_d0env:: ; \
-$(XATS2JS) --output-a midterm_output.js -d ./midterm_d0env.dats
-############
 midterm_value:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm_value.dats
+############
+midterm_d0env:: ; \
+$(XATS2JS) --output-a midterm_output.js -d ./midterm_d0env.dats
 ############
 midterm_intrp:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm_intrp.dats

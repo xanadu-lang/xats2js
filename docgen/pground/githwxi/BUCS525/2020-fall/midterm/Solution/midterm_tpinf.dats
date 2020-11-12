@@ -14,6 +14,13 @@
 /DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 
+implfun
+t0erm_tpinf0
+(t0m0) =
+t0erm_tpinf1
+(t0m0, s0env_nil())
+
+(* ****** ****** *)
 
 #symload
 = with tpext_eqref of 1000
@@ -152,6 +159,24 @@ case tp1 of
 ) (* end of [tunify] *)
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implfun
+t0erm_tpinf1
+(t0m0, env0) =
+(
+case+
+t0m0 of
+| T0Mint _ => T0Pint
+) where
+{
+(*
+  val () =
+  println
+  ("t0erm_tpinf1: t0m0 = ", t0m0)
+*)
+} (* end of [t0erm_tpinf] *)
 
 (* ****** ****** *)
 

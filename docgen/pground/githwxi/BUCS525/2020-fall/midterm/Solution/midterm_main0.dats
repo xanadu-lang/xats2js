@@ -47,9 +47,20 @@ end // end of [let] // end of [val]
 
 (* ****** ****** *)
 
+val i10_tm =
+T0Mint(10)
+val i10_tp =
+t0erm_tpinf0(i10_tm)
+val ((*void*)) =
+println("i10_tm = ", i10_tm)
+val ((*void*)) =
+println("i10_tp = ", i10_tp)
+
+(* ****** ****** *)
+
 val
 fact10 =
-T0Mapp(fact, T0Mint(10))
+T0Mapp(fact, i10_tm)
 
 (* ****** ****** *)
 
