@@ -44,6 +44,9 @@ $(XATS2JS) --output-a midterm_output.js -d ./midterm_t0erm.dats
 midterm_s0env:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm_s0env.dats
 ############
+midterm_tpinf:: ; \
+$(XATS2JS) --output-a midterm_output.js -d ./midterm_tpinf.dats
+############
 midterm_d0env:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm_d0env.dats
 ############

@@ -36,6 +36,8 @@ println("0===0: ", 0===0)
 val () =
 println("'0'==='0': ", '0' === '0')
 val () =
+println("\"0\"===\"0\": ", "0" === "0")
+val () =
 println("true!==true: ", true !== true)
 
 (* ****** ****** *)
