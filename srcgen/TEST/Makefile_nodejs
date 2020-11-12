@@ -20,6 +20,12 @@ PRELUDE=./prelude
 GITHWXI=./xatslib_githwxi
 ######
 test:: \
+eqref
+eqref:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/eqref.dats && $(NODE) output_dats.js
+######
+test:: \
 sieve
 sieve:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \

@@ -17,6 +17,7 @@ all:: start
 ############
 all:: midterm
 all:: midterm_type0
+all:: midterm_tpext
 all:: midterm_t0erm
 all:: midterm_s0env
 all:: midterm_value
@@ -33,6 +34,9 @@ $(XATS2JS) --output-a midterm_output.js -d ./midterm.dats
 ############
 midterm_type0:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm_type0.dats
+############
+midterm_tpext:: ; \
+$(XATS2JS) --output-a midterm_output.js -d ./midterm_tpext.dats
 ############
 midterm_t0erm:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm_t0erm.dats

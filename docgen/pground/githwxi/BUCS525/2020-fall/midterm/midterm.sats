@@ -42,16 +42,30 @@ val
 T0Pint: type0 // int
 //
 val
-T0Pbool: type0 // bool
+T0Pbtf: type0 // bool
 //
 val
-T0Pstring: type0 // string
+T0Pstr: type0 // string
 //
 (* ****** ****** *)
+//
+fun
+tpext_new
+((*void*)): tpext
 fun
 tpext_get
-(X0: tpext): type0opt
+(X0: tpext):type0opt
+fun
+tpext_set
+(X0: tpext, tp:type0):void
+//
 #symload get with tpext_get
+#symload set with tpext_set
+//
+fun
+tpext_eqref
+(X1: tpext, X2: tpext): bool
+//
 (* ****** ****** *)
 //
 fun
