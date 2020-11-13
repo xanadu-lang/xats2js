@@ -316,6 +316,29 @@ end // end of [auxlet]
 (* ****** ****** *)
 
 fun
+auxtup
+(t0m0, env0) =
+(
+T0Ptup(t0p1, t0p2)
+) where
+{
+//
+val-
+T0Mtup
+(t0m1, t0m2) = t0m0
+//
+val
+t0p1 =
+t0erm_tpinf1(t0m1, env0)
+val
+t0p2 =
+t0erm_tpinf1(t0m2, env0)
+//
+} (* end of [auxtup] *)
+
+(* ****** ****** *)
+
+fun
 auxfst
 (t0m0, env0) =
 let
@@ -570,33 +593,24 @@ t0m0 of
 | T0Mbtf _ => T0Pbtf
 | T0Mstr _ => T0Pstr
 //
-| T0Mvar _ =>
-  auxvar(t0m0, env0)
+| T0Mvar _ => auxvar(t0m0, env0)
 //
-| T0Mlam _ =>
-  auxlam(t0m0, env0)
+| T0Mlam _ => auxlam(t0m0, env0)
 //
-| T0Mapp _ =>
-  auxapp(t0m0, env0)
+| T0Mapp _ => auxapp(t0m0, env0)
 //
-| T0Mlet _ =>
-  auxlet(t0m0, env0)
+| T0Mlet _ => auxlet(t0m0, env0)
 //
-| T0Mfix _ =>
-  auxfix(t0m0, env0)
+| T0Mfix _ => auxfix(t0m0, env0)
 //
-| T0Mfst _ =>
-  auxfst(t0m0, env0)
-| T0Msnd _ =>
-  auxsnd(t0m0, env0)
+| T0Mtup _ => auxtup(t0m0, env0)
+| T0Mfst _ => auxfst(t0m0, env0)
+| T0Msnd _ => auxsnd(t0m0, env0)
 //
-| T0Mopr1 _ =>
-  auxopr1(t0m0, env0)
-| T0Mopr2 _ =>
-  auxopr2(t0m0, env0)
+| T0Mopr1 _ => auxopr1(t0m0, env0)
+| T0Mopr2 _ => auxopr2(t0m0, env0)
 //
-| T0Mcond _ =>
-  auxcond(t0m0, env0)
+| T0Mcond _ => auxcond(t0m0, env0)
 //
 ) where
 {

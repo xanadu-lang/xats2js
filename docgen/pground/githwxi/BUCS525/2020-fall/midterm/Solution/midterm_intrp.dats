@@ -341,27 +341,19 @@ t0erm_intrp1
 (
 case+ t0m0 of
 //
-| T0Mnil() =>
-  VALnil()
+| T0Mnil() => VALnil()
 //
-| T0Mint(i0) =>
-  VALint(i0)
-| T0Mbtf(b0) =>
-  VALbtf(b0)
-| T0Mstr(s0) =>
-  VALstr(s0)
+| T0Mint(i0) => VALint(i0)
+| T0Mbtf(b0) => VALbtf(b0)
+| T0Mstr(s0) => VALstr(s0)
 //
-| T0Mvar _ =>
-  auxvar(t0m0, env0)
+| T0Mvar _ => auxvar(t0m0, env0)
 //
-| T0Mlam _ =>
-  VALlam(t0m0, env0)
+| T0Mlam _ => VALlam(t0m0, env0)
 //
-| T0Mapp _ =>
-  auxapp(t0m0, env0)
+| T0Mapp _ => auxapp(t0m0, env0)
 //
-| T0Mlet _ =>
-  auxlet(t0m0, env0)
+| T0Mlet _ => auxlet(t0m0, env0)
 //
 | T0Mfix
   ( f0
@@ -370,28 +362,19 @@ case+ t0m0 of
     VALfix(f0, vlam)
   ) where
   {
-    val
-    vlam =
-    VALlam(t0m1, env0)
+  val vlam = VALlam(t0m1, env0)
   }
 //
-| T0Mtup _ =>
-  auxtup(t0m0, env0)
-| T0Mfst _ =>
-  auxfst(t0m0, env0)
-| T0Msnd _ =>
-  auxsnd(t0m0, env0)
+| T0Mtup _ => auxtup(t0m0, env0)
+| T0Mfst _ => auxfst(t0m0, env0)
+| T0Msnd _ => auxsnd(t0m0, env0)
 //
-| T0Mopr1 _ =>
-  auxopr1(t0m0, env0)
-| T0Mopr2 _ =>
-  auxopr2(t0m0, env0)
+| T0Mopr1 _ => auxopr1(t0m0, env0)
+| T0Mopr2 _ => auxopr2(t0m0, env0)
 //
-| T0Mcond _ =>
-  auxcond(t0m0, env0)
+| T0Mcond _ => auxcond(t0m0, env0)
 //
-| T0Manno(t0m1, t0p2) =>
-  t0erm_intrp1(t0m1, env0)
+| T0Manno(t0m1, t0p2) => t0erm_intrp1(t0m1, env0)
 //
 (*
 | _ (* else *) =>
