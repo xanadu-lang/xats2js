@@ -14,9 +14,17 @@
 "prelude\
 /DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
+//
+// HX-2020-11-13:
+//
+// Please note that
+// no error reporting of any
+// sort is taken into account.
+//
+(* ****** ****** *)
 
 #symload
-= with tpext_eqref of 1000
+= with tpext_eqref of 9999
 
 (* ****** ****** *)
 
@@ -72,12 +80,12 @@ auxext1
 (X1, tp2) =
 (
 case+ tp2 of
-| T2Pext(X2) =>
+| T0Pext(X2) =>
   if
   (X1 = X2)
   then () else
   auxext2(X1, tp2)
-| _(*non-T2Pext*) =>
+| _(*non-T0Pext*) =>
   auxext2(X1, tp2)
 )
 and
@@ -208,7 +216,7 @@ case+ opt1 of
 myoptn_nil() =>
 type0_new_ext()
 |
-myopt_cons(t0p1) => t0p1)
+myoptn_cons(t0p1) => t0p1)
 //
 val tres =
 let
@@ -244,7 +252,7 @@ case+ opt1 of
 myoptn_nil() =>
 type0_new_ext()
 |
-myopt_cons(t0p1) => t0p1)
+myoptn_cons(t0p1) => t0p1)
 //
 val
 tfun =
