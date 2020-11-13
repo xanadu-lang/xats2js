@@ -18,6 +18,12 @@ absimpl
 tpext_type = a0ref(type0opt)
 
 (* ****** ****** *)
+
+implfun
+tpext_new() =
+a0ref_make(myoptn_nil())
+
+(* ****** ****** *)
 implfun
 tpext_get(X0) = a0ref_get(X0)
 (* ****** ****** *)

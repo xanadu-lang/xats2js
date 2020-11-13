@@ -20,10 +20,10 @@ implval
 T0Pint = T0Pbas("int")
 //
 implval
-T0Pbool = T0Pbas("bool")
+T0Pbtf = T0Pbas("bool")
 //
 implval
-T0Pstring = T0Pbas("string")
+T0Pstr = T0Pbas("string")
 //
 (* ****** ****** *)
 
@@ -40,10 +40,19 @@ case+ tp0 of
 | T0Pbas(nm) =>
   print("T0Pbas(", nm, ")")
 | T0Pfun(tp1, tp2) =>
-  print("T0Pfun(", tp1, ", ", tp2, ")")
+  print
+  ("T0Pfun(", tp1, ", ", tp2, ")")
 | T0Ptup(tp1, tp2) =>
-  print("T0Ptup(", tp1, ", ", tp2, ")")
-)
+  print
+  ("T0Ptup(", tp1, ", ", tp2, ")")
+| T0Pext(X0) =>
+  (
+  case+ X0.get() of
+  | myoptn_nil() =>
+    print("T0Pext(", "...", ")")
+  | myoptn_cons(tp1) => print_type0(tp1)
+  )
+) (* end of [print_type0] *)
 
 (* ****** ****** *)
 

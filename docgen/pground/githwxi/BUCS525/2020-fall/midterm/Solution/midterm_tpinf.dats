@@ -164,6 +164,101 @@ end // end of [local]
 
 local
 
+(* ****** ****** *)
+
+fun
+auxvar
+(t0m0, env0) =
+let
+val-
+T0Mvar(x0) = t0m0
+val
+opt =
+s0env_search(env0, x0)
+in
+case- opt of
+| myoptn_cons(t0p1) => t0p1
+end // end of [auxvar]
+
+(* ****** ****** *)
+
+fun
+auxlam
+(t0m0, env0) =
+(
+T0Pfun
+(targ, tres)
+) where
+{
+//
+val-
+T0Mlam
+( x0
+, opt1
+, t0m2) = t0m0
+//
+val
+targ =
+(
+case+ opt1 of
+|
+myoptn_nil() =>
+type0_new_ext()
+|
+myopt_cons(t0p1) => t0p1)
+//
+val tres =
+let
+val env1 =
+s0env_extend
+(env0, x0, targ)
+in
+  t0erm_tpinf1(t0m2, env1)
+end
+//
+} (* end of [auxlam] *)
+
+(* ****** ****** *)
+
+fun
+auxfix
+(t0m0, env0) =
+(
+  tfix) where
+{
+//
+val-
+T0Mfix
+( f0
+, opt1
+, t0m2) = t0m0
+//
+val
+tfix =
+(
+case+ opt1 of
+|
+myoptn_nil() =>
+type0_new_ext()
+|
+myopt_cons(t0p1) => t0p1)
+//
+val
+tfun =
+let
+val env1 =
+s0env_extend
+(env0, f0, tfix)
+in
+  t0erm_tpinf1(t0m2, env1)
+end
+//
+val () = tunify(tfix, tfun)
+//
+} (* end of [auxfix] *)
+
+(* ****** ****** *)
+
 fun
 auxapp
 (t0m0, env0) =
@@ -222,7 +317,7 @@ end // end of [auxfst]
 (* ****** ****** *)
 
 fun
-auxfst
+auxsnd
 (t0m0, env0) =
 let
 //
@@ -250,6 +345,187 @@ end // end of [auxsnd]
 
 (* ****** ****** *)
 
+fun
+auxopr1
+(t0m0, env0) =
+let
+//
+val-
+T0Mopr2
+( topr
+, t0m1) = t0m0
+//
+val
+t0p1 =
+t0erm_tpinf1(t0m1, env0)
+//
+in
+//
+case topr of
+| "-" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint) in T0Pint
+  end
+| "~" =>
+  let
+  val () =
+  tunify(t0p1, T0Pbtf) in T0Pbtf
+  end
+//
+end // end of [auxopr1]
+
+(* ****** ****** *)
+
+fun
+auxopr2
+(t0m0, env0) =
+let
+//
+val-
+T0Mopr2
+( topr
+, t0m1
+, t0m2) = t0m0
+//
+val
+t0p1 =
+t0erm_tpinf1(t0m1, env0)
+val
+t0p2 =
+t0erm_tpinf1(t0m2, env0)
+//
+in
+//
+case topr of
+| "+" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pint
+  end
+| "-" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pint
+  end
+| "*" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pint
+  end
+| "/" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pint
+  end
+| "%" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pint
+  end
+| "<" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pbtf
+  end
+| ">" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pbtf
+  end
+| "=" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pbtf
+  end
+| "<=" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pbtf
+  end
+| ">=" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pbtf
+  end
+| "==" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pbtf
+  end
+| "!=" =>
+  let
+  val () =
+  tunify(t0p1, T0Pint)
+  val () =
+  tunify(t0p2, T0Pint) in T0Pbtf
+  end
+//
+end // end of [auxopr2]
+
+(* ****** ****** *)
+
+fun
+auxcond
+(t0m0, env0) =
+let
+//
+val-
+T0Mcond
+( t0m1
+, t0m2
+, opt3) = t0m0
+//
+val
+t0p1 =
+t0erm_tpinf1
+(t0m1, env0)
+val () =
+tunify(t0p1, T0Pbtf)
+//
+val
+t0p2 =
+t0erm_tpinf1(t0m2, env0)
+val
+t0p3 =
+(
+case+ opt3 of
+|
+myoptn_nil
+() => T0Pnil(*void*)
+|
+myoptn_cons
+(t0m3) => t0erm_tpinf1(t0m3, env0)
+) : type0 // end of [val]
+//
+in
+let val () = tunify(t0p2, t0p3) in t0p3 end
+end // end of [auxcond]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 
 implfun
@@ -264,21 +540,37 @@ t0m0 of
 | T0Mstr _ =>
   T0Pstr
 //
+| T0Mvar _ =>
+  auxvar(t0m0, env0)
+//
+| T0Mlam _ =>
+  auxlam(t0m0, env0)
+| T0Mfix _ =>
+  auxfix(t0m0, env0)
+//
 | T0Mapp _ =>
   auxapp(t0m0, env0)
 //
 | T0Mfst _ =>
-  auxapp(t0m0, env0)
+  auxfst(t0m0, env0)
 | T0Msnd _ =>
-  auxapp(t0m0, env0)
+  auxsnd(t0m0, env0)
+//
+| T0Mopr1 _ =>
+  auxopr1(t0m0, env0)
+| T0Mopr2 _ =>
+  auxopr2(t0m0, env0)
+//
+| T0Mcond _ =>
+  auxcond(t0m0, env0)
 //
 ) where
 {
-(*
+// (*
   val () =
   println
   ("t0erm_tpinf1: t0m0 = ", t0m0)
-*)
+// *)
 } (* end of [t0erm_tpinf] *)
 
 end // end of [local]

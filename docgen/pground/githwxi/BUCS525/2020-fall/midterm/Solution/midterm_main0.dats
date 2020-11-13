@@ -37,40 +37,48 @@ T0Mcond(
   (">", x, T0Mint(0))
   ,
   T0Mopr2
-  ("*", x, T0Mapp(f, T0Mopr2("-", x, T0Mint(1))))
+  ( "*"
+  , x
+  , T0Mapp
+    ( f
+    , T0Mopr2
+      ("-", x, T0Mint(1))
+    )
+  )
   ,
-  myoptn_cons(T0Mint(1))(*else*)
+  myoptn_cons( T0Mint(1) )(*else*)
 )
 )
 )
 end // end of [let] // end of [val]
 
 (* ****** ****** *)
-
-val i10_tm =
+//
+val
+i10_tm =
 T0Mint(10)
-val i10_tp =
+val
+i10_tp =
 t0erm_tpinf0(i10_tm)
-val ((*void*)) =
+//
+val () =
 println("i10_tm = ", i10_tm)
-val ((*void*)) =
+val () =
 println("i10_tp = ", i10_tp)
-
+//
 (* ****** ****** *)
 
 val
-fact10 =
+fact10_tm =
 T0Mapp(fact, i10_tm)
-
+val
+fact10_tp =
+t0erm_tpinf0(fact10_tm)
+val () =
+println("fact10_tp = ", fact10_tp)
 (* ****** ****** *)
-
-(*
 val () =
-println("fact = ", fact)
-*)
-val () =
-println("fact(10) = ", t0erm_intrp0(fact10))
-
+println("fact(10) = ", t0erm_intrp0(fact10_tm))
 (* ****** ****** *)
 
 (* end of [midterm_main0.dats] *)
