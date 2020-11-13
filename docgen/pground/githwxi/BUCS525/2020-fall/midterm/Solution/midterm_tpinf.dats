@@ -162,13 +162,116 @@ end // end of [local]
 
 (* ****** ****** *)
 
+local
+
+fun
+auxapp
+(t0m0, env0) =
+let
+//
+val-
+T0Mapp
+(t0m1, t0m2) = t0m0
+val
+t0p1 =
+t0erm_tpinf1(t0m1, env0)
+val
+t0p2 =
+t0erm_tpinf1(t0m2, env0)
+//
+in
+let
+val
+tres = type0_new_ext()
+val () =
+tunify
+( t0p1
+, T0Pfun(t0p2, tres)) in tres
+end
+end // end of [auxapp]
+
+(* ****** ****** *)
+
+fun
+auxfst
+(t0m0, env0) =
+let
+//
+val-
+T0Mfst
+(t0m1) = t0m0
+val
+t0p1 =
+t0erm_tpinf1(t0m1, env0)
+//
+in
+let
+val
+t0pa =
+type0_new_ext((*void*))
+val
+t0pb =
+type0_new_ext((*void*))
+val () =
+tunify
+( t0p1
+, T0Ptup(t0pa, t0pb)) in t0pa
+end
+end // end of [auxfst]
+
+(* ****** ****** *)
+
+fun
+auxfst
+(t0m0, env0) =
+let
+//
+val-
+T0Msnd
+(t0m1) = t0m0
+val
+t0p1 =
+t0erm_tpinf1(t0m1, env0)
+//
+in
+let
+val
+t0pa =
+type0_new_ext((*void*))
+val
+t0pb =
+type0_new_ext((*void*))
+val () =
+tunify
+( t0p1
+, T0Ptup(t0pa, t0pb)) in t0pb
+end
+end // end of [auxsnd]
+
+(* ****** ****** *)
+
+in(*in-of-local*)
+
 implfun
 t0erm_tpinf1
 (t0m0, env0) =
 (
 case+
 t0m0 of
-| T0Mint _ => T0Pint
+//
+| T0Mint _ =>
+  T0Pint
+| T0Mstr _ =>
+  T0Pstr
+//
+| T0Mapp _ =>
+  auxapp(t0m0, env0)
+//
+| T0Mfst _ =>
+  auxapp(t0m0, env0)
+| T0Msnd _ =>
+  auxapp(t0m0, env0)
+//
 ) where
 {
 (*
@@ -177,6 +280,8 @@ t0m0 of
   ("t0erm_tpinf1: t0m0 = ", t0m0)
 *)
 } (* end of [t0erm_tpinf] *)
+
+end // end of [local]
 
 (* ****** ****** *)
 

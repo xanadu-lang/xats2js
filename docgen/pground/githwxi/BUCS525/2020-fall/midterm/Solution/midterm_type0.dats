@@ -28,6 +28,12 @@ T0Pstring = T0Pbas("string")
 (* ****** ****** *)
 
 implfun
+type0_new_ext() =
+T0Pext(tpext_new())
+
+(* ****** ****** *)
+
+implfun
 print_type0(tp0) =
 (
 case+ tp0 of

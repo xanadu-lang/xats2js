@@ -67,6 +67,11 @@ tpext_eqref
 (X1: tpext, X2: tpext): bool
 //
 (* ****** ****** *)
+
+fun
+type0_new_ext(): type0
+
+(* ****** ****** *)
 //
 fun
 print_type0(x0: type0): void
