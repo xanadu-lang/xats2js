@@ -25,6 +25,8 @@ case+ tm0 of
 //
 | T0Mint(x0) =>
   print("T0Mint(", x0, ")")
+| T0Mbtf(x0) =>
+  print("T0Mbtf(", x0, ")")
 | T0Mstr(x0) =>
   print("T0Mstr(", x0, ")")
 //

@@ -113,7 +113,7 @@ T0Pfun(tp11, tp12) =>
   |
   T0Pfun(tp21, tp22) =>
   let
-  val () = tunify(tp11, tp12)
+  val () = tunify(tp11, tp21)
   val () = tunify(tp12, tp22) in () end
 )
 |
@@ -122,7 +122,7 @@ T0Ptup(tp11, tp12) =>
   |
   T0Ptup(tp21, tp22) =>
   let
-  val () = tunify(tp11, tp12)
+  val () = tunify(tp11, tp21)
   val () = tunify(tp12, tp22) in () end
 )
 ) (* end of [auxtype] *)
@@ -132,7 +132,15 @@ in(*in-of-local*)
 implfun
 tunify
 (tp1, tp2) =
-(
+let
+(*
+val () =
+println("tunify: tp1 = ", tp1)
+val () =
+println("tunify: tp2 = ", tp2)
+*)
+in
+//
 case tp1 of
 | T0Pext(X1) =>
   (
@@ -151,9 +159,8 @@ case tp1 of
     )
   | _ (* non-T0Pext *) => auxtype(tp1, tp2)
   )
-) (* end of [tunify] *)
-
-end // end of [local]
+//
+end (* tunify *) end // end of [local]
 
 (* ****** ****** *)
 
@@ -279,6 +286,32 @@ tunify
 , T0Pfun(t0p2, tres)) in tres
 end
 end // end of [auxapp]
+
+(* ****** ****** *)
+
+fun
+auxlet
+(t0m0, env0) =
+let
+//
+val-
+T0Mlet
+( x0
+, t0m1, t0m2) = t0m0
+//
+val t0p1 =
+t0erm_tpinf1(t0m1, env0)
+//
+in
+(
+  t0erm_tpinf1(t0m2, env1)
+) where
+{
+val
+env1 =
+s0env_extend(env0, x0, t0p1)
+}
+end // end of [auxlet]
 
 (* ****** ****** *)
 
@@ -428,6 +461,7 @@ case topr of
   val () =
   tunify(t0p2, T0Pint) in T0Pint
   end
+//
 | "<" =>
   let
   val () =
@@ -541,11 +575,15 @@ t0m0 of
 //
 | T0Mlam _ =>
   auxlam(t0m0, env0)
-| T0Mfix _ =>
-  auxfix(t0m0, env0)
 //
 | T0Mapp _ =>
   auxapp(t0m0, env0)
+//
+| T0Mlet _ =>
+  auxlet(t0m0, env0)
+//
+| T0Mfix _ =>
+  auxfix(t0m0, env0)
 //
 | T0Mfst _ =>
   auxfst(t0m0, env0)

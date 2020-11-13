@@ -23,7 +23,7 @@ t0erm_intrp1(tm0, d0env_nil())
 local
 
 fun
-aux_var
+auxvar
 ( t0m0: t0erm
 , env0: d0env): value =
 let
@@ -31,7 +31,7 @@ let
 (*
 val () =
 println
-("aux_var: t0m0 = ", t0m0)
+("auxvar: t0m0 = ", t0m0)
 *)
 //
 val-T0Mvar(x0) = t0m0
@@ -40,12 +40,12 @@ opt = d0env_search(env0, x0)
 //
 in
 case- opt of myoptn_cons(v0) => v0
-end // end of [aux_var]
+end // end of [auxvar]
 
 (* ****** ****** *)
 
 fun
-aux_app
+auxapp
 ( t0m0: t0erm
 , env0: d0env): value =
 let
@@ -88,12 +88,33 @@ in
   , d0env_extend(efix, x0, varg))
 end
   
-end // end of [aux_app]
+end // end of [auxapp]
 
 (* ****** ****** *)
 
 fun
-aux_tup
+auxlet
+( t0m0: t0erm
+, env0: d0env): value =
+let
+//
+val-
+T0Met
+( x0
+, t0m1, t0m2) = t0m0
+//
+val v1 =
+t0erm_intrp1(t0m1, env0)
+val env1 =
+d0env_extend(env0, x0, v1)
+in
+  t0erm_intrp1(t0m2, env1)
+end
+
+(* ****** ****** *)
+
+fun
+auxtup
 ( t0m0: t0erm
 , env0: d0env): value =
 (
@@ -107,12 +128,12 @@ T0Mtup(t0m1, t0m2) = t0m0
 val v1 = t0erm_intrp1(t0m1, env0)
 val v2 = t0erm_intrp1(t0m2, env0)
 //
-} (* end of [aux_tup] *)
+} (* end of [auxtup] *)
 
 (* ****** ****** *)
 
 fun
-aux_fst
+auxfst
 ( t0m0: t0erm
 , env0: d0env): value =
 (
@@ -124,10 +145,10 @@ end
 {
 val-T0Mfst(t0m1) = t0m0
 val vtup = t0erm_intrp1(t0m1, env0)
-} (* end of [aux_prj] *)
+} (* end of [auxprj] *)
 
 fun
-aux_snd
+auxsnd
 ( t0m0: t0erm
 , env0: d0env): value =
 (
@@ -139,12 +160,12 @@ end
 {
 val-T0Mfst(t0m1) = t0m0
 val vtup = t0erm_intrp1(t0m1, env0)
-} (* end of [aux_prj] *)
+} (* end of [auxprj] *)
 
 (* ****** ****** *)
 
 fun
-aux_cond
+auxcond
 ( t0m0: t0erm
 , env0: d0env): value =
 let
@@ -174,12 +195,12 @@ VALbtf(b1) =>
   )
 )
 end(*let*)
-end(*let*) // end of [aux_cond]
+end(*let*) // end of [auxcond]
 
 (* ****** ****** *)
 
 fun
-aux_opr1
+auxopr1
 ( t0m0: t0erm
 , env0: d0env): value =
 let
@@ -214,14 +235,14 @@ case- v1 of
   {
     val () =
     println
-    ("t0erm_intrp1: aux_opr1: opr = ", opr)
+    ("t0erm_intrp1: auxopr1: opr = ", opr)
   }
 *)
 //
-end (*let*) end (*let*) // end of [aux_opr1]
+end (*let*) end (*let*) // end of [auxopr1]
 
 fun
-aux_opr2
+auxopr2
 ( t0m0: t0erm
 , env0: d0env): value =
 let
@@ -250,6 +271,16 @@ case+ opr of
   let
   val-VALint(i1) = v1
   val-VALint(i2) = v2 in VALint(i1 * i2)
+  end
+| "/" =>
+  let
+  val-VALint(i1) = v1
+  val-VALint(i2) = v2 in VALint(i1 / i2)
+  end
+| "%" =>
+  let
+  val-VALint(i1) = v1
+  val-VALint(i2) = v2 in VALint(i1 % i2)
   end
 //
 | ">" =>
@@ -296,11 +327,11 @@ case+ opr of
   {
     val () =
     println
-    ("t0erm_intrp1: aux_opr2: opr = ", opr)
+    ("t0erm_intrp1: auxopr2: opr = ", opr)
   }
 *)
 //
-end (*let*) end (*let*) // end of [aux_opr2]
+end (*let*) end (*let*) // end of [auxopr2]
 
 in (* in-of-local *)
 
@@ -321,39 +352,46 @@ case+ t0m0 of
   VALstr(s0)
 //
 | T0Mvar _ =>
-  aux_var(t0m0, env0)
+  auxvar(t0m0, env0)
 //
 | T0Mlam _ =>
   VALlam(t0m0, env0)
 //
 | T0Mapp _ =>
-  aux_app(t0m0, env0)
+  auxapp(t0m0, env0)
+//
+| T0Mlet _ =>
+  auxlet(t0m0, env0)
+//
+| T0Mfix
+  ( f0
+  , topt, t0m1) =>
+  (
+    VALfix(f0, vlam)
+  ) where
+  {
+    val
+    vlam =
+    VALlam(t0m1, env0)
+  }
 //
 | T0Mtup _ =>
-  aux_tup(t0m0, env0)
+  auxtup(t0m0, env0)
 | T0Mfst _ =>
-  aux_fst(t0m0, env0)
+  auxfst(t0m0, env0)
 | T0Msnd _ =>
-  aux_snd(t0m0, env0)
-//
-|
-T0Mfix
-(f0, topt, t0m1) =>
-(
-  VALfix(f0, vlam)
-) where
-{
-  val
-  vlam = VALlam(t0m1, env0)
-}
+  auxsnd(t0m0, env0)
 //
 | T0Mopr1 _ =>
-  aux_opr1(t0m0, env0)
+  auxopr1(t0m0, env0)
 | T0Mopr2 _ =>
-  aux_opr2(t0m0, env0)
+  auxopr2(t0m0, env0)
 //
 | T0Mcond _ =>
-  aux_cond(t0m0, env0)
+  auxcond(t0m0, env0)
+//
+| T0Manno(t0m1, t0p2) =>
+  t0erm_intrp1(t0m1, env0)
 //
 (*
 | _ (* else *) =>
