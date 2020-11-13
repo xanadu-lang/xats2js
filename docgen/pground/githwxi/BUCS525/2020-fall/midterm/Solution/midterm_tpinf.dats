@@ -3,7 +3,8 @@
 "./../..\
 /mylib/mylib.dats"
 (* ****** ****** *)
-#staload "./midterm.dats"
+#staload
+"./midterm_head0.dats"
 (* ****** ****** *)
 #include
 "./../../../../../../..\

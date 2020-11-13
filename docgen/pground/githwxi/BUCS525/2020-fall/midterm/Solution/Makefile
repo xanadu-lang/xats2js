@@ -13,9 +13,9 @@ XATS2JS_PRELUDE=\
 XATS2JS_XATSLIB_LIBC=\
 "$(XJSHOME)/share/runtime/xats2js_xatslib_libc.js"
 ############
-all:: start
+all:: prelude
 ############
-all:: midterm
+all:: midterm_head0
 all:: midterm_type0
 all:: midterm_tpext
 all:: midterm_t0erm
@@ -26,11 +26,11 @@ all:: midterm_d0env
 all:: midterm_intrp
 all:: midterm_main0
 ############
-start:: ; \
+prelude:: ; \
 echo > midterm_output.js && \
 $(CAT) $(XATS2JS_PRELUDE) >> midterm_output.js
 ############
-midterm:: ; \
+midterm_head0:: ; \
 $(XATS2JS) --output-a midterm_output.js -d ./midterm.dats
 ############
 midterm_type0:: ; \
