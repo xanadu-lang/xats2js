@@ -310,8 +310,13 @@ t0erm_intrp1
 (
 case+ t0m0 of
 //
+| T0Mnil() =>
+  VALnil()
+//
 | T0Mint(i0) =>
   VALint(i0)
+| T0Mbtf(b0) =>
+  VALbtf(b0)
 | T0Mstr(s0) =>
   VALstr(s0)
 //

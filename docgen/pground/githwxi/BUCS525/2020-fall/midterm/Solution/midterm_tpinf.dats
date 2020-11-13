@@ -14,14 +14,6 @@
 /DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 
-implfun
-t0erm_tpinf0
-(t0m0) =
-t0erm_tpinf1
-(t0m0, s0env_nil())
-
-(* ****** ****** *)
-
 #symload
 = with tpext_eqref of 1000
 
@@ -68,7 +60,7 @@ case+ tp0 of
 
 (* ****** ****** *)
 
-excptcon TUNIFY_EXN of ()
+excptcon TunifyExn of ()
 
 (* ****** ****** *)
 
@@ -82,7 +74,10 @@ case+ tp2 of
 | T2Pext(X2) =>
   if
   (X1 = X2)
-  then () else auxext2(X1, tp2)
+  then () else
+  auxext2(X1, tp2)
+| _(*non-T2Pext*) =>
+  auxext2(X1, tp2)
 )
 and
 auxext2
@@ -94,7 +89,7 @@ auxext2
   occurs(X1, tp2)
   )
   then X1.set(tp2)
-  else $raise TUNIFY_EXN(*void*)
+  else $raise TunifyExn(*void*)
 )
 
 fun
@@ -110,7 +105,7 @@ T0Pbas(nm1) =>
   T0Pbas(nm2) =>
   if
   (nm1 = nm2)
-  then () else $raise TUNIFY_EXN()
+  then () else $raise TunifyExn()
 )
 |
 T0Pfun(tp11, tp12) =>
@@ -351,7 +346,7 @@ auxopr1
 let
 //
 val-
-T0Mopr2
+T0Mopr1
 ( topr
 , t0m1) = t0m0
 //
@@ -535,10 +530,11 @@ t0erm_tpinf1
 case+
 t0m0 of
 //
-| T0Mint _ =>
-  T0Pint
-| T0Mstr _ =>
-  T0Pstr
+| T0Mnil _ => T0Pnil
+//
+| T0Mint _ => T0Pint
+| T0Mbtf _ => T0Pbtf
+| T0Mstr _ => T0Pstr
 //
 | T0Mvar _ =>
   auxvar(t0m0, env0)
@@ -566,14 +562,20 @@ t0m0 of
 //
 ) where
 {
-// (*
-  val () =
-  println
-  ("t0erm_tpinf1: t0m0 = ", t0m0)
-// *)
+(*
+val () =
+println
+("t0erm_tpinf1: t0m0 = ", t0m0)
+*)
 } (* end of [t0erm_tpinf] *)
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implfun
+t0erm_tpinf0(t0m0) =
+t0erm_tpinf1(t0m0, s0env_nil())
 
 (* ****** ****** *)
 

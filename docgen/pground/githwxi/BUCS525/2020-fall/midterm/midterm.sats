@@ -89,7 +89,8 @@ and t0erm =
 //
 | T0Mnil of ()
 //
-| T0Mint of (int)
+| T0Mint of int
+| T0Mbtf of bool
 | T0Mstr of string
 //
 | T0Mvar of (t0var)
