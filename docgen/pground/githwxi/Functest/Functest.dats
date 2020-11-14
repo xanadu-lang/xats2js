@@ -80,31 +80,31 @@ Functest$name<>() = "ackermann"
 impltmp
 Functest$arg0<int> =
 (
-  Functest_arg0_int
+  JS_Functest_arg0_int
 ) where
 {
 #extern
 fun
-Functest_arg0_int(): int = $exname()
+JS_Functest_arg0_int(): int = $exname()
 }
 impltmp
 Functest$arg1<int> =
 (
-  Functest_arg1_int
+  JS_Functest_arg1_int
 ) where
 {
 #extern
 fun
-Functest_arg1_int(): int = $exname()
+JS_Functest_arg1_int(): int = $exname()
 }
 
 (* ****** ****** *)
 //
 #extern
 fun
-Functest_main(): void = $exname()
+JS_Functest_main(): void = $exname()
 impltmp
-Functest_main() = Functest(ackermann)
+JS_Functest_main() = Functest(ackermann)
 //
 (* ****** ****** *)
 
