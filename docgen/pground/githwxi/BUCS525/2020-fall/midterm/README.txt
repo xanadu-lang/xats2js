@@ -7,10 +7,9 @@ programming language LAMBDA:
 
 A closure-based interpreter.
 
-2.
-(100 points)
+2. (100 points)
 
-A type checker (based on type inference).
+A type checker (based on the Hindley style of type inference).
 
 Please note that your implementation is required to handle the issue
 of occurs-check.
