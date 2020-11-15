@@ -7,8 +7,19 @@
 (* ****** ****** *)
 #extern
 fun
-JS_Functest_main
+JS_factorial_main
 ((*void*)): void = $exname()
+#extern
+fun
+JS_ackermann_main
+((*void*)): void = $exname()
+(* ****** ****** *)
+
+fun
+factorial(n: int): int =
+if n > 0
+then n * factorial(n-1) else 1
+
 (* ****** ****** *)
 
 fun
@@ -39,30 +50,19 @@ local
 (* ****** ****** *)
 
 impltmp
-Functest$name<>() = "ackermann"
+Functest$name<>() = "factorial"
 
 (* ****** ****** *)
 
 impltmp
 Functest$arg0<int> =
 (
-  JS_Functest_arg0_int
+  JS_factorial_arg0_int
 ) where
 {
 #extern
 fun
-JS_Functest_arg0_int(): int = $exname()
-}
-
-impltmp
-Functest$arg1<int> =
-(
-  JS_Functest_arg1_int
-) where
-{
-#extern
-fun
-JS_Functest_arg1_int(): int = $exname()
+JS_factorial_arg0_int(): int = $exname()
 }
 
 (* ****** ****** *)
@@ -70,10 +70,52 @@ JS_Functest_arg1_int(): int = $exname()
 in(* in-of-local*)
 
 impltmp
-JS_Functest_main() = Functest(ackermann)
+JS_factorial_main() = Functest(factorial)
 
 end // end of [local]
 
 (* ****** ****** *)
 
-(* end of [Functest2.dats] *)
+local
+
+(* ****** ****** *)
+
+impltmp
+Functest$name<>() = "ackermann"
+
+(* ****** ****** *)
+
+impltmp
+Functest$arg0<int> =
+(
+  JS_ackermann_arg0_int
+) where
+{
+#extern
+fun
+JS_ackermann_arg0_int(): int = $exname()
+}
+
+impltmp
+Functest$arg1<int> =
+(
+  JS_ackermann_arg1_int
+) where
+{
+#extern
+fun
+JS_ackermann_arg1_int(): int = $exname()
+}
+
+(* ****** ****** *)
+
+in(* in-of-local*)
+
+impltmp
+JS_ackermann_main() = Functest(ackermann)
+
+end // end of [local]
+
+(* ****** ****** *)
+
+(* end of [JS_Functest.dats] *)
