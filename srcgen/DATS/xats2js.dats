@@ -34,6 +34,11 @@
 (* ****** ****** *)
 //
 #include
+"./../HATS/libxats2js.hats"
+//
+(* ****** ****** *)
+//
+#include
 "share/atspre_staload.hats"
 #staload
 UN = "prelude/SATS/unsafe.sats"
@@ -56,50 +61,6 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-extern
-fun
-echo_argc_argv
-  {n:nat}
-( out: FILEref
-, argc: int(n)
-, argv: !argv(n)): void
-//
-implement
-echo_argc_argv
-{n}
-(out, argc, argv) =
-(
-loop(argv, 0(*i0*))
-) where
-{
-fun
-loop
-{ i:nat
-| i <= n} .<n-i>.
-( argv
-: !argv(n)
-, i0: int(i)): void =
-(
-if
-(i0 >= argc)
-then
-fprintln!(out)
-else
-let
-val () =
-if
-(i0 > 0)
-then
-fprint(out, ' ')
-in
-fprint(out, argv[i0]); loop(argv, i0+1)
-end
-)
-} (* end of [ech0_argc_argv] *)
-//
-(* ****** ****** *)
-//
-//
 implement
 main0(argc, argv) =
 (
@@ -121,15 +82,15 @@ XATSHOME = the_XATSHOME_get()
 val
 ((*void*)) =
 prerrln!
-("xinterp: XATSHOME=",XATSHOME)
+("xats2js: XATSHOME=",XATSHOME)
 //
 } (* else *) // end of [if]
 ) where
 {
 // (*
-  val out = stderr_ref
-  val ( ) =
-  echo_argc_argv(out, argc, argv)
+val out = stderr_ref
+val ( ) =
+$XATSOPT.echo_argc_argv(out, argc, argv)
 // *)
 } (* end of [main] *)
 //

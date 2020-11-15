@@ -67,19 +67,22 @@ LIBRARY:=-L"$(XANADU)/lib" -lxatsopt
 ######
 #
 all:: \
-lxatsopt
-lxatsopt: ; \
-(cd $(XANADU)/srcgen/xats && $(MAKE) libxatsopt)
+xats2js
+xats2js:: \
+libxatsopt
+xats2js:: \
+DATS/xats2js.dats \
+$(OBJSATS) $(OBJDATS) ; \
+$(PATSCC) -cleanaft \
+-o ./../bin/xats2js $(INCLUDE) \
+$(CFLAGS) $(GCFLAG) $^ $(LIBGC) $(LIBRARY)
 #
 ######
 #
 all:: \
-xats2js
-xats2js: \
-DATS/xats2js.dats \
-$(OBJSATS) $(OBJDATS) ; \
-$(PATSCC) -cleanaft -o ./../bin/xats2js \
-$(INCLUDE) $(CFLAGS) $(GCFLAG) $^ $(LIBGC) $(LIBRARY)
+libxatsopt
+libxatsopt: ; \
+(cd $(XANADU)/srcgen/xats && $(MAKE) libxatsopt)
 #
 ######
 

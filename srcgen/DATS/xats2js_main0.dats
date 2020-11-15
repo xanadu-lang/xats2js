@@ -58,7 +58,8 @@ UN="prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 #include
-"./../HATS/libxatsopt.hats"
+"./../HATS/libxats2js.hats"
+#staload $XATSOPT(*open-it*)
 //
 (* ****** ****** *)
 //
@@ -366,16 +367,27 @@ the_prelude_load
 ) (* end of [the_preludes_load_if] *)
 
 (* ****** ****** *)
-//
+typedef
+filpath = $FP0.filpath
+(* ****** ****** *)
 datatype
 waitknd =
-  | WTKnone of ()
-  | WTKoutput of () // -o ...
-  | WTKinpsta of () // -s ...
-  | WTKinpdyn of () // -d ...
-  | WTKdefine of () // -DATS ...
-  | WTKinpath of () // -IATS ...
+| WTKnone of ()
+| WTKoutput of () // -o ...
+| WTKinpsta of () // -s ...
+| WTKinpdyn of () // -d ...
+| WTKdefine of () // -DATS ...
+| WTKinpath of () // -IATS ...
 // end of [waitkind]
+(* ****** ****** *)
+datatype
+outchan =
+// no-closing
+| OUTCHANref of (FILEref)
+ // to-be-closed
+| OUTCHANptr of (FILEref)
+// end of [outchan]
+(* ****** ****** *)
 //
 fun
 waitknd_get_stadyn
@@ -389,12 +401,6 @@ case+ knd of
 //
 (* ****** ****** *)
 //
-datatype
-outchan =
-| OUTCHANref of (FILEref)
-| OUTCHANptr of (FILEref)
-// end of [outchan]
-
 fun
 outchan_get_filref
   (x0: outchan): FILEref =
@@ -409,23 +415,22 @@ case+ x0 of
 typedef
 cmdstate = @{
 //
-arg0= commarg
-,
-wtk0= waitknd
-,
-XATSENV= string
-,
-prelude= int
-,
-inpfil0=fpath_t
-,
-// the number of inputs
-ninpfil= int // processed
+  arg0= commarg
+, wtk0= waitknd
+, XATSENV= string
+, prelude= int
+, inpfil0= filpath
+(*
+the number of processed
+*)
+, ninpfil= int // inputs
 //
 , outmode= fmode
 , outchan= outchan
 //
+(*
 // the number of caught
+*)
 , nxerror= int // errors
 //
 } (* end of [cmdstate] *)
@@ -642,7 +647,7 @@ static
 fun
 process_fpath
 ( st0:
-& cmdstate >> _, fp0: fpath_t): void
+& cmdstate >> _, fp0: filpath): void
 static
 fun
 process_given
@@ -731,7 +736,7 @@ $FP0.the_filpathlst_push(fp0)
 //
 val
 p0kg =
-parse_from_filpath_toplevel
+$PAR.parse_from_filpath_toplevel
   (stadyn, fp0)
 //
 prval () = $UN.castview0{void}(pf0)
@@ -854,7 +859,7 @@ let
 val given = arg0
 val fname = arg0
 in
-fpath_make(given, fname)
+$FP0.filpath_make(given, fname)
 end
 //
 (*

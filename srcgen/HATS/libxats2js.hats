@@ -14,12 +14,23 @@ XANADU_targetloc
 #staload LAB =
 "{$XANADU}/SATS/label0.sats"
 (* ****** ****** *)
+#staload GLO =
+"{$XANADU}/SATS/global.sats"
+(* ****** ****** *)
+#staload ERR =
+"{$XANADU}/SATS/xerrory.sats"
+(* ****** ****** *)
+#staload FP0 =
+"{$XANADU}/SATS/filpath.sats"
+(* ****** ****** *)
 #staload LOC =
 "{$XANADU}/SATS/locinfo.sats"
 (* ****** ****** *)
 //
 #staload LEX =
   "{$XANADU}/SATS/lexing.sats"
+#staload PAR =
+"{$XANADU}/SATS/parsing.sats"
 //
 (* ****** ****** *)
 #staload S1E =
@@ -32,5 +43,10 @@ XANADU_targetloc
   "{$XANADU}/SATS/intrep0.sats"
 //
 (* ****** ****** *)
+//
+#staload XATSOPT =
+  "{$XANADU}/SATS/xatsopt.sats"
+//
+(* ****** ****** *)
 
-(* end of [libxatsopt.hats] *)
+(* end of [libxats2js.hats] *)
