@@ -17,16 +17,16 @@ all:: prelude
 all:: assign00_sol
 ############
 prelude:: ; \
-echo > assign00_sol_output.js && \
-$(CAT) $(XATS2JS_PRELUDE) >> assign00_sol_output.js
+echo > assign00_sol_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE) >> assign00_sol_dats.js
 ############
 assign00_sol:: ; \
-$(XATS2JS) --output-a assign00_sol_output.js -d ./assign00_sol.dats
+$(XATS2JS) --output-a assign00_sol_dats.js -d ./assign00_sol.dats
 ############
 
 clean:: ; rm -f *~
 
 cleanall:: clean
-cleanall:: ; rm -f assign00_sol_output.js
+cleanall:: ; rm -f assign00_sol_dats.js
 
 ############ end of [Makefile] ############

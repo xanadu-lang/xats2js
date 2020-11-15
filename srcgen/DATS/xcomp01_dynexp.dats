@@ -3378,6 +3378,17 @@ case+
 dcl0.node() of
 //
 |
+H0Cstatic
+(tok, dcl1) =>
+xcomp01_h0dcl
+( env0, dcl1 )
+|
+H0Cextern
+(tok, dcl1) =>
+xcomp01_h0dcl
+( env0, dcl1 )
+//
+|
 H0Clocal _ =>
 aux_local(env0, dcl0)
 //
@@ -3581,6 +3592,21 @@ end // end of [xcomp01_hfundecl]
 
 (* ****** ****** *)
 
+local
+
+fun
+isdecl
+( hfd
+: hfundecl): bool =
+let
+val+HFUNDECL(rcd) = hfd
+in
+case+ rcd.def of
+| None _ => true | Some _ => false
+end // end of [isdecl]
+
+in(*in-of-local*)
+
 implement
 xcomp01_hfundeclist
   (env0, xs) =
@@ -3591,12 +3617,21 @@ list_nil() =>
 list_nil()
 |
 list_cons(x0, xs) =>
+if
+isdecl(x0)
+then
+(
+xcomp01_hfundeclist(env0, xs)
+)
+else
 list_cons(x0, xs) where
 {
 val x0 = xcomp01_hfundecl(env0, x0)
 val xs = xcomp01_hfundeclist(env0, xs)
 }
 ) (* end of [xcomp01_hfundeclist] *)
+
+end // end of [local]
 
 (* ****** ****** *)
 
