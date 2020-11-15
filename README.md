@@ -31,7 +31,6 @@ cd xats2js
 make -C srcgen/TEST test > output
 ```
 
-
 ## Remarks
 
 - Xats2js is for debugging the implementation of Xanadu

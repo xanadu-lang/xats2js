@@ -3,9 +3,6 @@
 "./../../../..\
 /share/xats2js_prelude.hats"
 (* ****** ****** *)
-#staload
-"prelude/DATS/CATS/JS/g_print.dats"
-(* ****** ****** *)
 #extern
 fun
 <f0:t0>
@@ -23,6 +20,30 @@ Functest$arg0((*void*)): a0
 fun
 <a1:t0>
 Functest$arg1((*void*)): a1
+(* ****** ****** *)
+
+impltmp
+{a0:t0
+,a1:t0
+,r0:t0}
+Functest
+<(a0)->r0>(f0) =
+let
+//
+val name =
+Functest$name()
+//
+val arg0 =
+Functest$arg0<a0>()
+//
+in
+  let
+  val r0 = f0(arg0)
+  in
+  println(name, "(", arg0, ") = ", r0)
+  end
+end // end of [Functest]
+
 (* ****** ****** *)
 
 impltmp
@@ -50,31 +71,8 @@ in
 end // end of [Functest]
 
 (* ****** ****** *)
-
-fun
-ackermann
-( m: int
-, n: int): int =
-(
-  acker(m, n)) where
-{
-fun
-acker(m, n) =
-if
-(m = 0)
-then (n+1)
-else
-(
-if
-(n = 0)
-then acker(m-1, 1)
-else acker(m-1, acker(m, n-1))
-)
-} (* end of [ackermann] *)
-
-(* ****** ****** *)
 impltmp
-Functest$name<>() = "ackermann"
+Functest$name<>() = "Functest$name"
 (* ****** ****** *)
 
 impltmp
