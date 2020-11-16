@@ -3006,5 +3006,10 @@ end // list_cons
 } (* end of [xemit01_program] *)
 
 (* ****** ****** *)
+//
+// HX-2020-11-16:
+// For handling tail-recursion
+//
+(* ****** ****** *)
 
 (* end of [xats_intrep1_xemit.dats] *)
