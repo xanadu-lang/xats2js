@@ -1058,7 +1058,7 @@ xemit01_l1dclist
 (out: FILEref, dcls: l1dclist): void
 //
 fun
-xemit01_program(FILEref, l1pkg): void
+xemit01_package(FILEref, l1pkg): void
 //
 (* ****** ****** *)
 

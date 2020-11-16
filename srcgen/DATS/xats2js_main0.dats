@@ -795,7 +795,7 @@ val out =
 outchan_get_filref
 (st0.outchan)
 in
-  xemit01_program(out, l1pkg)
+  xemit01_package(out, l1pkg)
 end // end of [let]
 //
 (*

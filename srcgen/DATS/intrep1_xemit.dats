@@ -2951,7 +2951,7 @@ end // list_cons]
 (* ****** ****** *)
 
 implement
-xemit01_program
+xemit01_package
   (out, lpkg) =
 {
 val () = auxtmps(tmps)
