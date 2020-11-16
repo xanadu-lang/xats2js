@@ -37,7 +37,7 @@
 "./../HATS/libxats2js.hats"
 //
 (* ****** ****** *)
-#staload $INTREP0
+#staload $INTREP0(*open-it*)
 (* ****** ****** *)
 //
 typedef stamp = $STM.stamp
@@ -47,6 +47,8 @@ typedef label = $LAB.label
 typedef loc_t = $LOC.loc_t
 //
 typedef token = $LEX.token
+//
+typedef g1exp = $S1E.g1exp
 //
 (* ****** ****** *)
 //
@@ -866,6 +868,9 @@ l1pkg =
 L1PKG of
 (l1tmplst, l1dclist)
 //
+typedef
+filpath = $FP0.filpath
+//
 (* ****** ****** *)
 //
 datatype
@@ -876,6 +881,11 @@ L1DCLlocal of
 ( l1dclist(*head*)
 , l1dclist(*body*))
 //
+|
+L1DCLinclude of
+( token
+, g1exp, int(*stadyn*)
+, filpathopt, l1dclistopt)
 |
 L1DCLimpdecl of (limpdecl)
 |
@@ -889,6 +899,10 @@ L1DCLvardecl of (lvardeclist)
 L1DCLexcptcon of (hdconlst, l1blk)
 //
 | L1DCLnone0 of () | L1DCLnone1 of h0dcl
+//
+where filpathopt = Option(filpath)
+  and l1dclistopt = Option(l1dclist)
+//
 //
 (* ****** ****** *)
 //

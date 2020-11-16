@@ -59,6 +59,20 @@ overload
 fprint with $LEX.fprint_token
 //
 (* ****** ****** *)
+//
+(*
+implement
+fprint_val<filpath> =
+$FP0.fprint_filpath_full1
+*)
+implement
+fprint_val<filpath> =
+$FP0.fprint_filpath_full2
+//
+(* ****** ****** *)
+overload
+fprint with $S1E.fprint_g1exp
+(* ****** ****** *)
 implement
 fprint_val<hdvar> = fprint_hdvar
 implement
@@ -764,6 +778,27 @@ L1DCLlocal
 fprint!
 ( out
 , "L1DCLlocal(", head, "; ", body, ")")
+//
+|
+L1DCLinclude
+( tok0
+, src1, knd2
+, opt1, opt2) =>
+(
+fprint!
+( out
+, "L1DCLinclude("
+, "src= ", src1, "; "
+, "knd= ", knd2, "; "
+,  opt1, "; ", body, ")")
+) where
+{
+  val body =
+  (
+  case+ opt2 of
+  | None _ => "None()"
+  | Some _ => "Some(<ldcls>)"): string
+} (* end of [L1DCLinclude] *)
 //
 |
 L1DCLimpdecl(limp) =>

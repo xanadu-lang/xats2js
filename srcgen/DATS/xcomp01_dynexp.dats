@@ -2971,7 +2971,9 @@ case+ opt0 of
 (* ****** ****** *)
 
 local
-//
+
+(* ****** ****** *)
+
 fun
 aux_local
 ( env0:
@@ -2994,6 +2996,55 @@ in
 l1dcl_make_node
 ( loc0, L1DCLlocal(head, body) )
 end // end of [aux_local]
+
+(* ****** ****** *)
+
+fun
+aux_include
+( env0:
+! compenv
+, dcl0: h0dcl): l1dcl =
+let
+//
+val
+loc0 = dcl0.loc()
+//
+val-
+H0Cinclude
+( tok0
+, src1
+, knd2
+, opt1
+, opt2) = dcl0.node()
+//
+val opt2 =
+(
+case+ opt2 of
+|
+None() =>
+None((*void*))
+|
+Some(dcls) =>
+Some
+(
+xcomp01_h0dclist(env0, dcls)
+)
+) : l1dclistopt // end-of-val
+//
+in
+//
+l1dcl_make_node
+( loc0
+, L1DCLinclude
+  (tok0, src1, knd2, opt1, opt2))
+//
+end where
+{
+val () =
+println!("aux_include: dcl0 = ", dcl0)
+} (*where*) // end of [aux_include]
+
+(* ****** ****** *)
 //
 (*
 HX-2020-09-23:
@@ -3394,6 +3445,10 @@ xcomp01_h0dcl
 |
 H0Clocal _ =>
 aux_local(env0, dcl0)
+//
+|
+H0Cinclude _ =>
+aux_include(env0, dcl0)
 //
 |
 H0Cfundecl _ =>

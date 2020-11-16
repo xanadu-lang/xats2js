@@ -58,6 +58,10 @@ fprint with $SYM.fprint_symbol
 overload
 fprint with $LOC.fprint_location
 (* ****** ****** *)
+overload
+fprint
+with $FP0.fprint_filpath_full2
+(* ****** ****** *)
 #staload "./../SATS/intrep1.sats"
 (* ****** ****** *)
 
@@ -2805,16 +2809,19 @@ implement
 xemit01_l1dcl
 (out, dcl0) =
 let
+//
 val
 loc0 = dcl0.loc()
+//
 val () =
 fprint!(out, "// ")
 val () =
 fprintln!(out, loc0)
-val () =
-fprint!(out, "// ")
-val () =
-fprintln!(out, dcl0)
+//
+(*
+val () = fprint!(out, "// ")
+val () = fprintln!(out, dcl0)
+*)
 in(*in-of-let*)
 //
 case+
@@ -2837,6 +2844,38 @@ xemit01_l1dclist(out, body)
 val () =
 fprint
 (out, "// } // end-of-local\n")
+}
+//
+|
+L1DCLinclude
+( tok0
+, src1, knd2
+, opt1, opt2) =>
+{
+val () =
+fprint
+(out, "// { // include\n")
+val () =
+(
+case+ opt1 of
+|
+None() => ((*void*))
+|
+Some(path) =>
+fprint!(out, "// ", path, "\n")
+)
+val () =
+(
+case+ opt2 of
+|
+None() => ((*void*))
+|
+Some(body) =>
+xemit01_l1dclist(out, body)
+)
+val () =
+fprint!
+(out, "// } // end-of-include\n")
 }
 //
 |
