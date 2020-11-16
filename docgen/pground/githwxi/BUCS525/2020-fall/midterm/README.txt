@@ -31,8 +31,7 @@ not have non-trivial factors, that is, factors that are not 1 or itself.
 
 2. (30 points)
 
-Please translate the following 8-queen puzzle implementation into
-LAMBDA:
+Please translate the following 8-queen puzzle implementation into LAMBDA:
 
 http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/x631.html
 
