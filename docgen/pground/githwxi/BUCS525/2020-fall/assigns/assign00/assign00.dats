@@ -48,15 +48,15 @@ fun ghaap(n: int): int =
 #extern fun gheep(n: int): int
 //
 (* ****** ****** *)
+#define nil intlist_nil
+#define :: intlist_cons
+#define cons intlist_cons
+(* ****** ****** *)
 //
 datatype
 intlist =
 | intlist_nil of ()
 | intlist_cons of (int, intlist)
-//
-#define nil intlist_nil
-#define :: intlist_cons
-#define cons intlist_cons
 //
 (* ****** ****** *)
 //

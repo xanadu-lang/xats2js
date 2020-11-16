@@ -64,4 +64,59 @@ println("gheep(3) = ", gheep(3))
 
 (* ****** ****** *)
 
+implfun
+intlist_append
+  (xs, ys) =
+(
+rappend(reverse(xs), ys)
+) where
+{
+fun
+reverse(xs) = rappend(xs, nil())
+and
+rappend(xs, ys) =
+(
+case+ xs of
+| intlist_nil() => ys
+| intlist_cons(x0, xs) => rappend(xs, cons(x0, ys))
+)
+} (* end of [mylist_append] *)
+
+(* ****** ****** *)
+//
+fun
+intlist_print
+(xs: intlist): void =
+(
+  auxlst(xs, 0)
+) where
+{
+fun
+auxlst(xs, i0) =
+case+ xs of
+|
+intlist_nil() => ()
+|
+intlist_cons(x0, xs) =>
+(if i0 > 0
+ then print(";");
+ print(x0); auxlst(xs, i0+1))
+}
+
+impltmp
+g_print<intlist> = intlist_print
+//
+(* ****** ****** *)
+
+val xs = 1 :: 2 :: nil()
+val ys = cons(3, cons(4, cons(5, nil())))
+
+(* ****** ****** *)
+
+val () = println("xs = ", xs)
+val () = println("ys = ", ys)
+val () = println("xs+ys = ", intlist_append(xs, ys))
+
+(* ****** ****** *)
+
 (* end of [assign00_sol.dats] *)
