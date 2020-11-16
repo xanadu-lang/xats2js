@@ -2535,6 +2535,24 @@ let
 val+
 LFUNDECL(rcd) = lfd0
 //
+in
+case+
+rcd.def_blk of
+|
+L1BLKnone _ => ()
+|
+L1BLKsome _ => auxlfd0_some(lfd0)
+end // end of [auxlfd0]
+
+and
+auxlfd0_some
+( lfd0
+: lfundecl): void =
+let
+//
+val+
+LFUNDECL(rcd) = lfd0
+//
 val () =
 xemit01_txtln
 (out, "function")
@@ -2586,9 +2604,9 @@ val () = xemit01_txt00(out, ";\n")
 }
 ) : void // end-of-val
 in
-fprintln!
-(out, "} // function // ", rcd.hdc)
-end (* end of [auxlfd0] *)
+  fprintln!
+  (out, "} // function // ", rcd.hdc)
+end (* end of [auxlfd0_some] *)
 //
 (* ****** ****** *)
 //
@@ -2610,11 +2628,13 @@ list_cons
 )
 //
 in
-let
-val-
-L1DCLfundecl
-(lfds) = dcl0.node() in auxlfds(lfds)
-end
+//
+  let
+  val-
+  L1DCLfundecl
+  (lfds) = dcl0.node() in auxlfds(lfds)
+  end
+//
 end // end of [aux_fundecl]
 
 (* ****** ****** *)

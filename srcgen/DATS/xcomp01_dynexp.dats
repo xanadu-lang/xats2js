@@ -2339,7 +2339,8 @@ flev =
 xcomp01_flevget(env0)
 //
 val
-blk0 = l1blk_none()
+blk0 =
+l1blk_none( (*void*) )
 //
 val
 blk1 =
@@ -2385,7 +2386,9 @@ let
   } (* L1LAMEXP *)
   val
   tlam =
-  xltmpnew_tmp0(env0, loc0)
+  (
+    xltmpnew_tmp0( env0, loc0 )
+  )
   val
   lcmd =
   l1cmd_make_node
@@ -2452,7 +2455,7 @@ xcomp01_flevget(env0)
 //
 val
 blk0 =
-l1blk_none() // argless
+l1blk_none((*argless*))
 //
 val
 blk1 =
@@ -3594,6 +3597,7 @@ end // end of [xcomp01_hfundecl]
 
 local
 
+(*
 fun
 isdecl
 ( hfd
@@ -3604,6 +3608,7 @@ in
 case+ rcd.def of
 | None _ => true | Some _ => false
 end // end of [isdecl]
+*)
 
 in(*in-of-local*)
 
@@ -3617,13 +3622,6 @@ list_nil() =>
 list_nil()
 |
 list_cons(x0, xs) =>
-if
-isdecl(x0)
-then
-(
-xcomp01_hfundeclist(env0, xs)
-)
-else
 list_cons(x0, xs) where
 {
 val x0 = xcomp01_hfundecl(env0, x0)
