@@ -3055,9 +3055,8 @@ then true else ismem(xs, x0)
 //
 fun
 auxlval
-( tmps
-: l1tmplst
-, l1v0: l1val): l1tmplst =
+( l1v0: l1val
+, tmps: l1tmplst): l1tmplst =
 (
 case+
 l1v0.node() of
@@ -3066,9 +3065,25 @@ L1VALtmp(tmp1) =>
 list_cons(tmp1, tmps)
 |
 _(*non-of-L1VALtmp*) => tmps
-)
+) (* end of [auxlval] *)
 //
-fun
+and
+auxlblk
+( blk0: l1blk
+, tmps: l1tmplst): l1tmplst =
+(
+case+ blk0 of
+|
+L1BLKnone() => tmps
+|
+L1BLKsome(cmds) =>
+(
+  auxcmds
+  (list_reverse(cmds), tmps)
+)
+) (* end of [auxlblk] *)
+//
+and
 auxcmd0
 ( cmd0: l1cmd
 , tmps: l1tmplst): l1tmplst =
@@ -3083,13 +3098,24 @@ if
 ismem
 (tmps, tmp1)
 then
-auxlval(tmps, l1v2) else tmps
+auxlval(l1v2, tmps) else tmps
 )  
+|
+L1CMDif0
+(l1v1, blk1, blk2) =>
+let
+  val
+  tmps =
+  auxlblk(blk1, tmps)
+  val
+  tmps =
+  auxlblk(blk2, tmps) in tmps
+end
 |
 _ (* rest-of-l1cmd *) => tmps
 )
 //
-fun
+and
 auxcmds
 ( cmds
 : l1cmdlst_vt
