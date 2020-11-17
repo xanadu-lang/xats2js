@@ -3011,5 +3011,114 @@ end // list_cons
 // For handling tail-recursion
 //
 (* ****** ****** *)
+//
+extern
+fun
+funbody_get_tmprets
+( tres: l1tmp
+, body: l1blk): l1tmplst
+//
+(* ****** ****** *)
+
+implement
+funbody_get_tmprets
+(tres, body) = let
+//
+vtypedef
+l1cmdlst_vt = List0_vt(l1cmd)
+//
+val () =
+println!
+("funbody_get_tmprets: tres = ", tres)
+val () =
+println!
+("funbody_get_tmprets: body = ", body)
+//
+fun
+ismem
+( xs
+: l1tmplst
+, x0: l1tmp): bool =
+(
+case+ xs of
+|
+list_nil() => false
+|
+list_cons(x1, xs) =>
+if (x0 = x1)
+then true else ismem(xs, x0)
+)
+//
+fun
+auxlval
+( tmps
+: l1tmplst
+, l1v0: l1val): l1tmplst =
+(
+case+
+l1v0.node() of
+|
+L1VALtmp(tmp1) =>
+list_cons(tmp1, tmps)
+|
+_(*non-of-L1VALtmp*) => tmps
+)
+//
+fun
+auxcmd0
+( cmd0: l1cmd
+, tmps: l1tmplst): l1tmplst =
+(
+case+
+cmd0.node() of
+|
+L1CMDmov
+(tmp1, l1v2) =>
+(
+if
+ismem
+(tmps, tmp1)
+then
+auxlval(tmps, l1v2) else tmps
+)  
+|
+_ (* rest-of-l1cmd *) => tmps
+)
+//
+fun
+auxcmds
+( cmds
+: l1cmdlst_vt
+, tmps: l1tmplst): l1tmplst =
+(
+case+ cmds of
+| ~
+list_vt_nil
+((*void*)) => tmps
+| ~
+list_vt_cons
+(cmd0, cmds) =>
+let
+val
+tmps =
+auxcmd0(cmd0, tmps) in auxcmds(cmds, tmps)
+end // end of [list_cons]
+)
+//
+in
+auxcmds
+( cmds
+, list_sing(tres)) where
+{
+  val cmds =
+  (
+    case+ body of
+    | L1BLKnone() => list_vt_nil()
+    | L1BLKsome(cmds) => list_reverse(cmds)
+  ) : l1cmdlst_vt // end-of-val
+}
+end // end of [funbody_get_tmprets]
+
+(* ****** ****** *)
 
 (* end of [xats_intrep1_xemit.dats] *)

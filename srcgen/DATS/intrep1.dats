@@ -114,7 +114,19 @@ end // end of [local]
 
 (* ****** ****** *)
 
+implement
+eq_l1tmp_l1tmp
+  (x1, x2) =
+$STM.eq_stamp_stamp
+(
+  x1.stamp(), x2.stamp()
+) (* end of [eq_l1tmp_l1tmp] *)
+
+(* ****** ****** *)
+
 local
+
+(* ****** ****** *)
 
 typedef
 l1tmp_struct =
@@ -128,6 +140,8 @@ l1tmp_struct =
 } // end of [l1tmp]
 absimpl
 l1tmp_tbox = ref(l1tmp_struct)
+
+(* ****** ****** *)
 
 in (* in of [local] *)
 
@@ -195,6 +209,7 @@ l1tmp_get_stamp(tmp) = tmp->l1tmp_stamp
 end // end of [local]
 
 (* ****** ****** *)
+
 local
 
 val

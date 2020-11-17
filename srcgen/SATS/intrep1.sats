@@ -181,6 +181,11 @@ fun
 l1tmp_get_stamp(l1tmp): stamp
 overload .stamp with l1tmp_get_stamp
 (* ****** ****** *)
+fun
+eq_l1tmp_l1tmp
+(x1: l1tmp, x2: l1tmp): bool
+overload = with eq_l1tmp_l1tmp
+(* ****** ****** *)
 //
 fun
 print_l1tmp: print_type(l1tmp)
