@@ -769,13 +769,14 @@ overload fprint with fprint_limpdecl
 //
 datatype
 lfundecl =
-LFUNDECL of @{
+LFUNDECL of
+@{
   loc= loc_t
 , nam= hdvar
 , hdc= hdcst
 //
 , hag=
-    hfarglstopt
+  hfarglstopt
 //
 , def= l1valopt
 //
@@ -784,7 +785,7 @@ LFUNDECL of @{
 //
 , hag_blk= l1blk
 , def_blk= l1blk
-}
+} (* LFUNDECL *)
 //
 typedef
 lfundeclist = List0(lfundecl)

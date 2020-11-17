@@ -3017,6 +3017,10 @@ fun
 funbody_get_tmprets
 ( tres: l1tmp
 , body: l1blk): l1tmplst
+extern
+fun
+fundecl_get_tmprets
+( lfd0: lfundecl): l1tmplst
 //
 (* ****** ****** *)
 
@@ -3118,6 +3122,32 @@ auxcmds
   ) : l1cmdlst_vt // end-of-val
 }
 end // end of [funbody_get_tmprets]
+
+(* ****** ****** *)
+
+implement
+fundecl_get_tmprets
+  (lfd0) =
+let
+val+
+LFUNDECL(rcd) = lfd0
+in
+//
+case+ rcd.def of
+|
+None() => list_nil()
+|
+Some(l1v1) =>
+(
+case+ l1v1.node() of
+| L1VALtmp(tmp1) =>
+  funbody_get_tmprets
+  (tmp1, rcd.def_blk)
+| _(* non-L1VALtmp *) => list_nil()
+)
+//
+end // end of [fundecl_get_tmprets]
+
 
 (* ****** ****** *)
 
