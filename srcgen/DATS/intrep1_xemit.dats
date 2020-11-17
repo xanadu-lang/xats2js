@@ -2365,11 +2365,17 @@ aux_impdecl
 : FILEref
 , dcl0: l1dcl): void =
 let
+//
 val-
 L1DCLimpdecl
-(limp) = dcl0.node()
+( knd0
+, mopt
+, limp) =
+dcl0.node((*void*))
+//
 val+
 LIMPDECL(rcd) = limp
+//
 in
 //
 case+
@@ -2389,9 +2395,14 @@ aux_impdecl0
 : FILEref
 , dcl0: l1dcl): void =
 let
+//
 val-
 L1DCLimpdecl
-(limp) = dcl0.node()
+( knd0
+, mopt
+, limp) =
+dcl0.node((*void*))
+//
 val+
 LIMPDECL(rcd) = limp
 //
@@ -2473,7 +2484,11 @@ aux_impdecl1
 let
 val-
 L1DCLimpdecl
-(limp) = dcl0.node()
+( knd0
+, mopt
+, limp) =
+dcl0.node((*void*))
+//
 val+
 LIMPDECL(rcd) = limp
 //
@@ -2633,11 +2648,13 @@ list_cons
 //
 in
 //
-  let
-  val-
-  L1DCLfundecl
-  (lfds) = dcl0.node() in auxlfds(lfds)
-  end
+let
+val-
+L1DCLfundecl
+( knd0
+, mopt
+, lfds) = dcl0.node() in auxlfds(lfds)
+end
 //
 end // end of [aux_fundecl]
 
@@ -2692,7 +2709,9 @@ in
 let
 val-
 L1DCLvaldecl
-(lvds) = dcl0.node() in auxlvds(lvds)
+( knd0
+, mopt
+, lvds) = dcl0.node() in auxlvds(lvds)
 end
 end // end of [aux_valdecl]
 
@@ -2780,7 +2799,9 @@ in
 let
 val-
 L1DCLvardecl
-(lvds) = dcl0.node() in auxlvds(lvds)
+( knd0
+, mopt
+, lvds) = dcl0.node() in auxlvds(lvds)
 end
 end // end of [aux_vardecl]
 
@@ -3014,14 +3035,40 @@ end // list_cons
 //
 extern
 fun
+fundecl_get_tmprets
+( lfd0
+: lfundecl): l1tmplst
+extern
+fun
 funbody_get_tmprets
 ( tres: l1tmp
 , body: l1blk): l1tmplst
-extern
-fun
-fundecl_get_tmprets
-( lfd0: lfundecl): l1tmplst
 //
+(* ****** ****** *)
+
+implement
+fundecl_get_tmprets
+  (lfd0) =
+let
+val+
+LFUNDECL(rcd) = lfd0
+in
+//
+case+ rcd.def of
+|
+None() => list_nil()
+|
+Some(l1v1) =>
+(
+case+ l1v1.node() of
+| L1VALtmp(tmp1) =>
+  funbody_get_tmprets
+  (tmp1, rcd.def_blk)
+| _(* non-L1VALtmp *) => list_nil()
+)
+//
+end // end of [fundecl_get_tmprets]
+
 (* ****** ****** *)
 
 implement
@@ -3148,32 +3195,6 @@ auxcmds
   ) : l1cmdlst_vt // end-of-val
 }
 end // end of [funbody_get_tmprets]
-
-(* ****** ****** *)
-
-implement
-fundecl_get_tmprets
-  (lfd0) =
-let
-val+
-LFUNDECL(rcd) = lfd0
-in
-//
-case+ rcd.def of
-|
-None() => list_nil()
-|
-Some(l1v1) =>
-(
-case+ l1v1.node() of
-| L1VALtmp(tmp1) =>
-  funbody_get_tmprets
-  (tmp1, rcd.def_blk)
-| _(* non-L1VALtmp *) => list_nil()
-)
-//
-end // end of [fundecl_get_tmprets]
-
 
 (* ****** ****** *)
 

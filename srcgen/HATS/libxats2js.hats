@@ -30,8 +30,11 @@ XANADU_targetloc
 #staload LEX =
   "{$XANADU}/SATS/lexing.sats"
 #staload PAR =
-"{$XANADU}/SATS/parsing.sats"
+  "{$XANADU}/SATS/parsing.sats"
 //
+(* ****** ****** *)
+#staload D0E =
+  "{$XANADU}/SATS/dynexp0.sats"
 (* ****** ****** *)
 #staload S1E =
   "{$XANADU}/SATS/staexp1.sats"

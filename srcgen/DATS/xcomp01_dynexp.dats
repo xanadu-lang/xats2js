@@ -3138,7 +3138,8 @@ xcomp01_hfundeclist(env0, hfds)
 val () = xcomp01_dvarpop_fun0(env0)
 //
 in
-l1dcl_make_node(loc0, L1DCLfundecl(lfds))
+l1dcl_make_node
+(loc0, L1DCLfundecl(knd0, mopt, lfds))
 end // end of [aux_fundecl_none]
 //
 and
@@ -3179,7 +3180,8 @@ val
 lvds =
 xcomp01_hvaldeclist(env0, hvds)
 in
-l1dcl_make_node(loc0, L1DCLvaldecl(lvds))
+l1dcl_make_node
+(loc0, L1DCLvaldecl(knd0, mopt, lvds))
 end // end of [aux_valdecl]
 //
 (* ****** ****** *)
@@ -3200,7 +3202,8 @@ val
 lvds =
 xcomp01_hvardeclist(env0, hvds)
 in
-l1dcl_make_node(loc0, L1DCLvardecl(lvds))
+l1dcl_make_node
+(loc0, L1DCLvardecl(knd0, mopt, lvds))
 end // end of [aux_vardecl]
 
 (* ****** ****** *)
@@ -3325,7 +3328,7 @@ let
 //
 val-
 H0Cimpdecl3
-( tok0
+( knd0
 , stmp, mopt
 , htqa
 , hdc1, htia
@@ -3397,8 +3400,8 @@ LIMPDECL@{
 } (* LIMPDECL *)
 //
 in
-  l1dcl_make_node
-  ( loc0, L1DCLimpdecl(limp) )
+l1dcl_make_node
+(loc0, L1DCLimpdecl(knd0, mopt, limp))
 end
 //
 end // end of [aux_impdecl3_none]
@@ -3433,12 +3436,12 @@ dcl0.node() of
 //
 |
 H0Cstatic
-(tok, dcl1) =>
+(tok0, dcl1) =>
 xcomp01_h0dcl
 ( env0, dcl1 )
 |
 H0Cextern
-(tok, dcl1) =>
+(tok0, dcl1) =>
 xcomp01_h0dcl
 ( env0, dcl1 )
 //

@@ -48,8 +48,8 @@ typedef loc_t = $LOC.loc_t
 //
 typedef token = $LEX.token
 //
+(* ****** ****** *)
 typedef g1exp = $S1E.g1exp
-//
 (* ****** ****** *)
 //
 abstype l1exn_tbox = ptr
@@ -892,23 +892,29 @@ L1DCLinclude of
 ( token
 , g1exp, int(*stadyn*)
 , filpathopt, l1dclistopt)
+//
 |
-L1DCLimpdecl of (limpdecl)
+L1DCLimpdecl of
+(token, decmodopt, limpdecl)
+//
 |
-L1DCLfundecl of (lfundeclist)
+L1DCLfundecl of
+(token, decmodopt, lfundeclist)
 |
-L1DCLvaldecl of (lvaldeclist)
+L1DCLvaldecl of
+(token, decmodopt, lvaldeclist)
 |
-L1DCLvardecl of (lvardeclist)
+L1DCLvardecl of
+(token, decmodopt, lvardeclist)
 //
 |
 L1DCLexcptcon of (hdconlst, l1blk)
 //
 | L1DCLnone0 of () | L1DCLnone1 of h0dcl
 //
-where filpathopt = Option(filpath)
+where decmodopt = $D0E.decmodopt
+  and filpathopt = Option(filpath)
   and l1dclistopt = Option(l1dclist)
-//
 //
 (* ****** ****** *)
 //

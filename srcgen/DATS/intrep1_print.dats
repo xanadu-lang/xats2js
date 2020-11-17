@@ -801,16 +801,20 @@ fprint!
 } (* end of [L1DCLinclude] *)
 //
 |
-L1DCLimpdecl(limp) =>
+L1DCLimpdecl
+(knd0, mopt, limp) =>
 fprint!(out, "L1DCLimpdecl(", limp, ")")
 |
-L1DCLfundecl(lfds) =>
+L1DCLfundecl
+(knd0, mopt, lfds) =>
 fprint!(out, "L1DCLfundecl(", lfds, ")")
 |
-L1DCLvaldecl(lvds) =>
+L1DCLvaldecl
+(knd0, mopt, lvds) =>
 fprint!(out, "L1DCLvaldecl(", lvds, ")")
 |
-L1DCLvardecl(lvds) =>
+L1DCLvardecl
+(knd0, mopt, lvds) =>
 fprint!(out, "L1DCLvardecl(", lvds, ")")
 //
 |
