@@ -3255,7 +3255,124 @@ implement
 xemit01_l1dcl_fnx
   (out, dcl0) =
 let
+
+(* ****** ****** *)
+
+static
+fun{}
+isrec
+(l1f0: l1val): bool
+static
+fun{}
+isret
+(tres: l1tmp): bool
+
+(* ****** ****** *)
+fun{}
+myxemit_l1blk
+( out
+: FILEref
+, blk0: l1blk): void =
+let
+in
+case+ blk0 of
+| L1BLKnone() => ()
+| L1BLKsome(cmds) =>
+  myxemit_l1cmdlst(out, cmds)
+end // end of [myxemit_l1blk]
+(* ****** ****** *)
 //
+and
+myxemit_l1cmd
+( out
+: FILEref
+, cmd0: l1cmd): void =
+let
+//
+fun
+aux_app
+( out
+: FILEref
+, cmd0
+: l1cmd): void =
+(
+xemit01_l1cmd(out, cmd0)
+) where
+{
+val-
+L1CMDapp
+( tres
+, l1f0, l1vs) = cmd0.node()
+} (*where*) // end of [aux_app]
+//
+(* ****** ****** *)
+//
+fun
+aux_if0
+( out
+: FILEref
+, cmd0
+: l1cmd): void =
+{
+//
+val-
+L1CMDif0
+( l1v1
+, blk2, blk3) = cmd0.node()
+//
+val() =
+xemit01_txtln(out, "if")
+val() = xemit01_txt00(out, "(")
+val() = xemit01_l1val(out, l1v1)
+val() = xemit01_txtln(out, ")")
+//
+val() =
+xemit01_txtln(out, "// then")
+val() = xemit01_txtln(out, "{")
+val() = xemit01_l1blk(out, blk2)
+val() = xemit01_txtln(out, "} // if-then")
+//
+val() =
+xemit01_txtln(out, "else")
+val() = xemit01_txtln(out, "{")
+val() = xemit01_l1blk(out, blk3)
+val() = xemit01_txtln(out, "} // if-else")
+//
+} (* where *) // end of [aux_if0]
+//
+in
+//
+case+
+cmd0.node() of
+| L1CMDapp _ => aux_app(out, cmd0)
+| L1CMDif0 _ => aux_if0(out, cmd0)
+| _(* else *) => xemit01_l1cmd(out, cmd0)
+//
+end // end of [myxemit_l1cmd]
+//
+and
+myxemit_l1cmdlst
+( out
+: FILEref
+, cmds: l1cmdlst): void =
+(
+case+ cmds of
+|
+list_nil() => ()
+|
+list_cons(cmd1, cmds) =>
+let
+  val () =
+  myxemit_l1cmd(out, cmd1)
+  val()=
+  xemit01_txtln( out, ";" )
+in
+  myxemit_l1cmdlst(out, cmds)
+end // end of [myxemit_l1cmdlst]
+)
+//
+(* ****** ****** *)
+
 fun
 auxlfd0
 ( lfd0
@@ -3316,12 +3433,17 @@ xemit01_ftmpdecs(out, rcd.lts)
 //
 val () =
 xemit01_txtln(out, "do {")
+//
 val () =
 xemit01_l1blk(out, rcd.hag_blk)
+//
 val () =
-xemit01_l1blk(out, rcd.def_blk)
+myxemit_l1blk<>(out, rcd.def_blk)
+//
 val () =
-xemit01_txtln(out, "} while (false); ")
+xemit01_txtln(out, "break;//return")
+val () =
+xemit01_txtln(out, "} while( true );")
 //
 val () =
 (
