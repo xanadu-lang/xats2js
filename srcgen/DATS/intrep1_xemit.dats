@@ -65,6 +65,11 @@ with $FP0.fprint_filpath_full2
 #staload "./../SATS/intrep1.sats"
 (* ****** ****** *)
 
+implement
+fprint_val<l1tmp> = fprint_l1tmp
+
+(* ****** ****** *)
+
 fun
 chrunq
 ( rep
@@ -1208,7 +1213,7 @@ val() = xemit01_l1val(out, l1v1)
 val() = xemit01_txtln(out, ")")
 //
 val() =
-xemit01_txtln(out, "// then")
+fprint!(out, "// then\n")
 val() = xemit01_txtln(out, "{")
 val() = xemit01_l1blk(out, blk2)
 val() = xemit01_txtln(out, "} // if-then")
@@ -3009,7 +3014,7 @@ _(*non-of-L1VALtmp*) => tmps
 ) (* end of [auxlval] *)
 //
 and
-auxlblk
+auxblk0
 ( blk0: l1blk
 , tmps: l1tmplst): l1tmplst =
 (
@@ -3022,7 +3027,27 @@ L1BLKsome(cmds) =>
   auxcmds
   (list_reverse(cmds), tmps)
 )
-) (* end of [auxlblk] *)
+) (* end of [auxblk0] *)
+//
+and
+auxblks
+( blks: l1blklst
+, tmps: l1tmplst): l1tmplst =
+(
+case+ blks of
+|
+list_nil() => tmps
+|
+list_cons(blk1, blks) =>
+let
+  val
+  tmps =
+  auxblk0(blk1, tmps)
+  val
+  tmps =
+  auxblks(blks, tmps) in tmps
+end
+) (* end of [auxblks] *)
 //
 and
 auxcmd0
@@ -3041,16 +3066,23 @@ ismem
 then
 auxlval(l1v2, tmps) else tmps
 )  
+//
+|
+L1CMDblk(blk1) =>
+(
+  auxblk0(blk1, tmps)
+)
+//
 |
 L1CMDif0
 (l1v1, blk1, blk2) =>
 let
   val
   tmps =
-  auxlblk(blk1, tmps)
+  auxblk0(blk1, tmps)
   val
   tmps =
-  auxlblk(blk2, tmps) in tmps
+  auxblk0(blk2, tmps) in tmps
 end
 |
 L1CMDcase
@@ -3058,28 +3090,8 @@ L1CMDcase
 , tcas, pcks, blks) =>
 (
   auxblks(blks, tmps)
-) where
-{
-fun
-auxblks
-( blks: l1blklst
-, tmps: l1tmplst): l1tmplst =
-(
-case+ blks of
-|
-list_nil() => tmps
-|
-list_cons(blk1, blks) =>
-let
-  val
-  tmps =
-  auxlblk(blk1, tmps)
-  val
-  tmps =
-  auxblks(blks, tmps) in tmps
-end
-) (* end of [auxblks] *)
-} (* end of [L1CMDcase] *)
+) (* end of [L1CMDcase] *)
+//
 |
 _ (* rest-of-l1cmd *) => tmps
 )
@@ -3276,28 +3288,42 @@ myxemit_l1blk
 ( out
 : FILEref
 , blk0: l1blk): void =
+( a1ux_l1blk
+  (out, blk0)) where
+{
+fun
+a1ux_l1blk
+( out: FILEref
+, blk0: l1blk): void =
 let
+(*
+val () =
+println!
+(
+"a1ux_l1blk: blk0 = ", blk0
+)
+*)
 in
+//
 case+ blk0 of
 | L1BLKnone() => ()
 | L1BLKsome(cmds) =>
-  myxemit_l1cmdlst(out, cmds)
-end // end of [myxemit_l1blk]
-(* ****** ****** *)
+  a1ux_l1cmdlst(out, cmds)
+//
+end // end of [a1ux_l1blk]
 //
 and
-myxemit_l1cmd
+a1ux_l1cmd
 ( out
 : FILEref
 , cmd0: l1cmd): void =
 let
 //
 fun
-aux_app
+a2ux_app
 ( out
 : FILEref
-, cmd0
-: l1cmd): void =
+, cmd0: l1cmd): void =
 let
 val
 isret = isret<>(tres)
@@ -3310,25 +3336,28 @@ let
 val
 isrec = isrec<>(l1f0)
 in
+//
 if
 isrec
-then aux_trc(out, cmd0)
+then
+a2ux_trc(out, cmd0)
 else
 xemit01_l1cmd(out, cmd0)
-end (*let*) // end-of-then
+//
+end // end of [then]
 else
 xemit01_l1cmd(out, cmd0)
 //
 end where
 {
-  val-
-  L1CMDapp
-  ( tres
-  , l1f0, l1vs) = cmd0.node()
-} (*where*) // end of [aux_app]
+val-
+L1CMDapp
+( tres
+, l1f0, l1vs) = cmd0.node()
+} (*where*) // end of [a2ux_app]
 //
 and
-aux_trc
+a2ux_trc
 ( out
 : FILEref
 , cmd0
@@ -3338,7 +3367,7 @@ val
 lev = mylev()
 //
 fun
-auxlst
+loop1
 ( i0: int
 , l1vs
 : l1valist): void =
@@ -3346,13 +3375,13 @@ auxlst
 case+ l1vs of
 |
 list_nil() =>
-xemit01_txtln
-( out, "continue;")
+fprint!
+(out, "continue")
 |
-list_cons(l1v1, l1vs) =>
+list_cons
+(l1v1, l1vs) =>
 (
-  auxlst(i1, l1vs)
-) where
+loop1(i1, l1vs)) where
 {
 val i1 = i0 + 1
 //
@@ -3367,19 +3396,41 @@ xemit01_l1val( out, l1v1 )
 val () =
 xemit01_txt00( out, "; " )
 } (* end of [where] *)
-) (* end of [auxlst] *)
+) (* end of [loop0] *)
 //
-in auxlst(0, l1vs) end where
+in loop1(0, l1vs) end where
 {
-  val-
-  L1CMDapp
-  ( tres
-  , l1f0, l1vs) = cmd0.node()
-} (*where*) // end of [aux_trc]
+val-
+L1CMDapp
+( tres
+, l1f0, l1vs) = cmd0.node()
+} (*where*) // end of [a2ux_trc]
 (* ****** ****** *)
 //
 fun
-aux_if0
+a2ux_blk
+( out
+: FILEref
+, cmd0
+: l1cmd): void =
+{
+val () =
+fprint!( out, "{\n" )
+val () =
+a1ux_l1blk(out, blk1)
+val () =
+fprint!( out, "}\n" )
+} where
+{
+  val-
+  L1CMDblk
+  ( blk1 ) = cmd0.node()
+} (*where*) // end of [a2ux_blk]
+//
+(* ****** ****** *)
+//
+fun
+a2ux_if0
 ( out
 : FILEref
 , cmd0
@@ -3398,49 +3449,69 @@ val() = xemit01_l1val(out, l1v1)
 val() = xemit01_txtln(out, ")")
 //
 val() =
-xemit01_txtln(out, "// then")
-val() = xemit01_txtln(out, "{")
-val() = xemit01_l1blk(out, blk2)
-val() = xemit01_txtln(out, "} // if-then")
+fprint!
+(out, "// then\n")
+val() =
+xemit01_txtln(out, "{")
+val() = a1ux_l1blk(out, blk2)
+val() =
+xemit01_txtln(out, "} // if-then")
 //
 val() =
-xemit01_txtln(out, "else")
-val() = xemit01_txtln(out, "{")
-val() = xemit01_l1blk(out, blk3)
-val() = xemit01_txtln(out, "} // if-else")
+fprint!(out, "else\n")
+val() =
+xemit01_txtln(out, "{")
+val() = a1ux_l1blk(out, blk3)
+val() =
+xemit01_txtln(out, "} // if-else")
 //
-} (* where *) // end of [aux_if0]
+} (* where *) // end of [a2ux_if0]
 //
 in
 //
 case+
 cmd0.node() of
-| L1CMDapp _ => aux_app(out, cmd0)
-| L1CMDif0 _ => aux_if0(out, cmd0)
-| _(* else *) => xemit01_l1cmd(out, cmd0)
 //
-end // end of [myxemit_l1cmd]
+| L1CMDapp _ =>
+  a2ux_app(out, cmd0)
+//
+| L1CMDblk _ =>
+  a2ux_blk(out, cmd0)
+//
+| L1CMDif0 _ =>
+  a2ux_if0(out, cmd0)
+//
+| _(* else *) =>
+  xemit01_l1cmd(out, cmd0)
+//
+end // end of [a1ux_l1cmd]
 //
 and
-myxemit_l1cmdlst
+a1ux_l1cmdlst
 ( out
 : FILEref
-, cmds: l1cmdlst): void =
+, cmds
+: l1cmdlst): void =
 (
 case+ cmds of
 |
-list_nil() => ()
+list_nil
+((*void*)) => ()
 |
-list_cons(cmd1, cmds) =>
-let
+list_cons
+(cmd1, cmds) =>
+(
+a1ux_l1cmdlst(out, cmds)
+) where
+{
   val () =
-  myxemit_l1cmd(out, cmd1)
-  val()=
+  a1ux_l1cmd(out, cmd1)
+  val () =
   xemit01_txtln( out, ";" )
-in
-  myxemit_l1cmdlst(out, cmds)
-end // end of [myxemit_l1cmdlst]
+} // end of [a1ux_l1cmdlst]
 )
+//
+} (* end of [a1ux_l1blk] *)
 //
 (* ****** ****** *)
 
@@ -3456,10 +3527,9 @@ LFUNDECL(rcd) = lfd0
 in
 case+
 rcd.def_blk of
-|
-L1BLKnone _ => ()
-|
-L1BLKsome _ => auxlfd0_some(lfd0)
+| L1BLKnone _ => ()
+| L1BLKsome _ =>
+  auxlfd0_some(lfd0)
 end // end of [auxlfd0]
 //
 and
@@ -3486,15 +3556,18 @@ None() => ()
 |
 Some(rcd_hag) =>
 {
+//
 val
 argcnt =
 xemit01_hfarglst
 ( out
 , rcd.lev
 , rcd_hag, 0(*base*) )
+//
 val () = xemit01_newln(out)
-}
-)
+//
+} (* Some *)
+) (* end of [val] *)
 //
 val () =
 xemit01_txtln(out, "{")
@@ -3515,6 +3588,10 @@ mylev<>() = rcd.lev
 //
 val trts =
 fundecl_get_tmprets(lfd0)
+//
+val () =
+println!
+("auxlfd0_some: trts = ", trts)
 //
 implement
 isret<>(x0) =
