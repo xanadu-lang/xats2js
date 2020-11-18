@@ -45,7 +45,12 @@ mytest03
 mytest03:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest03.dats && $(NODE) output_dats.js
-#
+######
+test:: \
+mytest04
+mytest04:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest04.dats && $(NODE) output_dats.js
 ######
 #
 # HX: for cleaning up
