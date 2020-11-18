@@ -1069,6 +1069,15 @@ fun
 xemit01_l1dclist
 (out: FILEref, dcls: l1dclist): void
 //
+(* ****** ****** *)
+fun
+xemit01_l1dcl_fun
+(out: FILEref, dcl0: l1dcl): void
+fun
+xemit01_l1dcl_fnx
+(out: FILEref, dcl0: l1dcl): void
+(* ****** ****** *)
+//
 fun
 xemit01_package(FILEref, l1pkg): void
 //
