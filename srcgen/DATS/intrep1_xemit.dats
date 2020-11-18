@@ -3260,6 +3260,9 @@ let
 
 static
 fun{}
+mylev(): int
+static
+fun{}
 isrec
 (l1f0: l1val): bool
 static
@@ -3295,16 +3298,84 @@ aux_app
 : FILEref
 , cmd0
 : l1cmd): void =
-(
+let
+val
+isret = isret<>(tres)
+in
+//
+if
+isret
+then
+let
+val
+isrec = isrec<>(l1f0)
+in
+if
+isrec
+then aux_trc(out, cmd0)
+else
 xemit01_l1cmd(out, cmd0)
-) where
+end (*let*) // end-of-then
+else
+xemit01_l1cmd(out, cmd0)
+//
+end where
 {
-val-
-L1CMDapp
-( tres
-, l1f0, l1vs) = cmd0.node()
+  val-
+  L1CMDapp
+  ( tres
+  , l1f0, l1vs) = cmd0.node()
 } (*where*) // end of [aux_app]
 //
+and
+aux_trc
+( out
+: FILEref
+, cmd0
+: l1cmd): void =
+let
+val
+lev = mylev()
+//
+fun
+auxlst
+( i0: int
+, l1vs
+: l1valist): void =
+(
+case+ l1vs of
+|
+list_nil() =>
+xemit01_txtln
+( out, "continue;")
+|
+list_cons(l1v1, l1vs) =>
+(
+  auxlst(i1, l1vs)
+) where
+{
+val i1 = i0 + 1
+//
+val () =
+fprint!
+(out, "a", lev, "x", i1)
+//
+val () =
+xemit01_txt00(out, " = ")
+val () =
+xemit01_l1val( out, l1v1 )
+val () =
+xemit01_txt00( out, "; " )
+} (* end of [where] *)
+) (* end of [auxlst] *)
+//
+in auxlst(0, l1vs) end where
+{
+  val-
+  L1CMDapp
+  ( tres
+  , l1f0, l1vs) = cmd0.node()
+} (*where*) // end of [aux_trc]
 (* ****** ****** *)
 //
 fun
@@ -3437,8 +3508,44 @@ xemit01_txtln(out, "do {")
 val () =
 xemit01_l1blk(out, rcd.hag_blk)
 //
+local
+//
+implement
+mylev<>() = rcd.lev
+//
+val trts =
+fundecl_get_tmprets(lfd0)
+//
+implement
+isret<>(x0) =
+auxlst(trts) where
+{
+fun
+auxlst
+(xs: l1tmplst): bool =
+(
+case+ xs of
+| list_nil() => false
+| list_cons(x1, xs) =>
+  if (x0 = x1)
+  then true else auxlst(xs)
+)
+}
+//
+implement
+isrec<>(l1f0) =
+(
+case+
+l1f0.node() of
+| L1VALfcst(hdc) =>
+  (hdc = rcd.hdc)
+| _ (*non-L1VALfcst*) => false
+)
+//
+in(*in-of-local*)
 val () =
 myxemit_l1blk<>(out, rcd.def_blk)
+end // end of [local]
 //
 val () =
 xemit01_txtln(out, "break;//return")
