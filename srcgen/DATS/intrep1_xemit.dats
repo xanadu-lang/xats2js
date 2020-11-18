@@ -2535,8 +2535,12 @@ ifcase
 isfnx(knd0) =>
 xemit01_l1dcl_fnx(out, dcl0)
 *)
-| _(* else *) =>
+|
+_(* else *) =>
+xemit01_l1dcl_fnx(out, dcl0)
+(*
 xemit01_l1dcl_fun(out, dcl0)
+*)
 end // end of [aux_fundecl]
 
 (* ****** ****** *)
@@ -3049,6 +3053,34 @@ let
   auxlblk(blk2, tmps) in tmps
 end
 |
+L1CMDcase
+( knd1, l1v1
+, tcas, pcks, blks) =>
+(
+  auxblks(blks, tmps)
+) where
+{
+fun
+auxblks
+( blks: l1blklst
+, tmps: l1tmplst): l1tmplst =
+(
+case+ blks of
+|
+list_nil() => tmps
+|
+list_cons(blk1, blks) =>
+let
+  val
+  tmps =
+  auxlblk(blk1, tmps)
+  val
+  tmps =
+  auxblks(blks, tmps) in tmps
+end
+) (* end of [auxblks] *)
+} (* end of [L1CMDcase] *)
+|
 _ (* rest-of-l1cmd *) => tmps
 )
 //
@@ -3093,7 +3125,6 @@ implement
 xemit01_l1dcl_fun
   (out, dcl0) =
 let
-//
 //
 fun
 auxlfd0
@@ -3224,18 +3255,131 @@ implement
 xemit01_l1dcl_fnx
   (out, dcl0) =
 let
+//
+fun
+auxlfd0
+( lfd0
+: lfundecl): void =
+let
+//
+val+
+LFUNDECL(rcd) = lfd0
+//
+in
+case+
+rcd.def_blk of
+|
+L1BLKnone _ => ()
+|
+L1BLKsome _ => auxlfd0_some(lfd0)
+end // end of [auxlfd0]
+//
+and
+auxlfd0_some
+( lfd0
+: lfundecl): void =
+let
+//
+val+
+LFUNDECL(rcd) = lfd0
+//
+val () =
+xemit01_txtln
+(out, "function")
+//
+val () =
+xemit01_hdcst(out, rcd.hdc)
+val () =
+(
+case+
+rcd.hag of
+|
+None() => ()
+|
+Some(rcd_hag) =>
+{
+val
+argcnt =
+xemit01_hfarglst
+( out
+, rcd.lev
+, rcd_hag, 0(*base*) )
+val () = xemit01_newln(out)
+}
+)
+//
+val () =
+xemit01_txtln(out, "{")
+//
+val () =
+xemit01_ftmpdecs(out, rcd.lts)
+//
+val () =
+xemit01_txtln(out, "do {")
+val () =
+xemit01_l1blk(out, rcd.hag_blk)
+val () =
+xemit01_l1blk(out, rcd.def_blk)
+val () =
+xemit01_txtln(out, "} while (false); ")
+//
+val () =
+(
+case+
+rcd.def of
+|
+None() => ()
+|
+Some(res) =>
+{
+//
+val () =
+xemit01_txt00(out, "return ")
+val () = xemit01_l1val(out, res)
+val () = xemit01_txt00(out, ";\n")
+//
+}
+) : void // end-of-val
+in
+  fprintln!
+  (out, "} // function // ", rcd.hdc)
+end (* end of [auxlfd0_some] *)
+//
+(* ****** ****** *)
+//
+and
+auxlfds
+( lfds
+: lfundeclist): void =
+(
+case lfds of
+|
+list_nil() => ()
+|
+list_cons
+(lfd0, lfds) =>
+{
+  val () = auxlfd0(lfd0)
+  val () = auxlfds(lfds)
+}
+)
+//
+in
+//
+let
 val-
 L1DCLfundecl
 ( knd0
 , mopt
-, lfds) = dcl0.node()
-in
+, lfds) = dcl0.node() in auxlfds(lfds)
+end // end of [let]
+//
 end where
 {
 (*
-val () =
-println!
-("xemit01_l1dcl_fnx: dcl0 = ", dcl0)
+  val () =
+  println!
+  ("xemit01_l1dcl_fun: dcl0 = ", dcl0)
 *)
 } (*where*) // end of [xemit01_l1dcl_fnx]
 
