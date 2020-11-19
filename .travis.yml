@@ -44,7 +44,7 @@ script:
   - (sh ./build.sh)
   - (cd srcgen/TEST && time make -f Makefile_test)
   # Regression Testing
-  - (cd docgen/pground && time make -f Makefile_test)
+  - (cd docgen/P-Ground && time make -f Makefile_test)
 
 after_script:
   - date
