@@ -180,7 +180,10 @@ safety_test2
 
 (* ****** ****** *)
 
+(*
 fun search
+*)
+fnx search
 (
   bd: int8, i: int, j: int, nsol: int
 ) : int = (

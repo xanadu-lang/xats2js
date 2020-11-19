@@ -2574,19 +2574,31 @@ L1DCLfundecl
 ( knd0
 , mopt
 , lfds) = dcl0.node()
+//
+fun
+isfnx
+(knd0: token): bool =
+(
+case-
+knd0.node() of
+|
+T_FUN(fnk) =>
+(
+case+ fnk of
+| FNKfn2() => true
+| FNKfnx() => true
+| _(*else*) => false
+)
+) (* end of [isfnx] *)
+//
 in
 ifcase
-(*
 |
 isfnx(knd0) =>
 xemit01_l1dcl_fnx(out, dcl0)
-*)
 |
 _(* else *) =>
-xemit01_l1dcl_fnx(out, dcl0)
-(*
 xemit01_l1dcl_fun(out, dcl0)
-*)
 end // end of [aux_fundecl]
 
 (* ****** ****** *)
