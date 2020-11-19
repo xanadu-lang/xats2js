@@ -3551,9 +3551,7 @@ end (* end-of-let *)
 end (* end-of-let *) // end of [auxblklst]
 //
 (* ****** ****** *)
-
-in (* in-of-let *)
-
+in(*  in-of-let  *)
 (* ****** ****** *)
 {
 //
@@ -3603,8 +3601,13 @@ xemit01_txtln(out, "} // case-switch")
 } end (*let*) // end of [a2ux_case]
 
 (* ****** ****** *)
-
-in
+//
+// HX-2020-11-18:
+// There is no need for [a2ux_try]!
+//
+(* ****** ****** *)
+in(*  in-of-let  *)
+(* ****** ****** *)
 //
 case+
 cmd0.node() of
@@ -3650,7 +3653,7 @@ a1ux_l1cmdlst(out, cmds)
   xemit01_txtln( out, ";" )
 } // end of [a1ux_l1cmdlst]
 )
-
+//
 (* ****** ****** *)
 
 } (* where *) // end of [a1ux_l1blk]
