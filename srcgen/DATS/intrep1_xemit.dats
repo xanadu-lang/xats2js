@@ -2464,6 +2464,7 @@ xemit01_txtln
 //
 val () =
 xemit01_ftmpdecs(out, rcd.lts)
+//
 val () =
 xemit01_l1blk(out, rcd.def_blk)
 //
@@ -3323,10 +3324,11 @@ xemit01_l1dcl_fnx
 let
 
 (* ****** ****** *)
-
+//
 static
 fun{}
 mylev(): int
+//
 static
 fun{}
 isrec
@@ -3335,11 +3337,11 @@ static
 fun{}
 isret
 (tres: l1tmp): bool
-
+//
 (* ****** ****** *)
 
 fun{}
-myxemit_l1blk
+myxemit01_l1blk
 ( out
 : FILEref
 , blk0: l1blk): void =
@@ -3736,8 +3738,7 @@ in
 case+
 rcd.def_blk of
 | L1BLKnone _ => ()
-| L1BLKsome _ =>
-  auxlfd0_some(lfd0)
+| L1BLKsome _ => auxlfd0_some(lfd0)
 end // end of [auxlfd0]
 //
 and
@@ -3782,8 +3783,7 @@ xemit01_txtln(out, "{")
 //
 val () =
 xemit01_fargdecs
-(out, narg, rcd.lev)
-//
+(out, narg, rcd.lev(*flev*))
 val () =
 xemit01_ftmpdecs(out, rcd.lts)
 //
@@ -3835,7 +3835,7 @@ l1f0.node() of
 //
 in(*in-of-local*)
 val () =
-myxemit_l1blk<>(out, rcd.def_blk)
+myxemit01_l1blk<>(out, rcd.def_blk)
 end // end of [local]
 //
 val () =
