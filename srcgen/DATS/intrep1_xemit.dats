@@ -1224,7 +1224,7 @@ xemit01_txt00
 (out, " =\nfunction")
 //
 val
-argcnt =
+narg =
 xemit01_hfarglst
 ( out
 , rcd.lev
@@ -1235,15 +1235,7 @@ val () =
 xemit01_txtln(out, "{")
 //
 val () =
-xemit01_txtln
-( out
-, "// XEMIT01_FTMPDECS: BEG" )
-val () =
 xemit01_ftmpdecs(out, rcd.lts)
-val () =
-xemit01_txtln
-( out
-, "// XEMIT01_FTMPDECS: END" )
 //
 val () =
 xemit01_l1blk(out, rcd.hag_blk)
@@ -1301,7 +1293,7 @@ val () =
 xemit01_hdvar(out, rcd.nam)
 //
 val
-argcnt =
+narg =
 xemit01_hfarglst
 ( out
 , rcd.lev
@@ -2345,6 +2337,35 @@ L1BLKsome(cmds) =>
 (* ****** ****** *)
 
 implement
+xemit01_fargdecs
+( out
+, narg, flev) =
+(
+  loop(0(*i0*))
+) where
+{
+fun
+loop(i0: int): void =
+if
+(i0 < narg)
+then
+(
+  loop(i1) // end-of-then
+) where
+{
+val i1 = i0+1
+val () =
+fprint!
+( out
+, "let", " "
+, "a", flev, "y", i1, ";\n")
+}
+// else () // end-of-else
+} (* end of [xemit01_fargdecs] *)
+
+(* ****** ****** *)
+
+implement
 xemit01_ftmpdecs
 ( out, tmps ) =
 (
@@ -2500,7 +2521,7 @@ xemit01_txtln
 val () =
 xemit01_hdcst(out, rcd.hdc)
 val
-argcnt =
+narg =
 xemit01_hfarglst
 ( out
 , rcd.lev
@@ -3191,17 +3212,18 @@ xemit01_txtln
 //
 val () =
 xemit01_hdcst(out, rcd.hdc)
-val () =
+val narg =
 (
 case+
 rcd.hag of
 |
-None() => ()
+None() => 0
 |
-Some(rcd_hag) =>
+Some
+(rcd_hag) => narg where
 {
 val
-argcnt =
+narg =
 xemit01_hfarglst
 ( out
 , rcd.lev
@@ -3396,9 +3418,7 @@ loop1
 (
 case+ l1vs of
 |
-list_nil() =>
-fprint!
-(out, "continue")
+list_nil() => ()
 |
 list_cons
 (l1v1, l1vs) =>
@@ -3409,19 +3429,50 @@ val i1 = i0 + 1
 //
 val () =
 fprint!
-(out, "a", lev, "x", i1)
-//
+(out, "a", lev, "y", i1)
 val () =
 xemit01_txt00(out, " = ")
 val () =
 xemit01_l1val( out, l1v1 )
 val () =
 xemit01_txt00( out, "; " )
-} (* end of [where] *)
-) (* end of [loop0] *)
+} (* where *)
+) (* end of [loop1] *)
+//
+fun
+loop2
+( i0: int
+, l1vs
+: l1valist): void =
+(
+case+ l1vs of
+|
+list_nil() =>
+fprint!
+(out, "continue")
+|
+list_cons
+(l1v1, l1vs) =>
+(
+loop2(i1, l1vs)) where
+{
+//
+val i1 = i0 + 1
+//
+val () =
+fprint!
+(out
+, "a", lev, "x", i1
+, " = "
+, "a", lev, "y", i1, "; ")
+}
+) (* end of [loop2] *)
 //
 in
-loop1(0, l1vs) where
+(
+loop1(0, l1vs);
+loop2(0, l1vs);
+) where
 {
 val () =
 fprint!
@@ -3692,18 +3743,18 @@ xemit01_txtln
 //
 val () =
 xemit01_hdcst(out, rcd.hdc)
-val () =
+val narg =
 (
 case+
 rcd.hag of
 |
-None() => ()
+None() => 0
 |
-Some(rcd_hag) =>
+Some(rcd_hag) => narg where
 {
 //
 val
-argcnt =
+narg =
 xemit01_hfarglst
 ( out
 , rcd.lev
@@ -3716,6 +3767,10 @@ val () = xemit01_newln(out)
 //
 val () =
 xemit01_txtln(out, "{")
+//
+val () =
+xemit01_fargdecs
+(out, narg, rcd.lev)
 //
 val () =
 xemit01_ftmpdecs(out, rcd.lts)

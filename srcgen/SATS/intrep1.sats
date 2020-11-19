@@ -1058,6 +1058,10 @@ xemit01_l1cmdlst
 (out: FILEref, cmds: l1cmdlst): void
 (* ****** ****** *)
 fun
+xemit01_fargdecs
+( out: FILEref
+, narg: int, flev: int): void
+fun
 xemit01_ftmpdecs
 (out: FILEref, tmps: l1tmplst): void
 (* ****** ****** *)
