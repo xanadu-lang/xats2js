@@ -28,13 +28,13 @@ which is available [here](http://www.ats-lang.org/Downloads.html)
 ```
 cd xats2js
 ./bin/xats2js -h
-make -C srcgen/TEST test > output
+make -C srcgen/TEST -f Makefile_test
 ```
 
 ## Remarks
 
 - Xats2js is for debugging the implementation of Xanadu
 
-- Xats2js is meant to be a practical compiler from Xanadu to JS
+- Xats2js is meant to be a practical compiler from Xatscml to JS
 
 - This project should be constantly under construction for quite some time

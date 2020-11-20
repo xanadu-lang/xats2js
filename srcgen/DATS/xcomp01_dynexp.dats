@@ -3040,8 +3040,10 @@ l1dcl_make_node
 //
 end where
 {
+(*
 val () =
 println!("aux_include: dcl0 = ", dcl0)
+*)
 } (*where*) // end of [aux_include]
 
 (* ****** ****** *)

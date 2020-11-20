@@ -3,19 +3,16 @@
 # A simple Makefile
 #
 ######
-#
-# HX-2018-01-05:
-# TEMPTORY is environmental
-#
-######
-
+CAT=cat
 RMF=rm -f
-
+NODE=node
 ######
-
-XATS2JS=\
-"./../../../bin/xats2js"
-
+XATS2JS=$(XATS2JSHOME)/bin/xats2js
+######
+XATS2JS_PRELUDE=\
+"$(XATS2JSHOME)/share/runtime/xats2js_prelude.js"
+XATS2JS_XATSLIB_LIBC=\
+"$(XATS2JSHOME)/share/runtime/xats2js_xatslib_libc.js"
 ######
 
 all:: hello_dats.js
@@ -43,8 +40,12 @@ cleanall:: ; $(RMF) hello_dats.js
 
 ######
 
-%_dats.js: %.dats; $(XATS2JS) -o $@ -d $<
+%_dats.js: %.dats; \
+( $(CAT) $(XATS2JS_PRELUDE) $(XATS2JS_XATSLIB_LIBC) > $@ && $(XATS2JS) --output-a $@ -d $< )
 
+######
+export \
+XATSHOME=$(XATS2JSHOME)/xanadu
 ######
 
 ###### end of [Makefile] ######
