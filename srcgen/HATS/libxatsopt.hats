@@ -7,11 +7,11 @@ XANADU_targetloc
 (* ****** ****** *)
 //
 #staload
-"{$XANADU}/SATS/label0.sats"
+"{$XANADU}/SATS/xlabel0.sats"
 #staload
-"{$XANADU}/SATS/stamp0.sats"
+"{$XANADU}/SATS/xstamp0.sats"
 #staload
-"{$XANADU}/SATS/symbol.sats"
+"{$XANADU}/SATS/xsymbol.sats"
 //
 (* ****** ****** *)
 //
@@ -24,7 +24,7 @@ XANADU_targetloc
 (* ****** ****** *)
 //
 #staload
-"{$XANADU}/SATS/lexing.sats"
+"{$XANADU}/SATS/lexing0.sats"
 //
 #staload
 "{$XANADU}/SATS/parsing.sats"
@@ -85,7 +85,7 @@ XANADU_targetloc
 (* ****** ****** *)
 //
 #staload GLO =
-  "{$XANADU}/SATS/global.sats"
+  "{$XANADU}/SATS/xglobal.sats"
 //
 #staload ERR =
   "{$XANADU}/SATS/xerrory.sats"

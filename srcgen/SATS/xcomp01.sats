@@ -40,7 +40,7 @@ XANADU_targetloc
 (* ****** ****** *)
 //
 #staload
-"{$XANADU}/SATS/lexing.sats"
+"{$XANADU}/SATS/lexing0.sats"
 //
 #staload
 "{$XANADU}/SATS/intrep0.sats"

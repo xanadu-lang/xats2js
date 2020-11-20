@@ -1,11 +1,10 @@
 (* ****** ****** *)
-(*
 #define
 XATS2JSHOME = "./../../.."
-*)
 (* ****** ****** *)
 #include
-"./../../..\
+"\
+$(XATS2JSHOME)\
 /share/xats2js_prelude.hats"
 (* ****** ****** *)
 #staload _ =
