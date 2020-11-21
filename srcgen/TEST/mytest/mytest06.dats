@@ -22,7 +22,7 @@ case+ xs of
 | list_nil() => res
 | list_cons(_, xs) => loop(xs, res+1)
 )
-}
+} (* end of [length] *)
 
 (* ****** ****** *)
 //
