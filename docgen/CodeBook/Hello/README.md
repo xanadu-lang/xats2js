@@ -60,10 +60,20 @@ otherwise (e.g., manually written by a programmer).
 Let us implement a webpage containing a button. Once the button is
 clicked, an alert window is popped up with the message saying "Hello,
 world!". For instance, a demo of such a
-[webpage](https://xanadu-lang.github.io/xats2js/docgen/CodeBook/Hello/2020-11-22/hello.html):
+[webpage](https://xanadu-lang.github.io/xats2js/docgen/CodeBook/Hello/2020-11-22/hello.html)
 is given as follows:
   
 https://xanadu-lang.github.io/xats2js/docgen/CodeBook/Hello/2020-11-22/hello.html
+
+To demonstrate the spirit of co-programming, we hereby have two source
+files: [hello.cats](./hello.cats) and [hello.dats](./hello.dats); the
+former is for storing manually written JS code and the later for
+manually written ATS3 code.  Note that the filename extension `cats`
+is not significant; it is chosen here for a historic reason as this
+extension used to indicate a file containing external C code in
+so-called co-programming with ATS2 and C. On the other hand, the
+filename `dats` is signifcant as it is recognized by xats2js for some
+special usage.
 
 The content of the file [hello.dats](./hello.dats) is listed as follows:
 
