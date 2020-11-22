@@ -1,0 +1,38 @@
+Hi, there,
+
+HX-2020-11-22:
+
+Xats2js is ready for testing :)
+
+##################################################################
+
+Given a programming language WHATNOT, one often immediately assumes
+that code in WHATNOT should be manually constructed. We really need
+to break this restrictive mode of thinking. There are surely
+approaches to obtaining code in WHATNOT that can be greatly more
+productive. I intend to demonstrate concretely that compiling code
+written in ATS into WHATNOT is often such an approach. What happens
+if WHATNOT is actually ATS itself? Well, I expect that there will be
+future extensions of ATS that can support more productive approaches
+to obtaining ATS code (that is manually written as of now).
+
+Please note that I am not arguing to completely replace the practice
+of manual coding in WHATNOT. What I am proposing is a style of
+co-programming with ATS3 and WHATNOT. In particular, the WHATNOT code
+compiled from ATS3 source should be allowed to be directly combined
+with other WHATNOT code (as if the generated WHATNOT code were written
+by someone manually).
+
+##################################################################
+
+Xats2js is a functioning compiler implemented in ATS2 for translating
+XATSCML into JavaScript (or JS for short). It should be noted that
+xats2js can compile tail-recursive calls into local jumps, effectively
+supporting the common practice in functional programming of writing
+loops as tail-recursive functions.
+
+##################################################################
+
+Cheers!
+
+--Hongwei
