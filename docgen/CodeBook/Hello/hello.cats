@@ -1,3 +1,5 @@
+/* ****** ****** */
+
 function
 JS_hello()
 {
@@ -7,3 +9,7 @@ JS_hello()
   XATS2JS_the_print_store_clear();
   alert(output);
 }
+
+/* ****** ****** */
+
+/* end of [hello.cats] */

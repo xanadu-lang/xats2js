@@ -6,6 +6,7 @@
 CAT=cat
 CPF=cp -f
 ECHO=echo
+MAKE=make
 NODE=node
 ######
 SHARE=./../../../share
@@ -51,6 +52,16 @@ readline:: ; \
 $(CAT) readline.cats > readline_dats.js && \
 $(CAT) $(XATS2JS_PRELUDE) >> readline_dats.js && \
 $(XATS2JS) 1>/dev/null 2>&1 --output-a readline_dats.js -d ./readline.dats && $(CAT) readline.cats | $(NODE) readline_dats.js
+######
+test:: \
+Functest
+Functest:: ; \
+$(MAKE) -C Functest test
+######
+test:: \
+Game-of-24
+Game-of-24:: ; \
+$(MAKE) -C Game-of-24 test
 ######
 #
 # HX: for cleaning up
