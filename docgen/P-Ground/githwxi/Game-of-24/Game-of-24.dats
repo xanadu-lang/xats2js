@@ -10,9 +10,6 @@
 #staload
 "xatslib/githwxi/DATS/mygist.dats"
 (* ****** ****** *)
-#staload
-"prelude/DATS/CATS/JS/g_print.dats"
-(* ****** ****** *)
 //
 typedef
 rat = double

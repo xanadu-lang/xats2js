@@ -1,6 +1,6 @@
 /* ****** ****** */
 /*
-XATS2JS_XATSLIB_LIBC
+XATS2JS_XATSLIB_NODE
 */
 /* ****** ****** */
 

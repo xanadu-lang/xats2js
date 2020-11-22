@@ -11,8 +11,8 @@ XATS2JS=$(XATS2JSD)/bin/xats2js
 ######
 XATS2JS_PRELUDE=\
 "$(XATS2JSD)/share/runtime/xats2js_prelude.js"
-XATS2JS_XATSLIB_LIBC=\
-"$(XATS2JSD)/share/runtime/xats2js_xatslib_libc.js"
+XATS2JS_XATSLIB_NODE=\
+"$(XATS2JSD)/share/runtime/xats2js_xatslib_node.js"
 ######
 
 all:: hello_dats.js
@@ -40,8 +40,9 @@ cleanall:: ; $(RMF) hello_dats.js
 
 ######
 
-%_dats.js: %.dats; \
-( $(CAT) $(XATS2JS_PRELUDE) $(XATS2JS_XATSLIB_LIBC) > $@ && $(XATS2JS) --output-a $@ -d $< )
+hello_dats.js: \
+hello.cats hello.dats; \
+( $(CAT) $(XATS2JS_PRELUDE) hello.cats > $@ && $(XATS2JS) --output-a $@ -d hello.dats )
 
 ######
 export XATS2JSD=./../../..

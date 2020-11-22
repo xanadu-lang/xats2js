@@ -13,7 +13,7 @@ ECHO=echo
 all:: ; \
 echo "Please do 'make xats2js_prelude'!"
 all:: ; \
-echo "Please do 'make xats2js_xatslib_libc'!"
+echo "Please do 'make xats2js_xatslib_node'!"
 
 ######
 XANADU=./../../xanadu
@@ -52,18 +52,18 @@ xats2js_prelude:: ; \
 $(CAT) \
 $(XANADU)/prelude/DATS/CATS/JS/Node/g_print.cats >> xats2js_prelude.js
 ######
-xats2js_xatslib_libc:: ; \
+xats2js_xatslib_node:: ; \
 $(ECHO) \
-"/* ****** ****** */" > xats2js_xatslib_libc.js \
+"/* ****** ****** */" > xats2js_xatslib_node.js \
 && \
 $(ECHO) \
-"/*\nXATS2JS_XATSLIB_LIBC\n*/" >> xats2js_xatslib_libc.js \
+"/*\nXATS2JS_XATSLIB_NODE\n*/" >> xats2js_xatslib_node.js \
 && \
-$(ECHO) "/* ****** ****** */\n" >> xats2js_xatslib_libc.js
+$(ECHO) "/* ****** ****** */\n" >> xats2js_xatslib_node.js
 #
-xats2js_xatslib_libc:: ; \
+xats2js_xatslib_node:: ; \
 $(CAT) \
-$(XANADU)/xatslib/libc/DATS/CATS/JS/Node/prelude.cats >> xats2js_xatslib_libc.js
+$(XANADU)/xatslib/libc/DATS/CATS/JS/Node/prelude.cats >> xats2js_xatslib_node.js
 #
 ######
 clean:: ; rm -f *~
