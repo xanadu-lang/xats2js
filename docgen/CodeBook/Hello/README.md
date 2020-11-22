@@ -1,12 +1,14 @@
 # Hello, World!
 
 I assume that you have already installed XATS2JS at this point.
-The directory in which XATS2JS is located should be stored in the
-environment variable of the name XATS2JSD.
+
+The path to the directory where XATS2JS is located should be stored in
+the environment variable of the name XATS2JSD. And I often write
+${XATS2JSD} (which means the content of XATS2JD) to refer to this
+directory.
 
 If you have not installed XATS2jS, I suggest as follows a simple and
 clean way to just play with it a bit.
-
 The repository for the XATS2JS package is publicly accessible at the
 following URL:
 
