@@ -75,7 +75,13 @@ so-called co-programming with ATS2 and C. On the other hand, the
 filename `dats` is signifcant as it is recognized by xats2js for some
 special usage.
 
-The content of the file [hello.dats](./hello.dats) is listed as follows:
+In the rest of the presentation, if a command-line is to be executed,
+it is supposed to be done in the directory containing the aforementioned
+files.
+
+#### hello.dats
+  
+Let us start with [hello.dats](./hello.dats), who content is listed as follows:
 
 ```ats
 (* ****** ****** *)
@@ -92,5 +98,126 @@ ATS_hello() = print("Hello, world!")
 
 (* end of [hello.dats] *)
 ```
+
+One can form a line-comment in ATS by starting the line with
+two slashes (//). One can also form a block-comment in ATS by using
+the ML-style of commenting:
+
+```ats
+(*
+...here-is-a-block-comment...
+*)
+```
+
+In ATS3, one can break a line of string into several lines by
+inserting a single backslash symbol (\). For instance, the following
+code:
+
+```ats
+#include"\
+$(XATS2JSD)\
+/share/xats2js_prelude.hats"
+```
+
+is completely equivalent to the code below:
+
+```ats
+#include"$(XATS2JSD)/share/xats2js_prelude.hats"
+```
+
+This include-directive essentially staloads (that is, statically
+loads) the API for a collection of functions declared and implemented
+in the prelude library of ATS3. This is a necessary step for the code
+following the include-directive to access these library functions.
+
+In the following code, a function of the name `ATS_hello` is declared
+and then implemented:
+  
+```ats
+#extern
+fun
+ATS_hello(): void = $exname()
+implfun
+ATS_hello() = print("Hello, world!")
+```
+
+The keyword `#extern` indicates that the declared function is
+accessible externally, that is, outside the file (which is treated
+as a module of some sort).
+
+The expression `$exname()` indicates to the compiler (xats2js) that
+the generated function corresponding to `ATS_hello` in JS should be
+given the same name. As can be expected, name correspondence is a
+central issue in any kind of co-programming.
+
+The keyword `implfun` initiates the implementation of a declared name
+(which refers to a function in this case).
+
+#### hello.cats
+
+Let us switch to [hello.cats](./hello.cats), who content is listed as follows:
+
+```js
+/* ****** ****** */
+
+function
+JS_hello()
+{
+  ATS_hello();
+  let output =
+  XATS2JS_the_print_store_join();
+  XATS2JS_the_print_store_clear();
+  alert(output);
+}
+
+/* ****** ****** */
+
+/* end of [hello.cats] */
+```
+
+The `print` function in [hello.dats](./hello.dats) saves a string
+representation of its argument into a global array; The function
+`XATS2JS_the_print_store_join` joins the strings in the array, and the
+function `XATS2JS_the_print_store_clear` clears the array (that is,
+reset it to its initial state of emptiness).
+
+#### Putting is all together
+
+By issuing the command-line below:
+
+```
+${XATS2JSD}/bin/xats2js -d hello.dats
+```
+
+we expect the following kind of JS code
+to be generated:
+
+
+```js
+function
+ATS_hello()
+{
+let xtmp0;
+{
+const // implval/fun
+string_print_4753_ = XATS2JS_string_print
+;
+xtmp0 = string_print_4753_("Hello, world!");
+}
+;
+return xtmp0;
+} // function // ATS_hello(0)
+```
+
+There is a small library of functions
+needed for running the generated JS code, which can be
+found in the following directory:
+
+$(XATS2JSD)/share/runtime/xats2js_prelude.js
+
+By copying into a file (of the name hello_dats.js)
+the code in this library file, the code in hello.cats, and the generated JS code
+for hello.dats and then adding a line in the html file for the aforementioned webpage,
+we have complete the task of building the webpage.
 
 Happy programming in ATS-Xanadu!!!
