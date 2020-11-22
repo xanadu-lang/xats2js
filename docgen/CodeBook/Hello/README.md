@@ -177,9 +177,9 @@ JS_hello()
 
 The `print` function in [hello.dats](./hello.dats) saves a string
 representation of its argument into a global array; the function
-`XATS2JS_the_print_store_join` joins the strings in the array; the
-function `XATS2JS_the_print_store_clear` clears the array (that is,
-reset it to its initial state of emptiness).
+`XATS2JS_the_print_store_join` joins all of the strings in the array
+into a single one; the function `XATS2JS_the_print_store_clear` clears
+the array (that is, reset it to its initial state of emptiness).
 
 #### Putting it all together
 
