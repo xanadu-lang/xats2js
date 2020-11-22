@@ -26,7 +26,7 @@ XATS2JS is located. Please set the environment variable XATS2JSD with
 this path. For instance, you can do so as follows if your shell is BASH:
 
 ```
-export XATS2JSD = myxats2js
+export XATS2JSD=/tmp/myxats2js
 ```
 
 You can now build the xats2js command by issuing the following command-line:
@@ -42,14 +42,28 @@ machine. After the xats2js command is successfully built, it is stored
 in the directory ${XATS2JSD}/bin/.  There is really no need to install
 xats2js in a directory like /usr/bin or /usr/local/bin for the moment.
 
-And the example I am about to present can be found in the following
+And the example I am about to present is contained in the following
 directory:
 
 /tmp/myxats2js/docgen/CodeBook/Hello
 
-which can also be accessed [on-line](https://github.com/xanadu-lang/xats2js/docgen/CodeBook/Hello).
+which can also be accessed [here](https://github.com/xanadu-lang/xats2js/tree/master/docgen/CodeBook/Hello)
+in the on-line repository of XATS2JS.
 
 ## Co-Programming with ATS3 and JS
+
+Conceptually, co-programming with ATS3 and JS refers to a style of
+programming where the JS code generated from ATS3 source (via some
+form of compilation) is directly combined with the JS code obtained
+otherwise (e.g., manually written by a programmer).
+
+Let us implement a webpage containing a button. Once the button is
+clicked, an alert window is popped up with the message saying "Hello,
+world!". For instance, a demo of such a
+[webpage](https://xanadu-lang.github.io/xats2js/docgen/CodeBook/Hello/2020-11-22/hello.html):
+is given as follows:
+  
+https://xanadu-lang.github.io/xats2js/docgen/CodeBook/Hello/2020-11-22/hello.html
 
 The content of the file [hello.dats](./hello.dats) is listed as follows:
 
