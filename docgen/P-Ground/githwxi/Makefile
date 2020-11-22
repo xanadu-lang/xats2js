@@ -14,8 +14,8 @@ XATS2JS="./../../../bin/xats2js"
 ######
 XATS2JS_PRELUDE=\
 "$(SHARE)/runtime/xats2js_prelude.js"
-XATS2JS_XATSLIB_LIBC=\
-"$(SHARE)/runtime/xats2js_xatslib_libc.js"
+XATS2JS_XATSLIB_NODE=\
+"$(SHARE)/runtime/xats2js_xatslib_node.js"
 ######
 test:: \
 hello
@@ -42,7 +42,7 @@ test:: \
 readfile
 readfile:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > readfile_dats.js && \
-$(CAT) $(XATS2JS_XATSLIB_LIBC) >> readfile_dats.js && \
+$(CAT) $(XATS2JS_XATSLIB_NODE) >> readfile_dats.js && \
 $(XATS2JS) 1>/dev/null 2>&1 --output-a readfile_dats.js -d ./readfile.dats && $(NODE) readfile_dats.js
 ######
 test:: \
