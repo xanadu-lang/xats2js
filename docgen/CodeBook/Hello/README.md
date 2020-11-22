@@ -218,6 +218,7 @@ Copying into a file (of the name, say, hello_dats.js) the code in this
 library file, the code in hello.cats, and the generated JS code from
 hello.dats, we have finally completed the task of building the webpage
 by simply adding a line for loading hello_dats.js (in the html file
-created for the aforementioned webpage)
+created for the aforementioned webpage). Please find the provided Makefile
+for streamlining this process.
 
 Happy programming in ATS-Xanadu!!!
