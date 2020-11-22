@@ -181,7 +181,7 @@ representation of its argument into a global array; The function
 function `XATS2JS_the_print_store_clear` clears the array (that is,
 reset it to its initial state of emptiness).
 
-#### Putting is all together
+#### Putting it all together
 
 By issuing the command-line below:
 
@@ -209,15 +209,15 @@ return xtmp0;
 } // function // ATS_hello(0)
 ```
 
-There is a small library of functions
-needed for running the generated JS code, which can be
-found in the following directory:
+There is a small library of functions needed for running the generated
+JS code, which can found in the following file:
 
 $(XATS2JSD)/share/runtime/xats2js_prelude.js
 
-By copying into a file (of the name hello_dats.js)
-the code in this library file, the code in hello.cats, and the generated JS code
-for hello.dats and then adding a line in the html file for the aforementioned webpage,
-we have complete the task of building the webpage.
+Copying into a file (of the name, say, hello_dats.js) the code in this
+library file, the code in hello.cats, and the generated JS code from
+hello.dats, we have finally completed the task of building the webpage
+by simply adding a line for loading hello_dats.js (in the html file
+created for the aforementioned webpage,)
 
 Happy programming in ATS-Xanadu!!!
