@@ -7,12 +7,12 @@ CAT=cat
 RMF=rm -f
 NODE=node
 ######
-XATS2JS=$(XATS2JSHOME)/bin/xats2js
+XATS2JS=$(XATS2JSD)/bin/xats2js
 ######
 XATS2JS_PRELUDE=\
-"$(XATS2JSHOME)/share/runtime/xats2js_prelude.js"
+"$(XATS2JSD)/share/runtime/xats2js_prelude.js"
 XATS2JS_XATSLIB_LIBC=\
-"$(XATS2JSHOME)/share/runtime/xats2js_xatslib_libc.js"
+"$(XATS2JSD)/share/runtime/xats2js_xatslib_libc.js"
 ######
 
 all:: hello_dats.js
@@ -44,8 +44,9 @@ cleanall:: ; $(RMF) hello_dats.js
 ( $(CAT) $(XATS2JS_PRELUDE) $(XATS2JS_XATSLIB_LIBC) > $@ && $(XATS2JS) --output-a $@ -d $< )
 
 ######
-export \
-XATSHOME=$(XATS2JSHOME)/xanadu
+export XATS2JSD=./../../..
+######
+export XATSHOME=$(XATS2JSD)/xanadu
 ######
 
 ###### end of [Makefile] ######
