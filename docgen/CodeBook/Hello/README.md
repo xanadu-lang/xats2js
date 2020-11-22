@@ -7,7 +7,7 @@ the environment variable of the name XATS2JSD. And I often write
 ${XATS2JSD} (which means the content of XATS2JD) to refer to this
 directory.
 
-If you have not installed XATS2jS, I suggest as follows a simple and
+If you have not installed XATS2JS, I suggest as follows a simple and
 clean way to just play with it a bit.
 The repository for the XATS2JS package is publicly accessible at the
 following URL:
@@ -21,7 +21,7 @@ cd /tmp
 git clone https://github.com/xanadu-lang/xats2js myxats2js
 ```
 
-Please note that the path /tmp/myxats2js points to the directory where
+Note that the path /tmp/myxats2js points to the directory where
 XATS2JS is located. Please set the environment variable XATS2JSD with
 this path. For instance, you can do so as follows if your shell is BASH:
 
@@ -81,7 +81,7 @@ files.
 
 #### hello.dats
   
-Let us start with [hello.dats](./hello.dats), who content is listed as follows:
+Let us start with [hello.dats](./hello.dats), whose content is listed as follows:
 
 ```ats
 (* ****** ****** *)
@@ -110,7 +110,7 @@ the ML-style of commenting:
 ```
 
 In ATS3, one can break a line of string into several lines by
-inserting a single backslash symbol (\). For instance, the following
+inserting a single backslash symbol (\\). For instance, the following
 code:
 
 ```ats
@@ -155,7 +155,7 @@ The keyword `implfun` initiates the implementation of a declared name
 
 #### hello.cats
 
-Let us switch to [hello.cats](./hello.cats), who content is listed as follows:
+Let us switch to [hello.cats](./hello.cats), whose content is listed as follows:
 
 ```js
 /* ****** ****** */
@@ -176,8 +176,8 @@ JS_hello()
 ```
 
 The `print` function in [hello.dats](./hello.dats) saves a string
-representation of its argument into a global array; The function
-`XATS2JS_the_print_store_join` joins the strings in the array, and the
+representation of its argument into a global array; the function
+`XATS2JS_the_print_store_join` joins the strings in the array; the
 function `XATS2JS_the_print_store_clear` clears the array (that is,
 reset it to its initial state of emptiness).
 
@@ -218,6 +218,6 @@ Copying into a file (of the name, say, hello_dats.js) the code in this
 library file, the code in hello.cats, and the generated JS code from
 hello.dats, we have finally completed the task of building the webpage
 by simply adding a line for loading hello_dats.js (in the html file
-created for the aforementioned webpage,)
+created for the aforementioned webpage)
 
 Happy programming in ATS-Xanadu!!!
