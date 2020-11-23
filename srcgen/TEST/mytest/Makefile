@@ -16,7 +16,7 @@ XATS2JS="./../../../bin/xats2js"
 XATS2JS_PRELUDE=\
 "$(SHARE)/runtime/xats2js_prelude.js"
 XATS2JS_PRELUDE_NODE=\
-"$(XATS2JSD)/share/runtime/xats2js_prelude_node.js"
+"$(SHARE)/runtime/xats2js_prelude_node.js"
 ######
 all:: test
 ######
