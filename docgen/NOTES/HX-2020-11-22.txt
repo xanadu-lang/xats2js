@@ -13,15 +13,16 @@ approaches to obtaining code in WHATNOT that can be greatly more
 productive. I intend to demonstrate concretely that compiling code
 written in ATS into WHATNOT is often such an approach. What happens
 if WHATNOT is actually ATS itself? Well, I expect that there will be
-future extensions of ATS that can support more productive approaches
-to obtaining ATS code (that is manually written as of now).
+future extensions of ATS (or other languages) that can support more
+productive approaches to obtaining ATS code (that is manually written
+as of now).
 
 Please note that I am not arguing to completely replace the practice
 of manual coding in WHATNOT. What I am proposing is a style of
 co-programming with ATS3 and WHATNOT. In particular, the WHATNOT code
 compiled from ATS3 source should be allowed to be directly combined
-with other WHATNOT code (as if the generated WHATNOT code were written
-by someone manually).
+with otherwise obtained WHATNOT code (as if the generated WHATNOT code
+were directly written by someone manually).
 
 ##################################################################
 
@@ -36,3 +37,11 @@ loops as tail-recursive functions.
 Cheers!
 
 --Hongwei
+
+##################################################################
+
+For previously post messages:
+
+https://github.com/xanadu-lang/xats2js/tree/master/docgen/NOTES
+
+##################################################################

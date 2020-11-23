@@ -42,7 +42,7 @@ machine. After the xats2js command is successfully built, it is stored
 in the directory ${XATS2JSD}/bin/.  There is really no need to install
 xats2js in a directory like /usr/bin or /usr/local/bin for the moment.
 
-And the example I am about to present is contained in the following
+The example I am about to present is in the following
 directory:
 
 /tmp/myxats2js/docgen/CodeBook/Hello
@@ -55,7 +55,8 @@ in the on-line repository of XATS2JS.
 Conceptually, co-programming with ATS3 and JS refers to a style of
 programming where the JS code generated from ATS3 source (via some
 form of compilation) is directly combined with the JS code obtained
-otherwise (e.g., manually written by a programmer).
+otherwise (e.g., manually written by a programmer). And the simplest
+form of direct combination is probably just done by copying/pasting.
 
 Let us implement a webpage containing a button. Once the button is
 clicked, an alert window is popped up with the message saying "Hello,
