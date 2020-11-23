@@ -146,10 +146,12 @@ The keyword `#extern` indicates that the declared function is
 accessible externally, that is, outside the file (which is treated
 as a module of some sort).
 
-The expression `$exname()` indicates to the compiler (xats2js) that
-the generated function corresponding to `ATS_hello` in JS should be
-given the same name. As can be expected, name correspondence is a
-central issue in any kind of co-programming.
+The special expression `$exname()` indicates to the compiler (xats2js)
+that the generated JS function corresponding to `ATS_hello` should be
+given the same name. As can be expected, name correspondence (that is,
+mapping names in code from one language to another) is a central issue
+in any kind of co-programming. And anyone implementing a compiler
+should be aware of this issue very well.
 
 The keyword `implfun` initiates the implementation of a declared name
 (which refers to a function in this case).
