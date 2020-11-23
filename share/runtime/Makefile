@@ -48,9 +48,20 @@ xats2js_prelude:: ; \
 $(CAT) \
 $(XANADU)/prelude/DATS/CATS/JS/g_print.cats >> xats2js_prelude.js
 #
-xats2js_prelude:: ; \
+######
+xats2js_prelude_node:: ; \
+$(ECHO) \
+"/* ****** ****** */" > xats2js_prelude_node.js \
+&& \
+$(ECHO) \
+"/*\nXATS2JS_PRELUDE_NODE\n*/" >> xats2js_prelude_node.js \
+&& \
+$(ECHO) "/* ****** ****** */\n" >> xats2js_prelude_node.js
+#
+xats2js_prelude_node:: ; \
 $(CAT) \
-$(XANADU)/prelude/DATS/CATS/JS/Node/g_print.cats >> xats2js_prelude.js
+$(XANADU)/prelude/DATS/CATS/JS/Node/g_print.cats >> xats2js_prelude_node.js
+#
 ######
 xats2js_xatslib_node:: ; \
 $(ECHO) \

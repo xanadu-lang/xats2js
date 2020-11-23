@@ -15,6 +15,8 @@ XATS2JS="./../../../bin/xats2js"
 ######
 XATS2JS_PRELUDE=\
 "$(SHARE)/runtime/xats2js_prelude.js"
+XATS2JS_PRELUDE_NODE=\
+"$(XATS2JSD)/share/runtime/xats2js_prelude_node.js"
 ######
 all:: test
 ######
@@ -25,6 +27,7 @@ test:: \
 mytest01
 mytest01:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest01.dats && $(NODE) output_dats.js
 #
 ######
@@ -37,6 +40,7 @@ $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest01.dats && $(NODE) outpu
 # mytest02
 # mytest02:: ; \
 # $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+# $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 # $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest02.dats && $(NODE) output_dats.js
 #
 ######
@@ -44,30 +48,35 @@ test:: \
 mytest03
 mytest03:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest03.dats && $(NODE) output_dats.js
 ######
 test:: \
 mytest04
 mytest04:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest04.dats && $(NODE) output_dats.js
 ######
 test:: \
 mytest05
 mytest05:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest05.dats && $(NODE) output_dats.js
 ######
 test:: \
 mytest06
 mytest06:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest06.dats && $(NODE) output_dats.js
 ######
 test:: \
 mytest07
 mytest07:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest07.dats && $(NODE) output_dats.js
 ######
 #
