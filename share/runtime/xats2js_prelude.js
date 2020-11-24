@@ -988,6 +988,9 @@ XATS2JS_UN_p2tr_set
 }
 //
 /* ****** ****** */
+// HX-2020-11-09:
+// Native arrays for Xats2js
+/* ****** ****** */
 
 function
 XATS2JS_jsarray_length
@@ -1869,154 +1872,224 @@ return xtmp35;
 } // function // XATS2JS_strmcon_vt_cons(14)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3464(line=230, offs=1) -- 3584(line=236, offs=47)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3464(line=230, offs=1) -- 3586(line=236, offs=47)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3585(line=237, offs=1) -- 3690(line=242, offs=8)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3587(line=237, offs=1) -- 3698(line=242, offs=8)
 function
-XATS2JS_stream_vt_uncons_cfr(a1x1, a1x2)
+XATS2JS_stream_vt_uncons_cfr_1(a1x1, a1x2)
 {
 let xtmp38;
 let xtmp39;
 let xtmp40;
 let xtmp41;
+let xtmp42;
 ;
 ;
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3639(line=241, offs=1) -- 3672(line=241, offs=34)
+xtmp39 = XATS2JS_llazy_eval(a1x1);
 {
-xtmp38 = XATS2JS_llazy_eval(a1x1);
-if(1!==xtmp38[0]) XATS2JS_patckerr0();
-;
-xtmp39 = xtmp38[1];
-xtmp40 = xtmp38[2];
-} // val(H0Pdapp(H0Pcon(strmcon_vt_cons(11)); -1; H0Pvar(x0(43)), H0Pvar(xs(44))))
-;
+xtmp40 = 0;
+do {
+do {
+if(1!==xtmp39[0]) break;
+//L1PCKany();
+//L1PCKany();
+xtmp40 = 1;
+} while(false);
+if(xtmp40 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp40) {
+case 1:
+xtmp41 = xtmp39[1];
+xtmp42 = xtmp39[2];
 {
-xtmp41 = a1x2(xtmp39, xtmp40);
+xtmp38 = a1x2(xtmp41, xtmp42);
 }
 ;
-return xtmp41;
-} // function // XATS2JS_stream_vt_uncons_cfr(15)
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp38;
+} // function // XATS2JS_stream_vt_uncons_cfr_1(15)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3762(line=247, offs=1) -- 3877(line=252, offs=49)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3772(line=247, offs=1) -- 3922(line=255, offs=47)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3878(line=253, offs=1) -- 4012(line=263, offs=8)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3923(line=256, offs=1) -- 4076(line=262, offs=8)
+function
+XATS2JS_stream_vt_uncons_cfr_2(a1x1, a1x2, a1x3)
+{
+let xtmp46;
+let xtmp47;
+let xtmp48;
+let xtmp49;
+let xtmp50;
+;
+;
+;
+xtmp47 = XATS2JS_llazy_eval(a1x1);
+{
+xtmp48 = 0;
+do {
+do {
+if(0!==xtmp47[0]) break;
+xtmp48 = 1;
+} while(false);
+if(xtmp48 > 0 ) break;
+do {
+if(1!==xtmp47[0]) break;
+//L1PCKany();
+//L1PCKany();
+xtmp48 = 2;
+} while(false);
+if(xtmp48 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp48) {
+case 1:
+{
+xtmp46 = a1x2();
+}
+;
+break;
+case 2:
+xtmp49 = xtmp47[1];
+xtmp50 = xtmp47[2];
+{
+xtmp46 = a1x3(xtmp49, xtmp50);
+}
+;
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp46;
+} // function // XATS2JS_stream_vt_uncons_cfr_2(16)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4150(line=267, offs=1) -- 4265(line=272, offs=49)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4266(line=273, offs=1) -- 4400(line=283, offs=8)
 function
 XATS2JS_stream_vt_map0_cfr(a1x1, a1x2)
 {
-let xtmp44;
+let xtmp53;
 ;
 ;
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3972(line=261, offs=1) -- 4010(line=262, offs=31)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4360(line=281, offs=1) -- 4398(line=282, offs=31)
 // L1DCLnone0();
 {
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8330(line=676, offs=1) -- 8654(line=708, offs=8)
 function
 stream_vt_map0_3664_(a2x1)
 {
-let xtmp62;
+let xtmp71;
 ;
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8397(line=684, offs=1) -- 8652(line=707, offs=12)
 function
 auxmain_8400_(a3x1)
 {
-let xtmp47;
-let xtmp60;
-let xtmp61;
+let xtmp56;
+let xtmp69;
+let xtmp70;
 ;
-xtmp60 =
+xtmp69 =
 function()
 {
-let xtmp48;
-let xtmp49;
-let xtmp50;
-let xtmp51;
-let xtmp52;
-let xtmp53;
-let xtmp56;
 let xtmp57;
 let xtmp58;
-xtmp49 = XATS2JS_llazy_eval(a3x1);
+let xtmp59;
+let xtmp60;
+let xtmp61;
+let xtmp62;
+let xtmp65;
+let xtmp66;
+let xtmp67;
+xtmp58 = XATS2JS_llazy_eval(a3x1);
 {
-xtmp50 = 0;
+xtmp59 = 0;
 do {
 do {
-if(0!==xtmp49[0]) break;
-xtmp50 = 1;
+if(0!==xtmp58[0]) break;
+xtmp59 = 1;
 } while(false);
-if(xtmp50 > 0 ) break;
+if(xtmp59 > 0 ) break;
 do {
-if(1!==xtmp49[0]) break;
+if(1!==xtmp58[0]) break;
 //L1PCKany();
 //L1PCKany();
-xtmp50 = 2;
+xtmp59 = 2;
 } while(false);
-if(xtmp50 > 0 ) break;
+if(xtmp59 > 0 ) break;
 } while(false);
 } // case-patck0
 switch
-(xtmp50) {
+(xtmp59) {
 case 1:
 {
-xtmp48 = [0];
+xtmp57 = [0];
 }
 ;
 break;
 case 2:
-xtmp51 = xtmp49[1];
-xtmp52 = xtmp49[2];
+xtmp60 = xtmp58[1];
+xtmp61 = xtmp58[2];
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8576(line=702, offs=3) -- 8608(line=703, offs=24)
 {
 {
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3972(line=261, offs=1) -- 4010(line=262, offs=31)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4360(line=281, offs=1) -- 4398(line=282, offs=31)
 function
 map0$fopr_2343_(a5x1)
 {
-let xtmp55;
+let xtmp64;
 ;
 {
-xtmp55 = a1x2(a5x1);
+xtmp64 = a1x2(a5x1);
 }
 ;
-return xtmp55;
-} // function // map0$fopr(17)
+return xtmp64;
+} // function // map0$fopr(18)
 ;
-xtmp53 = map0$fopr_2343_(xtmp51);
+xtmp62 = map0$fopr_2343_(xtmp60);
 }
 ;
 ;
-} // val(H0Pvar(y0(54)))
+} // val(H0Pvar(y0(60)))
 ;
 {
 {
-xtmp57 = auxmain_8400_(xtmp52);
+xtmp66 = auxmain_8400_(xtmp61);
 }
 ;
-xtmp56 = [1, xtmp53, xtmp57];
+xtmp65 = [1, xtmp62, xtmp66];
 }
 ;
-xtmp48 = xtmp56;
+xtmp57 = xtmp65;
 break;
 default: XATS2JS_matcherr0();
 } // case-switch
 ;
-return xtmp48;
+return xtmp57;
 } // lam-function
 ;
-xtmp61 =
+xtmp70 =
 function()
 {
-let xtmp48;
-let xtmp49;
-let xtmp50;
-let xtmp51;
-let xtmp52;
-let xtmp53;
-let xtmp56;
 let xtmp57;
 let xtmp58;
+let xtmp59;
+let xtmp60;
+let xtmp61;
+let xtmp62;
+let xtmp65;
+let xtmp66;
+let xtmp67;
 {
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1554(line=120, offs=1) -- 1609(line=122, offs=41)
 // { // val-binding
@@ -2026,81 +2099,81 @@ stream_vt_free_1971_(a6x1)
 {
 ;
 return XATS2JS_llazy_free(a6x1);
-} // function // stream_vt_free(21)
+} // function // stream_vt_free(22)
 ;
 // } // val-binding
 const // implval/fun
 g_free_1550_ = stream_vt_free_1971_
 ;
-xtmp58 = g_free_1550_(a3x1);
+xtmp67 = g_free_1550_(a3x1);
 }
 ;
 } // lam-function
 ;
-xtmp47 = XATS2JS_new_llazy(xtmp60,xtmp61);
-return xtmp47;
-} // function // auxmain(19)
+xtmp56 = XATS2JS_new_llazy(xtmp69,xtmp70);
+return xtmp56;
+} // function // auxmain(20)
 ;
 {
-xtmp62 = auxmain_8400_(a2x1);
+xtmp71 = auxmain_8400_(a2x1);
 }
 ;
-return xtmp62;
-} // function // stream_vt_map0(18)
+return xtmp71;
+} // function // stream_vt_map0(19)
 ;
-xtmp44 = stream_vt_map0_3664_(a1x1);
+xtmp53 = stream_vt_map0_3664_(a1x1);
 }
 ;
-return xtmp44;
-} // function // XATS2JS_stream_vt_map0_cfr(16)
+return xtmp53;
+} // function // XATS2JS_stream_vt_map0_cfr(17)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4043(line=268, offs=1) -- 4155(line=272, offs=51)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4431(line=288, offs=1) -- 4543(line=292, offs=51)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4156(line=273, offs=1) -- 4290(line=282, offs=8)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4544(line=293, offs=1) -- 4678(line=302, offs=8)
 function
 XATS2JS_stream_vt_filter0_cfr(a1x1, a1x2)
 {
-let xtmp65;
+let xtmp74;
 ;
 ;
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4249(line=280, offs=3) -- 4288(line=281, offs=32)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4637(line=300, offs=3) -- 4676(line=301, offs=32)
 // L1DCLnone0();
 {
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8707(line=712, offs=1) -- 9148(line=752, offs=8)
 function
 stream_vt_filter0_3794_(a2x1)
 {
-let xtmp83;
+let xtmp92;
 ;
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8780(line=720, offs=1) -- 9146(line=751, offs=8)
 function
 auxmain_8783_(a3x1)
 {
 let a3y1;
-let xtmp68;
-let xtmp72;
-let xtmp73;
+let xtmp77;
+let xtmp81;
+let xtmp82;
 do {
 ;
-xtmp72 =
+xtmp81 =
 function()
 {
-let xtmp69;
-let xtmp70;
+let xtmp78;
+let xtmp79;
 {
-xtmp69 = auxloop_8877_(XATS2JS_llazy_eval(a3x1));
+xtmp78 = auxloop_8877_(XATS2JS_llazy_eval(a3x1));
 }
 ;
-return xtmp69;
+return xtmp78;
 } // lam-function
 ;
-xtmp73 =
+xtmp82 =
 function()
 {
-let xtmp69;
-let xtmp70;
+let xtmp78;
+let xtmp79;
 {
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1554(line=120, offs=1) -- 1609(line=122, offs=41)
 // { // val-binding
@@ -2110,89 +2183,89 @@ stream_vt_free_1971_(a6x1)
 {
 ;
 return XATS2JS_llazy_free(a6x1);
-} // function // stream_vt_free(21)
+} // function // stream_vt_free(22)
 ;
 // } // val-binding
 const // implval/fun
 g_free_1550_ = stream_vt_free_1971_
 ;
-xtmp70 = g_free_1550_(a3x1);
+xtmp79 = g_free_1550_(a3x1);
 }
 ;
 } // lam-function
 ;
-xtmp68 = XATS2JS_new_llazy(xtmp72,xtmp73);
+xtmp77 = XATS2JS_new_llazy(xtmp81,xtmp82);
 break;//return
 } while( true );
-return xtmp68;
-} // function // auxmain(25)
+return xtmp77;
+} // function // auxmain(26)
 function
 auxloop_8877_(a3x1)
 {
 let a3y1;
-let xtmp75;
-let xtmp76;
-let xtmp77;
-let xtmp78;
-let xtmp79;
-let xtmp82;
+let xtmp84;
+let xtmp85;
+let xtmp86;
+let xtmp87;
+let xtmp88;
+let xtmp91;
 do {
 ;
 {
-xtmp76 = 0;
+xtmp85 = 0;
 do {
 do {
 if(0!==a3x1[0]) break;
-xtmp76 = 1;
+xtmp85 = 1;
 } while(false);
-if(xtmp76 > 0 ) break;
+if(xtmp85 > 0 ) break;
 do {
 if(1!==a3x1[0]) break;
 //L1PCKany();
 //L1PCKany();
-xtmp76 = 2;
+xtmp85 = 2;
 } while(false);
-if(xtmp76 > 0 ) break;
+if(xtmp85 > 0 ) break;
 } while(false);
 } // case-patck0
 switch
-(xtmp76) {
+(xtmp85) {
 case 1:
 {
-xtmp75 = [0];
+xtmp84 = [0];
 }
 ;
 break;
 case 2:
-xtmp77 = a3x1[1];
-xtmp78 = a3x1[2];
+xtmp86 = a3x1[1];
+xtmp87 = a3x1[2];
 {
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4249(line=280, offs=3) -- 4288(line=281, offs=32)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4637(line=300, offs=3) -- 4676(line=301, offs=32)
 function
 filter0$test_2547_(a4x1)
 {
-let xtmp81;
+let xtmp90;
 ;
 {
-xtmp81 = a1x2(a4x1);
+xtmp90 = a1x2(a4x1);
 }
 ;
-return xtmp81;
-} // function // filter0$test(23)
+return xtmp90;
+} // function // filter0$test(24)
 ;
-xtmp79 = filter0$test_2547_(xtmp77);
+xtmp88 = filter0$test_2547_(xtmp86);
 }
 ;
 if
-(xtmp79)
+(xtmp88)
 // then
 {
 {
 {
-xtmp82 = auxmain_8783_(xtmp78);
+xtmp91 = auxmain_8783_(xtmp87);
 }
 ;
-xtmp75 = [1, xtmp77, xtmp82];
+xtmp84 = [1, xtmp86, xtmp91];
 }
 ;
 } // if-then
@@ -2200,8 +2273,8 @@ else
 {
 {
 // tail-recursion:
-// L1CMDapp(tmp(75); L1VALfcst(auxloop(26)); L1VALeval3(L1VALtmp(tmp(78))))
-a3y1 = XATS2JS_llazy_eval(xtmp78); a3x1 = a3y1; continue;
+// L1CMDapp(tmp(84); L1VALfcst(auxloop(27)); L1VALeval3(L1VALtmp(tmp(87))))
+a3y1 = XATS2JS_llazy_eval(xtmp87); a3x1 = a3y1; continue;
 }
 ;
 } // if-else
@@ -2212,20 +2285,20 @@ default: XATS2JS_matcherr0();
 ;
 break;//return
 } while( true );
-return xtmp75;
-} // function // auxloop(26)
+return xtmp84;
+} // function // auxloop(27)
 ;
 {
-xtmp83 = auxmain_8783_(a2x1);
+xtmp92 = auxmain_8783_(a2x1);
 }
 ;
-return xtmp83;
-} // function // stream_vt_filter0(24)
+return xtmp92;
+} // function // stream_vt_filter0(25)
 ;
-xtmp65 = stream_vt_filter0_3794_(a1x1);
+xtmp74 = stream_vt_filter0_3794_(a1x1);
 }
 ;
-return xtmp65;
-} // function // XATS2JS_stream_vt_filter0_cfr(22)
+return xtmp74;
+} // function // XATS2JS_stream_vt_filter0_cfr(23)
 
 

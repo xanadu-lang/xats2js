@@ -11,7 +11,7 @@ JS_fromto(n0)
 function
 JS_sieve_helper(xs)
 {
-  return XATS2JS_stream_vt_uncons_cfr
+  return XATS2JS_stream_vt_uncons_cfr_1
   ( xs
   , (x0, xs) =>
     XATS2JS_llazy_cfr
