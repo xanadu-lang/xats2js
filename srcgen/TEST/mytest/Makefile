@@ -79,6 +79,14 @@ $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
 $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest07.dats && $(NODE) output_dats.js
 ######
+test:: \
+mytest08
+mytest08:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(CAT) $(MYTEST)/mytest08.cats >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest08.dats && $(NODE) output_dats.js
+######
 #
 # HX: for cleaning up
 #

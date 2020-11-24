@@ -55,8 +55,8 @@ in the on-line repository of XATS2JS.
 Conceptually, co-programming with ATS3 and JS refers to a style of
 programming where the JS code generated from ATS3 source (via some
 form of compilation) is directly combined with the JS code obtained
-otherwise (e.g., manually written by a programmer). And the simplest
-form of direct combination is probably just done by copying/pasting.
+otherwise (e.g., manually written by a programmer). And a simple form
+of direct combination can be achieved by just copying/pasting.
 
 Let us implement a webpage containing a button. Once the button is
 clicked, an alert window is popped up with the message saying "Hello,

@@ -38,10 +38,16 @@ the prelude library for xats2js
 (* ****** ****** *)
 #staload _ = "prelude/DATS/synougat.dats"
 (* ****** ****** *)
+//
 #staload _ = "prelude/DATS/CATS/JS/basics.dats"
+//
 #staload _ = "prelude/DATS/CATS/JS/unsafe.dats"
+//
+#staload _ = "prelude/DATS/CATS/JS/prelude.dats"
+//
 #staload _ = "prelude/DATS/CATS/JS/g_eqref.dats"
 #staload _ = "prelude/DATS/CATS/JS/g_print.dats"
+//
 (* ****** ****** *)
 
 (* end of [xats2js_prelude.hats] *)

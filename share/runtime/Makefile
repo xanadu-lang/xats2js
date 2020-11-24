@@ -13,6 +13,8 @@ ECHO=echo
 all:: ; \
 echo "Please do 'make xats2js_prelude'!"
 all:: ; \
+echo "Please do 'make xats2js_prelude_node'!"
+all:: ; \
 echo "Please do 'make xats2js_xatslib_node'!"
 
 ######
