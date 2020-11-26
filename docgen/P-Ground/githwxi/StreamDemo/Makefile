@@ -19,7 +19,8 @@ XATS2JS_XATSLIB_NODE=\
 ######
 test::
 ######
-StreamDemo:: ; $(XATS2JS) -d ./StreamDemo.dats
+# StreamDemo:: ; $(XATS2JS) -d ./StreamDemo.dats
+# JS_StreamDemo:: ; $(XATS2JS) -d ./JS_StreamDemo.dats
 ######
 test:: \
 JS_StreamDemo

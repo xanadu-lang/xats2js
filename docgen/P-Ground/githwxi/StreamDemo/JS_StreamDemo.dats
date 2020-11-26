@@ -37,34 +37,77 @@ end
 
 (* ****** ****** *)
 
-val
-thePrimes_ref = a0ref_make(thePrimes)
+local
+
+val the_dir = a0ref_make(0)
+
+in
+//
+fun
+dir_set_next() = set(the_dir,  1)
+fun
+dir_set_prev() = set(the_dir, -1)
+//
+impltmp
+StreamDemo$dir<>() = get(the_dir)
+//
+end // end of [val]
 
 (* ****** ****** *)
 
-local
-impltmp
-StreamDemo$get<int>() = get(thePrimes_ref)
-impltmp
-StreamDemo$set<int>(xs) = set(thePrimes_ref, xs)
-in
+val
+thePrimes_moves =
+StreamDemo_moves(thePrimes)
+val
+thePrimes_moves_ref =
+a0ref_make(thePrimes_moves)
+
+(* ****** ****** *)
 //
 #extern
 fun
 JS_StreamDemo_next(): void = $exname()
 #extern
 fun
-JS_StreamDemo_show_int(x0: int): void = $exname()
+JS_StreamDemo_prev(): void = $exname()
+#extern
+fun
+JS_StreamDemo_show_none(): void = $exname()
+#extern
+fun
+JS_StreamDemo_show_some(x0: int): void = $exname()
+//
 implfun
 JS_StreamDemo_next() =
 let
-val opt = StreamDemo$next<int>()
+val () =
+dir_set_next()
+val xs =
+get(thePrimes_moves_ref)
+val-strmcon_cons(x0, xs) = !xs
+val () =
+set(thePrimes_moves_ref, xs)
 in
-case- opt of optn_cons(x0) => JS_StreamDemo_show_int(x0)
+case- x0 of
+| optn_cons(p0) => JS_StreamDemo_show_some(p0)
 end (*let*) // end of [JS_StreamDemo_next]
 //
-end // end of [local]
-
+implfun
+JS_StreamDemo_prev() =
+let
+val () =
+dir_set_prev()
+val xs =
+get(thePrimes_moves_ref)
+val-strmcon_cons(x0, xs) = !xs
+val () =
+set(thePrimes_moves_ref, xs)
+in
+case+ x0 of
+| optn_nil() => JS_StreamDemo_show_none()
+| optn_cons(p0) => JS_StreamDemo_show_some(p0)
+end (*let*) // end of [JS_StreamDemo_prev]
+//
 (* ****** ****** *)
 
 (* end of [JS_StreamDemo.dats] *)
