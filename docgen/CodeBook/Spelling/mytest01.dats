@@ -33,13 +33,42 @@ fpath_streamize_line
 (* ****** ****** *)
 
 local
+//
+val
+theChar =
+$SP.spelling$char<>()
+val
+theChars =
+$SP.spelling$chars<>()
+//
 val
 theWords =
 $SP.spelling<>()
+val
+theWords =
+listize(theWords)
+val
+theWords =
+mergesort(theWords) where
+{
+impltmp
+g_cmp<string>(x1, x2) =
+let
+val
+sgn =
+g_cmp(length(x1), length(x2))
 in
-val () =
-( print("theWords = ")
-; stream_vt_print0(theWords); println())
+if sgn != 0 then -sgn else string_cmp(x1, x2)
+end (*let*) // end of [impltmp g_cmp]
+}
+//
+val
+theWords = list_vt2t(theWords)
+//
+in
+val () = println("theChar = ", theChar)
+val () = println("theChars = ", theChars)
+val () = println("theWords = ", theWords)
 end // end of [local]
 
 (* ****** ****** *)

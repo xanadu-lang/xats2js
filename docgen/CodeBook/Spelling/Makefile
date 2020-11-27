@@ -5,7 +5,7 @@
 ######
 CAT=cat
 RMF=rm -f
-NODE=node --stack-size=8192
+NODE=node
 ######
 XATS2JS=$(XATS2JSD)/bin/xats2js
 ######
@@ -36,6 +36,7 @@ clean:: ; $(RMF) *_?ats.o
 clean:: ; $(RMF) *_?ats.c
 
 cleanall:: clean
+cleanall:: ; rm -f *_dats.js
 
 ######
 export XATS2JSD=./../../..
