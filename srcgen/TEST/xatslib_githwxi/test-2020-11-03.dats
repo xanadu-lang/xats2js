@@ -31,14 +31,14 @@ loop(1, the_lines) where
 fun
 loop
 ( i0: int
-, xs: stream_vt(string_vt)): void =
+, xs: stream_vt(string)): void =
 (
 case+ !xs of
 | ~
 strmcon_vt_nil() => ()
 | ~
 strmcon_vt_cons(x0, xs) =>
-(println("line#", i0, " = ", string_vt2t(x0)); loop(i0+1, xs))
+(println("line#", i0, " = ", x0); loop(i0+1, xs))
 )
 }
 (* ****** ****** *)
