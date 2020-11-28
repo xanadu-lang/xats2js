@@ -22,10 +22,12 @@ impltmp
 $SP.spelling$char<>() =
 let
 val cs =
-JS_spelling_arg0() in string_head_raw(cs)
+JS_spelling_arg0() in
+char_lower(string_head_raw(cs))
 end
 impltmp
-$SP.spelling$chars<>() = JS_spelling_arg1()
+$SP.spelling$chars<>() =
+string_lower(JS_spelling_arg1())
 (* ****** ****** *)
 impltmp
 $SP.spelling$words<>() =
