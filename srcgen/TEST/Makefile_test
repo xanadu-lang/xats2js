@@ -31,5 +31,6 @@ clean:: ; rm -f *~
 cleanall:: clean
 cleanall:: ; rm -f output
 cleanall:: ; rm -f output_dats.js
+cleanall:: ; $(MAKE) -C mytest -f Makefile cleanall
 ######
 ###### end of [Makefile_test] ######
