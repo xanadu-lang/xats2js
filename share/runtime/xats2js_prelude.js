@@ -1085,6 +1085,21 @@ return; // gint_print_uint
 }
 /* ****** ****** */
 function
+XATS2JS_gflt_print_sflt
+  (x0)
+{
+XATS2JS_g_print(x0);
+return; // gint_print_sflt
+}
+function
+XATS2JS_gflt_print_dflt
+  (x0)
+{
+XATS2JS_g_print(x0);
+return; // gint_print_dflt
+}
+/* ****** ****** */
+function
 XATS2JS_string_print
   (cs)
 {
@@ -2317,15 +2332,15 @@ let xtmp94;
 // ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6266(line=378, offs=1) -- 6304(line=378, offs=39)
 // L1DCLnone0();
 {
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8898(line=717, offs=1) -- 9222(line=749, offs=8)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9181(line=740, offs=1) -- 9505(line=772, offs=8)
 function
-stream_vt_map0_3819_(a2x1)
+stream_vt_map0_4084_(a2x1)
 {
 let xtmp112;
 ;
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8965(line=725, offs=1) -- 9220(line=748, offs=12)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9248(line=748, offs=1) -- 9503(line=771, offs=12)
 function
-auxmain_8968_(a3x1)
+auxmain_9251_(a3x1)
 {
 let xtmp97;
 let xtmp110;
@@ -2372,7 +2387,7 @@ break;
 case 2:
 xtmp101 = xtmp99[1];
 xtmp102 = xtmp99[2];
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9144(line=743, offs=3) -- 9176(line=744, offs=24)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9427(line=766, offs=3) -- 9459(line=767, offs=24)
 {
 {
 // ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6266(line=378, offs=1) -- 6304(line=378, offs=39)
@@ -2396,7 +2411,7 @@ xtmp103 = map0$fopr_2343_(xtmp101);
 ;
 {
 {
-xtmp107 = auxmain_8968_(xtmp102);
+xtmp107 = auxmain_9251_(xtmp102);
 }
 ;
 xtmp106 = [1, xtmp103, xtmp107];
@@ -2423,11 +2438,11 @@ let xtmp106;
 let xtmp107;
 let xtmp108;
 {
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1554(line=120, offs=1) -- 1609(line=122, offs=41)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1837(line=143, offs=1) -- 1892(line=145, offs=41)
 // { // val-binding
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1501(line=116, offs=1) -- 1550(line=118, offs=31)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1784(line=139, offs=1) -- 1833(line=141, offs=31)
 function
-stream_vt_free_1971_(a6x1)
+stream_vt_free_2236_(a6x1)
 {
 ;
 return XATS2JS_llazy_free(a6x1);
@@ -2435,7 +2450,7 @@ return XATS2JS_llazy_free(a6x1);
 ;
 // } // val-binding
 const // implval/fun
-g_free_1550_ = stream_vt_free_1971_
+g_free_1550_ = stream_vt_free_2236_
 ;
 xtmp108 = g_free_1550_(a3x1);
 }
@@ -2447,13 +2462,13 @@ return xtmp97;
 } // function // auxmain(26)
 ;
 {
-xtmp112 = auxmain_8968_(a2x1);
+xtmp112 = auxmain_9251_(a2x1);
 }
 ;
 return xtmp112;
 } // function // stream_vt_map0(25)
 ;
-xtmp94 = stream_vt_map0_3819_(a1x1);
+xtmp94 = stream_vt_map0_4084_(a1x1);
 }
 ;
 return xtmp94;
@@ -2473,15 +2488,15 @@ let xtmp115;
 // ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6585(line=396, offs=3) -- 6622(line=396, offs=40)
 // L1DCLnone0();
 {
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9603(line=786, offs=1) -- 10044(line=826, offs=8)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9886(line=809, offs=1) -- 10327(line=849, offs=8)
 function
-stream_vt_filter0_4021_(a2x1)
+stream_vt_filter0_4286_(a2x1)
 {
 let xtmp133;
 ;
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9676(line=794, offs=1) -- 10042(line=825, offs=8)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9959(line=817, offs=1) -- 10325(line=848, offs=8)
 function
-auxmain_9679_(a3x1)
+auxmain_9962_(a3x1)
 {
 let a3y1;
 let xtmp118;
@@ -2495,7 +2510,7 @@ function()
 let xtmp119;
 let xtmp120;
 {
-xtmp119 = auxloop_9773_(XATS2JS_llazy_eval(a3x1));
+xtmp119 = auxloop_10056_(XATS2JS_llazy_eval(a3x1));
 }
 ;
 return xtmp119;
@@ -2507,11 +2522,11 @@ function()
 let xtmp119;
 let xtmp120;
 {
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1554(line=120, offs=1) -- 1609(line=122, offs=41)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1837(line=143, offs=1) -- 1892(line=145, offs=41)
 // { // val-binding
-// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1501(line=116, offs=1) -- 1550(line=118, offs=31)
+// /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1784(line=139, offs=1) -- 1833(line=141, offs=31)
 function
-stream_vt_free_1971_(a6x1)
+stream_vt_free_2236_(a6x1)
 {
 ;
 return XATS2JS_llazy_free(a6x1);
@@ -2519,7 +2534,7 @@ return XATS2JS_llazy_free(a6x1);
 ;
 // } // val-binding
 const // implval/fun
-g_free_1550_ = stream_vt_free_1971_
+g_free_1550_ = stream_vt_free_2236_
 ;
 xtmp120 = g_free_1550_(a3x1);
 }
@@ -2532,7 +2547,7 @@ break;//return
 return xtmp118;
 } // function // auxmain(32)
 function
-auxloop_9773_(a3x1)
+auxloop_10056_(a3x1)
 {
 let a3y1;
 let xtmp125;
@@ -2594,7 +2609,7 @@ if
 {
 {
 {
-xtmp132 = auxmain_9679_(xtmp128);
+xtmp132 = auxmain_9962_(xtmp128);
 }
 ;
 xtmp125 = [1, xtmp127, xtmp132];
@@ -2621,13 +2636,13 @@ return xtmp125;
 } // function // auxloop(33)
 ;
 {
-xtmp133 = auxmain_9679_(a2x1);
+xtmp133 = auxmain_9962_(a2x1);
 }
 ;
 return xtmp133;
 } // function // stream_vt_filter0(31)
 ;
-xtmp115 = stream_vt_filter0_4021_(a1x1);
+xtmp115 = stream_vt_filter0_4286_(a1x1);
 }
 ;
 return xtmp115;

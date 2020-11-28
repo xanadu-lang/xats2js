@@ -35,13 +35,6 @@ $(CAT) $(XATS2JS_PRELUDE_NODE) >> acker2_dats.js && \
 $(XATS2JS) 1>/dev/null 2>&1 --output-a acker2_dats.js -d ./acker2.dats && $(NODE) acker2_dats.js
 ######
 test:: \
-QueenPuzzle
-QueenPuzzle:: ; \
-$(CAT) $(XATS2JS_PRELUDE) > QueenPuzzle_dats.js && \
-$(CAT) $(XATS2JS_PRELUDE_NODE) >> QueenPuzzle_dats.js && \
-$(XATS2JS) 1>/dev/null 2>&1 --output-a QueenPuzzle_dats.js -d ./QueenPuzzle.dats && $(NODE) QueenPuzzle_dats.js
-######
-test:: \
 readfile
 readfile:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > readfile_dats.js && \
@@ -67,6 +60,11 @@ Game-of-24
 Game-of-24:: ; \
 $(MAKE) -C Game-of-24 test
 ######
+test:: \
+QueenPuzzle
+Game-of-24:: ; \
+$(MAKE) -C QueenPuzzle test
+######
 #
 # HX: for cleaning up
 #
@@ -79,6 +77,7 @@ cleanall:: ; rm -f *_dats.js
 cleanall:: ; $(MAKE) -C Functest cleanall
 cleanall:: ; $(MAKE) -C StreamDemo cleanall
 cleanall:: ; $(MAKE) -C StreaxDemo cleanall
+cleanall:: ; $(MAKE) -C QueenPuzzle cleanall
 ######
 export XATS2JSD=./../../..
 export XATSHOME=$(XATS2JSD)/xanadu
