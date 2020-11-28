@@ -41,10 +41,12 @@ fun
 InitSeed(seed: int): void = z.set(seed)
 (* ****** ****** *)
 
-val () = println("pi = ", 3.14159)
+(*
+val () = println("pi = ", 314159/1E5)
 val () = println("rand = ", Uniform())
 val () = println("rand = ", Uniform())
 val () = println("rand = ", Uniform())
+*)
 
 (* ****** ****** *)
 

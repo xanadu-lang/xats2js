@@ -122,7 +122,8 @@ val xyz =
 let
 val x = sint('x')
 in
-string_tabulate_cfr(3, lam(i) => char(x+i))
+string_tabulate_cfr
+(3, lam(i) => char(x+i))
 end // end of [val]
 val () =
 ( g_print("xyz = ")
@@ -132,11 +133,14 @@ val () =
 //
 val avg =
 (
-gseq_map_add(xyz) / 3
+gseq_map_add
+<xs><x0><y0>(xyz) / 3
 ) where
 {
-impltmp
-map$fopr<char><sint>(c) = sint(c)
+typedef x0 = char
+typedef y0 = sint
+typedef xs = string
+impltmp map$fopr<x0><y0>(c) = sint(c)
 }
 //
 val () =

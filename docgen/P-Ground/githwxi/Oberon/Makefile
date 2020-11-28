@@ -20,7 +20,7 @@ XATS2JS_PRELUDE_NODE=\
 XATS2JS_XATSLIB_NODE=\
 "$(SHARE)/runtime/xats2js_xatslib_node.js"
 ######
-RandomNumbers:: ; $(XATS2JS) -d RandomNumbers.dats
+# RandomNumbers:: ; $(XATS2JS) -d RandomNumbers.dats
 ######
 test:: \
 RandomNumbers
