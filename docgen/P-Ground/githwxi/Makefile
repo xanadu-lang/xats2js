@@ -76,6 +76,9 @@ clean:: ; rm -f *~
 cleanall:: clean
 cleanall:: ; rm -f output
 cleanall:: ; rm -f *_dats.js
+cleanall:: ; $(MAKE) -C Functest cleanall
+cleanall:: ; $(MAKE) -C StreamDemo cleanall
+cleanall:: ; $(MAKE) -C StreaxDemo cleanall
 ######
 export XATS2JSD=./../../..
 export XATSHOME=$(XATS2JSD)/xanadu
