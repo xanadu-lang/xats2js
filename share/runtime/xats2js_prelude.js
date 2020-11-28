@@ -999,33 +999,6 @@ XATS2JS_UN_p2tr_set
 }
 //
 /* ****** ****** */
-// HX-2020-11-09:
-// Native arrays for Xats2js
-/* ****** ****** */
-
-function
-XATS2JS_jsarray_length
-  (xs)
-{
-  return (xs.length);
-}
-
-/* ****** ****** */
-
-function
-XATS2JS_jsarray_get_at
-  (xs, i0)
-{
-  return xs[i0];
-}
-function
-XATS2JS_jsarray_set_at
-  (xs, i0, x0)
-{
-  return (xs[i0] = x0);
-}
-
-/* ****** ****** */
 
 /* end of [XATS2JS_prelude.cats] */
 /* ****** ****** */
@@ -1139,6 +1112,52 @@ XATS2JS_the_print_store = []; return;
 /* ****** ****** */
 
 /* end of [XATS2JS_g_print.cats] */
+/* ****** ****** */
+/*
+JSBasics for Xats2js
+*/
+/* ****** ****** */
+// HX-2020-11-09:
+// Native arrays for Xats2js
+/* ****** ****** */
+
+function
+XATS2JS_jsarray_size
+  (xs)
+{
+  return ( xs.length );
+}
+function
+XATS2JS_jsarray_length
+  (xs)
+{
+  return ( xs.length );
+}
+
+/* ****** ****** */
+
+function
+XATS2JS_jsarray_get_at
+  (xs, i0)
+{
+  return xs[i0];
+}
+function
+XATS2JS_jsarray_set_at
+  (xs, i0, x0)
+{
+  return ( xs[i0] = x0 );
+}
+
+/* ****** ****** */
+//
+// HX-2020-11-28:
+// Native objmaps for Xats2js
+/* ****** ****** */
+
+/* ****** ****** */
+
+/* end of [XATS2JS_jsbasics.cats] */
 // ./../../xanadu/prelude/DATS/CATS/JS/basics.dats: 66(line=6, offs=1) -- 121(line=8, offs=27)
 // L1DCLnone1(H0Cnone1(...))
 
@@ -1706,349 +1725,703 @@ return xtmp16;
 } // function // XATS2JS_optn_cons(4)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1132(line=80, offs=1) -- 1193(line=83, offs=34)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1082(line=75, offs=1) -- 1193(line=81, offs=36)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1202(line=85, offs=1) -- 1274(line=89, offs=36)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1278(line=91, offs=1) -- 1325(line=92, offs=40)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1194(line=82, offs=1) -- 1310(line=88, offs=8)
 function
-XATS2JS_list_nil()
-{
-let xtmp17;
-{
-xtmp17 = [0];
-}
-;
-return xtmp17;
-} // function // XATS2JS_list_nil(5)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1326(line=93, offs=1) -- 1379(line=94, offs=46)
-function
-XATS2JS_list_cons(a1x1, a1x2)
+XATS2JS_optn_uncons_cfr(a1x1, a1x2, a1x3)
 {
 let xtmp20;
-;
-;
-{
-xtmp20 = [1, a1x1, a1x2];
-}
-;
-return xtmp20;
-} // function // XATS2JS_list_cons(6)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1463(line=103, offs=1) -- 1530(line=106, offs=37)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1539(line=108, offs=1) -- 1619(line=112, offs=41)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1623(line=114, offs=1) -- 1676(line=115, offs=46)
-function
-XATS2JS_strmcon_nil()
-{
 let xtmp21;
-{
-xtmp21 = [0];
-}
+let xtmp22;
 ;
-return xtmp21;
-} // function // XATS2JS_strmcon_nil(7)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1677(line=116, offs=1) -- 1736(line=117, offs=52)
-function
-XATS2JS_strmcon_cons(a1x1, a1x2)
-{
-let xtmp24;
 ;
 ;
 {
-xtmp24 = [1, a1x1, a1x2];
-}
-;
-return xtmp24;
-} // function // XATS2JS_strmcon_cons(8)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2127(line=147, offs=1) -- 2183(line=149, offs=33)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2192(line=151, offs=1) -- 2254(line=153, offs=38)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2258(line=155, offs=1) -- 2303(line=156, offs=38)
-function
-XATS2JS_optn_vt_nil()
-{
-let xtmp25;
-{
-xtmp25 = [0];
-}
-;
-return xtmp25;
-} // function // XATS2JS_optn_vt_nil(9)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2304(line=157, offs=1) -- 2355(line=158, offs=44)
-function
-XATS2JS_optn_vt_cons(a1x1)
-{
-let xtmp27;
-;
-{
-xtmp27 = [1, a1x1];
-}
-;
-return xtmp27;
-} // function // XATS2JS_optn_vt_cons(10)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2437(line=167, offs=1) -- 2504(line=170, offs=37)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2513(line=172, offs=1) -- 2594(line=176, offs=42)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2598(line=178, offs=1) -- 2651(line=179, offs=46)
-function
-XATS2JS_list_vt_nil()
-{
-let xtmp28;
-{
-xtmp28 = [0];
-}
-;
-return xtmp28;
-} // function // XATS2JS_list_vt_nil(11)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2652(line=180, offs=1) -- 2711(line=181, offs=52)
-function
-XATS2JS_list_vt_cons(a1x1, a1x2)
-{
-let xtmp31;
-;
-;
-{
-xtmp31 = [1, a1x1, a1x2];
-}
-;
-return xtmp31;
-} // function // XATS2JS_list_vt_cons(12)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3131(line=211, offs=1) -- 3204(line=214, offs=40)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3213(line=216, offs=1) -- 3302(line=220, offs=47)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3306(line=222, offs=1) -- 3365(line=223, offs=52)
-function
-XATS2JS_strmcon_vt_nil()
-{
-let xtmp32;
-{
-xtmp32 = [0];
-}
-;
-return xtmp32;
-} // function // XATS2JS_strmcon_vt_nil(13)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3366(line=224, offs=1) -- 3431(line=225, offs=58)
-function
-XATS2JS_strmcon_vt_cons(a1x1, a1x2)
-{
-let xtmp35;
-;
-;
-{
-xtmp35 = [1, a1x1, a1x2];
-}
-;
-return xtmp35;
-} // function // XATS2JS_strmcon_vt_cons(14)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3464(line=230, offs=1) -- 3612(line=238, offs=47)
-
-
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3613(line=239, offs=1) -- 3764(line=245, offs=8)
-function
-XATS2JS_stream_vt_uncons_cfr(a1x1, a1x2, a1x3)
-{
-let xtmp39;
-let xtmp40;
-let xtmp41;
-let xtmp42;
-let xtmp43;
-;
-;
-;
-xtmp40 = XATS2JS_llazy_eval(a1x1);
-{
-xtmp41 = 0;
+xtmp21 = 0;
 do {
 do {
-if(0!==xtmp40[0]) break;
-xtmp41 = 1;
+if(0!==L1VALeval0(L1VALtmp(arg[1](17)))[0]) break;
+xtmp21 = 1;
 } while(false);
-if(xtmp41 > 0 ) break;
+if(xtmp21 > 0 ) break;
 do {
-if(1!==xtmp40[0]) break;
+if(1!==L1VALeval0(L1VALtmp(arg[1](17)))[0]) break;
 //L1PCKany();
-//L1PCKany();
-xtmp41 = 2;
+xtmp21 = 2;
 } while(false);
-if(xtmp41 > 0 ) break;
+if(xtmp21 > 0 ) break;
 } while(false);
 } // case-patck0
 switch
-(xtmp41) {
+(xtmp21) {
 case 1:
 {
-xtmp39 = a1x2();
+xtmp20 = a1x2();
 }
 ;
 break;
 case 2:
-xtmp42 = xtmp40[1];
-xtmp43 = xtmp40[2];
+xtmp22 = L1VALeval0(L1VALtmp(arg[1](17)))[1];
 {
-xtmp39 = a1x3(xtmp42, xtmp43);
+xtmp20 = a1x3(xtmp22);
 }
 ;
 break;
 default: XATS2JS_matcherr0();
 } // case-switch
 ;
-return xtmp39;
-} // function // XATS2JS_stream_vt_uncons_cfr(15)
+return xtmp20;
+} // function // XATS2JS_optn_uncons_cfr(5)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3839(line=250, offs=1) -- 3954(line=255, offs=49)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1428(line=96, offs=1) -- 1489(line=99, offs=34)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3955(line=256, offs=1) -- 4089(line=266, offs=8)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1498(line=101, offs=1) -- 1570(line=105, offs=36)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1574(line=107, offs=1) -- 1621(line=108, offs=40)
+function
+XATS2JS_list_nil()
+{
+let xtmp23;
+{
+xtmp23 = [0];
+}
+;
+return xtmp23;
+} // function // XATS2JS_list_nil(6)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1622(line=109, offs=1) -- 1675(line=110, offs=46)
+function
+XATS2JS_list_cons(a1x1, a1x2)
+{
+let xtmp26;
+;
+;
+{
+xtmp26 = [1, a1x1, a1x2];
+}
+;
+return xtmp26;
+} // function // XATS2JS_list_cons(7)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1707(line=114, offs=1) -- 1838(line=122, offs=42)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 1839(line=123, offs=1) -- 1963(line=129, offs=8)
+function
+XATS2JS_list_uncons_cfr(a1x1, a1x2, a1x3)
+{
+let xtmp30;
+let xtmp31;
+let xtmp32;
+let xtmp33;
+;
+;
+;
+{
+xtmp31 = 0;
+do {
+do {
+if(0!==L1VALeval0(L1VALtmp(arg[1](27)))[0]) break;
+xtmp31 = 1;
+} while(false);
+if(xtmp31 > 0 ) break;
+do {
+if(1!==L1VALeval0(L1VALtmp(arg[1](27)))[0]) break;
+//L1PCKany();
+//L1PCKany();
+xtmp31 = 2;
+} while(false);
+if(xtmp31 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp31) {
+case 1:
+{
+xtmp30 = a1x2();
+}
+;
+break;
+case 2:
+xtmp32 = L1VALeval0(L1VALtmp(arg[1](27)))[1];
+xtmp33 = L1VALeval0(L1VALtmp(arg[1](27)))[2];
+{
+xtmp30 = a1x3(xtmp32, xtmp33);
+}
+;
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp30;
+} // function // XATS2JS_list_uncons_cfr(8)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2083(line=137, offs=1) -- 2150(line=140, offs=37)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2159(line=142, offs=1) -- 2239(line=146, offs=41)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2243(line=148, offs=1) -- 2296(line=149, offs=46)
+function
+XATS2JS_strmcon_nil()
+{
+let xtmp34;
+{
+xtmp34 = [0];
+}
+;
+return xtmp34;
+} // function // XATS2JS_strmcon_nil(9)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2297(line=150, offs=1) -- 2356(line=151, offs=52)
+function
+XATS2JS_strmcon_cons(a1x1, a1x2)
+{
+let xtmp37;
+;
+;
+{
+xtmp37 = [1, a1x1, a1x2];
+}
+;
+return xtmp37;
+} // function // XATS2JS_strmcon_cons(10)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2694(line=176, offs=1) -- 2831(line=184, offs=44)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 2832(line=185, offs=1) -- 2972(line=191, offs=8)
+function
+XATS2JS_stream_uncons_cfr(a1x1, a1x2, a1x3)
+{
+let xtmp41;
+let xtmp42;
+let xtmp43;
+let xtmp44;
+let xtmp45;
+;
+;
+;
+xtmp42 = XATS2JS_lazy_eval(a1x1);
+{
+xtmp43 = 0;
+do {
+do {
+if(0!==xtmp42[0]) break;
+xtmp43 = 1;
+} while(false);
+if(xtmp43 > 0 ) break;
+do {
+if(1!==xtmp42[0]) break;
+//L1PCKany();
+//L1PCKany();
+xtmp43 = 2;
+} while(false);
+if(xtmp43 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp43) {
+case 1:
+{
+xtmp41 = a1x2();
+}
+;
+break;
+case 2:
+xtmp44 = xtmp42[1];
+xtmp45 = xtmp42[2];
+{
+xtmp41 = a1x3(xtmp44, xtmp45);
+}
+;
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp41;
+} // function // XATS2JS_stream_uncons_cfr(11)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3042(line=194, offs=1) -- 3153(line=200, offs=44)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3154(line=201, offs=1) -- 3256(line=206, offs=8)
+function
+XATS2JS_streax_uncons_cfr(a1x1, a1x2)
+{
+let xtmp48;
+let xtmp49;
+let xtmp50;
+let xtmp51;
+let xtmp52;
+;
+;
+xtmp49 = XATS2JS_lazy_eval(a1x1);
+{
+xtmp50 = 0;
+do {
+do {
+if(0!==xtmp49[0]) break;
+//L1PCKany();
+//L1PCKany();
+xtmp50 = 1;
+} while(false);
+if(xtmp50 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp50) {
+case 1:
+xtmp51 = xtmp49[1];
+xtmp52 = xtmp49[2];
+{
+xtmp48 = a1x2(xtmp51, xtmp52);
+}
+;
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp48;
+} // function // XATS2JS_streax_uncons_cfr(12)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3379(line=214, offs=1) -- 3435(line=216, offs=33)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3444(line=218, offs=1) -- 3506(line=220, offs=38)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3510(line=222, offs=1) -- 3555(line=223, offs=38)
+function
+XATS2JS_optn_vt_nil()
+{
+let xtmp53;
+{
+xtmp53 = [0];
+}
+;
+return xtmp53;
+} // function // XATS2JS_optn_vt_nil(13)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3556(line=224, offs=1) -- 3607(line=225, offs=44)
+function
+XATS2JS_optn_vt_cons(a1x1)
+{
+let xtmp55;
+;
+{
+xtmp55 = [1, a1x1];
+}
+;
+return xtmp55;
+} // function // XATS2JS_optn_vt_cons(14)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3639(line=229, offs=1) -- 3756(line=235, offs=36)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 3757(line=236, offs=1) -- 3884(line=242, offs=8)
+function
+XATS2JS_optn_vt_uncons_cfr(a1x1, a1x2, a1x3)
+{
+let xtmp59;
+let xtmp60;
+let xtmp61;
+;
+;
+;
+{
+xtmp60 = 0;
+do {
+do {
+if(0!==L1VALeval0(L1VALtmp(arg[1](56)))[0]) break;
+xtmp60 = 1;
+} while(false);
+if(xtmp60 > 0 ) break;
+do {
+if(1!==L1VALeval0(L1VALtmp(arg[1](56)))[0]) break;
+//L1PCKany();
+xtmp60 = 2;
+} while(false);
+if(xtmp60 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp60) {
+case 1:
+{
+xtmp59 = a1x2();
+}
+;
+break;
+case 2:
+xtmp61 = L1VALeval0(L1VALtmp(arg[1](56)))[1];
+{
+xtmp59 = a1x3(xtmp61);
+}
+;
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp59;
+} // function // XATS2JS_optn_vt_uncons_cfr(15)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4008(line=250, offs=1) -- 4075(line=253, offs=37)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4084(line=255, offs=1) -- 4165(line=259, offs=42)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4169(line=261, offs=1) -- 4222(line=262, offs=46)
+function
+XATS2JS_list_vt_nil()
+{
+let xtmp62;
+{
+xtmp62 = [0];
+}
+;
+return xtmp62;
+} // function // XATS2JS_list_vt_nil(16)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4223(line=263, offs=1) -- 4282(line=264, offs=52)
+function
+XATS2JS_list_vt_cons(a1x1, a1x2)
+{
+let xtmp65;
+;
+;
+{
+xtmp65 = [1, a1x1, a1x2];
+}
+;
+return xtmp65;
+} // function // XATS2JS_list_vt_cons(17)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4314(line=268, offs=1) -- 4454(line=276, offs=45)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4455(line=277, offs=1) -- 4590(line=283, offs=8)
+function
+XATS2JS_list_vt_uncons_cfr(a1x1, a1x2, a1x3)
+{
+let xtmp69;
+let xtmp70;
+let xtmp71;
+let xtmp72;
+;
+;
+;
+{
+xtmp70 = 0;
+do {
+do {
+if(0!==L1VALeval0(L1VALtmp(arg[1](66)))[0]) break;
+xtmp70 = 1;
+} while(false);
+if(xtmp70 > 0 ) break;
+do {
+if(1!==L1VALeval0(L1VALtmp(arg[1](66)))[0]) break;
+//L1PCKany();
+//L1PCKany();
+xtmp70 = 2;
+} while(false);
+if(xtmp70 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp70) {
+case 1:
+{
+xtmp69 = a1x2();
+}
+;
+break;
+case 2:
+xtmp71 = L1VALeval0(L1VALtmp(arg[1](66)))[1];
+xtmp72 = L1VALeval0(L1VALtmp(arg[1](66)))[2];
+{
+xtmp69 = a1x3(xtmp71, xtmp72);
+}
+;
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp69;
+} // function // XATS2JS_list_vt_uncons_cfr(18)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 5049(line=312, offs=1) -- 5122(line=315, offs=40)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 5131(line=317, offs=1) -- 5220(line=321, offs=47)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 5224(line=323, offs=1) -- 5283(line=324, offs=52)
+function
+XATS2JS_strmcon_vt_nil()
+{
+let xtmp73;
+{
+xtmp73 = [0];
+}
+;
+return xtmp73;
+} // function // XATS2JS_strmcon_vt_nil(19)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 5284(line=325, offs=1) -- 5349(line=326, offs=58)
+function
+XATS2JS_strmcon_vt_cons(a1x1, a1x2)
+{
+let xtmp76;
+;
+;
+{
+xtmp76 = [1, a1x1, a1x2];
+}
+;
+return xtmp76;
+} // function // XATS2JS_strmcon_vt_cons(20)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 5381(line=330, offs=1) -- 5527(line=338, offs=47)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 5528(line=339, offs=1) -- 5679(line=345, offs=8)
+function
+XATS2JS_stream_vt_uncons_cfr(a1x1, a1x2, a1x3)
+{
+let xtmp80;
+let xtmp81;
+let xtmp82;
+let xtmp83;
+let xtmp84;
+;
+;
+;
+xtmp81 = XATS2JS_llazy_eval(a1x1);
+{
+xtmp82 = 0;
+do {
+do {
+if(0!==xtmp81[0]) break;
+xtmp82 = 1;
+} while(false);
+if(xtmp82 > 0 ) break;
+do {
+if(1!==xtmp81[0]) break;
+//L1PCKany();
+//L1PCKany();
+xtmp82 = 2;
+} while(false);
+if(xtmp82 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp82) {
+case 1:
+{
+xtmp80 = a1x2();
+}
+;
+break;
+case 2:
+xtmp83 = xtmp81[1];
+xtmp84 = xtmp81[2];
+{
+xtmp80 = a1x3(xtmp83, xtmp84);
+}
+;
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp80;
+} // function // XATS2JS_stream_vt_uncons_cfr(21)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 5752(line=348, offs=1) -- 5872(line=354, offs=47)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 5873(line=355, offs=1) -- 5982(line=360, offs=8)
+function
+XATS2JS_streax_vt_uncons_cfr(a1x1, a1x2)
+{
+let xtmp87;
+let xtmp88;
+let xtmp89;
+let xtmp90;
+let xtmp91;
+;
+;
+xtmp88 = XATS2JS_llazy_eval(a1x1);
+{
+xtmp89 = 0;
+do {
+do {
+if(0!==xtmp88[0]) break;
+//L1PCKany();
+//L1PCKany();
+xtmp89 = 1;
+} while(false);
+if(xtmp89 > 0 ) break;
+} while(false);
+} // case-patck0
+switch
+(xtmp89) {
+case 1:
+xtmp90 = xtmp88[1];
+xtmp91 = xtmp88[2];
+{
+xtmp87 = a1x2(xtmp90, xtmp91);
+}
+;
+break;
+default: XATS2JS_matcherr0();
+} // case-switch
+;
+return xtmp87;
+} // function // XATS2JS_streax_vt_uncons_cfr(22)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6056(line=364, offs=1) -- 6171(line=369, offs=49)
+
+
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6172(line=370, offs=1) -- 6306(line=379, offs=8)
 function
 XATS2JS_stream_vt_map0_cfr(a1x1, a1x2)
 {
-let xtmp46;
+let xtmp94;
 ;
 ;
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4049(line=264, offs=1) -- 4087(line=265, offs=31)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6266(line=378, offs=1) -- 6304(line=378, offs=39)
 // L1DCLnone0();
 {
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8898(line=717, offs=1) -- 9222(line=749, offs=8)
 function
 stream_vt_map0_3819_(a2x1)
 {
-let xtmp64;
+let xtmp112;
 ;
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 8965(line=725, offs=1) -- 9220(line=748, offs=12)
 function
 auxmain_8968_(a3x1)
 {
-let xtmp49;
-let xtmp62;
-let xtmp63;
+let xtmp97;
+let xtmp110;
+let xtmp111;
 ;
-xtmp62 =
+xtmp110 =
 function()
 {
-let xtmp50;
-let xtmp51;
-let xtmp52;
-let xtmp53;
-let xtmp54;
-let xtmp55;
-let xtmp58;
-let xtmp59;
-let xtmp60;
-xtmp51 = XATS2JS_llazy_eval(a3x1);
+let xtmp98;
+let xtmp99;
+let xtmp100;
+let xtmp101;
+let xtmp102;
+let xtmp103;
+let xtmp106;
+let xtmp107;
+let xtmp108;
+xtmp99 = XATS2JS_llazy_eval(a3x1);
 {
-xtmp52 = 0;
+xtmp100 = 0;
 do {
 do {
-if(0!==xtmp51[0]) break;
-xtmp52 = 1;
+if(0!==xtmp99[0]) break;
+xtmp100 = 1;
 } while(false);
-if(xtmp52 > 0 ) break;
+if(xtmp100 > 0 ) break;
 do {
-if(1!==xtmp51[0]) break;
+if(1!==xtmp99[0]) break;
 //L1PCKany();
 //L1PCKany();
-xtmp52 = 2;
+xtmp100 = 2;
 } while(false);
-if(xtmp52 > 0 ) break;
+if(xtmp100 > 0 ) break;
 } while(false);
 } // case-patck0
 switch
-(xtmp52) {
+(xtmp100) {
 case 1:
 {
-xtmp50 = [0];
+xtmp98 = [0];
 }
 ;
 break;
 case 2:
-xtmp53 = xtmp51[1];
-xtmp54 = xtmp51[2];
+xtmp101 = xtmp99[1];
+xtmp102 = xtmp99[2];
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9144(line=743, offs=3) -- 9176(line=744, offs=24)
 {
 {
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4049(line=264, offs=1) -- 4087(line=265, offs=31)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6266(line=378, offs=1) -- 6304(line=378, offs=39)
 function
 map0$fopr_2343_(a5x1)
 {
-let xtmp57;
+let xtmp105;
 ;
 {
-xtmp57 = a1x2(a5x1);
+xtmp105 = a1x2(a5x1);
 }
 ;
-return xtmp57;
-} // function // map0$fopr(17)
+return xtmp105;
+} // function // map0$fopr(24)
 ;
-xtmp55 = map0$fopr_2343_(xtmp53);
+xtmp103 = map0$fopr_2343_(xtmp101);
 }
 ;
 ;
-} // val(H0Pvar(y0(55)))
+} // val(H0Pvar(y0(95)))
 ;
 {
 {
-xtmp59 = auxmain_8968_(xtmp54);
+xtmp107 = auxmain_8968_(xtmp102);
 }
 ;
-xtmp58 = [1, xtmp55, xtmp59];
+xtmp106 = [1, xtmp103, xtmp107];
 }
 ;
-xtmp50 = xtmp58;
+xtmp98 = xtmp106;
 break;
 default: XATS2JS_matcherr0();
 } // case-switch
 ;
-return xtmp50;
+return xtmp98;
 } // lam-function
 ;
-xtmp63 =
+xtmp111 =
 function()
 {
-let xtmp50;
-let xtmp51;
-let xtmp52;
-let xtmp53;
-let xtmp54;
-let xtmp55;
-let xtmp58;
-let xtmp59;
-let xtmp60;
+let xtmp98;
+let xtmp99;
+let xtmp100;
+let xtmp101;
+let xtmp102;
+let xtmp103;
+let xtmp106;
+let xtmp107;
+let xtmp108;
 {
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1554(line=120, offs=1) -- 1609(line=122, offs=41)
 // { // val-binding
@@ -2058,81 +2431,81 @@ stream_vt_free_1971_(a6x1)
 {
 ;
 return XATS2JS_llazy_free(a6x1);
-} // function // stream_vt_free(21)
+} // function // stream_vt_free(28)
 ;
 // } // val-binding
 const // implval/fun
 g_free_1550_ = stream_vt_free_1971_
 ;
-xtmp60 = g_free_1550_(a3x1);
+xtmp108 = g_free_1550_(a3x1);
 }
 ;
 } // lam-function
 ;
-xtmp49 = XATS2JS_new_llazy(xtmp62,xtmp63);
-return xtmp49;
-} // function // auxmain(19)
+xtmp97 = XATS2JS_new_llazy(xtmp110,xtmp111);
+return xtmp97;
+} // function // auxmain(26)
 ;
 {
-xtmp64 = auxmain_8968_(a2x1);
+xtmp112 = auxmain_8968_(a2x1);
 }
 ;
-return xtmp64;
-} // function // stream_vt_map0(18)
+return xtmp112;
+} // function // stream_vt_map0(25)
 ;
-xtmp46 = stream_vt_map0_3819_(a1x1);
+xtmp94 = stream_vt_map0_3819_(a1x1);
 }
 ;
-return xtmp46;
-} // function // XATS2JS_stream_vt_map0_cfr(16)
+return xtmp94;
+} // function // XATS2JS_stream_vt_map0_cfr(23)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4120(line=271, offs=1) -- 4232(line=275, offs=51)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6379(line=384, offs=1) -- 6491(line=388, offs=51)
 
 
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4233(line=276, offs=1) -- 4367(line=285, offs=8)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6492(line=389, offs=1) -- 6624(line=397, offs=8)
 function
 XATS2JS_stream_vt_filter0_cfr(a1x1, a1x2)
 {
-let xtmp67;
+let xtmp115;
 ;
 ;
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4326(line=283, offs=3) -- 4365(line=284, offs=32)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6585(line=396, offs=3) -- 6622(line=396, offs=40)
 // L1DCLnone0();
 {
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9603(line=786, offs=1) -- 10044(line=826, offs=8)
 function
 stream_vt_filter0_4021_(a2x1)
 {
-let xtmp85;
+let xtmp133;
 ;
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 9676(line=794, offs=1) -- 10042(line=825, offs=8)
 function
 auxmain_9679_(a3x1)
 {
 let a3y1;
-let xtmp70;
-let xtmp74;
-let xtmp75;
+let xtmp118;
+let xtmp122;
+let xtmp123;
 do {
 ;
-xtmp74 =
+xtmp122 =
 function()
 {
-let xtmp71;
-let xtmp72;
+let xtmp119;
+let xtmp120;
 {
-xtmp71 = auxloop_9773_(XATS2JS_llazy_eval(a3x1));
+xtmp119 = auxloop_9773_(XATS2JS_llazy_eval(a3x1));
 }
 ;
-return xtmp71;
+return xtmp119;
 } // lam-function
 ;
-xtmp75 =
+xtmp123 =
 function()
 {
-let xtmp71;
-let xtmp72;
+let xtmp119;
+let xtmp120;
 {
 // /home/hwxi/Research/ATS-Xanadu/prelude/DATS/stream_vt.dats: 1554(line=120, offs=1) -- 1609(line=122, offs=41)
 // { // val-binding
@@ -2142,89 +2515,89 @@ stream_vt_free_1971_(a6x1)
 {
 ;
 return XATS2JS_llazy_free(a6x1);
-} // function // stream_vt_free(21)
+} // function // stream_vt_free(28)
 ;
 // } // val-binding
 const // implval/fun
 g_free_1550_ = stream_vt_free_1971_
 ;
-xtmp72 = g_free_1550_(a3x1);
+xtmp120 = g_free_1550_(a3x1);
 }
 ;
 } // lam-function
 ;
-xtmp70 = XATS2JS_new_llazy(xtmp74,xtmp75);
+xtmp118 = XATS2JS_new_llazy(xtmp122,xtmp123);
 break;//return
 } while( true );
-return xtmp70;
-} // function // auxmain(25)
+return xtmp118;
+} // function // auxmain(32)
 function
 auxloop_9773_(a3x1)
 {
 let a3y1;
-let xtmp77;
-let xtmp78;
-let xtmp79;
-let xtmp80;
-let xtmp81;
-let xtmp84;
+let xtmp125;
+let xtmp126;
+let xtmp127;
+let xtmp128;
+let xtmp129;
+let xtmp132;
 do {
 ;
 {
-xtmp78 = 0;
+xtmp126 = 0;
 do {
 do {
 if(0!==a3x1[0]) break;
-xtmp78 = 1;
+xtmp126 = 1;
 } while(false);
-if(xtmp78 > 0 ) break;
+if(xtmp126 > 0 ) break;
 do {
 if(1!==a3x1[0]) break;
 //L1PCKany();
 //L1PCKany();
-xtmp78 = 2;
+xtmp126 = 2;
 } while(false);
-if(xtmp78 > 0 ) break;
+if(xtmp126 > 0 ) break;
 } while(false);
 } // case-patck0
 switch
-(xtmp78) {
+(xtmp126) {
 case 1:
 {
-xtmp77 = [0];
+xtmp125 = [0];
 }
 ;
 break;
 case 2:
-xtmp79 = a3x1[1];
-xtmp80 = a3x1[2];
+xtmp127 = a3x1[1];
+xtmp128 = a3x1[2];
 {
-// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 4326(line=283, offs=3) -- 4365(line=284, offs=32)
+// ./../../xanadu/prelude/DATS/CATS/JS/prelude.dats: 6585(line=396, offs=3) -- 6622(line=396, offs=40)
 function
 filter0$test_2547_(a4x1)
 {
-let xtmp83;
+let xtmp131;
 ;
 {
-xtmp83 = a1x2(a4x1);
+xtmp131 = a1x2(a4x1);
 }
 ;
-return xtmp83;
-} // function // filter0$test(23)
+return xtmp131;
+} // function // filter0$test(30)
 ;
-xtmp81 = filter0$test_2547_(xtmp79);
+xtmp129 = filter0$test_2547_(xtmp127);
 }
 ;
 if
-(xtmp81)
+(xtmp129)
 // then
 {
 {
 {
-xtmp84 = auxmain_9679_(xtmp80);
+xtmp132 = auxmain_9679_(xtmp128);
 }
 ;
-xtmp77 = [1, xtmp79, xtmp84];
+xtmp125 = [1, xtmp127, xtmp132];
 }
 ;
 } // if-then
@@ -2232,8 +2605,8 @@ else
 {
 {
 // tail-recursion:
-// L1CMDapp(tmp(77); L1VALfcst(auxloop(26)); L1VALeval3(L1VALtmp(tmp(80))))
-a3y1 = XATS2JS_llazy_eval(xtmp80); a3x1 = a3y1; continue;
+// L1CMDapp(tmp(125); L1VALfcst(auxloop(33)); L1VALeval3(L1VALtmp(tmp(128))))
+a3y1 = XATS2JS_llazy_eval(xtmp128); a3x1 = a3y1; continue;
 }
 ;
 } // if-else
@@ -2244,20 +2617,20 @@ default: XATS2JS_matcherr0();
 ;
 break;//return
 } while( true );
-return xtmp77;
-} // function // auxloop(26)
+return xtmp125;
+} // function // auxloop(33)
 ;
 {
-xtmp85 = auxmain_9679_(a2x1);
+xtmp133 = auxmain_9679_(a2x1);
 }
 ;
-return xtmp85;
-} // function // stream_vt_filter0(24)
+return xtmp133;
+} // function // stream_vt_filter0(31)
 ;
-xtmp67 = stream_vt_filter0_4021_(a1x1);
+xtmp115 = stream_vt_filter0_4021_(a1x1);
 }
 ;
-return xtmp67;
-} // function // XATS2JS_stream_vt_filter0_cfr(22)
+return xtmp115;
+} // function // XATS2JS_stream_vt_filter0_cfr(29)
 
 

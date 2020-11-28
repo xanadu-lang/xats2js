@@ -51,6 +51,10 @@ $(CAT) \
 $(XANADU)/prelude/DATS/CATS/JS/g_print.cats >> xats2js_prelude.js
 #
 xats2js_prelude:: ; \
+$(CAT) \
+$(XANADU)/prelude/DATS/CATS/JS/jsbasics.cats >> xats2js_prelude.js
+#
+xats2js_prelude:: ; \
 $(XATS2JS) \
 --output-a xats2js_prelude.js -d $(XANADU)/prelude/DATS/CATS/JS/basics.dats
 #

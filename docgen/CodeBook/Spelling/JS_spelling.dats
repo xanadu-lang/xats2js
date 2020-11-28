@@ -31,21 +31,7 @@ string_lower(JS_spelling_arg1())
 (* ****** ****** *)
 impltmp
 $SP.spelling$words<>() =
-let
-val
-dict =
-JS_spelling_dict()
-val
-words =
-string_split_lines(dict)
-in
-stream_vt_map0(words) where
-{
-typedef y0 = string
-vwtpdef x0 = string_vt
-impltmp map0$fopr<x0><y0> = string_vt2t
-}
-end
+string_split_lines(JS_spelling_dict())
 (* ****** ****** *)
 #extern
 fun
