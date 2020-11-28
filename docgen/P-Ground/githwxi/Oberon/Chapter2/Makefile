@@ -9,16 +9,16 @@ ECHO=echo
 MAKE=make
 NODE=node
 ######
-SHARE=./../../../../share
-XANADU=./../../../../xanadu
-XATS2JS="./../../../../bin/xats2js"
+MYROOT=./../../../../..
+######
+XATS2JS=$(MYROOT)/bin/xats2js
 ######
 XATS2JS_PRELUDE=\
-"$(SHARE)/runtime/xats2js_prelude.js"
+"$(MYROOT)/share/runtime/xats2js_prelude.js"
 XATS2JS_PRELUDE_NODE=\
-"$(SHARE)/runtime/xats2js_prelude_node.js"
+"$(MYROOT)/share/runtime/xats2js_prelude_node.js"
 XATS2JS_XATSLIB_NODE=\
-"$(SHARE)/runtime/xats2js_xatslib_node.js"
+"$(MYROOT)/share/runtime/xats2js_xatslib_node.js"
 ######
 # ListRN:: ; $(XATS2JS) -d ListRN.dats
 # RandomNumbers:: ; $(XATS2JS) -d RandomNumbers.dats
@@ -44,6 +44,6 @@ clean:: ; rm -f *~
 cleanall:: clean
 cleanall:: ; rm -f *_dats.js
 ######
-export XATS2JSD=./../../../..
+export XATS2JSD=$(MYROOT)
 export XATSHOME=$(XATS2JSD)/xanadu
 ###### end of [Makefile] ######
