@@ -37,6 +37,9 @@
 #staload
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
+#staload
+"prelude\
+/DATS/CATS/JS/prelude.dats"
 (* ****** ****** *)
 #staload "./../myprint.dats"
 #staload
