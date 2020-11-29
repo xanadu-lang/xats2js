@@ -8,6 +8,9 @@ $(XATS2JSD)\
 #staload
 "xatslib/githwxi/DATS/gtree1.dats"
 (* ****** ****** *)
+#staload
+"prelude/DATS/CATS/JS/jsbasics.dats"
+(* ****** ****** *)
 //
 typedef word = string
 //
@@ -16,6 +19,11 @@ fun
 doublet_play
 ( w1: word
 , w2: word): optn(list(word))
+(* ****** ****** *)
+#extern
+fun
+theDict_make():
+jsobjmap(string, int) = $exname()
 (* ****** ****** *)
 //
 #extern
@@ -132,11 +140,11 @@ node = list(word)
 //
 val
 theDict =
-dictionary_make()
+theDict_make()
 fun
 word_legalq
 (wx: word): bool =
-jsobjmap_mapped(theDict, wx)
+XATS2JS_jsobjmap_keyq(theDict, wx)
 //
 (* ****** ****** *)
 
@@ -146,12 +154,12 @@ doublet_play
 //
 val
 theMarks =
-jsobjmap_make_nil()
+XATS2JS_jsobjmap_make_nil()
 //
 fun
 word_markedq
 (wx: word): bool =
-jsobjmap_mapped(theMarks, wx)
+XATS2JS_jsobjmap_keyq(theMarks, wx)
 //
 impltmp
 gtree_node_childlst
@@ -164,17 +172,23 @@ list_cons
 //
 typedef w1 = word
 //
+in
+//
+if
+word_markedq(w1)
+then
+(
+list_vt_nil((*void*))
+) (* end of [then] *)
+else let
+//
 val ws = helper_1(w1)
 //
 val ws =
 stream_vt_filter0(ws) where
 {
 impltmp
-filter0$test<word>(w1) =
-if
-word_markedq(w1)
-then false else word_legalq(w1)
-//
+filter0$test<word> = word_legalq
 }
 //
 impltmp
@@ -183,12 +197,45 @@ map0$fopr
 //
 in
   listize(stream_vt_map0(ws))
+end // end of [else]
+//
 end // end of [gtree_node_childlst]
 
 (* ****** ****** *)
-in
+
+in(* in-of-let *)
+
 (* ****** ****** *)
 
+let
+fun
+auxsrch
+(nxs: stream_vt(node)) =
+(
+case+ !nxs of
+| ~
+strmcon_vt_nil
+( (*void*) ) =>
+optn_nil(*void*)
+| ~
+strmcon_vt_cons
+( nx1, nxs ) =>
+let
+val-
+list_cons(wx, _) = nx1
+val () =
+XATS2JS_jsobjmap_insert_any
+  (theMarks, wx, 0)
+in
+if
+(wx = w2)
+then optn_cons(nx1) else auxsrch(nxs)
+end // end of [strmcon_vt_cons]
+)
+in
+auxsrch
+(gtree_bfs_streamize<node>(list_sing(w1)))
+end // end of [let]
 
 (* ****** ****** *)
 
