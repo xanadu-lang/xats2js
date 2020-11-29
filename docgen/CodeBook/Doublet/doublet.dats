@@ -129,26 +129,29 @@ in(*in-of-local*)
 typedef
 node = list(word)
 (* ****** ****** *)
+//
+val
+theDict =
+dictionary_make()
+fun
+word_legalq
+(wx: word): bool =
+jsobjmap_mapped(theDict, wx)
+//
+(* ****** ****** *)
 
 implfun
 doublet_play
 (w1, w2) = let
 //
 val
-words =
-dictionary_make()
-val
-marked =
+theMarks =
 jsobjmap_make_nil()
 //
 fun
-word_legalq
-(wx: word): bool =
-jsobjmap_mapped(words, wx)
-fun
 word_markedq
 (wx: word): bool =
-jsobjmap_mapped(marks, wx)
+jsobjmap_mapped(theMarks, wx)
 //
 impltmp
 gtree_node_childlst

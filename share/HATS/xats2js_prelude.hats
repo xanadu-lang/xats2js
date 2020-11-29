@@ -49,8 +49,7 @@ the prelude library for xats2js
 //
 #staload _ = "prelude/DATS/CATS/JS/g_print.dats"
 //
-#staload _ = "prelude/DATS/CATS/JS/jsarray.dats"
-#staload _ = "prelude/DATS/CATS/JS/jsmapstr.dats"
+#staload _ = "prelude/DATS/CATS/JS/jsbasics.dats"
 //
 (* ****** ****** *)
 
