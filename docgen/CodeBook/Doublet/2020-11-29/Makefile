@@ -50,7 +50,7 @@ cleanall:: clean
 cleanall:: ; rm -f *_dats.js
 
 ######
-export XATS2JSD=./../../..
+export XATS2JSD=./../../../..
 export XATSHOME=$(XATS2JSD)/xanadu
 ######
 
