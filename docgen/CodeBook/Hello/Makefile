@@ -46,7 +46,7 @@ hello.cats hello.dats; \
 
 ######
 export XATS2JSD=./../../..
-export XATSHOME=$(XATS2JSD)/xanadu
+export XATSHOME=$(XATS2JSD)/xatsopt
 ######
 
 ###### end of [Makefile] ######

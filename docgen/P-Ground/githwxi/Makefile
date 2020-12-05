@@ -10,7 +10,7 @@ MAKE=make
 NODE=node
 ######
 SHARE=./../../../share
-XANADU=./../../../xanadu
+XATSOPT=./../../../xatsopt
 XATS2JS="./../../../bin/xats2js"
 ######
 XATS2JS_PRELUDE=\
@@ -80,5 +80,5 @@ cleanall:: ; $(MAKE) -C StreaxDemo cleanall
 cleanall:: ; $(MAKE) -C QueenPuzzle cleanall
 ######
 export XATS2JSD=./../../..
-export XATSHOME=$(XATS2JSD)/xanadu
+export XATSHOME=$(XATS2JSD)/xatsopt
 ###### end of [Makefile] ######
