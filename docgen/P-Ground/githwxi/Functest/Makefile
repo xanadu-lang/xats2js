@@ -9,7 +9,7 @@ ECHO=echo
 NODE=node
 ######
 SHARE=./../../../../share
-XANADU=./../../../../xanadu
+XATSOPT=./../../../../xatsopt
 XATS2JS="./../../../../bin/xats2js"
 ######
 XATS2JS_PRELUDE=\
@@ -37,6 +37,6 @@ cleanall:: ; rm -f output
 cleanall:: ; rm -f *_dats.js
 ######
 export XATS2JSD=./../../../..
-export XATSHOME=$(XATS2JSD)/xanadu
+export XATSHOME=$(XATS2JSD)/xatsopt
 ######
 ###### end of [Makefile] ######
