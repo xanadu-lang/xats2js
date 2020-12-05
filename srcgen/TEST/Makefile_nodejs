@@ -188,7 +188,7 @@ clean:: ; rm -f *~
 cleanall:: clean
 cleanall:: ; rm -f output
 ######
-# export XATSHOME=$(XANADU)
-# XANADU=$(shell pwd)/../../xanadu
+# export XATSHOME=$(XATSOPT)
+# XATSOPT=$(shell pwd)/../../xatsopt
 ######
 ###### end of [Makefile_nodejs] ######

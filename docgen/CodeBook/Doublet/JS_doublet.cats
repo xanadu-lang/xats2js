@@ -1,3 +1,20 @@
+/* ****** ****** */
+
+function
+JS_doublet_call()
+{
+//
+ATS_doublet_call();
+//
+let output =
+XATS2JS_the_print_store_join();
+XATS2JS_the_print_store_clear();
+alert(output);
+JS_doublet_output.innerHTML = output;
+}
+
+/* ****** ****** */
+
 function
 JS_doublet_word1()
 {
@@ -14,15 +31,6 @@ JS_doublet_dict()
     return document.getElementById("JS_doublet_dict").innerText;
 }
 
-function
-JS_doublet_call()
-{
-//
-ATS_doublet_call();
-//
-let output =
-XATS2JS_the_print_store_join();
-XATS2JS_the_print_store_clear();
-alert(output);
-JS_doublet_output.innerHTML = output;
-}
+/* ****** ****** */
+
+/* end of [JS_doublet.cats] */

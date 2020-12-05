@@ -35,15 +35,15 @@
 #staload "./intrep1.sats"
 (* ****** ****** *)
 #define
-XANADU_targetloc
-"./../../xanadu/srcgen/xats"
+XATSOPT_targetloc
+"./../../xatsopt/srcgen/xats"
 (* ****** ****** *)
 //
 #staload
-"{$XANADU}/SATS/lexing0.sats"
+"{$XATSOPT}/SATS/lexing0.sats"
 //
 #staload
-"{$XANADU}/SATS/intrep0.sats"
+"{$XATSOPT}/SATS/intrep0.sats"
 //
 (* ****** ****** *)
 

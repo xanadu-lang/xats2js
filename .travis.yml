@@ -21,7 +21,7 @@ before_install:
   - export PATSHOME=${HOME}/ATS2
   - export PATH=${PATH}:${PATSHOME}/bin
   - export XATS2JS0=${TRAVIS_BUILD_DIR}
-  - export XATSHOME=${XATS2JS0}/xanadu/.
+  - export XATSHOME=${XATS2JS0}/xatsopt/.
   - export GCC=gcc
   - export CLANG=clang
 
