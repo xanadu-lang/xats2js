@@ -2,17 +2,17 @@
 CAT=cat
 ECHO=echo
 ############
-XATS2JSD =\
+XJSHOME =\
 "./../../../../../../../.."
 ############
-XATS2JS ="$(XATS2JSD)/bin/xats2js"
+XATS2JS ="$(XJSHOME)/bin/xats2js"
 ############
 XATS2JS_PRELUDE=\
-"$(XATS2JSD)/share/runtime/xats2js_prelude.js"
+"$(XJSHOME)/share/runtime/xats2js_prelude.js"
 XATS2JS_PRELUDE_NODE=\
-"$(XATS2JSD)/share/runtime/xats2js_prelude_node.js"
+"$(XJSHOME)/share/runtime/xats2js_prelude_node.js"
 XATS2JS_XATSLIB_LIBC=\
-"$(XATS2JSD)/share/runtime/xats2js_xatslib_libc.js"
+"$(XJSHOME)/share/runtime/xats2js_xatslib_libc.js"
 ############
 all:: prelude
 ############
