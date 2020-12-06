@@ -45,5 +45,5 @@ cleanall:: clean
 cleanall:: ; rm -f *_dats.js
 ######
 export XATS2JSD=$(MYROOT)
-export XATSHOME=$(XATS2JSD)/xanadu
+export XATSHOME=$(XATS2JSD)/xatsopt
 ###### end of [Makefile] ######

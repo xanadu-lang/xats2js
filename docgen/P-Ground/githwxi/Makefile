@@ -65,6 +65,11 @@ QueenPuzzle
 Game-of-24:: ; \
 $(MAKE) -C QueenPuzzle test
 ######
+test:: \
+Oberon_Chapter2
+Oberon_Chapter2:: ; \
+$(MAKE) -C Oberon/Chapter2 test
+######
 #
 # HX: for cleaning up
 #
@@ -78,6 +83,7 @@ cleanall:: ; $(MAKE) -C Functest cleanall
 cleanall:: ; $(MAKE) -C StreamDemo cleanall
 cleanall:: ; $(MAKE) -C StreaxDemo cleanall
 cleanall:: ; $(MAKE) -C QueenPuzzle cleanall
+cleanall:: ; $(MAKE) -C Oberon/Chapter2 cleanall
 ######
 export XATS2JSD=./../../..
 export XATSHOME=$(XATS2JSD)/xatsopt
