@@ -2,15 +2,17 @@
 CAT=cat
 ECHO=echo
 ############
-XJSHOME =\
+XATS2JSD =\
 "./../../../../../../../.."
 ############
-XATS2JS ="$(XJSHOME)/bin/xats2js"
+XATS2JS ="$(XATS2JSD)/bin/xats2js"
 ############
 XATS2JS_PRELUDE=\
-"$(XJSHOME)/share/runtime/xats2js_prelude.js"
+"$(XATS2JSD)/share/runtime/xats2js_prelude.js"
+XATS2JS_PRELUDE_NODE=\
+"$(XATS2JSD)/share/runtime/xats2js_prelude_node.js"
 XATS2JS_XATSLIB_LIBC=\
-"$(XJSHOME)/share/runtime/xats2js_xatslib_libc.js"
+"$(XATS2JSD)/share/runtime/xats2js_xatslib_libc.js"
 ############
 all:: prelude
 ############
@@ -18,7 +20,8 @@ all:: assign00_sol
 ############
 prelude:: ; \
 echo > assign00_sol_dats.js && \
-$(CAT) $(XATS2JS_PRELUDE) >> assign00_sol_dats.js
+$(CAT) $(XATS2JS_PRELUDE) >> assign00_sol_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> assign00_sol_dats.js
 ############
 assign00_sol:: ; \
 $(XATS2JS) --output-a assign00_sol_dats.js -d ./assign00_sol.dats
