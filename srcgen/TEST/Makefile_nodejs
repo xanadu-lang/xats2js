@@ -169,6 +169,13 @@ $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-11-26.dats && $(NODE) output_dats.js
 ######
 test:: \
+test-2020-12-08
+test-2020-12-08:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-12-08.dats && $(NODE) output_dats.js
+######
+test:: \
 test-ats2-queens
 test-ats2-queens:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
