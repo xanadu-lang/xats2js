@@ -11,6 +11,8 @@ MAKE=make
 all:: \
 githwxi
 githwxi:: ; \
-$(MAKE) -C githwxi test cleanall > /dev/null
+$(MAKE) -C githwxi test > /dev/null
 ######
+cleanall:: ; \
+$(MAKE) -C githwxi cleanall > /dev/null
 ###### end of [Makefile_test] ######

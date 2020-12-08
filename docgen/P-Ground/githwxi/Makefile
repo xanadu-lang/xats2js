@@ -82,6 +82,7 @@ cleanall:: ; rm -f *_dats.js
 cleanall:: ; $(MAKE) -C Functest cleanall
 cleanall:: ; $(MAKE) -C StreamDemo cleanall
 cleanall:: ; $(MAKE) -C StreaxDemo cleanall
+cleanall:: ; $(MAKE) -C Game-of-24 cleanall
 cleanall:: ; $(MAKE) -C QueenPuzzle cleanall
 cleanall:: ; $(MAKE) -C Oberon/Chapter2 cleanall
 ######
