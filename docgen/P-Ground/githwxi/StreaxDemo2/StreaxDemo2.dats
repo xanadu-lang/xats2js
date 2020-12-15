@@ -195,8 +195,8 @@ val () =
 set(theStream_moves_ref, xs)
 in
 case- x0 of
-| optn_cons(p0) => JS_StreaxDemo2_show_some(p0)
-end (*let*) // end of [JS_StreaxDemo2_next]
+| optn_cons(f0) => JS_StreaxDemo2_show_some(f0)
+end (*let*) // end of [StreaxDemo2_control_next]
 //
 implfun
 StreaxDemo2_control_prev
@@ -212,8 +212,8 @@ set(theStream_moves_ref, xs)
 in
 case+ x0 of
 | optn_nil() => JS_StreaxDemo2_show_none()
-| optn_cons(p0) => JS_StreaxDemo2_show_some(p0)
-end (*let*) // end of [JS_StreaxDemo2_prev]
+| optn_cons(f0) => JS_StreaxDemo2_show_some(f0)
+end (*let*) // end of [StreaxDemo2_control_prev]
 //
 (* ****** ****** *)
 

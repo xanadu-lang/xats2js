@@ -18,7 +18,7 @@ all:: ; \
 echo "Please do 'make xats2js_xatslib_node'!"
 
 ######
-XANADU=./../../xanadu
+XATSOPT=./../../xatsopt
 XATS2JS="./../../bin/xats2js"
 ######
 #
@@ -36,31 +36,31 @@ $(ECHO) "'use strict';\n" >> xats2js_prelude.js
 #
 xats2js_prelude:: ; \
 $(CAT) \
-$(XANADU)/prelude/DATS/CATS/JS/runtime.cats >> xats2js_prelude.js
+$(XATSOPT)/prelude/DATS/CATS/JS/runtime.cats >> xats2js_prelude.js
 #
 xats2js_prelude:: ; \
 $(CAT) \
-$(XANADU)/prelude/DATS/CATS/JS/prelude.cats >> xats2js_prelude.js
+$(XATSOPT)/prelude/DATS/CATS/JS/prelude.cats >> xats2js_prelude.js
 #
 xats2js_prelude:: ; \
 $(CAT) \
-$(XANADU)/prelude/DATS/CATS/JS/g_eqref.cats >> xats2js_prelude.js
+$(XATSOPT)/prelude/DATS/CATS/JS/g_eqref.cats >> xats2js_prelude.js
 #
 xats2js_prelude:: ; \
 $(CAT) \
-$(XANADU)/prelude/DATS/CATS/JS/g_print.cats >> xats2js_prelude.js
+$(XATSOPT)/prelude/DATS/CATS/JS/g_print.cats >> xats2js_prelude.js
 #
 xats2js_prelude:: ; \
 $(CAT) \
-$(XANADU)/prelude/DATS/CATS/JS/jsbasics.cats >> xats2js_prelude.js
+$(XATSOPT)/prelude/DATS/CATS/JS/jsbasics.cats >> xats2js_prelude.js
 #
 xats2js_prelude:: ; \
 $(XATS2JS) \
---output-a xats2js_prelude.js -d $(XANADU)/prelude/DATS/CATS/JS/basics.dats
+--output-a xats2js_prelude.js -d $(XATSOPT)/prelude/DATS/CATS/JS/basics.dats
 #
 xats2js_prelude:: ; \
 $(XATS2JS) \
---output-a xats2js_prelude.js -d $(XANADU)/prelude/DATS/CATS/JS/prelude.dats
+--output-a xats2js_prelude.js -d $(XATSOPT)/prelude/DATS/CATS/JS/prelude.dats
 #
 ######
 xats2js_prelude_node:: ; \
@@ -74,7 +74,7 @@ $(ECHO) "/* ****** ****** */\n" >> xats2js_prelude_node.js
 #
 xats2js_prelude_node:: ; \
 $(CAT) \
-$(XANADU)/prelude/DATS/CATS/JS/Node/g_print.cats >> xats2js_prelude_node.js
+$(XATSOPT)/prelude/DATS/CATS/JS/Node/g_print.cats >> xats2js_prelude_node.js
 #
 ######
 xats2js_xatslib_node:: ; \
@@ -88,7 +88,7 @@ $(ECHO) "/* ****** ****** */\n" >> xats2js_xatslib_node.js
 #
 xats2js_xatslib_node:: ; \
 $(CAT) \
-$(XANADU)/xatslib/libc/DATS/CATS/JS/Node/prelude.cats >> xats2js_xatslib_node.js
+$(XATSOPT)/xatslib/libc/DATS/CATS/JS/Node/prelude.cats >> xats2js_xatslib_node.js
 #
 ######
 clean:: ; rm -f *~
