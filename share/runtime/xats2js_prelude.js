@@ -779,6 +779,31 @@ return cs.slice(1);//tail
 }
 /* ****** ****** */
 function
+XATS2JS_string_length
+  (cs)
+{
+  return (cs.length);
+}
+//
+function
+XATS2JS_string_vt_length
+  (cs)
+{
+// HX: skipping
+// the ending null char
+  return (cs.length - 1);
+}
+function
+XATS2JS_string_vt_length1
+  (cs)
+{
+// HX: skipping
+// the ending null char
+  return (cs.length - 1);
+}
+//
+/* ****** ****** */
+function
 XATS2JS_string_get_at
   (cs, i0)
 {
@@ -1558,22 +1583,31 @@ if(itm0===undefined)
 // ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8135(line=552, offs=1) -- 8265(line=561, offs=24)
 // L1DCLnone0()
 
-// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8286(line=563, offs=1) -- 8428(line=574, offs=22)
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8286(line=563, offs=1) -- 8410(line=572, offs=22)
 // L1DCLnone0()
 
-// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8449(line=576, offs=1) -- 8665(line=591, offs=8)
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8414(line=574, offs=1) -- 8551(line=583, offs=25)
 // L1DCLnone0()
 
-// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8712(line=593, offs=1) -- 8846(line=602, offs=24)
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8552(line=584, offs=1) -- 8692(line=593, offs=26)
 // L1DCLnone0()
 
-// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8867(line=604, offs=1) -- 9021(line=614, offs=25)
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8716(line=596, offs=1) -- 8858(line=607, offs=22)
 // L1DCLnone0()
 
-// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 9042(line=616, offs=1) -- 9273(line=631, offs=8)
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 8879(line=609, offs=1) -- 9095(line=624, offs=8)
 // L1DCLnone0()
 
-// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 9324(line=633, offs=1) -- 9555(line=648, offs=8)
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 9142(line=626, offs=1) -- 9276(line=635, offs=24)
+// L1DCLnone0()
+
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 9297(line=637, offs=1) -- 9451(line=647, offs=25)
+// L1DCLnone0()
+
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 9472(line=649, offs=1) -- 9703(line=664, offs=8)
+// L1DCLnone0()
+
+// ./../../xatsopt/prelude/DATS/CATS/JS/basics.dats: 9754(line=666, offs=1) -- 9985(line=681, offs=8)
 // L1DCLnone0()
 
 // ./../../xatsopt/prelude/DATS/CATS/JS/prelude.dats: 67(line=6, offs=1) -- 122(line=8, offs=27)
