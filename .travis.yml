@@ -20,13 +20,13 @@ before_install:
   - date
   - export PATSHOME=${HOME}/ATS2
   - export PATH=${PATH}:${PATSHOME}/bin
-  - export XATS2JS0=${TRAVIS_BUILD_DIR}
-  - export XATSHOME=${XATS2JS0}/xatsopt/.
+  - export XATS2JSD=${TRAVIS_BUILD_DIR}
+  - export XATSHOME=${XATS2JSD}/xatsopt/.
   - export GCC=gcc
   - export CLANG=clang
 
 install:
-  - ${XATS2JS0}/travis-ci/install-ats2.sh 0.4.2
+  - ${XATS2JSD}/travis-ci/install-ats2.sh 0.4.2
 
 after_install:
   - date
@@ -40,7 +40,7 @@ script:
   - cd ${PATSHOME}
   - ./configure&&make CC=${GCC} all
   # Building Xats2js
-  - cd ${XATS2JS0}
+  - cd ${XATS2JSD}
   - (sh ./build.sh)
   - (cd srcgen/TEST && time make -f Makefile_test)
   # Regression Testing
