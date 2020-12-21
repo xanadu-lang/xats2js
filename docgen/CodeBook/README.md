@@ -26,8 +26,8 @@ fame of "Alice in Wonderland")
 
 ## [CodeBook/Spelling](./Spelling)
 
-This example implements that a simple word game that asks the player to
-form words from a given subset of the English alphabet that must contain
+This example implements a simple word game that asks the player to use
+a given subset of the English alphabet to form words that must contain
 a specified letter.
 
 
