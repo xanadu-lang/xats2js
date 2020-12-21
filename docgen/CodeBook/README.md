@@ -16,6 +16,18 @@ supporting pattern matching and higher-order functions).
 
 ## [CodeBook/Hello](./Hello)
 
+This example gives a brief introduction to co-programming
+with ATS and JS.
+
 ## [CodeBook/Doublet](./Doublet)
 
+This example implements Doublet, a word game by Lewis Carrol (of the
+fame of "Alice in Wonderland")
+
 ## [CodeBook/Spelling](./Spelling)
+
+This example implements that a simple word game that asks the player to
+form words from a given subset of the English alphabet that must contain
+a specified letter.
+
+

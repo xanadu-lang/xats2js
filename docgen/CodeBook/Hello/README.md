@@ -224,4 +224,4 @@ hello.dats, we have finally completed the task of building the
 by simply adding a line for loading hello_dats.js (in the html file
 created for the webpage). Please find the provided Makefile for streamlining this process of compiling and assembling..
 
-Happy programming in ATS-Xanadu!!!
+Happy programming in ATS3!!!
