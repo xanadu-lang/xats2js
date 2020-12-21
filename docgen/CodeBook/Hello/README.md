@@ -215,13 +215,13 @@ return xtmp0;
 There is a small library of functions needed for running the generated
 JS code, which can found in the following file:
 
-$(XATS2JSD)/share/runtime/xats2js_prelude.js
+[$(XATS2JSD)/share/runtime/xats2js_prelude.js](https://github.com/xanadu-lang/xats2js/tree/master/share/runtime/xats2js_prelude.js)
 
-Copying into a file (of the name, say, hello_dats.js) the code in this
-library file, the code in hello.cats, and the generated JS code from
+Copying into a file (of the name, say, hello_dats.js) the code in the
+above library file, the code in hello.cats, and the generated JS code from
 hello.dats, we have finally completed the task of building the
 [webpage](https://xanadu-lang.github.io/xats2js/docgen/CodeBook/Hello/2020-11-22/hello.html)
 by simply adding a line for loading hello_dats.js (in the html file
-created for the webpage). Please find the provided Makefile for streamlining this process.
+created for the webpage). Please find the provided Makefile for streamlining this process of compiling and assembling..
 
 Happy programming in ATS-Xanadu!!!
