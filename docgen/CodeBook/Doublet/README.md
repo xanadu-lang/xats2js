@@ -7,13 +7,15 @@ And for playing the game, you may click [here](https://xanadu-lang.github.io/xat
 
 ## Algorithm
 
-Let us define a relation N(w1, w2) between two words: The relation holds if and only if
-w1 and w2 are of the same length and they differ at exactly one position. For instance,
-N("head", "heat") holds and N("head", "heed") holds as well. Clearly, this relation is
-symmetric but not reflexive. Given a word w1, the neighbors of w1 consists of all the words
-w2 such that N(w1, w2) hold. With this defintion of neighbors, we can define a corresponding
-graph. Given two words w1 and w2, determining whether they form a doublet is the same as
-determining whether there is a path connecting w1 to w2 in the graph, which can be implemented
-as a typical graph-based breadth search.
+Let us define a relation N(w1, w2) between two words: The relation
+holds if and only if w1 and w2 are of the same length and they differ
+at exactly one position. For instance, N("head", "heat") holds and
+N("head", "heed") holds as well. Clearly, this relation is symmetric
+but not reflexive. Given a word w1, the neighbors of w1 consist of all
+the words w2 such that N(w1, w2) hold. With this defintion of
+neighbors, we can define a corresponding graph G. Given two words w1
+and w2, determining whether they form a doublet is the same as
+determining whether there is a path connecting w1 to w2 in the graph
+G, which can be implemented as a typical graph-based breadth search.
 
 ## Implementation
