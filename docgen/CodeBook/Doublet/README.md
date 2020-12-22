@@ -5,4 +5,4 @@ author of children's classics "Alice in Wonderland". For a description
 of this game, please visit, for instance, this
 [link](http://www.logicville.com/doublets.htm).
 
-
+For playing the game, please click [here](https://xanadu-lang.github.io/xats2js/docgen/CodeBook/Doublet/2020-11-29/.).
