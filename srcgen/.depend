@@ -1,0 +1,11 @@
+BUILD/xcomp01_sats.o : SATS/intrep1.sats
+BUILD/intrep1_sats.o : HATS/libxats2js.hats
+BUILD/xats2js_sats.o : 
+BUILD/intrep1_dats.o : HATS/libxats2js.hats SATS/intrep1.sats
+BUILD/intrep1_print_dats.o : HATS/libxats2js.hats SATS/intrep1.sats
+BUILD/intrep1_xemit_dats.o : HATS/libxats2js.hats SATS/intrep1.sats
+BUILD/xats2js_main0_dats.o : HATS/libxats2js.hats SATS/intrep1.sats SATS/xcomp01.sats SATS/xats2js.sats DATS/intrep1_print.dats DATS/intrep1_xemit.dats
+BUILD/xcomp01_util0_dats.o : HATS/libxats2js.hats SATS/intrep1.sats SATS/xcomp01.sats
+BUILD/xcomp01_envmap_dats.o : HATS/libxats2js.hats SATS/intrep1.sats SATS/xcomp01.sats
+BUILD/xcomp01_dynexp_dats.o : HATS/libxats2js.hats SATS/intrep1.sats SATS/xcomp01.sats
+BUILD/xats2js_dats.o : HATS/libxats2js.hats SATS/xats2js.sats
