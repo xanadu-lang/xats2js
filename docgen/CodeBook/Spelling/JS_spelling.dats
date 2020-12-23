@@ -33,6 +33,11 @@ impltmp
 $SP.spelling$words<>() =
 string_split_lines(JS_spelling_dict())
 (* ****** ****** *)
+val
+theWords_r =
+a0ref_make
+<list(string)>(list_nil())
+(* ****** ****** *)
 #extern
 fun
 ATS_spelling_call(): void = $exname()
@@ -74,12 +79,48 @@ if sgn != 0 then -sgn else string_cmp(x1, x2)
 end (*let*) // end of [impltmp g_cmp]
 }
 //
-val
-theWords = list_vt2t(theWords)
-//
 in
-  println("theWords = ", theWords)
+  theWords_r[] := list_vt2t(reverse(theWords))
 end // end of [ATS_spelling_call]
+
+(* ****** ****** *)
+#extern
+fun
+ATS_theWords_print1(): void = $exname()
+#extern
+fun
+ATS_theWords_print2(): void = $exname()
+(* ****** ****** *)
+
+implfun
+ATS_theWords_print1() =
+let
+val () = println("theWords = ", theWords_r[])
+end // end of [ATS_theWords_print1]
+implfun
+ATS_theWords_print2() =
+let
+//
+val ln =
+length(theWords_r[])
+//
+val () =
+if
+(ln=1)
+then
+println
+("Found 1 word:")
+else
+println
+("Found ", ln, " words:")
+//
+val () =
+iforeach(theWords_r[]) where
+{
+  impltmp
+  iforeach$work<string>(i, word) = println(i+1, ":", word)
+}
+end // end of [ATS_theWords_print2]
 
 (* ****** ****** *)
 
