@@ -99,6 +99,19 @@ xatsopt_strunq
 
 (* ****** ****** *)
 implement
+xemit01_int00
+(out, int) =
+(
+fprint(out, int)
+)
+implement
+xemit01_btf00
+(out, btf) =
+(
+fprint(out, btf)
+)
+(* ****** ****** *)
+implement
 xemit01_txt00
 (out, txt) =
 (
@@ -824,6 +837,35 @@ fprintln!
 (out, "//", pck0, ";")
 //
 |
+L1PCKi00(int, l1v) =>
+{
+val () =
+xemit01_txt00(out, "if(")
+val () =
+xemit01_int00( out, int )
+val () =
+xemit01_txt00(out, "!==")
+val () =
+xemit01_l1val( out, l1v )
+val () =
+xemit01_txtln(out, ") break;")
+}
+|
+L1PCKb00(btf, l1v) =>
+{
+val () =
+xemit01_txt00(out, "if(")
+val () =
+xemit01_btf00( out, btf )
+val () =
+xemit01_txt00(out, "!==")
+val () =
+xemit01_l1val( out, l1v )
+val () =
+xemit01_txtln(out, ") break;")
+}
+//
+|
 L1PCKint(int, l1v) =>
 {
 val () =
@@ -837,6 +879,7 @@ xemit01_l1val( out, l1v )
 val () =
 xemit01_txtln(out, ") break;")
 }
+//
 //
 |
 L1PCKbtf(btf, l1v) =>

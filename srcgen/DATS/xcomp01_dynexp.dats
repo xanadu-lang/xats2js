@@ -389,6 +389,12 @@ H0Pany _ => L1PCKany()
 H0Pvar _ => L1PCKany()
 //
 |
+H0Pi00
+( int1 ) =>
+(
+  L1PCKi00(int1, l1v1)
+)
+|
 H0Pint
 ( tok1 ) =>
 (

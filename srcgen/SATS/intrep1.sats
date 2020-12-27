@@ -259,6 +259,13 @@ l1pck =
 | L1PCKbtf of (bool, l1val)
 *)
 //
+| L1PCKi00 of
+  ( int, l1val )
+| L1PCKb00 of
+  ( bool, l1val )
+| L1PCKs00 of
+  (string, l1val)
+//
 | L1PCKint of
   ( token, l1val )
 | L1PCKbtf of
@@ -954,11 +961,14 @@ overload fprint with fprint_l1dcl
 //
 (* ****** ****** *)
 //
-(*
 fun
-xemit01_int
+xemit01_int00
 (FILEref, int): void
-*)
+fun
+xemit01_btf00
+(FILEref, bool): void
+//
+(* ****** ****** *)
 //
 fun
 xemit01_txt00

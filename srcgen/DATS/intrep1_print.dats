@@ -225,6 +225,22 @@ case+ x0 of
 | L1PCKany() =>
   fprint!(out, "L1PCKany(", ")")
 //
+| L1PCKi00
+  (int1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKi00(", int1, "; ", l1v2, ")")
+| L1PCKb00
+  (btf1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKb00(", btf1, "; ", l1v2, ")")
+| L1PCKs00
+  (str1, l1v2) =>
+  fprint!
+  ( out
+  , "L1PCKs00(", str1, "; ", l1v2, ")")
+//
 | L1PCKint
   (int1, l1v2) =>
   fprint!
