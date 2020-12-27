@@ -1,6 +1,7 @@
 (* ****** ****** *)
 (*
-** Tic-Tac-Toe
+** Tic-Tac-Toe:
+** An experiment with React.js
 **
 ** HX:
 ** Translated from a previous
