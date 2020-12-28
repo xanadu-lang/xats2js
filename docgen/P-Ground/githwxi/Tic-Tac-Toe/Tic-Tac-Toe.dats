@@ -16,7 +16,8 @@ $(XATS2JSD)\
 (* ****** ****** *)
 //
 datatype
-move = MOVE of (int, int)
+move =
+MOVE of (int, int)
 //
 (* ****** ****** *)
 
@@ -28,7 +29,9 @@ move = MOVE of (int, int)
 fun
 player_next
   (p: int): int =
-  if p = X then O else X
+(
+ifval(p = X, O, X)
+)
 //
 (* ****** ****** *)
 //
