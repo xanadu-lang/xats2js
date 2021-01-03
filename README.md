@@ -33,8 +33,8 @@ make -C srcgen/TEST -f Makefile_test
 
 ## Remarks
 
-- Xats2js is for debugging the implementation of Xanadu
+- Xats2js is for debugging the implementation ATS3/Xanadu
 
-- Xats2js is meant to be a practical compiler from Xatscml to JS
+- Xats2js is meant to be a practical compiler from XATSCML to JS
 
 - This project should be constantly under construction for quite some time
