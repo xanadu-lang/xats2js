@@ -8,4 +8,8 @@ may click
 
 ## Algorithm
 
+It is just a straigthforward linear search over the words of a dictionary.
+
 ## Implementation
+
+The given implementation uses the template `stream_vt_filter0` to search over the words.

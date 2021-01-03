@@ -84,6 +84,7 @@ cleanall:: ; $(MAKE) -C StreamDemo cleanall
 cleanall:: ; $(MAKE) -C StreaxDemo cleanall
 cleanall:: ; $(MAKE) -C Game-of-24 cleanall
 cleanall:: ; $(MAKE) -C QueenPuzzle cleanall
+cleanall:: ; $(MAKE) -C Tic-Tac-Toe cleanall
 cleanall:: ; $(MAKE) -C Oberon/Chapter2 cleanall
 ######
 export XATS2JSD=./../../..

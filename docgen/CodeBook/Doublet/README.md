@@ -19,3 +19,6 @@ determining whether there is a path connecting w1 to w2 in the graph
 G, which can be implemented as a typical graph-based breadth search.
 
 ## Implementation
+
+An implementation is given that makes direct use of breadth-first
+graph streamization.
