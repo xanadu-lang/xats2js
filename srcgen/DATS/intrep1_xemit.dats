@@ -548,7 +548,7 @@ in
 //
 case- tnd of 
 |
-T_FLOAT1(rep) =>
+T_FLT1(rep) =>
   fprint(out, rep) // HX: FIXME!!!
 //
 end // end of [xemit01_lvstr]
