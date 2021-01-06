@@ -22,11 +22,25 @@ PRELUDE=./prelude
 GITHWXI=./xatslib_githwxi
 ######
 test:: \
-eqref
+chars
+chars:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/chars.dats && $(NODE) output_dats.js
+######
+test:: \
+chars
 eqref:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
 $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/eqref.dats && $(NODE) output_dats.js
+######
+test:: \
+lists
+lists:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/lists.dats && $(NODE) output_dats.js
 ######
 test:: \
 sieve

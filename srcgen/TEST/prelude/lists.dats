@@ -34,9 +34,13 @@
 #staload _ =
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
-#staload
+(* ****** ****** *)
+//
+#staload _ =
+"prelude/DATS/synougat.dats"
+#staload _ =
 "prelude\
-/DATS/CATS/JS/g_print.dats"
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 
 val xs1 =
@@ -49,6 +53,15 @@ list_cons(3, list_nil()))
 val ans = (xs1 = xs2)
 val sgn = g_cmp(xs1, xs2)
 
+(* ****** ****** *)
+//
+val _ =
+println(get_at(xs1, 0))
+val _ =
+println(get_at(xs1, 1))
+val _ =
+println(fset_at(xs1, 1, 3))
+//
 (* ****** ****** *)
 
 val xss =

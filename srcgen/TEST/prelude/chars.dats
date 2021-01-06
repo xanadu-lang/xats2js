@@ -31,9 +31,13 @@
 #staload
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
-#staload
+(* ****** ****** *)
+//
+#staload _ =
+"prelude/DATS/synougat.dats"
+#staload _ =
 "prelude\
-/DATS/CATS/JS/g_print.dats"
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 
 val a = 'a'
@@ -43,10 +47,12 @@ val () = g_print(b)
 val () = g_print('\n')
 
 (* ****** ****** *)
-
+//
 val eol = sint('\n')
+(*
 val eol = sint('\012')
-
+*)
+//
 (* ****** ****** *)
 
 val a = "a"
