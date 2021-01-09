@@ -52,8 +52,6 @@
 ** node --stack-size=8000 ...
 *)
 (* ****** ****** *)
-#staload "./../myprint.dats"
-(* ****** ****** *)
 #include
 "./../../..\
 /share/xats2js_prelude.hats"
