@@ -208,6 +208,7 @@ clean:: ; rm -f *~
 ######
 cleanall:: clean
 cleanall:: ; rm -f output
+cleanall:: ; rm -f output_dats.js
 ######
 # export XATSHOME=$(XATSOPT)
 # XATSOPT=$(shell pwd)/../../xatsopt

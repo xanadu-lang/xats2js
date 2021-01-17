@@ -5,7 +5,7 @@ $(XATS2JSD)\
 (* ****** ****** *)
 #staload DB = "./doublet.dats"
 (* ****** ****** *)
-#staload
+#staload MY =
 "xatslib/githwxi/DATS/mygist.dats"
 (* ****** ****** *)
 #staload
@@ -30,8 +30,8 @@ println
 *)
 //
 val ws =
-string_split_lines
-(JS_doublet_dict())
+$MY.string_split_lines
+(  JS_doublet_dict()  )
 //
 val
 theDict =
