@@ -30,7 +30,7 @@
 #staload
 "xatslib/githwxi/DATS/mygist.dats"
 (* ****** ****** *)
-
+//
 fun
 foo
 {n:nat}
@@ -46,10 +46,20 @@ else
 try
 1+foo(x-1) with ~bar(y) => y endtry
 end // end of [foo]
-
+//
 (* ****** ****** *)
+(*
+//
+(*
+HX:
+throwing an exception
+is the correct behavior!
+*)
+//
 val foo1 = foo(1)
 val (  ) = println("foo1 = ", foo1)
+//
+*)
 (* ****** ****** *)
 
 (* end of [bug-2017-09-29] *)

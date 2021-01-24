@@ -127,11 +127,11 @@ $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-07-25.dats && $(NODE) output_dats.js
 ######
 test:: \
-test-2020-09-19
-test-2020-09-19:: ; \
+test-2020-09-29
+test-2020-09-29:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
 $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
-$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-09-19.dats && $(NODE) output_dats.js
+$(XATS2JS) --output-a output_dats.js -d $(GITHWXI)/test-2020-09-29.dats && $(NODE) output_dats.js
 ######
 test:: \
 test-2020-10-01
