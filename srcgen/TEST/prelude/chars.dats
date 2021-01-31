@@ -158,21 +158,23 @@ val () =
 ; g_print( avg ); g_print('\n'))
 //
 (* ****** ****** *)
-
+//
+(*
+HX-2020-01-31
+*)
+//
 val ans =
 (
 gseq_prefixq("abc", "abcde")
 )
-val ( ) = println("ans = ", ans)
-
-(* ****** ****** *)
-
+val ( ) = println("ans(tt) = ", ans)
+//
 val ans =
 (
 gseq_suffixq("abde", "abcde")
 )
-val ( ) = println("ans = ", ans)
-
+val ( ) = println("ans(ff) = ", ans)
+//
 (* ****** ****** *)
 
 (* end of [chars.dats] *)
