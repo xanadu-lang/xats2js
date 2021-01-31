@@ -5,6 +5,8 @@
 #staload
 "prelude/DATS/gnum.dats"
 #staload
+"prelude/DATS/gord.dats"
+#staload
 "prelude/DATS/gseq.dats"
 #staload
 "prelude/DATS/unsafe.dats"
@@ -13,6 +15,8 @@
 //
 #staload _ =
 "prelude/DATS/char.dats"
+#staload _ =
+"prelude/DATS/bool.dats"
 #staload _ =
 "prelude/DATS/gint.dats"
 #staload _ =
@@ -153,6 +157,22 @@ val () =
 ( g_print("avg = ")
 ; g_print( avg ); g_print('\n'))
 //
+(* ****** ****** *)
+
+val ans =
+(
+gseq_prefixq("abc", "abcde")
+)
+val ( ) = println("ans = ", ans)
+
+(* ****** ****** *)
+
+val ans =
+(
+gseq_suffixq("abde", "abcde")
+)
+val ( ) = println("ans = ", ans)
+
 (* ****** ****** *)
 
 (* end of [chars.dats] *)
