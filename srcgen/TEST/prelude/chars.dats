@@ -176,5 +176,37 @@ gseq_suffixq("abde", "abcde")
 val ( ) = println("ans(ff) = ", ans)
 //
 (* ****** ****** *)
+//
+val
+text = "Hello, world!"
+//
+local
+impltmp
+group$test
+<char>(c0) =
+(
+('a' <= c0)*(c0 <= 'z')
++
+('A' <= c0)*(c0 <= 'Z')
+)
+in
+val wrds = gseq_group(text)
+end // local
+//
+val (  ) =
+(
+print("wrds = ");
+let
+impltmp
+g_print
+<string>(cs) =
+( print('"')
+; print(cs)
+; print('"'))
+in
+  print0(wrds)
+end ; println((*void*)) )
+//
+(* ****** ****** *)
 
 (* end of [chars.dats] *)
