@@ -1,9 +1,25 @@
 (* ****** ****** *)
-
+//
+(*
+#ifdef
+XATS2JS$XATSOPT_targetloc
+#then
+#define
+XATSOPT_targetloc
+XATS2JS$XATSOPT_targetloc
+#endif // end of [#ifdef]
+*)
+//
+#ifdef
+XATSOPT_targetloc
+#then
+// it is already defined
+#else
 #define
 XATSOPT_targetloc
 "./../../xatsopt/srcgen/xats"
-
+#endif
+//
 (* ****** ****** *)
 #staload
 "{$XATSOPT}/SATS/xbasics.sats"
