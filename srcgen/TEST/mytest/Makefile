@@ -102,6 +102,41 @@ $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
 $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(MYTEST)/mytest10.dats && $(NODE) output_dats.js
 ######
+test:: \
+Zoe_Tally
+Zoe_Tally:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(MYTEST)/Zoe/lecture-2018-12-24/Tally.dats && $(NODE) output_dats.js
+######
+test:: \
+Zoe_IsPrime
+Zoe_IsPrime:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(MYTEST)/Zoe/lecture-2018-12-27/IsPrime.dats && $(NODE) output_dats.js
+######
+test:: \
+Zoe_IntPrint
+Zoe_IntPrint:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(MYTEST)/Zoe/lecture-2018-12-28/IntPrint.dats && $(NODE) output_dats.js
+######
+test:: \
+Zoe_LinSearch
+Zoe_LinSearch:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(MYTEST)/Zoe/lecture-2019-01-07/linear_search.dats && $(NODE) output_dats.js
+######
+test:: \
+Zoe_LinSearch2D
+Zoe_LinSearch2D:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(MYTEST)/Zoe/lecture-2019-01-07/linear_search_2d.dats && $(NODE) output_dats.js
+######
 #
 # HX: for cleaning up
 #
