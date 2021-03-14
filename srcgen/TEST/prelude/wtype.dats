@@ -22,22 +22,38 @@
 "prelude\
 /DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
-
 fun
-fact(x) =
+fact1(x) =
 if
 x > 0
 then
-x*fact(x-1) else 1
+x*fact1(x-1) else 1
 withtype ( int ) -> int
-
 (* ****** ****** *)
 val
-fact_10 = fact(10)
+fact1_10 = fact1(10)
 val () =
 (
 g_print
-("fact_10 = "); g_print(fact_10); g_print("\n"))
+("fact1_10 = ");
+g_print(fact1_10); g_print("\n"))
+(* ****** ****** *)
+fun
+fact2
+{n}(x) =
+if
+x > 0
+then
+x*fact2(x-1) else 1
+withtype {n:int}(int(n)) -> int
+(* ****** ****** *)
+val
+fact2_10 = fact2(10)
+val () =
+(
+g_print
+("fact2_10 = ");
+g_print(fact2_10); g_print("\n"))
 (* ****** ****** *)
 
 (* end of [wtype.dats] *)
