@@ -22,6 +22,20 @@ PRELUDE=./prelude
 GITHWXI=./xatslib_githwxi
 ######
 test:: \
+addrs
+addrs:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/addrs.dats && $(NODE) output_dats.js
+######
+test:: \
+bools
+bools:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/bools.dats && $(NODE) output_dats.js
+######
+test:: \
 chars
 chars:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
@@ -29,11 +43,32 @@ $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/chars.dats && $(NODE) output_dats.js
 ######
 test:: \
-chars
+cbref
+cbref:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/cbref.dats && $(NODE) output_dats.js
+######
+test:: \
+eqref
 eqref:: ; \
 $(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
 $(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
 $(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/eqref.dats && $(NODE) output_dats.js
+######
+test:: \
+pswap
+pswap:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/pswap.dats && $(NODE) output_dats.js
+######
+test:: \
+wtype
+wtype:: ; \
+$(CAT) $(XATS2JS_PRELUDE) > output_dats.js && \
+$(CAT) $(XATS2JS_PRELUDE_NODE) >> output_dats.js && \
+$(XATS2JS) --output-a output_dats.js -d $(PRELUDE)/wtype.dats && $(NODE) output_dats.js
 ######
 test:: \
 lists

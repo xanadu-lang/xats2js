@@ -21,9 +21,12 @@ _(*UN*) =
 #staload
 "prelude\
 /DATS/CATS/JS/unsafe.dats"
-#staload
+(* ****** ****** *)
+#staload _ =
+"prelude/DATS/synougat.dats"
+#staload _ =
 "prelude\
-/DATS/CATS/JS/g_print.dats"
+/DATS/CATS/JS/Node/g_print.dats"
 (* ****** ****** *)
 
 fun
