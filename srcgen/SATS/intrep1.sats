@@ -596,7 +596,7 @@ l1cmd_node =
 | L1CMDblk of (l1blk)
 | L1CMDdcl of (l1dcl)
 //
-| L1CMDif0 of
+| L1CMDift1 of
   (l1val, l1blk, l1blk)
 //
 | L1CMDcase of

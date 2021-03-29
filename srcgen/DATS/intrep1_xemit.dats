@@ -1426,7 +1426,7 @@ L1CMDdcl(ldcl) = lcmd.node()
 (* ****** ****** *)
 
 fun
-aux_if0
+aux_ift1
 ( out
 : FILEref
 , lcmd
@@ -1454,9 +1454,9 @@ val() = xemit01_txtln(out, "} // if-else")
 } where
 {
 val-
-L1CMDif0
+L1CMDift1
 (l1v1, blk2, blk3) = lcmd.node()
-} (* where *) // end of [aux_if0]
+} (* where *) // end of [aux_ift1]
 
 (* ****** ****** *)
 
@@ -2276,7 +2276,7 @@ L1CMDblk _ => aux_blk(out, lcmd)
 |
 L1CMDdcl _ => aux_dcl(out, lcmd)
 |
-L1CMDif0 _ => aux_if0(out, lcmd)
+L1CMDift1 _ => aux_ift1(out, lcmd)
 //
 |
 L1CMDcase _ => aux_case(out, lcmd)
@@ -3171,7 +3171,7 @@ L1CMDblk(blk1) =>
 )
 //
 |
-L1CMDif0
+L1CMDift1
 (l1v1, blk1, blk2) =>
 let
   val
@@ -3569,7 +3569,7 @@ fprint!( out, "}\n" )
 (* ****** ****** *)
 //
 fun
-a2ux_if0
+a2ux_ift1
 ( out
 : FILEref
 , cmd0
@@ -3577,7 +3577,7 @@ a2ux_if0
 {
 //
 val-
-L1CMDif0
+L1CMDift1
 ( l1v1
 , blk2, blk3) = cmd0.node()
 //
@@ -3604,7 +3604,7 @@ val() = a1ux_l1blk(out, blk3)
 val() =
 xemit01_txtln(out, "} // if-else")
 //
-} (* where *) // end of [a2ux_if0]
+} (* where *) // end of [a2ux_ift1]
 //
 (* ****** ****** *)
 //
@@ -3726,8 +3726,8 @@ cmd0.node() of
 | L1CMDblk _ =>
   a2ux_blk(out, cmd0)
 //
-| L1CMDif0 _ =>
-  a2ux_if0(out, cmd0)
+| L1CMDift1 _ =>
+  a2ux_ift1(out, cmd0)
 //
 | L1CMDcase _ =>
   a2ux_case(out, cmd0)

@@ -1866,7 +1866,7 @@ end (*let*) // end of [auxset_tuple]
 (* ****** ****** *)
 
 fun
-auxset_if0
+auxset_ift1
 ( env0:
 ! compenv
 , h0e0: h0exp
@@ -1876,7 +1876,7 @@ let
 val
 loc0 = h0e0.loc()
 val-
-H0Eif0
+H0Eift1
 ( h0e1
 , h0e2
 , opt3) = h0e0.node()
@@ -1900,11 +1900,11 @@ in
   lcmd =
   l1cmd_make_node
   ( loc0
-  , L1CMDif0(l1v1, blk2, blk3))
+  , L1CMDift1(l1v1, blk2, blk3))
   in
     xcomp01_lcmdadd_lcmd(env0, lcmd)
   end
-end (*let*) // end of [ auxset_if0 ]
+end (*let*) // end of [ auxset_ift1 ]
 
 (* ****** ****** *)
 
@@ -2695,7 +2695,7 @@ val () =
 auxset_tuple(env0, h0e0, tres)
 } (* end of [H0Etuple] *)
 //
-| H0Eif0 _ =>
+| H0Eift1 _ =>
 (
   l1val_tmp(tres)
 ) where
@@ -2704,8 +2704,8 @@ val
 tres =
 xltmpnew_tmp0(env0, loc0)
 val () =
-auxset_if0(env0, h0e0, tres)
-} (* end of [ H0Eif0 ] *)
+auxset_ift1(env0, h0e0, tres)
+} (* end of [ H0Eift1 ] *)
 //
 |
 H0Ecase _ =>
@@ -2834,9 +2834,9 @@ H0Etuple _ =>
 auxset_tuple(env0, h0e0, tres)
 //
 |
-H0Eif0 _ =>
+H0Eift1 _ =>
 (
-  auxset_if0(env0, h0e0, tres)
+  auxset_ift1(env0, h0e0, tres)
 )
 |
 H0Ecase _ =>

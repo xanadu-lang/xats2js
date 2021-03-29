@@ -576,11 +576,11 @@ L1CMDdcl(dcl1) =>
 fprint!(out, "L1CMDdcl(", dcl1, ")")
 //
 |
-L1CMDif0
+L1CMDift1
 (l1v1, blk2, blk3) =>
 fprint!
 ( out
-, "L1CMDif0("
+, "L1CMDift1("
 , l1v1, "; ", blk2, "; ", blk3, ")")
 //
 |
