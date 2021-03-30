@@ -1,6 +1,7 @@
 # xats2js
 
-For compiling ATS/Xanadu to JS
+Xats2js is currently linked to Xats2js-H0, which is
+for compiling from the H0-level syntax of ATS3/Xanadu to JS.
 
 ## Build Status
 
@@ -33,8 +34,8 @@ make -C srcgen/TEST -f Makefile_test
 
 ## Remarks
 
-- Xats2js is for debugging the implementation ATS3/Xanadu
+- xats2js is for debugging the implementation ATS3/Xanadu
 
-- Xats2js is meant to be a practical compiler from XATSCML to JS
+- xats2js is meant to be a practical compiler from XATSCML to JS
 
 - This project should be constantly under construction for quite some time
