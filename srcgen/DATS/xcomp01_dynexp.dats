@@ -1111,7 +1111,7 @@ l1val_make_node(loc0, L1VALvfix(x0))
 end // end of [auxval_var]
 
 fun
-auxval_vknd
+auxval_kvar
 ( env0:
 ! compenv
 , h0e0: h0exp): l1val =
@@ -1120,7 +1120,7 @@ let
 val 
 loc0 = h0e0.loc()
 val-
-H0Evknd
+H0Ekvar
 (k0, x0) = h0e0.node()
 //
 in
@@ -1147,7 +1147,7 @@ None_vt((*void*)) =>
 l1val_make_node(loc0, L1VALnone1(h0e0))
 //
 end // end-of-else
-end // end of [auxval_vknd]
+end // end of [auxval_kvar]
 
 (* ****** ****** *)
 
@@ -2634,8 +2634,8 @@ h0e0.node() of
 //
 | H0Evar _ =>
   auxval_var(env0, h0e0)
-| H0Evknd _ =>
-  auxval_vknd(env0, h0e0)
+| H0Ekvar _ =>
+  auxval_kvar(env0, h0e0)
 //
 | H0Efcon _ =>
   auxval_fcon(env0, h0e0)

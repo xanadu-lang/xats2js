@@ -128,11 +128,19 @@ a1ref_make_list_vt(xs) where
 
 (* ****** ****** *)
 //
+(*
+gseq_permutize
+<a1ref(int,3)> :
+gseq_listize<a1ref(int,3)> :
+a1ref_length<int>(a1ref(int,3))
+*)
+//
 val xss =
 gseq_permutize(B3) where
 {
 impltmp a1ref_length<int>(_) = 3
 }
+//
 val len = length(xss)
 val ( ) = println("|xss| = ", len)
 //
