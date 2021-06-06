@@ -804,7 +804,14 @@ L1VALfree3(l1v1) =>
 //
 | _ (* else *) => fprint(out, l1v0)
 //
-) (* end of [xemit01_l1val] *)
+) where
+{
+(*
+val () =
+fprintln!
+(out, "xemit01_l1val: l1v0 = ", l1v0)
+*)
+} (*where*) // end of [xemit01_l1val]
 
 (* ****** ****** *)
 //
