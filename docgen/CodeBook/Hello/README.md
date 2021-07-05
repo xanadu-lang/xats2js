@@ -73,7 +73,7 @@ manually written ATS3 code.  Note that the filename extension `cats`
 is not significant; it is chosen here for a historic reason as this
 extension used to indicate a file containing external C code in
 so-called co-programming with ATS2 and C. On the other hand, the
-filename `dats` is signifcant as it is recognized by xats2js for some
+filename extension `dats` is signifcant as it is recognized by xats2js for some
 special usage.
 
 In the rest of the presentation, if a command-line is to be executed,
