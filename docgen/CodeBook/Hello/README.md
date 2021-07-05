@@ -7,7 +7,7 @@ the environment variable of the name XATS2JSD. And I often write
 ${XATS2JSD} (which means the content of XATS2JD) to refer to this
 directory.
 
-If you have not installed XATS2JS, I suggest as follows a simple and
+If you have not yet installed XATS2JS, I suggest as follows a simple and
 clean way to just play with it a bit.
 The repository for the XATS2JS package is publicly accessible at the
 following URL:
